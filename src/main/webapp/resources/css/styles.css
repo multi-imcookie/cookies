@@ -6,6 +6,7 @@
     font-weight: 400;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'ImcreSoojin';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.3/ImcreSoojin.woff') format('woff');
@@ -44,23 +45,51 @@ table {
     border-collapse: collapse;
 }
 
+.p-regular {
+    font-family: Pretendard, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
 .p-medium {
-    font-family: Pretendard, serif;
+    font-family: Pretendard, sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 28px;
 }
 
-/* 헤더 */
-.header {
-    display: flex;
-    height: 120px;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #FFF;
+.p-bold {
+    font-family: Pretendard, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 28px;
 }
 
-.header .p-medium {
+.h-title {
+    font-family: ImcreSoojin, serif;
+    color: #452C07;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 36px;
+}
+
+/* 헤더 시작 */
+#header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    height: 120px;
+    padding: 0 260px;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+}
+
+#header .p-medium {
     color: #5C492C;
 }
 
@@ -160,3 +189,88 @@ table {
     align-items: center;
     gap: 24px;
 }
+
+/* 헤더 끝 */
+
+/* 푸터 시작 */
+#footer {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    padding: 60px 260px;
+    align-items: center;
+    background-color: #E9E2D9;
+    justify-content: space-between;
+}
+
+.f-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.team {
+    display: flex;
+    width: 100%;
+    padding: 24px 0;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 1px solid #CBB89B;
+    color: #5C492C;
+}
+
+.team-email {
+    display: flex;
+    padding: 24px 0;
+    box-sizing: border-box;
+    flex-direction: column;
+    gap: 8px;
+    align-self: stretch;
+}
+
+.team-email-section {
+    display: flex;
+    gap: 36px;
+}
+
+.team-email-section li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #5C492C;
+}
+
+.team-email-section li:first-child {
+    width: 194px;
+}
+
+.f-right {
+    display: flex;
+    align-items: flex-start;
+    gap: 72px;
+}
+
+.f-right li {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.f-depth2 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.f-depth2 .p-medium {
+    color: #CBB89B;
+    transition: all .3s;
+}
+
+.f-depth2 .p-medium:hover {
+    color: #452C07;
+}
+
+/* 푸터 끝 */
