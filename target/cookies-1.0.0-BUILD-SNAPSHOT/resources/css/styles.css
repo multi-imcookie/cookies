@@ -1,0 +1,162 @@
+@charset "UTF-8";
+/* 폰트 설정 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ImcreSoojin';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.3/ImcreSoojin.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 초기 설정 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+}
+
+body {
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+img {
+    vertical-align: top;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.p-medium {
+    font-family: Pretendard, serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28px;
+}
+
+/* 헤더 */
+.header {
+    display: flex;
+    height: 120px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FFF;
+}
+
+.header .p-medium {
+    color: #5C492C;
+}
+
+.main-center {
+    width: 72%;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gnb {
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+}
+
+.gnb li {
+    position: relative;
+    line-height: 120px;
+}
+
+.gnb .depth2 {
+    position: absolute;
+    top: 88px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    border-radius: 12px;
+    background: #FFF;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.15);
+    display: none;
+    transition: all .3s;
+    /*display: inline-flex;*/
+}
+
+.gnb .depth2 > li > a {
+    display: flex;
+    width: 160px;
+    padding: 12px 0;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    transition: all .3s;
+}
+
+.gnb .depth2 > li > a {
+    color: #CBB89B;
+    transition: all .3s;
+}
+
+.gnb .depth2 > li > a:hover {
+    background-color: #B48D69;
+    color: #FFF;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.user-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.user-left li:first-child {
+    position: relative;
+}
+
+.user-left li:first-child::after {
+    position: absolute;
+    top: 50%;
+    right: -36%;
+    transform: translateY(-50%);
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: #CBB89B;
+
+}
+
+.user-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
