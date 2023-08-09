@@ -10,7 +10,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script> --%>
-<script type="text/javascript" src="resources/js/jquery-3.7.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script type="text/javascript" src="resources/js/scripts.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/css/styles.css?after">
+<link rel="stylesheet" type="text/css" href="resources/css/styles.css">
