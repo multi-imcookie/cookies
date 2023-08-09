@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SnackDAO implements SnackInterface {
     @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
+    private SqlSessionTemplate sqlSessionTemplate = null;
 }

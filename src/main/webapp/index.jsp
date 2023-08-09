@@ -12,9 +12,12 @@
 <head>
     <title>전과자</title>
     <%@ include file="link.jsp" %>
+    <link rel="stylesheet" type="text/css" href="resources/css/styles.css?after">
 </head>
 <body>
 <%@include file="header.jsp" %>
+
+
 <%@include file="footer.jsp" %>
 </body>
 </html>

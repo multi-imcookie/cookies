@@ -5,6 +5,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 public interface NutritionalInterface {
 
-    SqlSessionTemplate sqlSessionTemplate;
+    SqlSessionTemplate sqlSessionTemplate = null;
     
 }
