@@ -38,21 +38,21 @@
     </div>
     <ul class="f-right">
         <li>
-            <a class="h-title" href="#">쿠키위키</a>
+            <a class="h-imcre24" href="#">쿠키위키</a>
             <ul class="f-depth2">
                 <li><a class="p-medium" href="#">과자DB</a></li>
                 <li><a class="p-medium" href="#">새로 나온 과자</a></li>
             </ul>
         </li>
         <li>
-            <a class="h-title" href="#">쿠키마스터</a>
+            <a class="h-imcre24" href="#">쿠키마스터</a>
             <ul class="f-depth2">
                 <li><a class="p-medium" href="#">과자 이상형 월드컵</a></li>
                 <li><a class="p-medium" href="#">오늘의 과자</a></li>
             </ul>
         </li>
         <li>
-            <a class="h-title" href="#">쿠키랭킹</a>
+            <a class="h-imcre24" href="#">쿠키랭킹</a>
             <ul class="f-depth2">
                 <li><a class="p-medium" href="#">나이별 랭킹</a></li>
                 <li><a class="p-medium" href="#">성분별 랭킹</a></li>
@@ -60,14 +60,14 @@
             </ul>
         </li>
         <li>
-            <a class="h-title" href="#">전과자 이벤트</a>
+            <a class="h-imcre24" href="#">전과자 이벤트</a>
             <ul class="f-depth2">
                 <li><a class="p-medium" href="#">포인트 상점</a></li>
                 <li><a class="p-medium" href="#">출석체크</a></li>
             </ul>
         </li>
         <li>
-            <a class="h-title" href="#">작당모의</a>
+            <a class="h-imcre24" href="#">작당모의</a>
             <ul class="f-depth2">
                 <li><a class="p-medium" href="#">공지사항</a></li>
                 <li><a class="p-medium" href="#">리뷰 게시판</a></li>
