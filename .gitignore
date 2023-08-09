@@ -1,3 +1,5 @@
 db.properties
 apikey.properties
 target/
+/target/
+target
