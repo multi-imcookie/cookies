@@ -6,6 +6,7 @@
     font-weight: 400;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'ImcreSoojin';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.3/ImcreSoojin.woff') format('woff');
@@ -44,29 +45,91 @@ table {
     border-collapse: collapse;
 }
 
+select:focus {
+    outline: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+.slide-btn {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* 폰트 스타일 클래스 */
+.p-regular {
+    font-family: Pretendard, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
 .p-medium {
-    font-family: Pretendard, serif;
+    font-family: Pretendard, sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 28px;
 }
 
-/* 헤더 */
-.header {
+.p-bold {
+    font-family: Pretendard, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.h-pre36 {
+    font-family: Pretendard, sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 48px;
+}
+
+.h-pre24 {
+    font-family: Pretendard, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 36px
+}
+
+.h-imcre24 {
+    font-family: ImcreSoojin, serif;
+    color: #452C07;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 36px;
+}
+
+.label-bold {
+    color: #B48D69;
+    font-family: Pretendard, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+/* 헤더 시작 */
+#header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
     height: 120px;
-    justify-content: space-around;
+    padding: 0 260px;
+    justify-content: space-between;
     align-items: center;
-    background-color: #FFF;
-}
-
-.header .p-medium {
-    color: #5C492C;
-}
-
-.main-center {
-    width: 72%;
-    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
 }
 
 .logo {
@@ -79,6 +142,14 @@ table {
     display: flex;
     align-items: flex-start;
     gap: 60px;
+}
+
+.gnb .p-medium {
+    color: #5C492C;
+}
+
+.user-menu .p-medium {
+    color: #5C492C;
 }
 
 .gnb li {
@@ -115,12 +186,12 @@ table {
     transition: all .3s;
 }
 
-.gnb .depth2 > li > a {
+.gnb .depth2 > li > .p-medium {
     color: #CBB89B;
     transition: all .3s;
 }
 
-.gnb .depth2 > li > a:hover {
+.gnb .depth2 > li > .p-medium:hover {
     background-color: #B48D69;
     color: #FFF;
 }
@@ -160,3 +231,242 @@ table {
     align-items: center;
     gap: 24px;
 }
+
+/* 헤더 끝 */
+
+/* 푸터 시작 */
+#footer {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    padding: 60px 260px;
+    align-items: center;
+    background-color: #E9E2D9;
+    justify-content: space-between;
+}
+
+.f-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.team {
+    display: flex;
+    width: 100%;
+    padding: 24px 0;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 1px solid #CBB89B;
+    color: #5C492C;
+}
+
+.team-email {
+    display: flex;
+    padding: 24px 0;
+    box-sizing: border-box;
+    flex-direction: column;
+    gap: 8px;
+    align-self: stretch;
+}
+
+.team-email-section {
+    display: flex;
+    gap: 36px;
+}
+
+.team-email-section li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #5C492C;
+}
+
+.team-email-section li:first-child {
+    width: 220px;
+}
+
+.f-right {
+    display: flex;
+    align-items: flex-start;
+    gap: 72px;
+}
+
+.f-right li {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.f-depth2 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.f-depth2 .p-medium {
+    color: #CBB89B;
+    transition: all .3s;
+}
+
+.f-depth2 .p-medium:hover {
+    color: #452C07;
+}
+
+/* 푸터 끝 */
+
+/* 메인페이지 비쥬얼 시작*/
+.visual {
+    display: flex;
+    padding: 80px 260px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    gap: 80px;
+}
+
+.v-left {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    flex: 1 0 0;
+}
+
+.v-left select, input {
+    border: none;
+    background-color: transparent;
+}
+
+.v-left .h-pre36 {
+    color: #452C07;
+}
+
+.v-left .p-regular {
+    color: #CBB89B;
+}
+
+.v-left > form {
+    width: 100%;
+}
+
+.main-search {
+    position: relative;
+    display: flex;
+    padding: 12px 36px;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+    border-radius: 38px;
+    background-color: #F9F5F2;
+}
+
+.select-wrap {
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.div-line {
+    display: flex;
+    width: 1px;
+    height: 24px;
+    background-color: #CBB89B;
+}
+
+.small-search {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.search-wrap {
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.search-wrap > .p-regular::placeholder {
+    color: #CBB89B;
+}
+
+.search-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 36px;
+    background-color: transparent;
+    border: none;
+}
+
+.v-right {
+    position: relative;
+}
+
+.v-right-view {
+    width: 608px;
+    overflow: hidden;
+}
+
+.v-right-warp {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    transition: all .3s;
+}
+
+.v-r-box {
+    display: flex;
+    padding: 60px 24px 0 24px;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    background-color: #F9F5F2;
+    border-radius: 20px;
+}
+
+.v-r-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.v-r-text .h-pre24 {
+    text-align: center;
+    color: #CBB89B;
+}
+
+.v-r-text p {
+    color: #452C07;
+    font-family: Pretendard, sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 68px;
+}
+
+.v-r-text .p-regular {
+    color: #555;
+    text-align: center;
+}
+
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.prev-btn {
+    left: -30px;
+}
+.next-btn {
+    right: -30px;
+}
+
+/* 메인페이지 비쥬얼 끝*/
