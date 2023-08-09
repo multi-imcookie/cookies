@@ -9,8 +9,8 @@
         <typeAlias type="com.multi.cookies.snack.dto.NutritionalDTO" alias="nutritionalDTO"></typeAlias>
     </typeAliases>
     <mappers>
-        <mapper resource="mapper/snackMapper.xml" />
-        <mapper resource="mapper/youngMapper.xml" />
+        <mapper resource="mapper/snackMapper.xml"/>
+        <mapper resource="mapper/nutritionalMapper.xml"/>
     </mappers>
 
 </configuration>
