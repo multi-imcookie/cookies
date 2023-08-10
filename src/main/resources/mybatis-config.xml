@@ -7,7 +7,7 @@
     <typeAliases>
         <typeAlias type="com.multi.cookies.snack.dto.SnackDTO" alias="snackDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.dto.NutritionalDTO" alias="nutritionalDTO"></typeAlias>
-        <typeAlias type="com.multi.cookies.entertainment.IdealBoardDTO" alias="IdealBoardDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.entertainment.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>
     </typeAliases>
     <mappers>
         <mapper resource="mapper/snackMapper.xml"/>
