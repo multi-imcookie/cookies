@@ -9,7 +9,7 @@
 <div id="header">
     <h1 class="logo">
         <a href="index.jsp">
-            <img src="resources/img/logo.svg" alt="로고">
+            <img src="/resources/img/logo.svg" alt="로고">
         </a>
     </h1>
     <ul class="gnb">
@@ -23,7 +23,7 @@
         <li>
             <a class="p-medium" href="#">쿠키마스터</a>
             <ul class="depth2">
-                <li><a class="p-medium" href="#">과자 이상형 월드컵</a></li>
+                <li><a class="p-medium" href="/entertainment/ideal.jsp">과자 이상형 월드컵</a></li>
                 <li><a class="p-medium" href="#">오늘의 과자</a></li>
             </ul>
         </li>
@@ -58,10 +58,10 @@
         </ul>
         <ul class="user-right">
             <li><a href="#">
-                <img src="resources/img/user.svg" alt="유저메뉴">
+                <img src="/resources/img/user.svg" alt="유저메뉴">
             </a></li>
             <li><a href="#">
-                <img src="resources/img/bell.svg" alt="알림">
+                <img src="/resources/img/bell.svg" alt="알림">
             </a></li>
         </ul>
     </div>

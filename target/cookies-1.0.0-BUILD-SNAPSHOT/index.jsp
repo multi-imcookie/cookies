@@ -12,38 +12,89 @@
 <head>
     <title>전과자</title>
     <%@ include file="link.jsp" %>
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css?after">
 </head>
 <body>
 <%@include file="header.jsp" %>
+<div class="visual">
+    <div class="v-left">
+        <h3 class="h-pre36">
+            🔍<br>
+            궁금한 과자가 있으신가요?
+        </h3>
+        <form action="" method="post">
+            <div class="cookie-search main-search">
+                <div class="select-wrap">
+                    <label class="label-bold" for="cookie-select">Category</label>
+                    <select class="p-regular" id="cookie-select">
+                        <option>카테고리 선택</option>
+                        <option>달달한</option>
+                        <option>짭쪼름한</option>
+                    </select>
+                </div>
+                <span class="div-line"></span>
+                <div class="search-wrap">
+                    <label class="label-bold" for="search">Search</label>
+                    <input class="p-regular" type="text" id="search" placeholder="검색하고 싶은 과자를 입력하세요.">
+                </div>
+                <button class="search-btn"><img src="resources/img/search.svg" alt="돋보기 아이콘"></button>
+            </div>
+        </form>
+        <div class="v-right">
 
-<br>
-<hr>
-<br>
-<form action="searchResults" method="get" onsubmit="return validateForm()">
-    <select name="category" id="category">
-        <option value="">맛을 골라주세요</option>
-        <option value="sweet">단맛</option>
-        <option value="salty">짠맛</option>
-        <option value="etc">기타</option>
-    </select>
-    <input type="text" name="query" id="query" placeholder="검색할 과자를 입력하세요!">
-    <button type="submit">Search</button>
-</form>
-<br>
-<hr>
-<br>
-<script>
-    function validateForm() {
-        let category = document.getElementById("category").value;
-        if (category === "") {
-            alert("카테고리를 골라주세요");
-            return false;
-        }
-        return true;
-    }
-</script>
-
+        </div>
+    </div>
+    <div class="v-right">
+        <div class="v-right-view">
+            <div class="v-right-warp">
+                <%-- v-r-box에 링크 안 넣을거면 div 태그로 변경하세요 --%>
+                <a href="#" class="v-r-box box01">
+                    <div class="v-r-text">
+                        <h4 class="h-pre24">
+                            🍪<br>
+                            오늘의 과자는?
+                        </h4>
+                        <p>꼬북칩!</p>
+                        <span class="p-regular">
+                        오늘 날씨가 어쩌고 저쩌고 그래서 꼬북칩 드셔보시는게 어떠실런지 어쩌고<br>
+                        무난한 추천문구 5개정도 돌려쓰면 좋을듯
+                    </span>
+                    </div>
+                    <img src="resources/img/v-right-box-img01.png" alt="꼬북칩">
+                </a>
+                <a href="#" class="v-r-box box02">
+                    <div class="v-r-text">
+                        <h4 class="h-pre24">
+                            🍪<br>
+                            오늘의 과자는?
+                        </h4>
+                        <p>꼬북칩!</p>
+                        <span class="p-regular">
+                        오늘 날씨가 어쩌고 저쩌고 그래서 꼬북칩 드셔보시는게 어떠실런지 어쩌고<br>
+                        무난한 추천문구 5개정도 돌려쓰면 좋을듯
+                    </span>
+                    </div>
+                    <img src="resources/img/v-right-box-img01.png" alt="꼬북칩">
+                </a>
+                <a href="#" class="v-r-box box03">
+                    <div class="v-r-text">
+                        <h4 class="h-pre24">
+                            🍪<br>
+                            오늘의 과자는?
+                        </h4>
+                        <p>꼬북칩!</p>
+                        <span class="p-regular">
+                        오늘 날씨가 어쩌고 저쩌고 그래서 꼬북칩 드셔보시는게 어떠실런지 어쩌고<br>
+                        무난한 추천문구 5개정도 돌려쓰면 좋을듯
+                    </span>
+                    </div>
+                    <img src="resources/img/v-right-box-img01.png" alt="꼬북칩">
+                </a>
+            </div>
+        </div>
+        <div class="slide-btn prev-btn"><img src="resources/img/arrow-left.svg" alt="prev"></div>
+        <div class="slide-btn next-btn"><img src="resources/img/arrow-right.svg" alt="next"></div>
+    </div>
+</div>
 <%@include file="footer.jsp" %>
 </body>
 </html>
