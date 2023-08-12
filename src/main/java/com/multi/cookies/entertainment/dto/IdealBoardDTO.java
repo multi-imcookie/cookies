@@ -1,12 +1,31 @@
-package com.multi.cookies.entertainment;
+package com.multi.cookies.entertainment.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class IdealBoardDTO {
+    private int idealBoardNum;
+    private int ideal_id;
     private String ideal_nickname;
     private String ideal_pw;
     private String ideal_content;
-    private LocalDateTime create_dt;
+    private Date create_dt;
+
+    public int getIdealBoardNum() {
+        return idealBoardNum;
+    }
+
+    public void setIdealBoardNum(int idealBoardNum) {
+        this.idealBoardNum = idealBoardNum;
+    }
+
+    public int getIdeal_id() {
+        return ideal_id;
+    }
+
+    public void setIdeal_id(int ideal_id) {
+        this.ideal_id = ideal_id;
+    }
+
     public String getIdeal_nickname() {
         return ideal_nickname;
     }
@@ -31,17 +50,20 @@ public class IdealBoardDTO {
         this.ideal_content = ideal_content;
     }
 
-    public LocalDateTime getCreate_dt() {
+    public Date getCreate_dt() {
         return create_dt;
     }
 
-    public void setCreate_dt(LocalDateTime create_dt) {
+    public void setCreate_dt(Date create_dt) {
         this.create_dt = create_dt;
     }
+
     @Override
     public String toString() {
         return "IdealBoardDTO{" +
-                "ideal_nickname='" + ideal_nickname + '\'' +
+                "idealBoardNum=" + idealBoardNum +
+                ", ideal_id=" + ideal_id +
+                ", ideal_nickname='" + ideal_nickname + '\'' +
                 ", ideal_pw='" + ideal_pw + '\'' +
                 ", ideal_content='" + ideal_content + '\'' +
                 ", create_dt=" + create_dt +
