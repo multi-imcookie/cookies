@@ -51,8 +51,7 @@
             height: 18px;
             padding: 10px;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: left;
             gap: 10px;
             border-radius: 2px;
         }
@@ -61,11 +60,12 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
             width: 960px;
             margin-left: auto;
             margin-right: auto;
             display: block;
+            padding-top: 5%;
+            padding-bottom: 5%;
         }
 
         .login-form h1 {
@@ -122,7 +122,7 @@
     <%@include file="../../../header.jsp" %>
 </header>
 <div class="login-container">
-    <form class="login-form">
+    <form class="login-form" action="login" method="post">
         <h1>로그인</h1>
         <div class="login-input">
             <input type="text" id="username" name="username" required>
@@ -138,9 +138,9 @@
         <br>
         <button type="submit" class="bu">로그인</button>
         <div class="social-container">
-            <a href="${apiURL}"><span class="item">네이버</span></a>
+            <a href="${naverApiUrl}"><span class="item">네이버</span></a>
 
-            <a href="https://kauth.kakao.com/oauth/authorize?client_id=4480279e9e66b25415abdfda813bf10d&redirect_uri=http://localhost:8989/login/kakao/callback&response_type=code"><span
+            <a href="${kakakoApiUrl}"><span
                     class="item">카카오</span></a>
         </div>
         <button class="bu">회원가입</button>
