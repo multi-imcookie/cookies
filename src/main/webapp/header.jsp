@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="header">
     <h1 class="logo">
-        <a href="index.jsp">
+        <a href="/index.jsp">
             <img src="/resources/img/logo.svg" alt="로고">
         </a>
     </h1>

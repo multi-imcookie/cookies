@@ -9,7 +9,7 @@
 <div id="footer">
     <div class="f-left">
         <h1 class="logo">
-            <a href="index.jsp">
+            <a href="/index.jsp">
                 <img src="/resources/img/logo.svg" alt="로고">
             </a>
         </h1>
