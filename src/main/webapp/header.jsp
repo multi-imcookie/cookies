@@ -8,16 +8,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="header">
     <h1 class="logo">
-        <a href="index.jsp">
+        <a href="/index.jsp">
             <img src="/resources/img/logo.svg" alt="로고">
         </a>
     </h1>
     <ul class="gnb">
         <li>
-            <a class="p-medium" href="#">쿠키위키</a>
+            <a class="p-medium" href="/snack/snackWiki.jsp">쿠키 위키</a>
             <ul class="depth2">
-                <li><a class="p-medium" href="#">과자DB</a></li>
-                <li><a class="p-medium" href="#">새로 나온 과자</a></li>
+                <li><a class="p-medium" href="/snack/snackWiki.jsp">과자 DB</a></li>
+                <li><a class="p-medium" href="/snack/snackWiki.jsp">새로 나온 과자</a></li>
             </ul>
         </li>
         <li>

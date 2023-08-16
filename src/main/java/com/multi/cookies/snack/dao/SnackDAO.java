@@ -1,13 +1,11 @@
-
 package com.multi.cookies.snack.dao;
 
-import com.multi.cookies.snack.api.SnackInterface;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import com.multi.cookies.snack.dto.SearchDTO;
 
-@Repository
-public class SnackDAO implements SnackInterface {
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate = null;
+import java.util.List;
+
+public interface SnackDAO {
+
+    List<SearchDTO> snackSearch(String keyword);
+    SearchDTO snackInfo(int snack_id);
 }

@@ -21,7 +21,7 @@
             🔍<br>
             궁금한 과자가 있으신가요?
         </h3>
-        <form action="" method="post">
+        <form action="/snack/snackWikiSearch" method="get">
             <div class="cookie-search main-search">
                 <div class="select-wrap">
                     <label class="label-bold" for="cookie-select">Category</label>
@@ -33,8 +33,8 @@
                 </div>
                 <span class="div-line"></span>
                 <div class="search-wrap">
-                    <label class="label-bold" for="search">Search</label>
-                    <input class="p-regular" type="text" id="search" placeholder="검색하고 싶은 과자를 입력하세요.">
+                    <label class="label-bold" for="keyword">Search</label>
+                    <input class="p-regular" type="text" name="keyword" id="keyword" placeholder="검색하고 싶은 과자를 입력하세요.">
                 </div>
                 <button class="search-btn"><img src="resources/img/search.svg" alt="돋보기 아이콘"></button>
             </div>
@@ -55,8 +55,8 @@
                         </h4>
                         <p>꼬북칩!</p>
                         <span class="p-regular">
-                        오늘 날씨가 어쩌고 저쩌고 그래서 꼬북칩 드셔보시는게 어떠실런지 어쩌고<br>
-                        무난한 추천문구 5개정도 돌려쓰면 좋을듯
+                        오늘 날씨가 어쩌고 저쩌고 그래서 꼬북칩 드셔 보시는 게 어떠실런지 어쩌고<br>
+                        무난한 추천 문구 5개정도 돌려 쓰면 좋을 듯
                     </span>
                     </div>
                     <img src="resources/img/v-right-box-img01.png" alt="꼬북칩">
