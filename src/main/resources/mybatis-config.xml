@@ -7,6 +7,7 @@
     <typeAliases>
         <typeAlias type="com.multi.cookies.snack.dto.SnackDTO" alias="snackDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.dto.NutritionalDTO" alias="nutritionalDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.snack.dto.SearchDTO" alias="searchDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.LoginDTO" alias="loginDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.vo.PageVO" alias="pageVO"></typeAlias>
