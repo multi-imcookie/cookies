@@ -4,15 +4,15 @@
 
     <select id="all" resultType="idealBoardDTO"  parameterType="pageVO">
         select * from (
-        select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
-        from ideal_worldcup_bbs b) bbs2
+                          select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
+                          from ideal_worldcup_bbs b) bbs2
         where bbs2.idealBoardNum between ${start} and ${end}
     </select>
 
     <select id="list2" resultType="idealBoardDTO" parameterType="pageVO">
         select * from (
-        select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
-        from ideal_worldcup_bbs b) bbs2
+                          select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
+                          from ideal_worldcup_bbs b) bbs2
         where bbs2.idealBoardNum between #{start} and #{end}
     </select>
 
@@ -23,10 +23,6 @@
     <delete id="delete" parameterType="idealBoardDTO">
         delete from ideal_worldcup_bbs where ideal_id = #{ideal_id} and ideal_pw = #{ideal_pw}
     </delete>
-
-    <select id="one" parameterType="idealBoardDTO" resultType="idealBoardDTO">
-        select * from ideal_worldcup_bbs where ideal_id = #{ideal_id}
-    </select>
 
     <select id="count" resultType="Integer">
         select count(*) from ideal_worldcup_bbs

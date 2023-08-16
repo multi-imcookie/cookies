@@ -10,12 +10,14 @@
         <typeAlias type="com.multi.cookies.snack.dto.SearchDTO" alias="searchDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.LoginDTO" alias="loginDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.entertainment.dto.IdealWorldCupDTO" alias="idealWorldCupDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.vo.PageVO" alias="pageVO"></typeAlias>
     </typeAliases>
     <mappers>
         <mapper resource="mapper/snackMapper.xml"/>
         <mapper resource="mapper/nutritionalMapper.xml"/>
         <mapper resource="mapper/idealBoardMapper.xml"/>
+        <mapper resource="mapper/idealWorldCupMapper.xml"/>
         <mapper resource="mapper/loginMapper.xml"/>
     </mappers>
 

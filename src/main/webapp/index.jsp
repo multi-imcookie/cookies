@@ -11,10 +11,10 @@
 <html>
 <head>
     <title>전과자</title>
-    <%@ include file="link.jsp" %>
+    <%@ include file="/link.jsp" %>
 </head>
 <body>
-<%@include file="header.jsp" %>
+<%@include file="/header.jsp" %>
 <div class="visual">
     <div class="v-left">
         <h3 class="h-pre36">
