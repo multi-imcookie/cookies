@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="worldCup">
+
+    <select id="count" resultType="Integer">
+        select count(*) from ideal_worldcup
+    </select>
+
+    <select id="all" resultType="idealWorldCupDTO"  parameterType="pageVO">
+        select * from (
+                          select ROW_NUMBER() over(order by ideal_snack_wins desc) as idealRanking, a.*
+                          from ideal_worldcup a) ranking2
+        where ranking2.idealRanking between ${start} and ${end}
+    </select>
+
+    <select id="list2" resultType="idealWorldCupDTO" parameterType="pageVO">
+        select * from (
+                          select ROW_NUMBER() over(order by ideal_snack_wins desc) as idealRanking, a.*
+                          from ideal_worldcup a) ranking2
+        where ranking2.idealRanking between #{start} and #{end}
+    </select>
+
+
+
+</mapper>

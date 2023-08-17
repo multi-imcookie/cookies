@@ -21,7 +21,6 @@ public class IdealBoardController {
     public void list2(PageVO vo, Model model){
         vo.setStartEnd(vo.getPage());
         List<IdealBoardDTO> list = idealBoardDAO.list2(vo);
-        System.out.println(list);
         model.addAttribute("list", list);
     }
     @RequestMapping("/entertainment/idealBoardAll")
@@ -29,17 +28,11 @@ public class IdealBoardController {
         vo.setStartEnd(vo.getPage());
         List<IdealBoardDTO> list = idealBoardDAO.all(vo);
         int count = idealBoardDAO.count();
-        System.out.println("all count>> " + count);
         int pages = count / 10 + 1; //전체 페이지 개수 구하기
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         model.addAttribute("pages", pages);
     }
-//    @RequestMapping("idealBoardInsert")
-//    public void insert(IdealBoardDTO idealBoardDTO) {
-//        int result = idealBoardDAO.insert(idealBoardDTO);
-//        System.out.println(result);
-//    }
     @RequestMapping("/entertainment/idealBoardInsert")
     @ResponseBody
     public int insert(IdealBoardDTO idealBoardDTO) {
@@ -50,7 +43,6 @@ public class IdealBoardController {
     @ResponseBody
     public int delete(IdealBoardDTO idealBoardDTO, Model model) {
         int result = idealBoardDAO.delete(idealBoardDTO);
-        //model.addAttribute("result", result);
         return result;
     }
 
