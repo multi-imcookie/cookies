@@ -54,7 +54,7 @@
     <div class="user-menu">
         <ul class="user-left">
             <li><a class="p-medium" href="#">로그인</a></li>
-            <li><a class="p-medium" href="#">회원가입</a></li>
+            <li><a class="p-medium" href="/member/sign.jsp">회원가입</a></li>
         </ul>
         <ul class="user-right">
             <li><a href="#">

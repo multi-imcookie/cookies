@@ -23,80 +23,79 @@
     <script type="text/javascript" src="resources/js/jquery-3.6.1.js"></script>
     <script type="text/javascript">
 
-        $(function() {
-            $('#saveIdealBoard').click(function() {  //글 작성 function
+        $(function () {
+            $('#saveIdealBoard').click(function () {  //글 작성 function
                 ///////////////////length로 들어왔는지부터 check 1보다큰지 모두만족하면 실행하게
 
                 let input_nickname = document.getElementById("ideal_nickname").value;
                 let input_pw = document.getElementById("ideal_pw").value;
                 let input_content = document.getElementById("ideal_content").value;
-                if(input_nickname.length>0){
-                    if(input_pw.length>0){
-                        if(input_content>0){
+                if (input_nickname.length > 0) {
+                    if (input_pw.length > 0) {
+                        if (input_content > 0) {
                             $.ajax({
-                                url : "idealBoardInsert",
-                                data : {
+                                url: "idealBoardInsert",
+                                data: {
                                     ideal_nickname: $('#ideal_nickname').val(),
                                     ideal_pw: $('#ideal_pw').val(),
                                     ideal_content: $('#ideal_content').val()
                                 },
-                                success : function(result) { //결과가 담겨진 table 부분 코드
-                                    if(!alert("등록 완료")) document.location = 'idealBoardAll?page=1';
+                                success: function (result) { //결과가 담겨진 table 부분 코드
+                                    if (!alert("등록 완료")) document.location = 'idealBoardAll?page=1';
                                 },
-                                error : function() {
+                                error: function () {
                                     alert('실패')
                                 }
                             }) //ajax
                         }//content if
-                        else{
+                        else {
                             alert('내용을 입력해주세요')
                         }
                     }//pw if
-                    else{
+                    else {
                         alert('패스워드를 입력해주세요')
                     }
                 }//id if
-                else{
+                else {
                     alert('닉네임을 입력해주세요')
                 }
             })
-            $('.deleteIdealBoard').click(function() {  //글 삭제 function
+            $('.deleteIdealBoard').click(function () {  //글 삭제 function
                 id_value = $(this).attr('value')
                 pw = prompt('비밀번호 입력')
                 $.ajax({
-                    url : "idealBoardDelete",
-                    data : {
+                    url: "idealBoardDelete",
+                    data: {
                         ideal_id: id_value,
                         ideal_pw: pw
                     },
-                    success : function(result) {
-                       // $('#d1').html(result)   // 결과값을 화면에 띄운다
+                    success: function (result) {
+                        // $('#d1').html(result)   // 결과값을 화면에 띄운다
                         // location.replace('idealBoardAll?page=1') //리스트페이지로 이동한다
-                        if(result==1){
+                        if (result == 1) {
                             //if(confirm("삭제하시겠습니까?")) document.location = 'idealBoardAll?page=1'; // 지울건지 다시 물어본다
-                            if(!alert("삭제완료")) document.location = 'idealBoardAll?page=1';
-                        }
-                        else{
+                            if (!alert("삭제완료")) document.location = 'idealBoardAll?page=1';
+                        } else {
                             alert('비밀번호가 다릅니다')
                         }
                     },
-                    error : function() {
+                    error: function () {
                         alert('실패')
                     }
                 }) //ajax
             })
 
-            $('.pages').click(function() {
+            $('.pages').click(function () {
                 $.ajax({
-                    url : "idealBoardList",
-                    data : {
-                        page : $(this).text()
+                    url: "idealBoardList",
+                    data: {
+                        page: $(this).text()
                     },
-                    success : function(result) { //결과가 담겨진 table부분코드
-                         $('#d1').html(result)
+                    success: function (result) { //결과가 담겨진 table부분코드
+                        $('#d1').html(result)
 
                     },
-                    error : function() {
+                    error: function () {
                         alert('실패')
                     }
                 }) //ajax
@@ -108,7 +107,8 @@
     닉네임: <input id="ideal_nickname"><br>
     패스워드: <input id="ideal_pw"><br>
     내용: <input id="ideal_content"><br>
-    <input class="saveIdealBoard" id="saveIdealBoard" type="button" value="의견 작성" style="background: #5C492C; color: black; width: 70px;">
+    <input class="saveIdealBoard" id="saveIdealBoard" type="button" value="의견 작성"
+           style="background: #5C492C; color: black; width: 70px;">
 </div>
 <body>
 <div id="d1">
@@ -126,7 +126,9 @@
                 <td class="right">${one.ideal_content}</td>
                 <td class="right">${one.create_dt}</td>
                 <td class="right">
-                    <button  class="deleteIdealBoard" value="${one.ideal_id}" style="background: #E9E2D9; color: #5C492C; width: 50px;">삭제</button>
+                    <button class="deleteIdealBoard" value="${one.ideal_id}"
+                            style="background: #E9E2D9; color: #5C492C; width: 50px;">삭제
+                    </button>
                 </td>
             </tr>
         </c:forEach>
@@ -134,10 +136,11 @@
 </div>
 <hr color="#5C492C">
 <%
-    int pages = (int)request.getAttribute("pages");
-    for(int p = 1; p <= pages; p++){
+    int pages = (int) request.getAttribute("pages");
+    for (int p = 1; p <= pages; p++) {
 %>
-<button style="background: #E9E2D9; color: #5C492C; width: 50px;" class="pages"><%= p %></button>
+<button style="background: #E9E2D9; color: #5C492C; width: 50px;" class="pages"><%= p %>
+</button>
 <%
     }
 %>
