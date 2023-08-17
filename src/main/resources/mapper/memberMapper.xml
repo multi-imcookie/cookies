@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+    <insert id="sign" parameterType="memberDTO" useGeneratedKeys="true" keyProperty="memberId">
+        insert into member
+        values (null, #{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender},
+                #{member_birthday}, #{member_email}, #{member_grade}, null, null, now())
+    </insert>
+    <select id="checkDuplicateId" parameterType="String" resultType="int">
+        SELECT COUNT(member_signId)
+        FROM member
+        WHERE member_signId = #{member_signId}
+    </select>
+</mapper>

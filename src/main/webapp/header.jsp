@@ -14,10 +14,10 @@
     </h1>
     <ul class="gnb">
         <li>
-            <a class="p-medium" href="#">쿠키위키</a>
+            <a class="p-medium" href="/snack/snackWiki.jsp">쿠키 위키</a>
             <ul class="depth2">
-                <li><a class="p-medium" href="#">과자DB</a></li>
-                <li><a class="p-medium" href="#">새로 나온 과자</a></li>
+                <li><a class="p-medium" href="/snack/snackWiki.jsp">과자 DB</a></li>
+                <li><a class="p-medium" href="/snack/snackWiki.jsp">새로 나온 과자</a></li>
             </ul>
         </li>
         <li>
@@ -53,8 +53,8 @@
     </ul>
     <div class="user-menu">
         <ul class="user-left">
-            <li><a class="p-medium" href="/login">로그인</a></li>
-            <li><a class="p-medium" href="#">회원가입</a></li>
+            <li><a class="p-medium" href="#">로그인</a></li>
+            <li><a class="p-medium" href="/member/sign.jsp">회원가입</a></li>
         </ul>
         <ul class="user-right">
             <li><a href="#">

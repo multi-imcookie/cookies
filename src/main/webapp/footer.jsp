@@ -9,7 +9,7 @@
 <div id="footer">
     <div class="f-left">
         <h1 class="logo">
-            <a href="index.jsp">
+            <a href="/index.jsp">
                 <img src="/resources/img/logo.svg" alt="로고">
             </a>
         </h1>
@@ -38,10 +38,10 @@
     </div>
     <ul class="f-right">
         <li>
-            <a class="h-imcre24" href="#">쿠키위키</a>
+            <a class="h-imcre24" href="/snack/snackWiki.jsp">쿠키 위키</a>
             <ul class="f-depth2">
-                <li><a class="p-medium" href="#">과자DB</a></li>
-                <li><a class="p-medium" href="#">새로 나온 과자</a></li>
+                <li><a class="p-medium" href="/snack/snackWiki.jsp">과자 DB</a></li>
+                <li><a class="p-medium" href="/snack/snackWiki.jsp">새로 나온 과자</a></li>
             </ul>
         </li>
         <li>

@@ -8,18 +8,16 @@
            1)글 작성시 닉네임, 비밀번호, 내용 입력안하면 alter 띄우고 insert안되는 기능 (해결)
            2)삭제 버튼 누르면 비밀번호 입력하는 alter띄우기 (해결)
            3)삭제 비밀번호 틀리면 삭제 안되게 하기 (해결)
-           4)이상형월드컵 게임, 랭킹 구현
+           4)이상형월드컵 게임
+           5)이상형월드컵 랭킹 구현 (해결)
            5)페이지 합칠지 나눌지 css어떻게할지 정리
 
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
 <head>
     <%@ include file="/link.jsp" %>
-    <%@include file="/header.jsp" %>
-    <h3>전체 의견 수: ${count}</h3>
     <script type="text/javascript">
 
         $(function() {
@@ -39,8 +37,11 @@
                                     ideal_pw: $('#ideal_pw').val(),
                                     ideal_content: $('#ideal_content').val()
                                 },
-                                success : function(result) { //결과가 담겨진 table 부분 코드
-                                    if(!alert("등록 완료")) document.location = 'idealBoardAll?page=1';
+                                success : function() {
+                                    if(!alert("등록 완료")){
+                                        //document.location = 'idealBoardAll?page=1'
+                                        window.location.reload();
+                                    }
                                 },
                                 error : function() {
                                     alert('실패')
@@ -69,14 +70,17 @@
                         ideal_pw: pw
                     },
                     success : function(result) {
-                       // $('#d1').html(result)   // 결과값을 화면에 띄운다
-                        // location.replace('idealBoardAll?page=1') //리스트페이지로 이동한다
                         if(result==1){
                             //if(confirm("삭제하시겠습니까?")) document.location = 'idealBoardAll?page=1'; // 지울건지 다시 물어본다
-                            if(!alert("삭제완료")) document.location = 'idealBoardAll?page=1';
+                            if(!alert("삭제완료")) {
+                                //document.location = 'idealBoardAll?page=1';
+                                window.location.reload();
+                            }
                         }
                         else{
-                            alert('비밀번호가 다릅니다')
+                            if(pw!=null){
+                                alert('비밀번호가 다릅니다')
+                            }
                         }
                     },
                     error : function() {
@@ -103,13 +107,15 @@
         })
     </script>
 </head>
+<body>
+<%@include file="/header.jsp" %>
+<h3>전체 의견 수: ${count}</h3>
 <div class="input-wrap" style="background:#E9E2D9">
     닉네임: <input id="ideal_nickname"><br>
     패스워드: <input id="ideal_pw"><br>
     내용: <input id="ideal_content"><br>
     <input class="saveIdealBoard" id="saveIdealBoard" type="button" value="의견 작성" style="background: #5C492C; color: black; width: 70px;">
 </div>
-<body>
 <div id="d1">
     <table>
         <tr>
@@ -123,6 +129,7 @@
                 <td class="right">${one.ideal_id}</td> <!-- one.getId() -->
                 <td class="right">${one.ideal_nickname}</td>
                 <td class="right">${one.ideal_content}</td>
+<%--                <fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd"/>--%>
                 <td class="right">${one.create_dt}</td>
                 <td class="right">
                     <button  class="deleteIdealBoard" value="${one.ideal_id}" style="background: #E9E2D9; color: #5C492C; width: 50px;">삭제</button>
