@@ -63,7 +63,7 @@ local.properties
 
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
-#.project
+.project
 
 ### Eclipse Patch ###
 # Spring Boot Tooling
@@ -106,9 +106,9 @@ local.properties
 # .idea/artifacts
 .idea/compiler.xml
 # .idea/jarRepositories.xml
-# .idea/modules.xml
+.idea/modules.xml
 .idea/*.iml
-# .idea/modules
+.idea/modules
 *.iml
 # *.ipr
 

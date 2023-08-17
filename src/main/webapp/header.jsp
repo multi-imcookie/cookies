@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="header">
     <h1 class="logo">
-        <a href="index.jsp">
+        <a href="/index.jsp">
             <img src="/resources/img/logo.svg" alt="로고">
         </a>
     </h1>
@@ -53,7 +53,7 @@
     </ul>
     <div class="user-menu">
         <ul class="user-left">
-            <li><a class="p-medium" href="#">로그인</a></li>
+            <li><a class="p-medium" href="/login">로그인</a></li>
             <li><a class="p-medium" href="#">회원가입</a></li>
         </ul>
         <ul class="user-right">

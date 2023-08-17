@@ -28,7 +28,7 @@
         </a></td>
     </tr>
     <tr>
-        <td><a href="../idealBoardAll?page=1">
+        <td><a href="idealBoardAll?page=1">
             <button>의견</button>
         </a></td>
     </tr>
