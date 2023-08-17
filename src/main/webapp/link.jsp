@@ -14,3 +14,4 @@
 <script type="text/javascript" src="/resources/js/jquery-3.7.0.js"></script>
 <script type="text/javascript" src="/resources/js/scripts.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/styles.css?after">
+<link rel="icon" href="/resources/img/favicon.ico">

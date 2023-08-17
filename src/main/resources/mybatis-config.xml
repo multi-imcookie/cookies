@@ -7,6 +7,7 @@
     <typeAliases>
         <typeAlias type="com.multi.cookies.snack.dto.SnackDTO" alias="snackDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.dto.NutritionalDTO" alias="nutritionalDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.snack.api.dto.DBApiDTO" alias="dbApiDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.dto.SearchDTO" alias="searchDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.LoginDTO" alias="loginDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.MemberDTO" alias="memberDTO"></typeAlias>
@@ -20,6 +21,7 @@
         <mapper resource="mapper/idealBoardMapper.xml"/>
         <mapper resource="mapper/idealWorldCupMapper.xml"/>
         <mapper resource="mapper/loginMapper.xml"/>
+        <mapper resource="mapper/dbApiMapper.xml"/>
         <mapper resource="mapper/memberMapper.xml"/>
     </mappers>
 
