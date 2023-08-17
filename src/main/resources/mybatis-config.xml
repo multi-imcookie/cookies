@@ -19,6 +19,8 @@
         <mapper resource="mapper/idealBoardMapper.xml"/>
         <mapper resource="mapper/idealWorldCupMapper.xml"/>
         <mapper resource="mapper/loginMapper.xml"/>
+        <mapper resource="mapper/findMapper.xml"/>
+
     </mappers>
 
 </configuration>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="find">
+    <select id="id" resultType="String" parameterType="hashMap">
+        select member_signId
+        from member where member_nickname=#{name} and member_phonenumber=#{phoneNumber}
+    </select>
+    <select id="password" resultType="int" parameterType="hashMap">
+        select member_id
+        from member where member_signId=#{nickname} and member_nickname=#{name} and member_phonenumber=#{phoneNumber}
+    </select>
+    <update id="update_password" parameterType="String">
+        update member set member_pw=#{tempPassWord} where member_signid=#{userId} and member_nickname=#{name} and member_phonenumber=#{phoneNumber}
+    </update>
+</mapper>
