@@ -28,4 +28,10 @@ public class SignController {
     public int checkId(String member_signId) {
         return signDAO.checkId(member_signId);
     }
+    
+    // 로그인 페이지 이동 경로
+    @RequestMapping("moveLogin")
+    public String moveLogin(){
+        return "member/login";
+    }
 }

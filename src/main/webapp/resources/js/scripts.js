@@ -1,4 +1,4 @@
-$(function () {
+$(document).ready(function () {
 
     // depth2 메뉴
     $(".gnb > li").hover(function () {
@@ -40,6 +40,10 @@ $(function () {
     //
     //     });
     // });
-
-
 });
+
+// modal창 띄우는 함수
+function modalShow() {
+    $(".modal-overlay").fadeIn();
+    $(".modal-box").addClass("active");
+}
