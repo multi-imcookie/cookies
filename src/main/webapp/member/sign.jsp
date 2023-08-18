@@ -12,132 +12,27 @@
 <head>
     <title>전과자</title>
     <%@ include file="../link.jsp" %>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#signUp-btn").click(function () {
-
-                // 빈 문자열을 null로 변환, 빈 문자열로 데이터에 저장되지 않기 위해
-                let formIsValid = true;
-                $(".signup-form input[required]").each(function () {
-                    if ($(this).val() == "") {
-                        formIsValid = false;
-                        $(this).val(null);
-                    }
-                });
-
-                // 입력값이 null일 경우
-                if (formIsValid) {
-                    // 생일 월, 일 값 두개를 합치기
-                    let member_birthday = $("#member_birthday1").val() + "월 " + $("#member_birthday2").val() + "일";
-
-                    // 이메일, 이메일 주소 값 두개를 합치기
-                    let member_email = $("#member_email1").val() + "@" + $("#member_email2").val();
-
-                    // 아이디 중복 여부 확인
-                    let member_signId = $("#member_signId").val();
-
-                    $.ajax({
-                        type: "post",
-                        url: "checkId",
-                        data: {
-                            member_signId: member_signId
-                        },
-                        success: function (response) {
-                            // 아이디 중복체크
-                            if (response !== 0) {
-                                alert("이미 사용 중인 아이디입니다.");
-                            } else {
-                                // 비밀번호 일치 확인
-                                if ($("#member_pw").val() === $("#member_pwChk").val()) {
-                                    $.ajax({
-                                        type: "post",
-                                        url: "sign",
-                                        dataType: "text",
-                                        data: {
-                                            member_signId: member_signId,
-                                            member_nickname: $("#member_nickname").val(),
-                                            member_pw: $("#member_pw").val(),
-                                            member_birthday: member_birthday,
-                                            member_age: $("input[name='member_age']:checked").val(),
-                                            member_gender: $("input[name='member_gender']:checked").val(),
-                                            member_email: member_email
-                                        },
-                                        success: function (response) {
-                                            if (response > 0) {
-                                                alert("회원가입 완료! 로그인 페이지로 이동합니다.");
-                                            }
-                                        },
-                                        error: function () {
-                                            alert("회원가입에 실패하였습니다.");
-                                        }
-                                    });
-                                } else {
-                                    alert("비밀번호가 일치하지 않습니다.");
-                                }
-                            }
-                        },
-                        error: function () {
-                            alert("아이디 중복 확인에 실패하였습니다.");
-                        }
-                    });
-                } else {
-                    alert("필수 입력값을 모두 입력해주세요.");
-                }
-            });
-
-            // 아이디 중복 확인 실시간 반영
-            $("#member_signId").keyup(function () {
-                let member_signId = $(this).val();
-
-                $.ajax({
-                    type: "post",
-                    url: "checkId",
-                    data: {
-                        member_signId: member_signId
-                    },
-                    success: function (response) {
-                        if (response !== 0) {
-                            $(".id_chk").text("이미 사용 중인 아이디입니다.").css("color", "#E04C47");
-                        } else {
-                            $(".id_chk").text("사용 가능한 아이디입니다.").css("color", "#78CA5B");
-                        }
-                    },
-                    error: function () {
-                        $(".id_chk").text("아이디 중복 확인에 실패하였습니다.").css("color", "#E04C47");
-                    }
-                });
-            });
-
-            // 비밀번호 확인 실시간 반영
-            $("#member_pwChk").keyup(function () {
-                if ($("#member_pw").val() === $(this).val()) {
-                    $(".pw_chk").text("비밀번호가 일치합니다.").css("color", "#78CA5B");
-                } else {
-                    $(".pw_chk").text("비밀번호가 일치하지 않습니다.").css("color", "#E04C47");
-                }
-            });
-
-            // 비밀번호 규칙 실시간 반영
-            $("#member_pw").keyup(function () {
-                if ($(this).val().length < 8 || $(this).val().length > 16) { // 비밀번호 문자열의 입력 길이 검사
-                    $(".pw_rule").text("비밀번호는 8자리 이상 16자리 이하만 가능합니다.").css("color", "#E04C47");
-                } else if (!/[0-9]/.test($(this).val())) { // 비밀번호 문자열에 숫자 존재 여부 검사
-                    $(".pw_rule").text("숫자를 입력해 주세요.").css("color", "#E04C47");
-                } else if (!/[a-zA-Z]/.test($(this).val())) { // 비밀번호 문자열에 영문 소문자 존재 여부 검사
-                    $(".pw_rule").text("영문을 입력해 주세요.").css("color", "#E04C47");
-                } else if (!/[~!@#$%^&*()_+|<>?:{}]/.test($(this).val())) { // 비밀번호 문자열에 특수문자 존재 여부 검사
-                    $(".pw_rule").text("특수문자를 입력해 주세요.").css("color", "#E04C47");
-                } else {
-                    $(".pw_rule").text("사용하시기 좋은 비밀번호 입니다.").css("color", "#78CA5B"); // 모든 조건을 만족할 경우
-                }
-            })
-        }) // function
-
-    </script>
+    <script type="text/javascript" src="../resources/js/sign.js"></script>
 </head>
 <body>
 <%@include file="../header.jsp" %>
-<div class="sub-center">
+<div class="modal-overlay">
+    <div class="modal-box">
+        <div class="mdl-text">
+            <p class="h-pre24"><span>회원가입 완료!</span> 🥰<br>
+                로그인 페이지로 이동할까요?</p>
+            <div class="mdl-info">
+                <img src="../resources/img/info-circle.svg" alt="info icon">
+                <p class="p-regular">로그인 하면 더 많은 기능을 이용할 수 있어요.</p>
+            </div>
+        </div>
+        <div class="btn-wrap">
+            <a class="fill-btn p-medium" href="moveLogin">로그인 화면으로 이동</a>
+            <a class="light-fill-btn p-medium" href="/index.jsp">메인 화면으로 이동</a>
+        </div>
+    </div>
+</div>
+<div class="container">
     <h3 class="s-h-imcre24">회원가입</h3>
     <form class="signup-form form-style" method="post">
         <div class="input-section">
@@ -163,8 +58,10 @@
         <div class="input-section">
             <label class="label-wrap" for="member_birthday1">생일 / 연령대<span class="require-val">*</span></label>
             <div class="input-section-left">
-                <input type="text" id="member_birthday1" name="member_birthday1" placeholder="MM" required>
-                <input type="text" id="member_birthday2" name="member_birthday2" placeholder="DD" required>
+                <input type="number" maxlength="2" oninput="maxLengthChk(this)" id="member_birthday1" name="member_birthday1" placeholder="MM"
+                       required>
+                <input type="number" maxlength="2" oninput="maxLengthChk(this)" id="member_birthday2" name="member_birthday2" placeholder="DD"
+                       required>
             </div>
             <div class="input-section-right">
                 <div class="label-wrap">
@@ -212,7 +109,7 @@
             <span class="email-at">@</span>
             <input type="text" id="member_email2" name="member_email2" placeholder="이메일 주소를 입력하세요." required>
         </div>
-        <input type="button" id="signUp-btn" class="fill-submit-btn" value="회원가입">
+        <input type="button" id="signUp-btn" class="fill-btn" value="회원가입">
     </form>
 </div>
 <%@include file="../footer.jsp" %>
