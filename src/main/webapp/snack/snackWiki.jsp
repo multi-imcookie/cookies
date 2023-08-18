@@ -43,7 +43,7 @@
 
 
 
-<%@include file="/footer.jsp" %>
+
 <script>
     function validateForm() {
         let category = document.getElementById("cookie-select").value;
@@ -54,5 +54,6 @@
         return true;
     }
 </script>
+<%@include file="/footer.jsp" %>
 </body>
 </html>

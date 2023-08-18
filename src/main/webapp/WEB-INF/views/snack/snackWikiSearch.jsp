@@ -1,65 +1,62 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 고물오빠
-  Date: 2023-08-10
-  Time: 오후 5:55
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <head>
     <%@ include file="/link.jsp" %>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+
         }
 
         .search-results {
             list-style: none;
             padding: 0;
-        }
-
-        .result-item {
             display: flex;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+            justify-content: space-between; /* 항목들 간 간격을 조절 */
         }
 
-        .thumbnail {
-            max-width: 100px;
-            margin-right: 10px;
+        .search-item {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px 0; /* 상하 여백을 추가 */
+            padding: 15px;
+            flex-basis: calc(33.33% - 20px); /* 가로 너비를 조절 */
+            box-sizing: border-box;
         }
 
-        .info {
-            flex: 1;
+        .thumbnail img {
+            max-width: 100%;
+            border-radius: 5px;
         }
 
-        .title {
-            margin: 0;
+        .product-name {
+            margin-top: 10px;
+            font-weight: bold;
         }
 
         .rating {
-            color: #FFD700; /* 노란색 */
+            margin-top: 5px;
+            color: #f39c12; /* 별점 색상 */
         }
-
-        .star {
-            font-size: 20px;
-        }
-
-        .star-half {
-            position: relative;
-            display: inline-block;
-            transform: scaleX(-1); /* 반 별을 만들기 위해 좌우 반전 */
-        }
-
     </style>
+    <%@ include file="/link.jsp" %>
+    <title>전과자</title>
 
 </head>
+
 <body>
+
 <%@include file="/header.jsp" %>
+
 <div class="v-left">
     <h3 class="h-pre36">
         🔍<br>
@@ -84,35 +81,109 @@
         </div>
     </form>
 </div>
-검색 결과 총 ${fn:length(searchResult)} 건
-<br>
-<ul>
-    <c:forEach items="${searchResult}" var="search" varStatus="status">
-        <li>
-            <a href="/snack/snackInfo?snack_id=${search.snack_id}">
-                <img src="${search.snack_img}" alt="썸네일">
-                <span>${search.snack_name}</span>
-                <span>${search.company}</span>
-                <span>알러지 항목 : ${search.allergy}</span>
-                <span id="rating_${search.snack_id}"></span>
-                <script>
-                    var rating = ${search.avg_score};
-                    var fullStars = Math.floor(rating);
-                    var hasHalfStar = rating - fullStars >= 0.5;
+<div id="search-results-paginated">
+    <div id="search-results" class="search-results">
+        <%--검색 결과 총 ${fn:length(searchResult)} 건--%>
+        <p>"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
+        <br>
+        <%--<div class="search-results">--%>
+        <c:forEach items="${searchResults}" var="search" varStatus="status">
+            <!-- 검색 결과를 출력 -->
+            <div class="search-item">
+                    <%--<a href="/snack/snackInfo?snack_id=${search.snack_id}">--%>
+                <a href="javascript:void(0);" class="goToDetail" data-snack-id="${search.snack_id}">
+                    <li class="search-item">
+                        <div class="thumbnail"><img src="${search.snack_img}" alt="썸네일"></div>
+                        <div class="product-name">${search.snack_name}</div>
+                        <div class="rating" id="rating_${search.snack_id}"></div>
+                        <script>
+                            var rating = ${search.avg_score};
+                            var fullStars = Math.floor(rating);
+                            var hasHalfStar = rating - fullStars >= 0.5;
 
-                    for (var i = 0; i < fullStars; i++) {
-                        document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
-                    }
-                    if (hasHalfStar) {
-                        document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
-                    }
-                </script>
-            </a>
-        </li>
+                            for (var i = 0; i < fullStars; i++) {
+                                document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
+                            }
+                            if (hasHalfStar) {
+                                document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
+                            }
+                        </script>
+
+                    </li>
+                </a>
+            </div>
+        </c:forEach>
+    </div>
+</div>
+
+<div class="pagination">
+    <c:if test="${currentPage > 1}">
+        <a href="#" data-page="${currentPage - 1}">이전</a>
+    </c:if>
+    <c:forEach var="pageNum" begin="1" end="${totalPages}">
+        <c:choose>
+            <c:when test="${pageNum == currentPage}">
+                <span>${pageNum}</span>
+            </c:when>
+            <c:otherwise>
+                <a href="#" data-page="${pageNum}">${pageNum}</a>
+            </c:otherwise>
+        </c:choose>
     </c:forEach>
-</ul>
+    <c:if test="${currentPage < totalPages}">
+        <a href="#" data-page="${currentPage + 1}">다음</a>
+    </c:if>
+</div>
 
-<%@include file="/footer.jsp" %>
+<script>
+
+    $(document).ready(function () {
+        // 상세 페이지로 이동하는 클릭 이벤트
+        $('#search-results-paginated').on('click', '.goToDetail', function () {
+            let snackId = $(this).data('snack-id');
+            let urlParams = new URL(location.href).searchParams;
+            let keyword = urlParams.get('keyword');
+            let currentPage = urlParams.get('page');
+            localStorage.setItem('keyword', keyword);
+            if (currentPage == null){
+                currentPage = 1;
+            }
+            localStorage.setItem('currentPage', currentPage);
+            window.location.href = '/snack/snackInfo?snack_id=' + snackId;
+        });
+
+        // 페이지 로딩 버튼 클릭 시 AJAX로 페이지 로드
+        $(".pagination").on("click", "a", function (event) {
+            event.preventDefault();
+            let page = $(this).data("page");
+            if (!page) {
+                return;
+            }
+            window.location.href = "snackWikiSearch?keyword=${keyword}&page=" + page;
+        });
+    });
+
+    function loadPage(page) {
+        let keyword = "${param.keyword}";
+        $.ajax({
+            url: "snackWikiSearch",
+            type: "GET",
+            data: {
+                keyword: keyword,
+                page: page,
+                <%--timestamp: new Date().getTime()--%>
+            },
+            success: function (data) {
+                $("#search-results-paginated").html(data);
+            },
+            error: function () {
+                alert("페이지 로드 실패");
+            }
+        });
+    }
+
+</script>
+
 <script>
     function validateForm() {
         let category = document.getElementById("cookie-select").value;
@@ -123,7 +194,7 @@
         return true;
     }
 </script>
+
+<%@include file="/footer.jsp" %>
 </body>
-
-
 

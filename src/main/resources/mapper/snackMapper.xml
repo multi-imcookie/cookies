@@ -10,9 +10,7 @@
             <result column="allergy" property="allergy"/>
         </resultMap>
         <select id="search" resultType="searchDTO" resultMap="keywordMap">
-            SELECT a.*,
-                   b.*,
-                   c.*
+            SELECT *
             FROM snack a
                      JOIN snack_nutritional b ON a.snack_id = b.snack_id
                      JOIN avg_score c ON a.snack_id = c.snack_id
@@ -22,11 +20,24 @@
                 LIKE CONCAT('%', #{keyword}, '%') OR b.allergy
                 LIKE CONCAT('%', #{keyword}, '%')
         </select>
+
+    <select id="getTotalResults" resultType="int">
+        SELECT count(*)
+        FROM snack a
+                 JOIN snack_nutritional b ON a.snack_id = b.snack_id
+                 JOIN avg_score c ON a.snack_id = c.snack_id
+        WHERE a.snack_name
+            LIKE CONCAT('%', #{keyword}, '%') OR a.company
+            LIKE CONCAT('%', #{keyword}, '%') OR a.snack_ingredients
+            LIKE CONCAT('%', #{keyword}, '%') OR b.allergy
+            LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+
+
     
     <select id="snackInfo" resultType="searchDTO" resultMap="keywordMap">
-        SELECT a.*,
-               b.*,
-               c.*
+        SELECT *
         FROM snack a
                  JOIN snack_nutritional b ON a.snack_id = b.snack_id
                  JOIN avg_score c ON a.snack_id = c.snack_id
