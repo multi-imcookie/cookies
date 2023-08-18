@@ -6,6 +6,6 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 
 public interface DBApiService {
-    String CallHaccpAPI(int page) throws IOException;
-    void Parsing() throws ParseException;
+    String callHaccpAPI(int page) throws IOException;
+    void parseJsonData() throws ParseException;
 }

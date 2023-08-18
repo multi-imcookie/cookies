@@ -27,7 +27,7 @@ public class DBApiServiceImpl implements DBApiService {
     private String apiKey;
 
     @Override
-    public String CallHaccpAPI(int page) throws IOException {
+    public String callHaccpAPI(int page) throws IOException {
         StringBuilder urlBuilder = new StringBuilder("https://apis.data.go.kr/B553748/CertImgListServiceV2/getCertImgListServiceV2"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + apiKey); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("returnType", "UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
@@ -61,16 +61,16 @@ public class DBApiServiceImpl implements DBApiService {
         return sb.toString();
     }
 
-    public void Parsing() throws ParseException {
+    public void parseJsonData() throws ParseException {
         try {
-            int deleteResult = dbApiDAO.DeleteDB();
-            dbApiDAO.ResetDBAI();
+            int deleteResult = dbApiDAO.deleteDB();
+            dbApiDAO.resetDBAI();
 
             if (deleteResult > 0) {
                 System.out.println("DB " + deleteResult + " 건 초기화 성공!");
             }
 
-            String foodInfo = CallHaccpAPI(1);
+            String foodInfo = callHaccpAPI(1);
             foodInfo = foodInfo.replace("\n", " ");
             foodInfo = foodInfo.replace("<", "");
             foodInfo = foodInfo.replace(">", "");
@@ -86,7 +86,7 @@ public class DBApiServiceImpl implements DBApiService {
  *  페이지 수만큼 반복
  */
             for (int i = 1; i <= Math.ceil(totalCount / numOfRows); i++) {
-                foodInfo = CallHaccpAPI(i);
+                foodInfo = callHaccpAPI(i);
                 foodInfo = foodInfo.replace("\n", " ");
                 foodInfo = foodInfo.replace("<", "");
                 foodInfo = foodInfo.replace(">", "");
@@ -108,7 +108,7 @@ public class DBApiServiceImpl implements DBApiService {
                     dbApiDTO.setSnack_reportNo((String) innerItem.get("prdlstReportNo"));   // 품목보고번호
                     dbApiDTO.setAllergy((String) innerItem.get("allergy"));   // 알레르기 유발 성분
 
-                    dbApiDAO.InsertDB(dbApiDTO);
+                    dbApiDAO.insertDB(dbApiDTO);
 
                     // System.out.println(prdlstNm);
                 }

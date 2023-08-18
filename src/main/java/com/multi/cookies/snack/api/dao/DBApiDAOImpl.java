@@ -12,7 +12,7 @@ public class DBApiDAOImpl implements DBApiDAO {
     private SqlSessionTemplate my;
 
     @Override
-    public int InsertDB(DBApiDTO dbApiDTO) {
+    public int insertDB(DBApiDTO dbApiDTO) {
         // System.out.println("DAO>> " + dbApiDTO.toString());
         int result = 0;
         result += my.insert("db.insertSnack", dbApiDTO);  // snack DB 데이터 생성
@@ -21,7 +21,7 @@ public class DBApiDAOImpl implements DBApiDAO {
     }
 
     @Override
-    public int DeleteDB() {
+    public int deleteDB() {
         int result = 0;
         result += my.delete("db.deleteNutri");    // snack_nutritional DB 데이터 삭제
         result += my.delete("db.deleteSnack");    // snack DB 데이터 삭제
@@ -29,7 +29,7 @@ public class DBApiDAOImpl implements DBApiDAO {
     }
 
     @Override
-    public void ResetDBAI() {
+    public void resetDBAI() {
         my.update("db.resetNutriAI");   // snack_nutritional DB Auto_Increment 초기화
         my.update("db.resetSnackAI");   // snack DB Auto_Increment 초기화
     }
