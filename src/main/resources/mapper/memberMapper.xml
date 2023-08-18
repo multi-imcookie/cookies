@@ -11,4 +11,33 @@
         FROM member
         WHERE member_signId = #{member_signId}
     </select>
+
+    <select id="getAllMembers" resultType="com.multi.cookies.member.dto.AdminDTO">
+        SELECT * FROM member
+    </select>
+
+    <select id="getMemberById" resultType="com.multi.cookies.member.dto.AdminDTO">
+        SELECT * FROM member WHERE member_id = #{id}
+    </select>
+
+    <update id="updateMember">
+        UPDATE member
+        SET member_signId = #{member_signId},
+            member_nickname = #{member_nickname},
+            member_age = #{member_age},
+            member_gender = #{member_gender},
+            member_email = #{member_email},
+            member_grade = #{member_grade}
+        WHERE member_id = #{member_id}
+    </update>
+
+    <insert id="createMember">
+        INSERT INTO member (member_signId, member_pw, member_nickname, member_age, member_gender, member_email)
+        VALUES (#{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender}, #{member_email})
+    </insert>
+
+    <delete id="deleteMember">
+        DELETE FROM member WHERE member_id = #{id}
+    </delete>
+
 </mapper>
