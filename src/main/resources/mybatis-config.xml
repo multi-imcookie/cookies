@@ -18,10 +18,11 @@
     <mappers>
         <mapper resource="mapper/snackMapper.xml"/>
         <mapper resource="mapper/nutritionalMapper.xml"/>
+        <mapper resource="mapper/dbApiMapper.xml"/>
         <mapper resource="mapper/idealBoardMapper.xml"/>
         <mapper resource="mapper/idealWorldCupMapper.xml"/>
         <mapper resource="mapper/loginMapper.xml"/>
-        <mapper resource="mapper/dbApiMapper.xml"/>
+        <mapper resource="mapper/findMapper.xml"/>
         <mapper resource="mapper/memberMapper.xml"/>
     </mappers>
 

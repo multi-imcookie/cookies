@@ -121,6 +121,7 @@
 <header>
     <%@include file="../../../header.jsp" %>
 </header>
+<br><br>
 <div class="login-container">
     <form class="login-form" action="login" method="post">
         <h1>로그인</h1>
@@ -132,7 +133,7 @@
             <label class=remember for="remember"><input type="checkbox" id="remember" name="remember">아이디 저장
             </label></div>
         <div class="right-box">
-            <a href="#">아이디 / 비밀번호 찾기</a>
+            <a href="${findUserOrPwdUrl}">아이디 / 비밀번호 찾기</a>
         </div>
         <br>
         <br>
@@ -143,10 +144,8 @@
             <a href="${kakakoApiUrl}"><span
                     class="item">카카오</span></a>
         </div>
-        <button class="bu">회원가입</button>
-
-
     </form>
+    <a href="#"><button class="bu">회원가입</button></a>
 
 </div>
 <footer class="footer">

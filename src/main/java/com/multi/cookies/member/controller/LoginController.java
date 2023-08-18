@@ -5,10 +5,12 @@ import com.multi.cookies.member.dto.LoginDTO;
 import com.multi.cookies.member.service.KaKaoSocialLoginService;
 import com.multi.cookies.member.service.LoginService;
 import com.multi.cookies.member.service.NaverSocialLoginService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,10 +29,11 @@ public class LoginController {
     LoginService loginService;
 
     //  로그인 화면 controller
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String loginPage(Model model, HttpServletRequest request, HttpSession session) throws Exception {
         String naverApiUrl = naverSocialLoginService.naverApiURL(request, session);
         String kakakoApiUrl = kaKaoSocialLoginService.kakaoApiURL(request);
+        String findUserOrPwdUrl = "/forgotUserNameOrPassWord";
 //        System.out.println("naverApiUrl = " + naverApiUrl);
 //        System.out.println("naverApiUrl = " + kakakoApiUrl);
 /* 네이버 요청URL
@@ -40,17 +43,18 @@ public class LoginController {
  &state=954986350460963047069329269706370142955*/
         model.addAttribute("naverApiUrl", naverApiUrl);
         model.addAttribute("kakakoApiUrl", kakakoApiUrl);
+        model.addAttribute("findUserOrPwdUrl",findUserOrPwdUrl);
         return "member/login";
     }
     @PostMapping("/login")
     public String login(@RequestParam("username")String id,@RequestParam("password")String password){
         //id,password유효성검사 추가
-        System.out.println("id  +  password = "+ id + "  "+ password);
+//        System.out.println("id  +  password = "+ id + "  "+ password);
         //비밀번호 암호화 추가
         if(!(loginService.isValidPassWord(id,password))){
             return "redirect:/login";
         }
-        return "idealReply";
+        return "redirect:/index.jsp";
     }
 
 
@@ -63,11 +67,11 @@ public class LoginController {
         session.setAttribute("token", loginDTO.getNaver_login());
         if (!isTrue) {
             loginService.inserUserInfo(loginDTO);
-            return "idealReply";
+            return "/login";
         }
 //        System.out.println("access_token = " + access_token);
 //        System.out.println("stringBuffer = " + userInfo);
-        return "idealReply";
+        return "redirect:/index.jsp";
 //        return "index";//뷰 안의index.jsp 찾아감
 //        return "redirect:/index.jsp"; //리다이렉트로 유저에게 떠넘김
     }
@@ -84,12 +88,17 @@ public class LoginController {
         session.setAttribute("token", loginDTO.getKakao_login());
         if (!isTrue) {
             loginService.inserUserInfo(loginDTO);
-            return "redirect:" + "/idealReply";
+            return "login";
         }
-        return "redirect:" + "/idealReply";
+        return "redirect:/index.jsp";
         //질문 controller거친후 WEB-INF > views 안의 jsp말고 외부접근 가능한 WEB-INF의 index.jsp로 쉽게 가는법은??
         // 1?     return "index";//뷰 안의index.jsp 찾아감
         // 2?     return "redirect:/index.jsp"; //리다이렉트로 유저에게 떠넘김
         // 3?     index.jsp 로 간후 callback과 코드 state 등이남아있음 다시 리다이렉트? URL재작성?
+    }
+    // 아이디 비밀번호 찾기
+    @GetMapping("/forgotUserNameOrPassWord")
+    public String findIdAndPassWordPage(){
+        return "member/findIdAndPassWordPage";
     }
 }
