@@ -23,8 +23,8 @@ public class DBApiController {
      */
     @Scheduled(cron="0 0 15 * * * *")    // cron: 초 분 시 일 월 요일 연도
     @RequestMapping("refreshDB")
-    public void RefreshDB() throws IOException, ParseException {
-        dbApiService.Parsing();
+    public void refreshDB() throws IOException, ParseException {
+        dbApiService.parseJsonData();
     }
 
 }
