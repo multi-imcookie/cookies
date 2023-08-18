@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db">
+    <delete id="deleteNutri">
+        delete from snack_nutritional;
+    </delete>
+
+    <update id="resetNutriAI">
+        alter table snack_nutritional auto_increment = 1;
+    </update>
+
+    <delete id="deleteSnack">
+        delete from snack;
+    </delete>
+
+    <update id="resetSnackAI">
+        alter table snack auto_increment = 1;
+    </update>
+
+    <insert id="insertSnack" parameterType="dbApiDTO" useGeneratedKeys="true" keyProperty="snack_id">
+        insert into snack (snack_name, company, snack_img, snack_ingredients, snack_reportNo)
+        values (#{snack_name}, #{company}, #{snack_img}, #{snack_ingredients}, #{snack_reportNo});
+    </insert>
+    <insert id="insertNutri" parameterType="dbApiDTO">
+        insert into snack_nutritional (snack_id, nutri_string, allergy)
+        values (#{snack_id}, #{nutri_string}, #{allergy});
+    </insert>
+</mapper>
