@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -31,6 +33,35 @@ public class IdealWorldCupController {
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         model.addAttribute("pages", pages);
+    }
+    @RequestMapping("/entertainment/idealWorldCupGame")
+    public void list(Model model) {
+        List<String> list = idealWorldCupDAO.list();
+        model.addAttribute("list",list);
+        //System.out.println(list);
+    }
+
+//    @RequestMapping("/getWinnerImage")
+//    @ResponseBody
+//    public String getWinnerImage(@RequestParam("winnerName") String winnerName) {
+//        IdealWorldCupDTO winnerDTO = idealWorldCupDAO.one(winnerName);
+//        if (winnerDTO != null) {
+//            return winnerDTO.getIdeal_snack_img();
+//        } else {
+//            return "No image found for the winner.";
+//        }
+//    }
+    @RequestMapping("/updateWinnerWins")
+    @ResponseBody
+    public String updateWinnerWins(@RequestParam("winnerName") String winnerName) {
+        try {
+            // winnerName을 기반으로 DB 업데이트 수행
+            idealWorldCupDAO.updateWins(winnerName);
+            return "Success"; // 성공 시 메시지 반환
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error"; // 실패 시 메시지 반환
+        }
     }
 
 }

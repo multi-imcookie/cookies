@@ -22,4 +22,14 @@ public class IdealWorldCupDAO {
     public int count() {
         return my.selectOne("worldCup.count");
     }
+    public List<String> list() {
+        return my.selectList("worldCup.list");
+    }
+//    public IdealWorldCupDTO one(String ideal_snack_name) {
+//        return my.selectOne("worldCup.one", ideal_snack_name);
+//    }
+    public void updateWins(String winnerName) {
+        my.update("worldCup.updateWins", winnerName);
+    }
+
 }
