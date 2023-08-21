@@ -15,6 +15,7 @@ public class SnackDTO {
     String snack_ingredients;
     boolean snack_sweet;
     boolean snack_salty;
+    String snack_reportNo;
 //   String allergy;
 
 

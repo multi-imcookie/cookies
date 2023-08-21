@@ -45,8 +45,8 @@ public class SnackController {
         int startIndex = (page - 1) * pageSize;
         int endIndex = Math.min(startIndex + pageSize, searchResults.size());
 
-        int startPage = page % 10 == 0 ? page - 9 : (page / 10) * 10 + 1;
-        int endPage = Math.min(startPage + 9, totalPages);
+        int startPage = (((page - 1) / 5) * 5) + 1;
+        int endPage = Math.min(startPage + 4, totalPages);
 
         // 범위 내에 있는 검색 결과를 추출하여 리스트로 저장합니다.
         List<SearchDTO> pageResults = searchResults.subList(startIndex, endIndex);

@@ -63,7 +63,7 @@
 <%@include file="/header.jsp" %>
 <br>
 <div class="detail-container">
-    <div class="thumbnail"><img src="${search.snack_img}" alt="썸네일"></div>
+    <div class="thumbnail"><img src="${searchDTO.snack_img}" alt="썸네일"></div>
     <div class="detail-content">
         <div class="detail-row">${searchDTO.snack_name}</div>
         <div class="detail-row">${searchDTO.company}</div>

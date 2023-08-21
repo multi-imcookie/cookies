@@ -11,6 +11,7 @@ public class SearchDTO {
     String snack_ingredients;
     boolean snack_sweet;
     boolean snack_salty;
+    String snack_reportNo;
 
     float netwt;
     float serving;
