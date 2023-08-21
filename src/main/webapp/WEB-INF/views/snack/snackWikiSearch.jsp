@@ -117,10 +117,13 @@
 </div>
 
 <div class="pagination">
+    <a href="#" data-page="1">첫 페이지</a>
+
     <c:if test="${currentPage > 1}">
-        <a href="#" data-page="${currentPage - 1}">이전</a>
+        <a href="#" data-page="${currentPage - 1}">&laquo; 이전</a>
     </c:if>
-    <c:forEach var="pageNum" begin="1" end="${totalPages}">
+
+    <c:forEach var="pageNum" begin="${startPage}" end="${endPage}">
         <c:choose>
             <c:when test="${pageNum == currentPage}">
                 <span>${pageNum}</span>
@@ -130,9 +133,12 @@
             </c:otherwise>
         </c:choose>
     </c:forEach>
-    <c:if test="${currentPage < totalPages}">
-        <a href="#" data-page="${currentPage + 1}">다음</a>
+
+    <c:if test="${endPage < totalPages}">
+        <a href="#" data-page="${currentPage + 1}">다음 &raquo;</a>
     </c:if>
+
+    <a href="#" data-page="${totalPages}">마지막 페이지</a>
 </div>
 
 <script>
