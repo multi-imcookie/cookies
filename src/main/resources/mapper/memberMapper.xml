@@ -4,7 +4,7 @@
     <insert id="sign" parameterType="memberDTO" useGeneratedKeys="true" keyProperty="memberId">
         insert into member
         values (null, #{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender},
-                #{member_birthday}, #{member_email}, #{member_grade}, null, null, now())
+                #{member_birthday}, #{member_email}, #{member_grade}, null, null, now(), #{member_phone})
     </insert>
     <select id="checkDuplicateId" parameterType="String" resultType="int">
         SELECT COUNT(member_signId)
