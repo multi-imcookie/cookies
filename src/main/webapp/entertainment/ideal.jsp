@@ -16,7 +16,7 @@
 <%@include file="../header.jsp" %>
 <table>
     <tr>
-        <form action="worldcup.jsp">
+        <form action="/entertainment/idealWorldCupGame" method="get">
             <label for="kang">라운드를 선택 해주세요:</label>
             <select name="kang" id="kang">
                 <option value="8">8강</option>

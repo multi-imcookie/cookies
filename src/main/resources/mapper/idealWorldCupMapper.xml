@@ -20,6 +20,17 @@
         where ranking2.idealRanking between #{start} and #{end}
     </select>
 
+    <select id="list" resultType="String">
+        Select ideal_snack_img from ideal_worldcup Order by rand()
+    </select>
 
+<!--    <select id="one" parameterType="String" resultType="idealWorldCupDTO">-->
+<!--        select ideal_snack_img from ideal_worldcup where ideal_snack_name = #{ideal_snack_name}-->
+<!--    </select>-->
+    <update id="updateWins" parameterType="String">
+        UPDATE ideal_worldcup
+        SET ideal_snack_wins = ideal_snack_wins + 1
+        WHERE ideal_snack_img = #{winner}
+    </update>
 
 </mapper>
