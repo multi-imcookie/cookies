@@ -1,6 +1,6 @@
-package com.multi.cookies.entertainment.vo;
+package com.multi.cookies.entertainment.dto;
 
-public class PageVO {
+public class PageDTO {
     private int start;
     private int end;
     private int page;

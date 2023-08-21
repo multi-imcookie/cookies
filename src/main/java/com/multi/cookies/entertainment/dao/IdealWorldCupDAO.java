@@ -1,7 +1,7 @@
 package com.multi.cookies.entertainment.dao;
 
 import com.multi.cookies.entertainment.dto.IdealWorldCupDTO;
-import com.multi.cookies.entertainment.vo.PageVO;
+import com.multi.cookies.entertainment.dto.PageDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,11 +13,11 @@ public class IdealWorldCupDAO {
 
     @Autowired
     SqlSessionTemplate my;
-    public List<IdealWorldCupDTO> list2(PageVO vo) {
-        return my.selectList("worldCup.list2", vo);
+    public List<IdealWorldCupDTO> list2(PageDTO pageDTO) {
+        return my.selectList("worldCup.list2", pageDTO);
     }
-    public List<IdealWorldCupDTO> all(PageVO vo) {
-        return my.selectList("worldCup.all", vo);
+    public List<IdealWorldCupDTO> all(PageDTO pageDTO) {
+        return my.selectList("worldCup.all", pageDTO);
     }
     public int count() {
         return my.selectOne("worldCup.count");

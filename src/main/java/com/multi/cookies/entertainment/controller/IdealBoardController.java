@@ -2,7 +2,7 @@ package com.multi.cookies.entertainment.controller;
 
 import com.multi.cookies.entertainment.dao.IdealBoardDAO;
 import com.multi.cookies.entertainment.dto.IdealBoardDTO;
-import com.multi.cookies.entertainment.vo.PageVO;
+import com.multi.cookies.entertainment.dto.PageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,15 +18,15 @@ public class IdealBoardController {
     IdealBoardDAO idealBoardDAO;
 
     @RequestMapping("/entertainment/idealBoardList")
-    public void list2(PageVO vo, Model model){
-        vo.setStartEnd(vo.getPage());
-        List<IdealBoardDTO> list = idealBoardDAO.list2(vo);
+    public void list2(PageDTO pageDTO, Model model){
+        pageDTO.setStartEnd(pageDTO.getPage());
+        List<IdealBoardDTO> list = idealBoardDAO.list2(pageDTO);
         model.addAttribute("list", list);
     }
     @RequestMapping("/entertainment/idealBoardAll")
-    public void all2(PageVO vo, Model model) {
-        vo.setStartEnd(vo.getPage());
-        List<IdealBoardDTO> list = idealBoardDAO.all(vo);
+    public void all2(PageDTO pageDTO, Model model) {
+        pageDTO.setStartEnd(pageDTO.getPage());
+        List<IdealBoardDTO> list = idealBoardDAO.all(pageDTO);
         int count = idealBoardDAO.count();
         int pages = count / 10 + 1; //전체 페이지 개수 구하기
         model.addAttribute("list", list);
@@ -45,5 +45,4 @@ public class IdealBoardController {
         int result = idealBoardDAO.delete(idealBoardDTO);
         return result;
     }
-
 }
