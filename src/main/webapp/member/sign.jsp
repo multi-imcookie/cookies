@@ -46,6 +46,17 @@
                    required>
         </div>
         <div class="input-section">
+            <label class="label-wrap" for="member_phone1">휴대폰번호
+                <img class="help" src="/resources/img/help-circle.svg" alt="도움말">
+                <span class="help-content">아이디 또는 비밀번호를 찾을 때 필요한 정보입니다.</span>
+            </label>
+            <input type="number" min="1" maxlength="3" oninput="maxLengthChk(this)" id="member_phone1" name="member_phone1" placeholder="000">
+            <span class="form-at">-</span>
+            <input type="number" min="1" maxlength="4" oninput="maxLengthChk(this)" id="member_phone2" name="member_phone2" placeholder="0000">
+            <span class="form-at">-</span>
+            <input type="number" min="1" maxlength="4" oninput="maxLengthChk(this)" id="member_phone3" name="member_phone3" placeholder="0000">
+        </div>
+        <div class="input-section">
             <label class="label-wrap" for="member_pw">비밀번호 입력<span class="require-val">*</span></label>
             <input type="password" id="member_pw" name="member_pw" placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합" required>
             <span class="guide pw_rule"></span>
@@ -58,9 +69,9 @@
         <div class="input-section">
             <label class="label-wrap" for="member_birthday1">생일 / 연령대<span class="require-val">*</span></label>
             <div class="input-section-left">
-                <input type="number" maxlength="2" oninput="maxLengthChk(this)" id="member_birthday1" name="member_birthday1" placeholder="MM"
+                <input type="number" min="1" max="12" maxlength="2" oninput="maxLengthChk(this)" id="member_birthday1" name="member_birthday1" placeholder="MM"
                        required>
-                <input type="number" maxlength="2" oninput="maxLengthChk(this)" id="member_birthday2" name="member_birthday2" placeholder="DD"
+                <input type="number" min="1" max="31" maxlength="2" oninput="maxLengthChk(this)" id="member_birthday2" name="member_birthday2" placeholder="DD"
                        required>
             </div>
             <div class="input-section-right">
@@ -106,7 +117,7 @@
         <div class="input-section">
             <label class="label-wrap" for="member_email1">이메일<span class="require-val">*</span></label>
             <input type="text" id="member_email1" name="member_email1" placeholder="이메일을 입력하세요." required>
-            <span class="email-at">@</span>
+            <span class="form-at">@</span>
             <input type="text" id="member_email2" name="member_email2" placeholder="이메일 주소를 입력하세요." required>
         </div>
         <input type="button" id="signUp-btn" class="fill-btn" value="회원가입">

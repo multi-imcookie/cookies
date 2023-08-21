@@ -13,6 +13,8 @@ $(document).ready(function () {
 
         // 입력값이 null일 경우
         if (formIsValid) {
+            // 핸드폰 번호 값 합치기
+            let member_phone = $("#member_phone1").val() + "-" + $("#member_phone2").val() + "-" + $("#member_phone3").val();
             // 생일 월, 일 값 두개를 합치기
             let member_birthday = $("#member_birthday1").val() + "월 " + $("#member_birthday2").val() + "일";
 
@@ -36,17 +38,18 @@ $(document).ready(function () {
                         // 비밀번호 일치 확인
                         if ($("#member_pw").val() === $("#member_pwChk").val()) {
                             $.ajax({
-                                type: "post",
-                                url: "sign",
-                                dataType: "text",
-                                data: {
-                                    member_signId: member_signId,
-                                    member_nickname: $("#member_nickname").val(),
-                                    member_pw: $("#member_pw").val(),
-                                    member_birthday: member_birthday,
-                                    member_age: $("input[name='member_age']:checked").val(),
-                                    member_gender: $("input[name='member_gender']:checked").val(),
-                                    member_email: member_email
+                                type : "post",
+                                url : "sign",
+                                dataType : "text",
+                                data : {
+                                    member_signId : member_signId,
+                                    member_nickname : $("#member_nickname").val(),
+                                    member_pw : $("#member_pw").val(),
+                                    member_birthday : member_birthday,
+                                    member_age : $("input[name='member_age']:checked").val(),
+                                    member_gender : $("input[name='member_gender']:checked").val(),
+                                    member_email : member_email,
+                                    member_phone : member_phone
                                 },
                                 success: function (response) {
                                     if (response != 0) {
@@ -125,6 +128,19 @@ $(document).ready(function () {
             signRuleGuide(".pw_rule", "사용 가능한 비밀번호 입니다.", "#78CA5B")
         }
     });
+
+    // 도움말 창
+    $(".help").click(function () {
+        $(".help-content").show();
+    });
+
+    $(document).mouseup(function (e) {
+        let helpPopup = $(".help-content");
+        if (helpPopup.has(e.target).length === 0) {
+            helpPopup.css("display", "none");
+        }
+    })
+
     // 회원가입 script 끝
 });
 

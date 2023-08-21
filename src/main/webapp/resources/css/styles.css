@@ -688,7 +688,7 @@ input[type='number'] {
     color: #CBB89B;
 }
 
-.email-at {
+.form-at {
     color: #CBB89B;
 }
 
@@ -728,6 +728,27 @@ input[type='number'] {
     align-items: center;
     gap: 8px;
     align-self: stretch;
+}
+
+.help {
+    cursor: pointer;
+}
+
+.help-content {
+    color: #CBB89B;
+    font-size: 14px;
+    line-height: 26px;
+    display: none;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 52px;
+    left: 0;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.10);
 }
 
 /* sub - 회원가입 페이지 끝 */
