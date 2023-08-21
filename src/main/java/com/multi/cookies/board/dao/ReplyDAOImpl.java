@@ -15,7 +15,7 @@ public class ReplyDAOImpl implements ReplyDAO {
     @Inject
     private SqlSession sql;
 
-    private static String namespace = "com.multi.cookies.board.mapper.replyDTO";
+    private static String namespace = "replyDTO";
 
     // 댓글 조회
     @Override
