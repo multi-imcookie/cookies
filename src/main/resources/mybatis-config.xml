@@ -14,6 +14,7 @@
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealWorldCupDTO" alias="idealWorldCupDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.vo.PageVO" alias="pageVO"></typeAlias>
+        <typeAlias type="com.multi.cookies.board.dto.ReviewDTO" alias="reviewDTO"></typeAlias>
     </typeAliases>
     <mappers>
         <mapper resource="mapper/snackMapper.xml"/>
@@ -24,6 +25,7 @@
         <mapper resource="mapper/loginMapper.xml"/>
         <mapper resource="mapper/findMapper.xml"/>
         <mapper resource="mapper/memberMapper.xml"/>
+        <mapper resource="mapper/reviewMapper.xml"/>
     </mappers>
 
 </configuration>
