@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DBApiServiceImpl implements DBApiService {
@@ -69,7 +71,9 @@ public class DBApiServiceImpl implements DBApiService {
     @Override
     public void insertDB() throws IOException, ParseException {
         for (int i = 1; i <= calculateNumOfPage(); i++) {
-            dbApiDAO.insertDB(parseJsonData(i));
+            for (DBApiDTO dbApiDTO : parseJsonData(i)) {
+                dbApiDAO.insertDB(dbApiDTO);
+            }
             System.out.println(i + "페이지 성공");
         }
         System.out.println("DB 목록 생성 성공!");
@@ -85,18 +89,22 @@ public class DBApiServiceImpl implements DBApiService {
     }
 
     @Override
-    public DBApiDTO parseJsonData(int page) throws ParseException, IOException {
+    public List<DBApiDTO> parseJsonData(int page) throws ParseException, IOException {
         String foodInfo = callHaccpAPI(page);
-        replaceJson(foodInfo);
+        foodInfo = replaceJson(foodInfo);
 
         JSONObject jsonObject = parseJsonObject(foodInfo);    // 문자열 JSONObject로 변환
         JSONArray items = getJsonItems(jsonObject);    // items 가져오기
-        DBApiDTO dbApiDTO = new DBApiDTO();
+
+        //System.out.println(items.toJSONString());
+
+        List<DBApiDTO> dbApiDTOList = new ArrayList<>();
 
         for (Object item : items) {
             JSONObject itemObject = (JSONObject) item;
             JSONObject innerItem = (JSONObject) itemObject.get("item");
 
+            DBApiDTO dbApiDTO = new DBApiDTO();
             dbApiDTO.setSnack_name((String) innerItem.get("prdlstNm"));   // 과자이름
             dbApiDTO.setNutri_string((String) innerItem.get("nutrient"));   // 영양성분
             dbApiDTO.setSnack_ingredients((String) innerItem.get("rawmtrl"));   // 원재료명
@@ -105,17 +113,19 @@ public class DBApiServiceImpl implements DBApiService {
             dbApiDTO.setSnack_reportNo((String) innerItem.get("prdlstReportNo"));   // 품목보고번호
             dbApiDTO.setAllergy((String) innerItem.get("allergy"));   // 알레르기 유발 성분
 
-            // System.out.println(prdlstNm);
+            // System.out.println(dbApiDTO);
+            dbApiDTOList.add(dbApiDTO);
         }
-        return dbApiDTO;
+        // System.out.println(dbApiDTOList);
+        return dbApiDTOList;
     }
 
     /**
-     *  여기부터 private
+     * 여기부터 private
      */
     private int calculateNumOfPage() throws IOException, ParseException {    // 총 페이지 개수 계산
         String foodInfo = callHaccpAPI(1);
-        replaceJson(foodInfo);
+        foodInfo = replaceJson(foodInfo);
 
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(foodInfo);    // 문자열 JSONObject로 변환
