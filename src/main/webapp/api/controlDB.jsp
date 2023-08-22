@@ -14,7 +14,9 @@
 <body>
     <%@include file="/header.jsp" %>
     <div>
-        <a href="refreshDB">DB 새로고침</a>
+        <a href="updateDB">DB 업데이트</a>
+        <a href="insertDB">DB 생성</a>
+        <a href="initializeDB">DB 초기화</a>
     </div>
     <%@include file="/footer.jsp" %>
 </body>

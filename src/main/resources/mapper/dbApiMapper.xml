@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="db">
-    <delete id="deleteNutri">
-        delete from snack_nutritional;
-    </delete>
-
-    <update id="resetNutriAI">
-        alter table snack_nutritional auto_increment = 1;
-    </update>
-
-    <delete id="deleteSnack">
-        delete from snack;
-    </delete>
-
-    <update id="resetSnackAI">
-        alter table snack auto_increment = 1;
-    </update>
-
+    <!--insert-->
     <insert id="insertSnack" parameterType="dbApiDTO" useGeneratedKeys="true" keyProperty="snack_id">
         insert into snack (snack_name, company, snack_img, snack_ingredients, snack_reportNo)
         values (#{snack_name}, #{company}, #{snack_img}, #{snack_ingredients}, #{snack_reportNo});
@@ -25,4 +10,44 @@
         insert into snack_nutritional (snack_id, nutri_string, allergy)
         values (#{snack_id}, #{nutri_string}, #{allergy});
     </insert>
+    <!--여기까지-->
+
+    <!--update-->
+    <update id="updateSnack" parameterType="dbUpdateDTO">
+        update snack
+        <set>
+            <if test="snack_ingredients != null">snack_ingredients = #{snack_ingredients}</if>
+            <if test="snack_name != null">snack_name = #{snack_name}</if>
+            <if test="snack_img != null">snack_img = #{snack_img}</if>
+            <if test="company != null">company = #{company}</if>
+            <if test="snack_reportNo != null">snack_reportNo = #{snack_reportNo}</if>
+        </set>
+        update snack_id = #{snack_id}
+    </update>
+    <update id="updateNutri" parameterType="dbUpdateDTO">
+        update snack_nutritional
+        <set>
+            <if test="nutri_string != null">nutri_string = #{nutri_string}</if>
+            <if test="allergy != null">allergy = #{allergy}</if>
+        </set>
+        update snack_id = #{snack_id}
+    </update>
+    <!--여기까지-->
+
+    <!--초기화-->
+    <delete id="deleteNutri">
+        delete
+        from snack_nutritional;
+    </delete>
+    <update id="resetNutriAI">
+        alter table snack_nutritional auto_increment = 1;
+    </update>
+    <delete id="deleteSnack">
+        delete
+        from snack;
+    </delete>
+    <update id="resetSnackAI">
+        alter table snack auto_increment = 1;
+    </update>
+    <!--여기까지-->
 </mapper>

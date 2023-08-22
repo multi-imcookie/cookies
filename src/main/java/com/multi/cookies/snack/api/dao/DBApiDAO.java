@@ -4,6 +4,7 @@ import com.multi.cookies.snack.api.dto.DBApiDTO;
 
 public interface DBApiDAO {
     int insertDB(DBApiDTO dbApiDTO);
-    int deleteDB();
+    int updateDB();
+    int deleteAllDB();
     void resetDBAI();
 }

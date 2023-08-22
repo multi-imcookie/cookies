@@ -22,9 +22,19 @@ public class DBApiController {
      * TODO: 스케쥴러 미작동(수정예정)
      */
     @Scheduled(cron="0 0 15 * * * *")    // cron: 초 분 시 일 월 요일 연도
-    @RequestMapping("refreshDB")
-    public void refreshDB() throws IOException, ParseException {
-        dbApiService.parseJsonData();
+    @RequestMapping("updateDB")
+    public void updateDB() throws ParseException { // DB 최신화
+        dbApiService.updateDB();
+    }
+
+    @RequestMapping("insertDB")
+    public void insertDB() throws ParseException, IOException {  // DB 생성
+        dbApiService.insertDB();
+    }
+
+    @RequestMapping("initializeDB")
+    public void initializeDB() {    // DB 초기화
+        dbApiService.initializeDB();
     }
 
 }
