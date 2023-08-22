@@ -6,14 +6,14 @@
         select count(*) from ideal_worldcup
     </select>
 
-    <select id="all" resultType="idealWorldCupDTO"  parameterType="pageVO">
+    <select id="all" resultType="idealWorldCupDTO"  parameterType="pageDTO">
         select * from (
                           select ROW_NUMBER() over(order by ideal_snack_wins desc) as idealRanking, a.*
                           from ideal_worldcup a) ranking2
         where ranking2.idealRanking between ${start} and ${end}
     </select>
 
-    <select id="list2" resultType="idealWorldCupDTO" parameterType="pageVO">
+    <select id="list2" resultType="idealWorldCupDTO" parameterType="pageDTO">
         select * from (
                           select ROW_NUMBER() over(order by ideal_snack_wins desc) as idealRanking, a.*
                           from ideal_worldcup a) ranking2

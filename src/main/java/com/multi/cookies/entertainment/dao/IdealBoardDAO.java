@@ -1,7 +1,7 @@
 package com.multi.cookies.entertainment.dao;
 
 import com.multi.cookies.entertainment.dto.IdealBoardDTO;
-import com.multi.cookies.entertainment.vo.PageVO;
+import com.multi.cookies.entertainment.dto.PageDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,11 +13,11 @@ public class IdealBoardDAO {
 
     @Autowired
     SqlSessionTemplate my;
-    public List<IdealBoardDTO> list2(PageVO vo) {
-        return my.selectList("idealBoard.list2", vo);
+    public List<IdealBoardDTO> list2(PageDTO pageDTO) {
+        return my.selectList("idealBoard.list2", pageDTO);
     }
-    public List<IdealBoardDTO> all(PageVO vo) {
-        return my.selectList("idealBoard.all", vo);
+    public List<IdealBoardDTO> all(PageDTO pageDTO) {
+        return my.selectList("idealBoard.all", pageDTO);
     }
     public int count() {
         return my.selectOne("idealBoard.count");
