@@ -27,7 +27,7 @@ public class DBApiServiceImpl implements DBApiService {
     private String apiKey;
 
     @Override
-    public String callHaccpAPI(int page) throws IOException {
+    public String callHaccpAPI(int page) throws IOException {   // 식품정보 API
         StringBuilder urlBuilder = new StringBuilder("https://apis.data.go.kr/B553748/CertImgListServiceV2/getCertImgListServiceV2"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + apiKey); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("returnType", "UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
@@ -61,62 +61,91 @@ public class DBApiServiceImpl implements DBApiService {
         return sb.toString();
     }
 
-    public void parseJsonData() throws ParseException {
-        try {
-            int deleteResult = dbApiDAO.deleteDB();
-            dbApiDAO.resetDBAI();
+    @Override
+    public void updateDB() {
 
-            if (deleteResult > 0) {
-                System.out.println("DB " + deleteResult + " 건 초기화 성공!");
-            }
+    }
 
-            String foodInfo = callHaccpAPI(1);
-            foodInfo = foodInfo.replace("\n", " ");
-            foodInfo = foodInfo.replace("<", "");
-            foodInfo = foodInfo.replace(">", "");
-
-            JSONParser jsonParser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(foodInfo);    // 문자열 JSONObject로 변환
-
-            JSONObject body = (JSONObject) jsonObject.get("body");  // body 가져오기
-            double totalCount = Double.parseDouble((String) body.get("totalCount"));    // 목록 총 개수 (+double로 형변환)
-            double numOfRows = Double.parseDouble((String) body.get("numOfRows"));   // 페이지당 행 개수 (+double로 형변환)
-            // System.out.println(totalCount);
-/**
- *  페이지 수만큼 반복
- */
-            for (int i = 1; i <= Math.ceil(totalCount / numOfRows); i++) {
-                foodInfo = callHaccpAPI(i);
-                foodInfo = foodInfo.replace("\n", " ");
-                foodInfo = foodInfo.replace("<", "");
-                foodInfo = foodInfo.replace(">", "");
-
-                jsonObject = (JSONObject) jsonParser.parse(foodInfo);    // 문자열 JSONObject로 변환
-                body = (JSONObject) jsonObject.get("body");  // body 가져오기
-                JSONArray items = (JSONArray) body.get("items");    // items 가져오기
-
-                for (Object item : items) {
-                    DBApiDTO dbApiDTO = new DBApiDTO();
-                    JSONObject itemObject = (JSONObject) item;
-                    JSONObject innerItem = (JSONObject) itemObject.get("item");
-
-                    dbApiDTO.setSnack_name((String) innerItem.get("prdlstNm"));   // 과자이름
-                    dbApiDTO.setNutri_string((String) innerItem.get("nutrient"));   // 영양성분
-                    dbApiDTO.setSnack_ingredients((String) innerItem.get("rawmtrl"));   // 원재료명
-                    dbApiDTO.setSnack_img((String) innerItem.get("imgurl1"));   // 이미지(url)
-                    dbApiDTO.setCompany((String) innerItem.get("manufacture"));   // 제조사
-                    dbApiDTO.setSnack_reportNo((String) innerItem.get("prdlstReportNo"));   // 품목보고번호
-                    dbApiDTO.setAllergy((String) innerItem.get("allergy"));   // 알레르기 유발 성분
-
-                    dbApiDAO.insertDB(dbApiDTO);
-
-                    // System.out.println(prdlstNm);
-                }
-                System.out.println(i + "페이지 성공");
-            }
-            System.out.println("DB 목록 갱신 성공!");
-        } catch (Exception e) {
-            e.printStackTrace();
+    @Override
+    public void insertDB() throws IOException, ParseException {
+        for (int i = 1; i <= calculateNumOfPage(); i++) {
+            dbApiDAO.insertDB(parseJsonData(i));
+            System.out.println(i + "페이지 성공");
         }
+        System.out.println("DB 목록 생성 성공!");
+    }
+
+    @Override
+    public void initializeDB() {
+        int deleteResult = dbApiDAO.deleteAllDB();
+        dbApiDAO.resetDBAI();
+        if (deleteResult > 0) {
+            System.out.println("DB " + deleteResult + " 건 초기화 성공!");
+        }
+    }
+
+    @Override
+    public DBApiDTO parseJsonData(int page) throws ParseException, IOException {
+        String foodInfo = callHaccpAPI(page);
+        replaceJson(foodInfo);
+
+        JSONObject jsonObject = parseJsonObject(foodInfo);    // 문자열 JSONObject로 변환
+        JSONArray items = getJsonItems(jsonObject);    // items 가져오기
+        DBApiDTO dbApiDTO = new DBApiDTO();
+
+        for (Object item : items) {
+            JSONObject itemObject = (JSONObject) item;
+            JSONObject innerItem = (JSONObject) itemObject.get("item");
+
+            dbApiDTO.setSnack_name((String) innerItem.get("prdlstNm"));   // 과자이름
+            dbApiDTO.setNutri_string((String) innerItem.get("nutrient"));   // 영양성분
+            dbApiDTO.setSnack_ingredients((String) innerItem.get("rawmtrl"));   // 원재료명
+            dbApiDTO.setSnack_img((String) innerItem.get("imgurl1"));   // 이미지(url)
+            dbApiDTO.setCompany((String) innerItem.get("manufacture"));   // 제조사
+            dbApiDTO.setSnack_reportNo((String) innerItem.get("prdlstReportNo"));   // 품목보고번호
+            dbApiDTO.setAllergy((String) innerItem.get("allergy"));   // 알레르기 유발 성분
+
+            // System.out.println(prdlstNm);
+        }
+        return dbApiDTO;
+    }
+
+    /**
+     *  여기부터 private
+     */
+    private int calculateNumOfPage() throws IOException, ParseException {    // 총 페이지 개수 계산
+        String foodInfo = callHaccpAPI(1);
+        replaceJson(foodInfo);
+
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(foodInfo);    // 문자열 JSONObject로 변환
+
+        JSONObject body = (JSONObject) jsonObject.get("body");  // body 가져오기
+
+        double totalCount = Double.parseDouble((String) body.get("totalCount"));    // 목록 총 개수 (+double로 형변환)
+        double numOfRows = Double.parseDouble((String) body.get("numOfRows"));   // 페이지당 행 개수 (+double로 형변환)
+        int totalPage = (int) Math.ceil(totalCount / numOfRows);
+
+        return totalPage;
+    }
+
+    private String replaceJson(String json) {   // 파싱 중 오류 나는 문자열 처리
+        json = json.replace("\n", " ");
+        json = json.replace("<", "");
+        json = json.replace(">", "");
+
+        return json;
+    }
+
+    private JSONObject parseJsonObject(String json) throws ParseException {
+        JSONParser jsonParser = new JSONParser();
+
+        return (JSONObject) jsonParser.parse(json);
+    }
+
+    private JSONArray getJsonItems(JSONObject jsonObject) { // body 가져오기
+        JSONObject body = (JSONObject) jsonObject.get("body");
+
+        return (JSONArray) body.get("items");
     }
 }
