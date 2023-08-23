@@ -36,7 +36,7 @@ public class NaverSocialLoginService {
         naverCallBackURL = env.getProperty("naver.callBackURL");
     }
 
-    public String getToken(String code, String state, HttpSession session)throws Exception{
+    public String getToken(String code, String state)throws Exception{
         String redirectURI = URLEncoder.encode("http://localhost:8989/member/callback.jsp","UTF-8");
         StringBuffer apiURL = new StringBuffer();
         apiURL.append("https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&");

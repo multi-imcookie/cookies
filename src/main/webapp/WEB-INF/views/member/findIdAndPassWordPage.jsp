@@ -7,14 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 <html>
 <head>
   <script type="text/javascript" src="/resources/js/jquery-3.7.0.js"></script>
   <script type="text/javascript" src="/resources/js/scripts.js"></script>
   <title>전과자</title>
-  <%@ include file="../../../link.jsp" %>
+  <%@ include file="/link.jsp" %>
   <script type="text/javascript">
 
     $(function() {
@@ -68,7 +67,7 @@
 </head>
 <body>
 <header>
-  <%@include file="../../../header.jsp" %>
+  <%@include file="/header.jsp" %>
 </header>
 <br><br><br><br><br><br>
 
