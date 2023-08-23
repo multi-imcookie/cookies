@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,8 +22,12 @@ public class SnackController {
     @Autowired
     SnackService snackService;
 
-    //@RequestMapping("/snack/snackWikiSearch") //method = RequestMethod.GET
-    @RequestMapping("/snack/snackWikiSearch")
+    @RequestMapping(value = {"/snack/snackSelectPopup"}, method = RequestMethod.GET)
+    public String openSnackReviewSearch() {
+        return "/snack/snackReviewSearch";
+    }
+    @RequestMapping(value = {"/snack/snackWikiSearch", "/snack/snackReviewSearch"}, method = RequestMethod.GET)
+   // @RequestMapping("/snack/snackWikiSearch")
     public String snackSearch(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
         System.out.println("컨트롤러 가동!");
         int pageSize = 10;
@@ -51,7 +57,7 @@ public class SnackController {
         // 범위 내에 있는 검색 결과를 추출하여 리스트로 저장합니다.
         List<SearchDTO> pageResults = searchResults.subList(startIndex, endIndex);
 
-        // String requestURI = (String)request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        String requestURI = (String)request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchResults", pageResults);
         model.addAttribute("totalPages", totalPages);
@@ -60,19 +66,17 @@ public class SnackController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        //       if(requestURI.equals("homeSnackSearch")){
-        //           model.addAttribute("searchResults", searchResults);
-        //           System.out.println("메인에서 검색!");
-        //           return "snack/homeSnackSearch";
-        //       } else {
-        //           model.addAttribute("searchResults", searchResults);
-        //           System.out.println("위키에서 검색!");
-        //           return "/snack/snackWikiSearch";
-        //       }
-        return "snack/snackWikiSearch";
+             if(requestURI.equals("/snack/snackReviewSearch")){
+                 System.out.println("리뷰에서 검색!");
+                 return "/snack/snackReviewSearch";
+             } else {
+                 System.out.println("위키에서 검색!");
+                 return "/snack/snackWikiSearch";
+             }
+      //return "snack/snackWikiSearch";
     }
 
-    @RequestMapping("/snack/snackInfo")
+    @RequestMapping(value = {"/snack/snackWikiInfo", "snack/snackReviewSearchInfo"}, method = RequestMethod.GET)
     public void snackInfo(int snack_id, @RequestParam(required = false) String keyword, Model model) {
         System.out.println("snack_id : " + snack_id);
         SearchDTO searchDTO = snackService.snackInfo(snack_id);

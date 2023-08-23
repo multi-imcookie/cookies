@@ -42,8 +42,8 @@
 
     <!-- 게시물 작성 -->
     <insert id="insert">
-        INSERT INTO review_bbs(review_title , review_score, review_content, review_img, member_id)
-        VALUES(#{review_title}, #{review_score}, #{review_content}, #{review_img}, #{member_id})
+        INSERT INTO review_bbs(review_title , review_score, review_content, review_img, member_id, snack_id)
+        VALUES(#{review_title}, #{review_score}, #{review_content}, #{review_img}, #{member_id}, #{snack_id})
 
     </insert>
 
