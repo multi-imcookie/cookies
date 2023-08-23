@@ -48,27 +48,47 @@
     <update id="addSnackReviewScore" parameterType="reviewDTO">
         UPDATE avg_score
         SET total_score = total_score + #{review_score},
-            review_count = review_count + 1
-            avg_score = (total_score + #{review_score}) / (review_count + 1)
+            review_count = review_count + 1,
+            avg_score = total_score / review_count
         WHERE snack_id = #{snack_id}
     </update>
 
     <!-- 리뷰든 큐레이션이든 이미 별점을 매긴 게시물이나 결과를 지웠을 때 그 변화를 반영하는 쿼리. -->
-    <update id="subtractSnackReviewScore" parameterType="reviewDTO">
+    <update id="subtractSnackReviewScore" parameterType="int">
+        UPDATE avg_score
+        SET total_score = total_score - (SELECT review_score FROM review_bbs WHERE review_id = #{review_id}),
+            review_count = review_count - 1,
+            avg_score = IF(review_count > 0, (total_score / review_count), 0)
+        WHERE snack_id = (SELECT snack_id FROM review_bbs WHERE review_id = #{review_id})
+    </update>
+    <!--<update id="subtractSnackReviewScore" parameterType="review_id">
         UPDATE avg_score
         SET total_score = total_score - #{review_score},
-            review_count = review_count - 1
-            avg_score = (total_score - #{review_score}) / (review_count - 1)
+            review_count = review_count - 1,
+            avg_score = total_score  / review_count
         WHERE snack_id = #{snack_id}
-    </update>
+    </update>-->
 
     <!-- 리뷰든 큐레이션이든 이미 별점을 매긴 게시물이나 결과를 수정해서 별점을 바꾸었을 때 그 변화를 반영하는 쿼리 -->
-    <update id="updateSnackReviewScore" parameterType="scoreDTO">
+    <update id="updateSnackReviewScore" parameterType="reviewDTO">
+        <!-- review_id로부터 review_score 값을 가져옴 -->
+        <selectKey keyProperty="preview_score" resultType="int" order="BEFORE">
+            SELECT review_score FROM review_bbs WHERE review_id = #{review_id}
+        </selectKey>
+
+        <!-- 얻어진 review_score와 reviewDTO의 review_score를 사용하여 avg_score 테이블 업데이트 -->
         UPDATE avg_score
-        SET total_score = total_score - #{preview_score} + #{new_score},
-            avg_score = (total_score - #{preview_score} + #{new_score}) / review_count
-        WHERE snack_id = #{snack_id}
+        SET total_score = total_score - #{preview_score} + #{reviewDTO.review_score},
+        avg_score = total_score / review_count
+        WHERE snack_id = #{reviewDTO.snack_id}
     </update>
+
+    <!-- <update id="updateSnackReviewScore" parameterType="reviewDTO">
+    UPDATE avg_score
+    SET total_score = total_score - #{preview_score} + #{new_score},
+        avg_score = total_score / review_count
+    WHERE snack_id = #{snack_id}
+</update>-->
 
 
 </mapper>

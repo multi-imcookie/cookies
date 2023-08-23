@@ -27,10 +27,12 @@ public class ReviewServiceImpl implements ReviewService {
     // 2. 게시글쓰기
     @Override
     public void create(ReviewDTO reviewDTO) throws Exception {
-        String review_title = reviewDTO.getReview_title();
-        int review_score = reviewDTO.getReview_score();
-        String review_content = reviewDTO.getReview_content();
-        String review_img = reviewDTO.getReview_img();
+        // 아래 이거 잘못 들어간 거 같아서 주석처리했슴둥!
+
+        // String review_title = reviewDTO.getReview_title();
+        // int review_score = reviewDTO.getReview_score();
+        // String review_content = reviewDTO.getReview_content();
+        // String review_img = reviewDTO.getReview_img();
 
 /*        // *태그문자 처리 (< ==> &lt; > ==> &gt;)
         // replace(A, B) A를 B로 변경

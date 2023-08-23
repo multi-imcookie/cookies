@@ -56,6 +56,7 @@
             // AJAX를 통해 선택한 과자 정보 실시간 업데이트
             function updateSelectedSnackInfo() {
                 var selectedSnackInfo = JSON.parse(localStorage.getItem("selectedSnackInfo"));
+                var selectSnackResult = document.getElementById("selectSnackResult"); // div 요소 가져오기
                 if (selectedSnackInfo) {
                     // 선택한 과자 정보를 사용하여 업데이트
                     $("#selectedSnackId").text(selectedSnackInfo.snackId);
@@ -64,9 +65,16 @@
                     var getSnackId = selectedSnackInfo.snackId;
                     console.log(getSnackId);
                     $("#snack_id").val(getSnackId);
+
+                    // 선택한 과자 정보가 있을 때만 div 요소 보이기
+                    selectSnackResult.style.display = "block";
+
                     // ... 다른 정보들도 필요한 대로 추가
                 } else {
                     console.log("No selected snack information found.");
+
+                    // 선택한 과자 정보가 없을 때는 div 요소 숨기기
+                    selectSnackResult.style.display = "none";
                 }
             }
 
@@ -88,7 +96,7 @@
 <h3>리뷰게시판 작성</h3>
 <div id="selectSnack">
     <button type="button" id="btnSearch">검색</button>
-    <div id="selectSnackResult">
+    <div id="selectSnackResult" style="display: none;">
         <p>선택한 과자 정보:</p>
         <p>과자 ID: <span id="selectedSnackId"></span></p>
         <p>과자 이름: <span id="selectedSnackName"></span></p>
