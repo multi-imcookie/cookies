@@ -21,11 +21,13 @@ public class DBApiDAOImpl implements DBApiDAO {
     }
 
     @Override
-    public int updateDB() { // DB 업데이트
-        int result = 0;
-        result += my.update("db.updateSnack");    // snack_nutritional DB 데이터 삭제
-        result += my.update("db.updateNutri");    // snack DB 데이터 삭제
-        return result;
+    public DBApiDTO pullDB(String snack_reportNo) {    // 기존 DB 가져오기(업데이트용)
+        return my.selectOne("db.pullData", snack_reportNo);
+    }
+
+    @Override
+    public int updateDB(DBApiDTO dbApiDTO) { // DB 업데이트
+        return my.update("db.update", dbApiDTO);    // DB 업데이트
     }
 
     @Override

@@ -13,24 +13,30 @@
     <!--여기까지-->
 
     <!--update-->
-    <update id="updateSnack" parameterType="dbUpdateDTO">
-        update snack
-        <set>
-            <if test="snack_ingredients != null">snack_ingredients = #{snack_ingredients}</if>
-            <if test="snack_name != null">snack_name = #{snack_name}</if>
-            <if test="snack_img != null">snack_img = #{snack_img}</if>
-            <if test="company != null">company = #{company}</if>
-            <if test="snack_reportNo != null">snack_reportNo = #{snack_reportNo}</if>
-        </set>
-        update snack_id = #{snack_id}
-    </update>
-    <update id="updateNutri" parameterType="dbUpdateDTO">
-        update snack_nutritional
-        <set>
-            <if test="nutri_string != null">nutri_string = #{nutri_string}</if>
-            <if test="allergy != null">allergy = #{allergy}</if>
-        </set>
-        update snack_id = #{snack_id}
+    <select id="pullData" parameterType="String" resultType="dbApiDTO">
+        select a.snack_name,
+               a.company,
+               a.snack_img,
+               a.snack_ingredients,
+               a.snack_reportNo,
+               b.nutri_string,
+               b.allergy
+        from snack a
+                 join snack_nutritional b
+                      on a.snack_id = b.snack_id
+        where a.snack_reportNO = #{snack_reportNo}
+    </select>
+    <update id="update" parameterType="dbApiDTO">
+        update snack a
+            join snack_nutritional b
+        on a.snack_id = b.snack_id
+            set a.snack_ingredients = #{snack_ingredients},
+                a.snack_name = #{snack_name},
+                a.snack_img = #{snack_img},
+                a.company = #{company},
+                b.nutri_string = #{nutri_string},
+                b.allergy = #{allergy}
+        where a.snack_reportNo = #{snack_reportNo}
     </update>
     <!--여기까지-->
 

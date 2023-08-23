@@ -29,7 +29,7 @@ public class DBApiServiceImpl implements DBApiService {
     private String apiKey;
 
     @Override
-    public String callHaccpAPI(int page) throws IOException {   // 식품정보 API
+    public String callHaccpAPI(int page) throws IOException {   // HACCP 식품정보 API
         StringBuilder urlBuilder = new StringBuilder("https://apis.data.go.kr/B553748/CertImgListServiceV2/getCertImgListServiceV2"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + apiKey); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("returnType", "UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
@@ -64,13 +64,24 @@ public class DBApiServiceImpl implements DBApiService {
     }
 
     @Override
-    public void updateDB() {
-
+    public void updateDB() throws ParseException, IOException {
+        int result = 0;
+        int maxPage = calculateNumOfPage(); // 최대 페이지 수
+        for (int i = 1; i <= maxPage; i++) {
+            for (DBApiDTO dbApiDTO : parseJsonData(i)) {
+                if (!dbApiDTO.equals(dbApiDAO.pullDB(dbApiDTO.getSnack_reportNo()))) {
+                    result += dbApiDAO.updateDB(dbApiDTO);
+                }
+            }
+            System.out.println(i + "페이지 업데이트 성공");
+        }
+        System.out.println("총 " + result / 2 + "개 항목 업데이트 완료"); // 한 항목당 업데이트 되는 테이블(컬럼) 2개
     }
 
     @Override
     public void insertDB() throws IOException, ParseException {
-        for (int i = 1; i <= calculateNumOfPage(); i++) {
+        int maxPage = calculateNumOfPage(); // 최대 페이지 수
+        for (int i = 1; i <= maxPage; i++) {
             for (DBApiDTO dbApiDTO : parseJsonData(i)) {
                 dbApiDAO.insertDB(dbApiDTO);
             }
