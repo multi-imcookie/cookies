@@ -23,7 +23,7 @@ public class DBApiController {
      */
     @Scheduled(cron="0 0 15 * * * *")    // cron: 초 분 시 일 월 요일 연도
     @RequestMapping("updateDB")
-    public void updateDB() throws ParseException { // DB 최신화
+    public void updateDB() throws ParseException, IOException { // DB 최신화
         dbApiService.updateDB();
     }
 
