@@ -10,6 +10,7 @@
         <typeAlias type="com.multi.cookies.snack.api.dto.DBApiDTO" alias="dbApiDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.api.dto.DBUpdateDTO" alias="dbUpdateDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.dto.SearchDTO" alias="searchDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.snack.dto.ScoreDTO" alias="scoreDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.LoginDTO" alias="loginDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.MemberDTO" alias="memberDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>

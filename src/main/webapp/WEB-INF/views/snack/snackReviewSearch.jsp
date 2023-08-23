@@ -3,9 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
 <head>
-    <%@ include file="/link.jsp" %>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,29 +48,15 @@
     </style>
     <%@ include file="/link.jsp" %>
     <title>전과자</title>
-
 </head>
 
 <body>
-
-<%@include file="/header.jsp" %>
-
-<div class="v-left">
-    <h3 class="h-pre36">
-        🔍<br>
-        궁금한 과자가 있으신가요?
+<div>
+    <h3>
+        과자를 골라주세요.
     </h3>
-    <form action="snackWikiSearch" method="get" onsubmit="return validateForm()">
+    <form action="/snack/snackReviewSearch" method="get">
         <div class="cookie-search main-search">
-            <div class="select-wrap">
-                <label class="label-bold" for="cookie-select">Category</label>
-                <select class="p-regular" id="cookie-select">
-                    <option value="">카테고리 선택</option>
-                    <option value="sweet">달달한</option>
-                    <option value="salty">짭쪼름한</option>
-                </select>
-            </div>
-            <span class="div-line"></span>
             <div class="search-wrap">
                 <label class="label-bold" for="keyword">Search</label>
                 <input class="p-regular" type="text" name="keyword" id="keyword" placeholder="검색하고 싶은 과자 정보를 입력하세요.">
@@ -81,6 +65,7 @@
         </div>
     </form>
 </div>
+
 <div id="search-results-paginated">
     <div id="search-results" class="search-results">
         <%--검색 결과 총 ${fn:length(searchResult)} 건--%>
@@ -142,9 +127,8 @@
 </div>
 
 <script>
-
     $(document).ready(function () {
-        // 상세 페이지로 이동하는 클릭 이벤트
+        // 상세 페이지를 DIV 영역 내에서 로드하는 클릭 이벤트
         $('#search-results-paginated').on('click', '.goToDetail', function () {
             let snackId = $(this).data('snack-id');
             let urlParams = new URL(location.href).searchParams;
@@ -155,24 +139,23 @@
                 currentPage = 1;
             }
             localStorage.setItem('currentPage', currentPage);
-            window.location.href = '/snack/snackWikiInfo?snack_id=' + snackId;
+            window.location.href = '/snack/snackReviewSearchInfo?snack_id=' + snackId;
         });
 
-        // 페이지 로딩 버튼 클릭 시 AJAX로 페이지 로드
-        $(".pagination").on("click", "a", function (event) {
-            event.preventDefault();
-            let page = $(this).data("page");
-            if (!page) {
-                return;
-            }
-            window.location.href = "snackWikiSearch?keyword=${keyword}&page=" + page;
-        });
+    // 페이지 로딩 버튼 클릭 시 AJAX로 페이지 로드
+    $(".pagination").on("click", "a", function (event) {
+        event.preventDefault();
+        let page = $(this).data("page");
+        if (!page) {
+            return;
+        }
+        window.location.href = "snackReviewSearch?keyword=${keyword}&page=" + page;
     });
 
     function loadPage(page) {
         let keyword = "${param.keyword}";
         $.ajax({
-            url: "snackWikiSearch",
+            url: "snackReviewSearch",
             type: "GET",
             data: {
                 keyword: keyword,
@@ -186,21 +169,9 @@
                 alert("페이지 로드 실패");
             }
         });
+
     }
-
+    });
 </script>
-
-<script>
-    function validateForm() {
-        let category = document.getElementById("cookie-select").value;
-        if (category === "") {
-            alert("카테고리를 골라주세요");
-            return false;
-        }
-        return true;
-    }
-</script>
-
-<%@include file="/footer.jsp" %>
 </body>
 
