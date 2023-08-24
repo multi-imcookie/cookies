@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface DBApiService {
     String callHaccpAPI(int page) throws IOException;
-    void updateDB() throws ParseException, IOException;
-    void insertDB() throws IOException, ParseException;
-    void initializeDB();
+    int updateDB() throws ParseException, IOException;
+    int insertDB() throws IOException, ParseException;
+    int initializeDB();
     List<DBApiDTO> parseJsonData(int page) throws ParseException, IOException;
 }

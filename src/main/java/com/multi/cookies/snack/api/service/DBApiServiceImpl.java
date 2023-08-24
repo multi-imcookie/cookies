@@ -64,39 +64,45 @@ public class DBApiServiceImpl implements DBApiService {
     }
 
     @Override
-    public void updateDB() throws ParseException, IOException {
+    public int updateDB() throws ParseException, IOException {
         int result = 0;
         int maxPage = calculateNumOfPage(); // 최대 페이지 수
         for (int i = 1; i <= maxPage; i++) {
             for (DBApiDTO dbApiDTO : parseJsonData(i)) {
                 if (!dbApiDTO.equals(dbApiDAO.pullDB(dbApiDTO.getSnack_reportNo()))) {
-                    result += dbApiDAO.updateDB(dbApiDTO);
+                    if (dbApiDAO.pullDB(dbApiDTO.getSnack_reportNo()) != null) {    // snack_reportNo가 이미 존재하는 경우
+                        result += dbApiDAO.updateDB(dbApiDTO);
+                    } else {    // snack_reportNo가 존재하지 않는 경우(신규값)
+                        result += dbApiDAO.insertDB(dbApiDTO);
+                    }
                 }
             }
             System.out.println(i + "페이지 업데이트 성공");
         }
-        System.out.println("총 " + result / 2 + "개 항목 업데이트 완료"); // 한 항목당 업데이트 되는 테이블(컬럼) 2개
+        System.out.println("총 " + result / 2 + "개 항목 업데이트 완료"); // 한 항목당 테이블(컬럼) 2개
+        return result / 2;
     }
 
     @Override
-    public void insertDB() throws IOException, ParseException {
+    public int insertDB() throws IOException, ParseException {
+        int result = 0;
         int maxPage = calculateNumOfPage(); // 최대 페이지 수
         for (int i = 1; i <= maxPage; i++) {
             for (DBApiDTO dbApiDTO : parseJsonData(i)) {
-                dbApiDAO.insertDB(dbApiDTO);
+                result += dbApiDAO.insertDB(dbApiDTO);
             }
             System.out.println(i + "페이지 성공");
         }
         System.out.println("DB 목록 생성 성공!");
+        return result / 2;  // 한 항목당 테이블(컬럼) 2개
     }
 
     @Override
-    public void initializeDB() {
+    public int initializeDB() {
         int deleteResult = dbApiDAO.deleteAllDB();
         dbApiDAO.resetDBAI();
-        if (deleteResult > 0) {
-            System.out.println("DB " + deleteResult + " 건 초기화 성공!");
-        }
+        System.out.println("DB " + deleteResult / 2 + " 건 초기화 성공!");    // 한 항목당 테이블(컬럼) 2개
+        return deleteResult / 2;
     }
 
     @Override

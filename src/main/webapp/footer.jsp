@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-</div> <!-- 여는태그 header에 있음 -->
 <div id="footer">
     <div class="f-left">
         <h1 class="logo">
