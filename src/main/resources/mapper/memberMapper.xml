@@ -12,26 +12,40 @@
         WHERE member_signId = #{member_signId}
     </select>
 
+    <!-- 총 회원 수를 얻기 위한 쿼리 -->
     <select id="getAllMembers" resultType="com.multi.cookies.member.dto.AdminDTO">
-        SELECT *
-        FROM member
+        SELECT * FROM member LIMIT #{start}, #{pageSize}
+    </select>
+
+    <select id="searchMembers" resultType="com.multi.cookies.member.dto.MemberDTO">
+        SELECT * FROM imcookie.member
+        WHERE
+            (
+                            #{type} = 'nickname' AND member_nickname LIKE CONCAT('%', #{keyword}, '%')
+                    OR #{type} = 'id' AND member_signId LIKE CONCAT('%', #{keyword}, '%')
+                )
     </select>
 
 
-    <select id="getMemberBySignID" resultType="com.multi.cookies.member.dto.AdminDTO">
-        SELECT *
-        FROM member
-        WHERE member_signId = #{member_signId}
+
+
+    <select id="getTotalMembers" resultType="int">
+        SELECT COUNT(*) FROM member
+    </select>
+
+
+    <select id="getMemberById" resultType="com.multi.cookies.member.dto.AdminDTO">
+        SELECT * FROM member WHERE member_id = #{id}
     </select>
 
     <update id="updateMember">
         UPDATE member
-        SET member_signId   = #{member_signId},
+        SET member_signId = #{member_signId},
             member_nickname = #{member_nickname},
-            member_age      = #{member_age},
-            member_gender   = #{member_gender},
-            member_email    = #{member_email},
-            member_grade    = #{member_grade}
+            member_age = #{member_age},
+            member_gender = #{member_gender},
+            member_email = #{member_email},
+            member_grade = #{member_grade}
         WHERE member_id = #{member_id}
     </update>
 
@@ -41,9 +55,7 @@
     </insert>
 
     <delete id="deleteMember">
-        DELETE
-        FROM member
-        WHERE member_id = #{id}
+        DELETE FROM member WHERE member_id = #{id}
     </delete>
 
     <select id="getMemberInfo" parameterType="String" resultType="com.multi.cookies.member.dto.MypageDTO">

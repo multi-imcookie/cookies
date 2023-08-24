@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
@@ -21,20 +22,26 @@ public class DBApiController {
     /**
      * TODO: 스케쥴러 미작동(수정예정)
      */
-    @Scheduled(cron="0 0 15 * * * *")    // cron: 초 분 시 일 월 요일 연도
+    @Scheduled(cron = "0 0 15 * * * *")    // cron: 초 분 시 일 월 요일 연도
     @RequestMapping("updateDB")
-    public void updateDB() throws ParseException, IOException { // DB 최신화
-        dbApiService.updateDB();
+    public String updateDB(Model model) throws ParseException, IOException { // DB 최신화
+        int result = dbApiService.updateDB();
+        model.addAttribute("result", result);
+        return "/api/updateDB";
     }
 
     @RequestMapping("insertDB")
-    public void insertDB() throws ParseException, IOException {  // DB 생성
-        dbApiService.insertDB();
+    public String insertDB(Model model) throws ParseException, IOException {  // DB 생성
+        int result = dbApiService.insertDB();
+        model.addAttribute("result", result);
+        return "/api/insertDB";
     }
 
     @RequestMapping("initializeDB")
-    public void initializeDB() {    // DB 초기화
-        dbApiService.initializeDB();
+    public String initializeDB(Model model) {    // DB 초기화
+        int result = dbApiService.initializeDB();
+        model.addAttribute("result", result);
+        return "/api/initializeDB";
     }
 
 }

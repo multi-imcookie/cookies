@@ -32,6 +32,42 @@
         .img-button img {
             max-width: 100%;
             max-height: 100%;
+            object-fit: contain; /* 이미지 비율 유지하면서 내부에 꽉 채우도록 조정 */
+        }
+        .vs-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .match-info {
+            text-align: center;
+            position: relative;
+            top: -50px; /* 원하는 위치에 맞게 조정 */
+            margin-top: 50px; /* 아래로 내릴 값 설정 */
+        }
+
+        /* ... 기존 스타일 ... */
+        .h-imcre24, .s-h-imcre24 {
+            font-family: ImcreSoojin, serif;
+            color: #452C07;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 36px;
+        }
+
+        /* ... 기존 스타일 ... */
+        .s-h-imcre24 {
+            text-align: center;
+            padding: 160px 0 60px;
+            box-sizing: border-box;
+        }
+        .snack-name {
+            display: block;
+            font-family: Pretendard, serif;
+            color: #452C07;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 48px;
         }
     </style>
     <script>
@@ -40,24 +76,39 @@
 </head>
 <body>
 <%@include file="/header.jsp" %>
-<div class="sub-container">
-    <p>${param.kang}강</p>
-    <p><span id="match">1</span>/<span id="round"><%=round%></span></p>
-
-    <div id="buttonsContainer">
-        <button class="img-button" data-image="" data-id="" data-name="" id="button0">
-            <div>
-                <img src="" alt="">
-            </div>
-            <span></span>
-        </button>
-        <button class="img-button" data-image="" data-id="" data-name="" id="button1">
-            <div>
-                <img src="" alt="">
-            </div>
-            <span></span>
-        </button>
+<div class="sub-container match-info">
+    <p class="h-imcre24">${param.kang}강</p>
+    <p>
+        <span id="match" class="s-h-imcre24">1</span>
+        <span class="s-h-imcre24"> / </span> <!-- / 문자 스타일 조정을 위한 span 추가 -->
+        <span id="round" class="s-h-imcre24"><%=round%></span>
+    </p>
+<%--    <p>--%>
+<%--        <span id="match" class="s-h-imcre24">1</span>--%>
+<%--        <span class="s-h-imcre24"> / </span>--%>
+<%--        <% if (round == 1) { %>--%>
+<%--        <span class="s-h-imcre24">결승전</span>--%>
+<%--        <% } else { %>--%>
+<%--        <span id="round" class="s-h-imcre24"><%= round %></span>--%>
+<%--        <% } %>--%>
+<%--    </p>--%>
+</div>
+<div id="buttonsContainer">
+    <button class="img-button" data-image="" data-id="" data-name="" id="button0">
+        <div>
+            <img src="" alt="">
+        </div>
+        <span class="snack-name"></span> <!-- snack_name 출력 -->
+    </button>
+    <div class="vs-container">
+        <img src="/resources/img/entertainment/vs.png" alt="VS" class="vs-image">
     </div>
+    <button class="img-button" data-image="" data-id="" data-name="" id="button1">
+        <div>
+            <img src="" alt="">
+        </div>
+        <span class="snack-name"></span> <!-- snack_name 출력 -->
+    </button>
 </div>
 
 <script>

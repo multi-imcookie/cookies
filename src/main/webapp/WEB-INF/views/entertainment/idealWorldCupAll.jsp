@@ -21,7 +21,10 @@
                         page: $(this).text()
                     },
                     success: function (result) { //결과가 담겨진 table부분코드
-                        $('#d1').html(result)
+                        $('#d1').html(result)//jQuery를 사용하여 HTML 요소 내부의 내용을 변경하는 코드
+
+                        // AJAX 호출 성공 후 화면 맨 위로 스크롤
+                        scrollToTop();
 
                     },
                     error: function () {
@@ -30,6 +33,10 @@
                 }) //ajax
             })
         })
+        // 화면을 맨 위로 스크롤하는 함수
+        function scrollToTop() {
+            window.scrollTo(0, 0);
+        }
     </script>
 </head>
 <body>
