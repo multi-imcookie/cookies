@@ -295,6 +295,8 @@ input[type='number'] {
     display: flex;
     align-items: flex-start;
     gap: 60px;
+    flex-basis: auto;
+    flex-shrink: 0;
 }
 
 .gnb .p-medium {
@@ -353,6 +355,9 @@ input[type='number'] {
     display: flex;
     align-items: center;
     gap: 24px;
+    flex-basis: auto;
+    flex-shrink: 0;
+    margin-left: 30px;
 }
 
 .user-left {
@@ -444,7 +449,10 @@ input[type='number'] {
 .f-right {
     display: flex;
     align-items: flex-start;
-    gap: 72px;
+    gap: 40px;
+    margin-left: 30px;
+    flex-basis: auto;
+    flex-shrink: 0;
 }
 
 .f-right li {
@@ -532,7 +540,6 @@ input[type='number'] {
 /* 메인페이지 비쥬얼 시작*/
 .visual {
     display: flex;
-    padding: 80px 260px;
     box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
