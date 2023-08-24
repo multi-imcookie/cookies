@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="header">
     <h1 class="logo">
         <a href="/index.jsp">
@@ -53,8 +54,14 @@
     </ul>
     <div class="user-menu">
         <ul class="user-left">
-            <li><a class="p-medium" href="#">로그인</a></li>
-            <li><a class="p-medium" href="/member/sign.jsp">회원가입</a></li>
+            <c:if test="${sessionScope.authInfo == null}">
+                <li><a class="p-medium" href="/login">로그인</a></li>
+                <li><a class="p-medium" href="/member/sign.jsp">회원가입</a></li>
+            </c:if>
+            <c:if test="${sessionScope.authInfo != null}">
+                <li><a class="p-medium" href="/logout">로그아웃</a></li>
+                <li><div class="p-medium">${sessionScope.authInfo}님 어서오세요</div></li>
+            </c:if>
         </ul>
         <ul class="user-right">
             <li><a href="#">

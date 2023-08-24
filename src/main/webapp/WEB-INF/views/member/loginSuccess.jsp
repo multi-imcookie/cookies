@@ -7,12 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 <html>
 <head>
+<body>
 기본로그인 & 소셜 로그인성공
-    <br>
+<br>
 ${userInfo}
 </body>
 </html>

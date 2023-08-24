@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import static org.springframework.util.StringUtils.capitalize;
 
@@ -33,15 +34,20 @@ public class LoginService {
         }
         return loginDAO.findIdByUsername(id,findNullFieldInId)!=null;
     }
-    public int inserUserInfo(LoginDTO loginDTO){
+    public int insertUserInfo(LoginDTO loginDTO){
         return loginDAO.insert(loginDTO);
     }
-    public boolean isValidPassWord(String id, String password){
-        LoginDTO userInfoDTO = loginDAO.cookieSelect(id);
-        String pwdBySearched = userInfoDTO.getMember_pw();
-        return pwdBySearched.equals(password);
+    public boolean isValidPassWord(Map<String, String> map){
+        int rowNumber = loginDAO.cookieSelect(map);
+        if(rowNumber!=1) {
+            return false;
+        }
+        return true;
     }
-
+    public LoginDTO getUserInfo(Map<String, String> map){
+        LoginDTO loginDTO = loginDAO.cookieOne(map);
+        return loginDTO;
+    }
     private String hasNullFields(Object dto){
         Field[] fields = dto.getClass().getDeclaredFields();
         String id="";

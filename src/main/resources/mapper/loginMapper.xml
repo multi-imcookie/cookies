@@ -48,11 +48,18 @@
                    null, null ,now()
                )
     </insert>
-    <select id="cookie_select" resultType="LoginDTO" parameterType="String">
+    <select id="cookie_select" resultType="int" parameterType="map">
+        SELECT COUNT(*)
+        FROM member
+        WHERE member_signId = #{username} AND member_pw = #{password}
+    </select>
+    <select id="cookie_one" resultType="loginDTO" parameterType="map">
         select member_id, member_signId, member_pw,
                member_nickname, member_age, member_gender,
                member_birthday, member_email, member_grade,
                naver_login, kakao_login, create_dt
-        from member where member_signId=#{id}
+        FROM member
+        WHERE member_signId = #{username} AND member_pw = #{password}
     </select>
+
 </mapper>

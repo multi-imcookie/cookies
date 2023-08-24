@@ -26,7 +26,11 @@ public class LoginDAO {
         paramMap.put("password",password);
         return sqlSession.insert("cookie_insert",paramMap);
     }
-    public LoginDTO cookieSelect(String id){
-        return sqlSession.selectOne("cookie_select",id);
+    public int cookieSelect(Map<String,String> map){
+        return sqlSession.selectOne("cookie_select",map);
+    }
+
+    public LoginDTO cookieOne(Map<String, String> map) {
+        return sqlSession.selectOne("cookie_one",map);
     }
 }

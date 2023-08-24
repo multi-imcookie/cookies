@@ -7,13 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-
+<%@ page import="java.net.URLDecoder" %>
 <html>
 <head>
     <title>전과자</title>
-    <%@ include file="../../../link.jsp" %>
+    <%@ include file="/link.jsp" %>
     <style>
+
         form > h1 {
             font-family: ImcreSoojin, serif;
             color: #452C07;
@@ -115,22 +115,36 @@
             margin: 10px; /* 필요한 간격을 조절할 수 있습니다 */
         }
 
+        #msg {
+            height: 30px;
+            text-align: center;
+            font-size: 16px;
+            color: red;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 <header>
-    <%@include file="../../../header.jsp" %>
+    <%@include file="/header.jsp" %>
 </header>
 <br><br>
 <div class="login-container">
-    <form class="login-form" action="login" method="post">
+    <form action="<c:url value="/login"/>" method="post" class="login-form">
         <h1>로그인</h1>
+        <div id="msg">
+            <c:if test="${not empty param.msg}">
+                <i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
+            </c:if>
+        </div>
         <div class="login-input">
-            <input type="text" id="username" name="username" required>
-            <input type="password" id="password" name="password" required>
+            <input type="text" id="username" name="username" value="${cookie.id.value}" placeholder="아이디 입력" required>
+            <input type="password" id="password" name="password"
+                   placeholder="비밀번호 입력" ${empty cookie.id.value ? "":"autofocus"} required>
         </div>
         <div class="left-box">
-            <label class=remember for="remember"><input type="checkbox" id="remember" name="remember">아이디 저장
+            <label class=remember for="remember"><input type="checkbox" id="remember"
+                                                        name="remember" ${empty cookie.id.value ? "":"checked"}>아이디 저장
             </label></div>
         <div class="right-box">
             <a href="${findUserOrPwdUrl}">아이디 / 비밀번호 찾기</a>
@@ -139,17 +153,27 @@
         <br>
         <button type="submit" class="bu">로그인</button>
         <div class="social-container">
-            <a href="${naverApiUrl}"><span class="item">네이버</span></a>
+            <a href="${naverApiUrl}"><img src = "/resources/img/login/naverlogin.png" width="300" height="100"></a>
 
-            <a href="${kakakoApiUrl}"><span
-                    class="item">카카오</span></a>
+            <a href="${kakakoApiUrl}"><img src = "/resources/img/login/kakaologin.png"  width="300" height="100"></a>
         </div>
     </form>
-    <a href="#"><button class="bu">회원가입</button></a>
+    <a href="${signUrl}">
+        <button class="bu">회원가입</button>
+    </a>
 
 </div>
 <footer class="footer">
-    <%@include file="../../../footer.jsp" %>
+    <%@include file="/footer.jsp" %>
 </footer>
+<script>
+    function setMessage(msg, element) {
+        document.getElementById("msg").innerHTML = ` ${'${msg}'}`;
+
+        if (element) {
+            element.select();
+        }
+    }
+</script>
 </body>
 </html>
