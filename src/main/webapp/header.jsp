@@ -64,11 +64,11 @@
             </c:if>
         </ul>
         <ul class="user-right">
-            <li><a href="#">
-                <img src="/resources/img/user.svg" alt="유저메뉴">
+            <li><a href="/member/mypage.jsp">
+                <img src="/resources/img/icon/user.svg" alt="유저메뉴">
             </a></li>
             <li><a href="#">
-                <img src="/resources/img/bell.svg" alt="알림">
+                <img src="/resources/img/icon/bell.svg" alt="알림">
             </a></li>
         </ul>
     </div>

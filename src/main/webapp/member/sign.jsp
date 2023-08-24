@@ -11,18 +11,18 @@
 <html>
 <head>
     <title>전과자</title>
-    <%@ include file="../link.jsp" %>
-    <script type="text/javascript" src="../resources/js/sign.js"></script>
+    <%@ include file="/link.jsp" %>
+    <script type="text/javascript" src="/resources/js/sign.js"></script>
 </head>
 <body>
-<%@include file="../header.jsp" %>
+<%@include file="/header.jsp" %>
 <div class="modal-overlay">
     <div class="modal-box">
         <div class="mdl-text">
             <p class="h-pre24"><span>회원가입 완료!</span> 🥰<br>
                 로그인 페이지로 이동할까요?</p>
             <div class="mdl-info">
-                <img src="../resources/img/info-circle.svg" alt="info icon">
+                <img src="../resources/img/icon/info-circle.svg" alt="info icon">
                 <p class="p-regular">로그인 하면 더 많은 기능을 이용할 수 있어요.</p>
             </div>
         </div>
@@ -47,7 +47,7 @@
         </div>
         <div class="input-section">
             <label class="label-wrap" for="member_phone1">휴대폰번호
-                <img class="help" src="/resources/img/help-circle.svg" alt="도움말">
+                <img class="help" src="/resources/img/icon/help-circle.svg" alt="도움말">
                 <span class="help-content">아이디 또는 비밀번호를 찾을 때 필요한 정보입니다.</span>
             </label>
             <input type="number" min="1" maxlength="3" oninput="maxLengthChk(this)" id="member_phone1" name="member_phone1" placeholder="000">
