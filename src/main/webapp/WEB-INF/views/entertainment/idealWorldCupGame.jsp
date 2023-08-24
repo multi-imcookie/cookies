@@ -4,9 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="d1">
     <%
-        //몇강인지 선택 받아와서 kang에 Integer로 저장
         String selectedRound = request.getParameter("kang");
-        int kang = Integer.parseInt(selectedRound);
+        int round = Integer.parseInt(selectedRound)/2;
     %>
 </div>
 <head>
@@ -32,101 +31,122 @@
             max-height: 100%;
         }
     </style>
+    <script>
+        var kangValue = ${param.kang};
+    </script>
 </head>
 <body>
 <%@include file="/header.jsp" %>
+<p>${param.kang}강</p>
+<p><span id="match">1</span>/<span id="round"><%=round%></span></p>
+
 <div id="buttonsContainer">
-    <button class="img-button" data-image="" id="button0">
+    <button class="img-button" data-image="" data-id="" data-name="" id="button0">
         <div>
-            <img src="/resources/img/entertainment/image1.jpg" alt="">
-            <span></span>
+            <img src="" alt="">
         </div>
+        <span></span>
     </button>
-    <button class="img-button" data-image="" id="button1">
+    <button class="img-button" data-image="" data-id="" data-name="" id="button1">
         <div>
-            <img src="/resources/img/entertainment/image2.jpg" alt="">
-            <span></span>
+            <img src="" alt="">
         </div>
+        <span></span>
     </button>
 </div>
 <script>
-    var SnackList = [
-        <c:forEach items="${list}" var="image" varStatus="loop">
-        "${image}"<c:if test="${not loop.last}">,</c:if>
+    var round = <%=round%>; // JSP에서 변수의 값을 JavaScript로 전달
+    var matchElement = document.getElementById('match');
+    var roundElement = document.getElementById('round');
+    var nextSnackList = [
+        <c:forEach items="${randomSnacks}" var="snack" varStatus="loop">
+        {
+            snack_id: "${snack.snack_id}",
+            snack_name: "${snack.snack_name}",
+            snack_img: "${snack.snack_img}"
+        }<c:if test="${not loop.last}">,</c:if>
         </c:forEach>
     ];
-    var kangValue = <%= kang %>;
-    var initialSnackList = SnackList.slice(0, kangValue); // 처음 랜덤으로 받아온 N개의 스넥을 몇강인지에따라 맞춰서 초기화
-    var nextSnackList= initialSnackList; //과자 리스트에 처음 초기화 값은 몇강인지에 따라
-    console.log(initialSnackList)
 
-    var index0 = 0; //왼쪽 버튼의 인덱스
-    var index1 = 1; //오른쪽 버튼의 인덱스
+    var index0 = 0;
+    var index1 = 1;
     var buttons = document.querySelectorAll('.img-button');
-    var winsImages = []; //이기면 저장되는 배열
-    var clickCnt = 0; //클릭횟수
-    var winner =[];
+    var winnerList = [];
+    var clickCnt = 0;
+    var match = 1;
+    var round = kangValue / 2;
+    var champion = [];
 
-    function updateButton(buttonIndex, imageIndex) { //버튼 0 (왼쪽)과 1 (오른쪽)에 이미지 배열 인덱스 번호 넣는 함수
-        //nextSnackList에서 가져온다.
-        buttons[buttonIndex].setAttribute('data-image', nextSnackList[imageIndex]); //배열에서 가져와서 해당 버튼의 data-image 속성에 설정하는 역할
-        buttons[buttonIndex].querySelector('img').src = '/resources/img/entertainment/' + nextSnackList[imageIndex]; //이미지 경로 설정 배열에 인덱스
-
-        //.jpg 제거 하는 부분
-        var imageFileName = nextSnackList[imageIndex];
-        var imageNameWithoutExtension = imageFileName.replace('.jpg', '');
-        buttons[buttonIndex].querySelector('span').textContent = imageNameWithoutExtension;
-
+    function updateButton(buttonIndex, imageIndex) {
+        buttons[buttonIndex].setAttribute('data-image', nextSnackList[imageIndex].snack_img);
+        buttons[buttonIndex].setAttribute('data-id', nextSnackList[imageIndex].snack_id);
+        buttons[buttonIndex].setAttribute('data-name', nextSnackList[imageIndex].snack_name);
+        buttons[buttonIndex].querySelector('img').src = nextSnackList[imageIndex].snack_img;
+        buttons[buttonIndex].querySelector('span').textContent = nextSnackList[imageIndex].snack_name;
     }
 
-    buttons.forEach(function(button, buttonIndex) { // 클릭시 발생하는 함수 (1.인덱스 +1) (2.새로운 배열에 클릭한 사진 넣기)
-        button.addEventListener('click', function() {
-            var href;
+    buttons.forEach(function (button, buttonIndex) {
+        button.addEventListener('click', function () {
             if (kangValue == 2) {
                 var image = this.getAttribute('data-image');
-                winner.push(image);
-                console.log("winner ", winner)
-                //location.href = 'idealWorldCupGameOverAll.jsp?winner='+winner
-                location.replace('idealWorldCupGameOverAll.jsp?winner='+winner)
+                var snack_id = this.getAttribute('data-id');
+                var snack_name = this.getAttribute('data-name');
+                champion.push({ snack_id, snack_name, snack_img: image });
+
+                var encodedChampion = encodeURIComponent(JSON.stringify(champion)); // URL 안전한 형태로 인코딩
+
+                location.replace('idealWorldCupGameOverAll.jsp?champion=' + encodedChampion);
             }
             clickCnt++;
-            if(clickCnt==(kangValue/2)) {
+            match++; // 매치 번호 업데이트
+            if (clickCnt == (kangValue / 2)) {
                 kangValue = clickCnt;
                 clickCnt = 0;
-                winsImages = winsImages.sort(() => Math.random() - 0.5);
-                nextSnackList = winsImages;
+                match = 1;
+                round= round/2;
+                winnerList = winnerList.sort(() => Math.random() - 0.5);
+                nextSnackList = winnerList;
                 nextSnackList = nextSnackList.sort(() => Math.random() - 0.5);
-                // console.log("1차끝", "nextSnackList =", nextSnackList, "winsImages =", winsImages)
+                // console.log("1차끝", "nextSnackList =", nextSnackList, "winnerList =", winnerList)
 
                 var image = this.getAttribute('data-image');
-                winsImages.push(image);
-                winsImages = [];
+                var snack_id = this.getAttribute('data-id');
+                var snack_name = this.getAttribute('data-name');
+                winnerList.push({ snack_id, snack_name, snack_img: image });
+                winnerList = [];
                 index0 = (index0 + 2) % nextSnackList.length;
                 updateButton(0, index0);
                 index1 = (index1 + 2) % nextSnackList.length;
                 updateButton(1, index1);
+
                 // console.log("여긴(clickCnt==(kangValue/2))")
                 // console.log("nextSnackList ", nextSnackList);
-                // console.log("winsImages ", winsImages);
-                // console.log("winsImages length ", winsImages.length);
+                // console.log("winnerList ", winnerList);
+                // console.log("winnerList length ", winnerList.length);
+                // console.log("kangValue", kangValue);
+                // console.log("clickCnt ", clickCnt);
+
+            } else {
+
+                var image = this.getAttribute('data-image');
+                var snack_id = this.getAttribute('data-id');
+                var snack_name = this.getAttribute('data-name');
+                winnerList.push({ snack_id, snack_name, snack_img: image });
+                index0 = (index0 + 2) % nextSnackList.length;
+                updateButton(0, index0);
+                index1 = (index1 + 2) % nextSnackList.length;
+                updateButton(1, index1);
+                // console.log("여긴else");
+                // console.log("nextSnackList ", nextSnackList);
+                // console.log("winnerList ", winnerList);
+                // console.log("winnerList length ", winnerList.length);
                 // console.log("kangValue", kangValue);
                 // console.log("clickCnt ", clickCnt);
             }
-            else{
-                    var image = this.getAttribute('data-image');
-                    winsImages.push(image);
-                    index0 = (index0 + 2) % nextSnackList.length;
-                    updateButton(0, index0);
-                    index1 = (index1 + 2) % nextSnackList.length;
-                    updateButton(1, index1);
-                    // console.log("nextSnackList ",nextSnackList);
-                    // console.log("winsImages ",winsImages);
-                    // console.log("winsImages length ",winsImages.length);
-                    // console.log("kangValue", kangValue);
-                    // console.log("clickCnt ",clickCnt);
-            }
+            // match와 round 값 업데이트
+            matchElement.textContent = match;
+            roundElement.textContent = round;
         });
-        //updateButton(buttonIndex);
         updateButton(0, index0);
         updateButton(1, index1);
     });

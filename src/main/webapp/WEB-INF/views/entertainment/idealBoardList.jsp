@@ -43,17 +43,17 @@
 </script>
 <table>
   <tr>
-    <td class="left">글 번호</td>
+<%--    <td class="left">글 번호</td>--%>
     <td class="left">닉네임</td>
     <td class="left">내용</td>
     <td class="left">작성시간</td>
   </tr>
   <c:forEach items="${list}" var="one">
     <tr>
-      <td class="right">${one.ideal_id}</td> <!-- one.getId() -->
+<%--      <td class="right">${one.ideal_id}</td> <!-- one.getId() -->--%>
       <td class="right">${one.ideal_nickname}</td>
       <td class="right">${one.ideal_content}</td>
-      <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+      <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
       <td class="right">
         <button  class="deleteIdealBoard" value="${one.ideal_id}" style="background: #E9E2D9; color: #5C492C; width: 50px;">삭제</button>
       </td>

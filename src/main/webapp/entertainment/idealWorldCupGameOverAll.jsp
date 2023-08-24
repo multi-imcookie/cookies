@@ -1,55 +1,30 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2023-08-09
-  Time: 오전 11:08
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
     <title>Title</title>
     <%@ include file="../link.jsp" %>
-    <script>
-        window.onload = function() {
-            var urlParams = new URLSearchParams(window.location.search);
-            var winner = urlParams.get('winner');
-
-            // winner 값을 HTML 내에 삽입하기
-            var winnerElement = document.getElementById('winner');
-            if (winnerElement) {
-                winnerElement.textContent = winner;
-
-                var imagePath = '/resources/img/entertainment/' + winner; // 이미지 경로 생성
-                var imageElement = document.createElement('img');
-                imageElement.src = imagePath; // 이미지 경로 설정
-                winnerElement.appendChild(imageElement); // 이미지를 winnerElement에 추가
-
-                // MyBatis를 사용하여 DB 업데이트 수행
-                fetch('/updateWinnerWins?winnerName=' + winner)
-                    .then(response => response.text())
-                    .then(result => {
-                        console.log('DB update result:', result);
-                    })
-                    .catch(error => {
-                        console.error('Error updating DB:', error);
-                    });
-            }
-        };
-    </script>
 </head>
 <body>
 <%@include file="../header.jsp" %>
+
+<div id="container">
+    <div id="snackInfo"></div> <!-- snack_name과 image 출력 -->
+</div>
+
 <table>
     <tr>
         <form action="/entertainment/idealWorldCupGame" method="get">
             <label for="kang">라운드를 선택 해주세요:</label>
             <select name="kang" id="kang">
+                <option value="4">4강</option>
                 <option value="8">8강</option>
-                <option value="4" selected>4강</option>
+                <option value="16">16강</option>
+                <option value="32">32강</option>
+                <option value="64">64강</option>
+                <option value="128">128강</option>
             </select>
             <br><br>
-            <input type="submit" value="다시 하기" style="background: #5C492C; color: black; width: 70px;">
+            <input type="submit" value="다시하기" style="background: #5C492C; color: black; width: 70px;" onclick="resetSessionStorage()">
         </form>
     </tr>
     <tr>
@@ -68,6 +43,59 @@
         </a></td>
     </tr>
 </table>
-<div id="winner"></div>
+
 <%@include file="../footer.jsp" %>
+
+<script>
+    // 다시하기 버튼을 누르면 세션 스토리지 초기화
+    function resetSessionStorage() {
+        sessionStorage.removeItem('champion');
+        sessionStorage.removeItem('updated'); // 'updated' 키 제거
+    }
+
+    window.onload = function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var championJson = urlParams.get('champion');
+        var champion = JSON.parse(decodeURIComponent(championJson));
+
+        var snackInfoContainer = document.getElementById('snackInfo');
+
+        // champion 배열을 순회하면서 snack_name과 snack_img 출력
+        champion.forEach(function(item) {
+            var snackName = item.snack_name;
+            var snackImg = item.snack_img;
+
+            // 출력 형식에 맞게 페이지에 추가
+            var snackInfoDiv = document.createElement('div');
+            var imgElement = document.createElement('img');
+            imgElement.src = snackImg;
+            var nameElement = document.createElement('p');
+            nameElement.textContent = '우승 과자 : ' + snackName;
+
+            snackInfoDiv.appendChild(nameElement);
+            snackInfoDiv.appendChild(imgElement);
+
+            // 이미지와 이름을 추가한 뒤에 snackInfoContainer에 추가
+            snackInfoContainer.appendChild(snackInfoDiv);
+        });
+
+        // 서버에 업데이트를 한 경우 세션에 값을 설정하여 중복 업데이트를 방지
+        var updatedSession = sessionStorage.getItem('updated');
+        if (!updatedSession) {
+            // MyBatis를 사용하여 DB 업데이트 수행
+            fetch('/updateWinnerWins?snack_id=' + champion[0].snack_id)
+                .then(response => response.text())
+                .then(result => {
+                    console.log('DB update result:', result);
+                    // 업데이트를 했음을 세션에 설정
+                    sessionStorage.setItem('updated', 'true');
+                })
+                .catch(error => {
+                    console.error('Error updating DB:', error);
+                });
+        } else {
+            console.log('Already updated in this session');
+        }
+    };
+</script>
 </body>

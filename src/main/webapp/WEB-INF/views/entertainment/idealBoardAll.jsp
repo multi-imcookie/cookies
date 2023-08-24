@@ -8,9 +8,10 @@
            1)글 작성시 닉네임, 비밀번호, 내용 입력안하면 alter 띄우고 insert안되는 기능 (해결)
            2)삭제 버튼 누르면 비밀번호 입력하는 alter띄우기 (해결)
            3)삭제 비밀번호 틀리면 삭제 안되게 하기 (해결)
-           4)이상형월드컵 게임
+           4)이상형월드컵 게임 (해결)
            5)이상형월드컵 랭킹 구현 (해결)
-           5)페이지 합칠지 나눌지 css어떻게할지 정리
+           6)db 유니크 키
+           7)페이지 합칠지 나눌지 css어떻게할지 정리
 
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,6 +19,60 @@
 <html>
 <head>
     <%@ include file="/link.jsp" %>
+    <style>
+        /* 버튼 스타일 적용 */
+        .saveIdealBoard, .deleteIdealBoard, .pages {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #B48D69;
+            color: #F9F5F2;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .saveIdealBoard:hover, .deleteIdealBoard:hover, .pages:hover {
+            background-color: #966D48;
+            color: #FFF;
+        }
+
+        /* 입력 필드 스타일 적용 */
+        .input-wrap {
+            background: #E9E2D9;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .input-wrap input {
+            display: block;
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            border: 1px solid #CBB89B;
+            border-radius: 6px;
+            background-color: #FFF;
+            font-size: 14px;
+        }
+
+        /* 페이지 버튼 스타일 적용 */
+        .pages {
+            background: #E9E2D9;
+            color: #5C492C;
+            width: 50px;
+            padding: 8px;
+            margin-right: 4px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pages:hover {
+            background-color: #CBB89B;
+            color: #452C07;
+        }
+    </style>
     <script type="text/javascript">
 
         $(function() {
@@ -96,7 +151,7 @@
                         page : $(this).text()
                     },
                     success : function(result) { //결과가 담겨진 table부분코드
-                         $('#d1').html(result)
+                        $('#d1').html(result)
 
                     },
                     error : function() {
@@ -129,7 +184,7 @@
                 <td class="right">${one.ideal_id}</td> <!-- one.getId() -->
                 <td class="right">${one.ideal_nickname}</td>
                 <td class="right">${one.ideal_content}</td>
-                <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <td class="right">
                     <button  class="deleteIdealBoard" value="${one.ideal_id}" style="background: #E9E2D9; color: #5C492C; width: 50px;">삭제</button>
                 </td>

@@ -1,8 +1,11 @@
+// IdealWorldCupServiceImpl.java
 package com.multi.cookies.entertainment.service;
 
 import com.multi.cookies.entertainment.dao.IdealWorldCupDAO;
 import com.multi.cookies.entertainment.dto.IdealWorldCupDTO;
+import com.multi.cookies.entertainment.dto.InitialSnackListDTO;
 import com.multi.cookies.entertainment.dto.PageDTO;
+import com.multi.cookies.entertainment.service.IdealWorldCupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +28,21 @@ public class IdealWorldCupServiceImpl implements IdealWorldCupService {
     }
 
     @Override
-    public List<String> getAllSnackNames() {
-        return idealWorldCupDAO.list();
-    }
-
-    @Override
-    public void updateWins(String winnerName) {
-        idealWorldCupDAO.updateWins(winnerName);
-    }
-
-    @Override
     public int getSnackCount() {
         return idealWorldCupDAO.count();
+    }
+
+    @Override
+    public void updateWinnerWins(int snack_id) {
+        try {
+            idealWorldCupDAO.updateWins(snack_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 예외 처리
+        }
+    }
+    @Override
+    public List<InitialSnackListDTO> getRandomSnacks(int limit) {
+        return idealWorldCupDAO.getRandomSnacks(limit);
     }
 }

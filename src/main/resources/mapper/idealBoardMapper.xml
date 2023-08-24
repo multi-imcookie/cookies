@@ -2,18 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="idealBoard">
 
-    <select id="all" resultType="idealBoardDTO"  parameterType="pageDTO">
+<!--    <select id="all" resultType="idealBoardDTO"  parameterType="pageDTO">-->
+<!--        select * from (-->
+<!--                          select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*-->
+<!--                          from ideal_worldcup_bbs b) bbs2-->
+<!--        where bbs2.idealBoardNum between ${start} and ${end}-->
+<!--    </select>-->
+    <select id="all" resultType="idealBoardDTO" parameterType="pageDTO">
         select * from (
-                          select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
-                          from ideal_worldcup_bbs b) bbs2
+        select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
+        from ideal_worldcup_bbs b) bbs2
         where bbs2.idealBoardNum between ${start} and ${end}
+        and bbs2.idealBoardNum between #{start} and #{end} <!-- PageDTO의 start와 end 사용 -->
     </select>
 
+<!--    <select id="list2" resultType="idealBoardDTO" parameterType="pageDTO">-->
+<!--        select * from (-->
+<!--                          select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*-->
+<!--                          from ideal_worldcup_bbs b) bbs2-->
+<!--        where bbs2.idealBoardNum between #{start} and #{end}-->
+<!--    </select>-->
     <select id="list2" resultType="idealBoardDTO" parameterType="pageDTO">
         select * from (
-                          select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
-                          from ideal_worldcup_bbs b) bbs2
-        where bbs2.idealBoardNum between #{start} and #{end}
+        select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
+        from ideal_worldcup_bbs b) bbs2
+        where bbs2.idealBoardNum between ${start} and ${end}
+        and bbs2.idealBoardNum between #{start} and #{end} <!-- PageDTO의 start와 end 사용 -->
     </select>
 
     <insert id="insert" parameterType="idealBoardDTO">
