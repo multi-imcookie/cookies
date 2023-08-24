@@ -56,17 +56,17 @@
             border-radius: 2px;
         }
 
-        .login-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 960px;
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-            padding-top: 5%;
-            padding-bottom: 5%;
-        }
+        /*.login-container {*/
+        /*    background-color: #fff;*/
+        /*    border-radius: 8px;*/
+        /*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+        /*    width: 960px;*/
+        /*    margin-left: auto;*/
+        /*    margin-right: auto;*/
+        /*    display: block;*/
+        /*    padding-top: 5%;*/
+        /*    padding-bottom: 5%;*/
+        /*}*/
 
         .login-form h1 {
             margin-bottom: 20px;
@@ -129,9 +129,9 @@
     <%@include file="/header.jsp" %>
 </header>
 <br><br>
-<div class="login-container">
+<div class="sub-container">
     <form action="<c:url value="/login"/>" method="post" class="login-form">
-        <h1>로그인</h1>
+        <h1 class="s-h-imcre24">로그인</h1>
         <div id="msg">
             <c:if test="${not empty param.msg}">
                 <i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>

@@ -6,44 +6,45 @@
 </head>
 <body>
 <%@include file="../header.jsp" %>
+<div class="sub-container">
+    <div id="container">
+        <div id="snackInfo"></div> <!-- snack_name과 image 출력 -->
+    </div>
 
-<div id="container">
-    <div id="snackInfo"></div> <!-- snack_name과 image 출력 -->
+    <table>
+        <tr>
+            <form action="/entertainment/idealWorldCupGame" method="get">
+                <label for="kang">라운드를 선택 해주세요:</label>
+                <select name="kang" id="kang">
+                    <option value="4">4강</option>
+                    <option value="8">8강</option>
+                    <option value="16">16강</option>
+                    <option value="32">32강</option>
+                    <option value="64">64강</option>
+                    <option value="128">128강</option>
+                </select>
+                <br><br>
+                <input type="submit" value="다시하기" style="background: #5C492C; color: black; width: 70px;"
+                       onclick="resetSessionStorage()">
+            </form>
+        </tr>
+        <tr>
+            <td><a href="/entertainment/idealWorldCupAll?page=1">
+                <button>랭킹</button>
+            </a></td>
+        </tr>
+        <tr>
+            <td><a href="/entertainment/idealBoardAll?page=1">
+                <button>의견</button>
+            </a></td>
+        </tr>
+        <tr>
+            <td><a href="../index.jsp">
+                <button>뒤로가기</button>
+            </a></td>
+        </tr>
+    </table>
 </div>
-
-<table>
-    <tr>
-        <form action="/entertainment/idealWorldCupGame" method="get">
-            <label for="kang">라운드를 선택 해주세요:</label>
-            <select name="kang" id="kang">
-                <option value="4">4강</option>
-                <option value="8">8강</option>
-                <option value="16">16강</option>
-                <option value="32">32강</option>
-                <option value="64">64강</option>
-                <option value="128">128강</option>
-            </select>
-            <br><br>
-            <input type="submit" value="다시하기" style="background: #5C492C; color: black; width: 70px;" onclick="resetSessionStorage()">
-        </form>
-    </tr>
-    <tr>
-        <td><a href="/entertainment/idealWorldCupAll?page=1">
-            <button>랭킹</button>
-        </a></td>
-    </tr>
-    <tr>
-        <td><a href="/entertainment/idealBoardAll?page=1">
-            <button>의견</button>
-        </a></td>
-    </tr>
-    <tr>
-        <td><a href="../index.jsp">
-            <button>뒤로가기</button>
-        </a></td>
-    </tr>
-</table>
-
 <%@include file="../footer.jsp" %>
 
 <script>
@@ -53,7 +54,7 @@
         sessionStorage.removeItem('updated'); // 'updated' 키 제거
     }
 
-    window.onload = function() {
+    window.onload = function () {
         var urlParams = new URLSearchParams(window.location.search);
         var championJson = urlParams.get('champion');
         var champion = JSON.parse(decodeURIComponent(championJson));
@@ -61,7 +62,7 @@
         var snackInfoContainer = document.getElementById('snackInfo');
 
         // champion 배열을 순회하면서 snack_name과 snack_img 출력
-        champion.forEach(function(item) {
+        champion.forEach(function (item) {
             var snackName = item.snack_name;
             var snackImg = item.snack_img;
 

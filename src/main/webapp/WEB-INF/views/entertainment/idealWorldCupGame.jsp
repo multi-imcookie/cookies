@@ -5,9 +5,10 @@
 <div id="d1">
     <%
         String selectedRound = request.getParameter("kang");
-        int round = Integer.parseInt(selectedRound)/2;
+        int round = Integer.parseInt(selectedRound) / 2;
     %>
 </div>
+<html>
 <head>
     <%@ include file="/link.jsp" %>
     <meta charset="UTF-8">
@@ -17,6 +18,7 @@
             display: flex;
             justify-content: center;
         }
+
         .img-button {
             background: none;
             border: none;
@@ -26,6 +28,7 @@
             width: 50%;
             box-sizing: border-box;
         }
+
         .img-button img {
             max-width: 100%;
             max-height: 100%;
@@ -73,7 +76,7 @@
 </head>
 <body>
 <%@include file="/header.jsp" %>
-<div class="match-info">
+<div class="sub-container match-info">
     <p class="h-imcre24">${param.kang}강</p>
     <p>
         <span id="match" class="s-h-imcre24">1</span>
@@ -107,6 +110,7 @@
         <span class="snack-name"></span> <!-- snack_name 출력 -->
     </button>
 </div>
+
 <script>
     var round = <%=round%>; // JSP에서 변수의 값을 JavaScript로 전달
     var matchElement = document.getElementById('match');
@@ -117,7 +121,7 @@
             snack_id: "${snack.snack_id}",
             snack_name: "${snack.snack_name}",
             snack_img: "${snack.snack_img}"
-        }<c:if test="${not loop.last}">,</c:if>
+        }<c:if test="${not loop.last}">, </c:if>
         </c:forEach>
     ];
 
@@ -144,7 +148,7 @@
                 var image = this.getAttribute('data-image');
                 var snack_id = this.getAttribute('data-id');
                 var snack_name = this.getAttribute('data-name');
-                champion.push({ snack_id, snack_name, snack_img: image });
+                champion.push({snack_id, snack_name, snack_img: image});
 
                 var encodedChampion = encodeURIComponent(JSON.stringify(champion)); // URL 안전한 형태로 인코딩
 
@@ -156,7 +160,7 @@
                 kangValue = clickCnt;
                 clickCnt = 0;
                 match = 1;
-                round= round/2;
+                round = round / 2;
                 winnerList = winnerList.sort(() => Math.random() - 0.5);
                 nextSnackList = winnerList;
                 nextSnackList = nextSnackList.sort(() => Math.random() - 0.5);
@@ -165,7 +169,7 @@
                 var image = this.getAttribute('data-image');
                 var snack_id = this.getAttribute('data-id');
                 var snack_name = this.getAttribute('data-name');
-                winnerList.push({ snack_id, snack_name, snack_img: image });
+                winnerList.push({snack_id, snack_name, snack_img: image});
                 winnerList = [];
                 index0 = (index0 + 2) % nextSnackList.length;
                 updateButton(0, index0);
@@ -184,7 +188,7 @@
                 var image = this.getAttribute('data-image');
                 var snack_id = this.getAttribute('data-id');
                 var snack_name = this.getAttribute('data-name');
-                winnerList.push({ snack_id, snack_name, snack_img: image });
+                winnerList.push({snack_id, snack_name, snack_img: image});
                 index0 = (index0 + 2) % nextSnackList.length;
                 updateButton(0, index0);
                 index1 = (index1 + 2) % nextSnackList.length;

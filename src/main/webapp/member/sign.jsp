@@ -32,7 +32,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="sub-container">
     <h3 class="s-h-imcre24">회원가입</h3>
     <form class="signup-form form-style" method="post">
         <div class="input-section">
@@ -123,6 +123,6 @@
         <input type="button" id="signUp-btn" class="fill-btn" value="회원가입">
     </form>
 </div>
-<%@include file="../footer.jsp" %>
+<%@include file="/footer.jsp" %>
 </body>
 </html>
