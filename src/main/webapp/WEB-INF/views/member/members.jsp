@@ -1,13 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 이성보
-  Date: 2023-08-16
-  Time: 오후 11:19
+  Date: 2023-08-18
+  Time: 오후 2:30
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page session="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +33,16 @@
 <body>
 <%@include file="/header.jsp" %>
 <h1>회원 목록</h1>
+<form action="/members/search" method="get">
+    <select name="type">
+        <option value="nickname">닉네임</option>
+        <option value="id">아이디</option>
+    </select>
+    <input type="text" name="keyword" placeholder="검색어를 입력하세요">
+    <input type="submit" value="검색">
+</form>
+
+
 <table>
     <tr>
         <th>ID</th>
@@ -42,7 +51,7 @@
         <th>회원 등급</th>
         <th>동작</th>
     </tr>
-    <c:forEach var="member" items="${members}">
+    <c:forEach var="member" items="${membersWithPaging.members}">
         <tr>
             <td>${member.member_id}</td>
             <td>${member.member_signId}</td>
@@ -58,7 +67,24 @@
         </tr>
     </c:forEach>
 </table>
+<div>
+    <a href="?page=1">첫페이지</a>
+    <a href="?page=${membersWithPaging.startPage - 10 > 1 ? membersWithPaging.startPage - 10 : 1}">&lt;&lt;</a>
+    <c:forEach var="i" begin="${membersWithPaging.startPage}" end="${membersWithPaging.endPage}">
+        <c:choose>
+            <c:when test="${i == membersWithPaging.currentPage}">
+                <strong>${i}</strong>
+            </c:when>
+            <c:otherwise>
+                <a href="?page=${i}">${i}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <a href="?page=${membersWithPaging.endPage + 1 <= membersWithPaging.totalPages ? membersWithPaging.endPage + 1 : membersWithPaging.totalPages}">&gt;&gt;</a>
+    <a href="?page=${membersWithPaging.totalPages}">끝페이지</a>
+</div>
+
+
 <%@include file="/footer.jsp" %>
 </body>
 </html>
-
