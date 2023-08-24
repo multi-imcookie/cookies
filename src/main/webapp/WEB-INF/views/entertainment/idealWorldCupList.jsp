@@ -17,8 +17,8 @@
     <c:forEach items="${list}" var="one">
       <tr>
         <td class="right">${one.idealRanking}</td> <!-- one.getId() -->
-        <td class="right"><img src = "/resources/img/entertainment/${one.ideal_snack_img}" width="200" height="200"></td>
-        <td class="right">${one.ideal_snack_name}</td>
+        <td class="right"><img src = "${one.snack_img}" width="300" height="200"></td>
+        <td class="right">${one.snack_name}</td>
       </tr>
     </c:forEach>
   </table>
