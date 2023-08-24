@@ -67,10 +67,19 @@
             <li><a href="/member/mypage.jsp">
                 <img src="/resources/img/icon/user.svg" alt="유저메뉴">
             </a></li>
+<%--            <c:if test="${sessionScope.authInfo != null}">--%>
+<%--                <li><a href="/member/mypage.jsp">--%>
+<%--                    <img src="/resources/img/icon/user.svg" alt="유저메뉴">--%>
+<%--                </a></li>--%>
+<%--            </c:if>--%>
+<%--            <c:if test="${sessionScope.authInfo == null}">--%>
+<%--                <li><a href="/login">--%>
+<%--                    <img src="/resources/img/icon/user.svg" alt="유저메뉴">--%>
+<%--                </a></li>--%>
+<%--            </c:if>--%>
             <li><a href="#">
                 <img src="/resources/img/icon/bell.svg" alt="알림">
             </a></li>
         </ul>
     </div>
 </div>
-<div class="container mb-5"> <!-- 닫는태그 footer에 있음 -->

@@ -5,28 +5,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>게시물 수정</title>
-  <%@ include file="/link.jsp" %>
+    <meta charset="UTF-8">
+    <title>게시물 수정</title>
+    <%@ include file="/link.jsp" %>
 </head>
 <body>
+<div class="sub-container">
+    <h3 class="h-imcre24">글수정</h3>
 
-<h3>글수정</h3>
+    <form method="post">
 
-<form method="post">
+        <label>제목</label>
+        <input type="text" name="title" value="${view.bbs_title}"/><br/>
 
-  <label>제목</label>
-  <input type="text" name="title" value="${view.bbs_title}"/><br />
+        <label>작성자</label>
+        <input type="text" name="writer" value="${view.member_id}"/><br/>
 
-  <label>작성자</label>
-  <input type="text" name="writer" value="${view.member_id}"/><br />
+        <label>내용</label>
+        <textarea cols="50" rows="5" name="content">${view.bbs_content}</textarea><br/>
 
-  <label>내용</label>
-  <textarea cols="50" rows="5" name="content">${view.bbs_content}</textarea><br />
+        <button type="submit">완료</button>
 
-  <button type="submit">완료</button>
-
-</form>
-
+    </form>
+</div>
 </body>
 </html>

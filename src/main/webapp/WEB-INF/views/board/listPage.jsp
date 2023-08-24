@@ -9,56 +9,56 @@
 </head>
 <body>
 <%@ include file="/header.jsp" %>
+<div class="sub-container">
+    <form action="list" method="get">
+        <select name="category">
+            <option value="question">질문게시판</option>
+            <option value="free">자유게시판</option>
+        </select>
+        <input type="text" name="keyword" placeholder="검색어를 입력하세요">
+        <button type="submit">검색</button>
+    </form>
 
-<form action="list" method="get">
-    <select name="category">
-        <option value="question">질문게시판</option>
-        <option value="free">자유게시판</option>
-    </select>
-    <input type="text" name="keyword" placeholder="검색어를 입력하세요">
-    <button type="submit">검색</button>
-</form>
+    <table>
+        <thead>
 
-<table>
-    <thead>
-
-    <tr>
-        <p><a href="write">글 작성하기</a></p><br>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>조회수</th>
-    </tr>
-    </thead>
-
-    <tbody>
-
-    <c:forEach items="${list}" var="list">
         <tr>
-            <td>${list.bbs_id}</td>
-            <td>
-                <a href="/view?bbs_id=${list.bbs_id}">${list.title}</a>
-            </td>
-            <td>
-                <fmt:formatDate value="${list.create_dt}" pattern="yyyy-MM-dd" />
-            </td>
-            <td>${list.member_id}</td>
-            <td>${list.views}</td>
+            <p><a href="write">글 작성하기</a></p><br>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>조회수</th>
         </tr>
-    </c:forEach>
+        </thead>
 
-    </tbody>
+        <tbody>
 
-</table>
+        <c:forEach items="${list}" var="list">
+            <tr>
+                <td>${list.bbs_id}</td>
+                <td>
+                    <a href="/view?bbs_id=${list.bbs_id}">${list.title}</a>
+                </td>
+                <td>
+                    <fmt:formatDate value="${list.create_dt}" pattern="yyyy-MM-dd"/>
+                </td>
+                <td>${list.member_id}</td>
+                <td>${list.views}</td>
+            </tr>
+        </c:forEach>
 
-<div>
+        </tbody>
 
-    <c:if test="${page.prev}">
-        <span>[ <a href="/listPage?num=${page.startPageNum - 1}">이전</a> ]</span>
-    </c:if>
+    </table>
 
-    <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+    <div>
+
+        <c:if test="${page.prev}">
+            <span>[ <a href="/listPage?num=${page.startPageNum - 1}">이전</a> ]</span>
+        </c:if>
+
+        <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
 		<span>
 
 			<c:if test="${select != num}">
@@ -70,20 +70,20 @@
             </c:if>
 
 		</span>
-    </c:forEach>
+        </c:forEach>
 
-    <c:if test="${page.next}">
-        <span>[ <a href="/listPage?num=${page.endPageNum + 1}">다음</a> ]</span>
-    </c:if>
+        <c:if test="${page.next}">
+            <span>[ <a href="/listPage?num=${page.endPageNum + 1}">다음</a> ]</span>
+        </c:if>
 
 
-    <%-- <c:forEach begin="1" end="${pageNum}" var="num">
-          <span>
-              <a href="/board/listPage?num=${num}">${num}</a>
-        </span>
-    </c:forEach> --%>
+        <%-- <c:forEach begin="1" end="${pageNum}" var="num">
+              <span>
+                  <a href="/board/listPage?num=${num}">${num}</a>
+            </span>
+        </c:forEach> --%>
+    </div>
+
 </div>
-
-
 </body>
 </html>

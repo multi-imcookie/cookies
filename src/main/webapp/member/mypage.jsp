@@ -16,11 +16,11 @@
 </head>
 <body>
 <%@include file="/header.jsp" %>
-<div class="container">
+<div class="sub-container">
     <h3 class="s-h-imcre24">마이페이지</h3>
     <div class="profile">
         <div class="profile-img"></div>
-        <div class="small-btn-wrap p-regular">
+        <div class="btn-wrap-row p-regular">
             <a href="#" class="small-fill-btn">변경하기</a>
             <a href="#" class="small-fill-btn">삭제하기</a>
         </div>
@@ -38,6 +38,7 @@
                 <li>${member_email}</li>
             </ul>
         </div>
+        <button href="#" class="edit-btn"><img src="/resources/img/icon/edit.svg" alt="수정버튼"></button>
     </div>
 </div>
 </body>

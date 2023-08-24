@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,6 +11,7 @@
             padding: 20px;
 
         }
+
         .detail-container {
             display: flex;
             align-items: center;
@@ -55,37 +55,38 @@
 </head>
 <body>
 <br>
-<div class="detail-container">
-    <div class="thumbnail"><img src="${searchDTO.snack_img}" alt="썸네일"></div>
-    <div class="detail-content">
-        <div class="detail-row">${searchDTO.snack_name}</div>
-        <div class="detail-row">${searchDTO.company}</div>
-        <div class="detail-row">${searchDTO.snack_ingredients}</div>
-        <div class="detail-row">${searchDTO.allergy}</div>
+<div class="sub-container">
+    <div class="detail-container">
+        <div class="thumbnail"><img src="${searchDTO.snack_img}" alt="썸네일"></div>
+        <div class="detail-content">
+            <div class="detail-row">${searchDTO.snack_name}</div>
+            <div class="detail-row">${searchDTO.company}</div>
+            <div class="detail-row">${searchDTO.snack_ingredients}</div>
+            <div class="detail-row">${searchDTO.allergy}</div>
+        </div>
     </div>
-</div>
-<br>
-<%--<a href="<c:url value='snackWikiSearch.jsp?keyword=${keyword}'/>" id="goToSearchList">돌아가기</a>--%>
-<a href="#" id="goToSearchList">
-    <button type="button" class="btn" >돌아가기</button>
-</a>
-<script>
-    $(document).ready(function () {
-        $('#goToSearchList').click(function (event) {
-            event.preventDefault(); // 기본 동작을 취소합니다.
-            let pageNum = localStorage.getItem('currentPage');
-            let storedKeyword = localStorage.getItem('keyword'); // 저장된 키워드 불러오기
-            if(pageNum === null){
-                window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword);
-            } else {
-                window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword) + '&page=' + encodeURIComponent(pageNum);
-            }
+    <br>
+    <%--<a href="<c:url value='snackWikiSearch.jsp?keyword=${keyword}'/>" id="goToSearchList">돌아가기</a>--%>
+    <a href="#" id="goToSearchList">
+        <button type="button" class="btn">돌아가기</button>
+    </a>
+    <script>
+        $(document).ready(function () {
+            $('#goToSearchList').click(function (event) {
+                event.preventDefault(); // 기본 동작을 취소합니다.
+                let pageNum = localStorage.getItem('currentPage');
+                let storedKeyword = localStorage.getItem('keyword'); // 저장된 키워드 불러오기
+                if (pageNum === null) {
+                    window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword);
+                } else {
+                    window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword) + '&page=' + encodeURIComponent(pageNum);
+                }
+            });
         });
-    });
-</script>
-<button type="button" class="btn" id="selectSnackBtn">선택하기</button>
-<br>
-<script>
+    </script>
+    <button type="button" class="btn" id="selectSnackBtn">선택하기</button>
+    <br>
+    <script>
         $('#selectSnackBtn').click(function () {
             var selectedSnackInfo = {
                 snackId: "${searchDTO.snack_id}",
@@ -100,7 +101,7 @@
             window.close();
         });
 
-</script>
-
+    </script>
+</div>
 </body>
 </html>
