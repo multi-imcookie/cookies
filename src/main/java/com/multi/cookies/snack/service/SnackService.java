@@ -3,16 +3,14 @@ package com.multi.cookies.snack.service;
 
 import com.multi.cookies.snack.dto.SearchDTO;
 
-import java.util.List;
+import java.util.Map;
 
 public interface SnackService {
 
-    List<SearchDTO> snackSearch(String keyword, int pageSize);
+    Map<String, Object> snackSearch(String keyword, int pageSize, int page);
 
     SearchDTO snackInfo(int snack_id);
 
-    int getTotalResults(String keyword);
 
-
-
+    // List<SearchDTO> snackSearch(String keyword, int pageSize);
 }

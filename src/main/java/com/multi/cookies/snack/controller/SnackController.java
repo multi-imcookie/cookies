@@ -14,6 +14,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -22,10 +23,6 @@ public class SnackController {
     @Autowired
     SnackService snackService;
 
-    @RequestMapping(value = {"/snack/snackSelectPopup"}, method = RequestMethod.GET)
-    public String openSnackReviewSearch() {
-        return "/snack/snackReviewSearch";
-    }
     @RequestMapping(value = {"/snack/snackWikiSearch", "/snack/snackReviewSearch"}, method = RequestMethod.GET)
    // @RequestMapping("/snack/snackWikiSearch")
     public String snackSearch(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
@@ -39,32 +36,19 @@ public class SnackController {
             throw new IllegalArgumentException("키워드가 null입니다.");
         }
 
+        Map<String, Object> paginationResult = snackService.snackSearch(keyword, pageSize, page);
 
-        // 마이바티스 매퍼를 통해 검색 결과를 가져옵니다.
-        List<SearchDTO> searchResults = snackService.snackSearch(keyword, pageSize);
-        System.out.println("DB에서 가져온 값 " + searchResults);
-
-        int totalResults = snackService.getTotalResults(keyword);
-        int totalPages = (int) Math.ceil((double) totalResults / pageSize);
-
-        // 검색된 결과에서 페이징 처리를 위한 범위를 구합니다.
-        int startIndex = (page - 1) * pageSize;
-        int endIndex = Math.min(startIndex + pageSize, searchResults.size());
-
-        int startPage = (((page - 1) / 5) * 5) + 1;
-        int endPage = Math.min(startPage + 4, totalPages);
-
-        // 범위 내에 있는 검색 결과를 추출하여 리스트로 저장합니다.
-        List<SearchDTO> pageResults = searchResults.subList(startIndex, endIndex);
+        List<SearchDTO> pageResults = (List<SearchDTO>) paginationResult.get("pageResults");
 
         String requestURI = (String)request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchResults", pageResults);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalResults", totalResults);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
+        model.addAttribute("totalPages", paginationResult.get("totalPages"));
+        model.addAttribute("totalResults", paginationResult.get("totalResults"));
+        model.addAttribute("currentPage", paginationResult.get("currentPage"));
+        model.addAttribute("startPage", paginationResult.get("startPage"));
+        model.addAttribute("endPage", paginationResult.get("endPage"));
 
              if(requestURI.equals("/snack/snackReviewSearch")){
                  System.out.println("리뷰에서 검색!");
@@ -84,5 +68,9 @@ public class SnackController {
         model.addAttribute("searchDTO", searchDTO);
     }
 
+    @RequestMapping(value = {"/snack/snackSelectPopup"}, method = RequestMethod.GET)
+    public String openSnackReviewSearch() {
+        return "/snack/snackReviewSearch";
+    }
 
 }

@@ -7,8 +7,9 @@ import java.util.List;
 public interface SnackDAO {
 
     List<SearchDTO> snackSearch(String keyword);
-
-    int getTotalResults(String keyword);
     SearchDTO snackInfo(int snack_id);
+
+
+//    int getTotalResults(String keyword);
 
 }
