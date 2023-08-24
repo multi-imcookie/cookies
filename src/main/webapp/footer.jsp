@@ -19,20 +19,20 @@
         </ul>
         <div class="team-email">
             <ul class="team-email-section">
-                <li class="p-bold"><img src="/resources/img/mail.svg" alt="메일 아이콘">son7162@gmail.com</li>
-                <li class="p-bold"><img src="/resources/img/mail.svg" alt="메일 아이콘">dksdbsdk66@naver.com</li>
+                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">son7162@gmail.com</li>
+                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">dksdbsdk66@naver.com</li>
             </ul>
             <ul class="team-email-section">
-                <li class="p-bold"><img src="/resources/img/mail.svg" alt="메일 아이콘">limwantae87@gmail.com</li>
-                <li class="p-bold"><img src="/resources/img/mail.svg" alt="메일 아이콘">12wlsrl@naver.com</li>
+                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">limwantae87@gmail.com</li>
+                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">12wlsrl@naver.com</li>
             </ul>
             <ul class="team-email-section">
-                <li class="p-bold"><img src="/resources/img/mail.svg" alt="메일 아이콘">5local9805@gmail.com</li>
-                <li class="p-bold"><img src="/resources/img/mail.svg" alt="메일 아이콘">qnelldo@gmail.com</li>
+                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">5local9805@gmail.com</li>
+                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">qnelldo@gmail.com</li>
             </ul>
             <ul class="team-email-section">
-                <li class="p-bold"><img src="/resources/img/mail.svg" alt="메일 아이콘">yujeong4624@gmail.com</li>
-                <li class="p-bold"><img src="/resources/img/mail.svg" alt="메일 아이콘">ssaintbo@gmail.com</li>
+                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">yujeong4624@gmail.com</li>
+                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">ssaintbo@gmail.com</li>
             </ul>
         </div>
     </div>

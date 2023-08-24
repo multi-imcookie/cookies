@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
     <insert id="sign" parameterType="memberDTO" useGeneratedKeys="true" keyProperty="memberId">
-        insert into member
-        values (null, #{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender},
+        INSERT INTO member
+        VALUES (null, #{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender},
                 #{member_birthday}, #{member_email}, #{member_grade}, null, null, now(), #{member_phone})
     </insert>
     <select id="checkDuplicateId" parameterType="String" resultType="int">
@@ -13,21 +13,25 @@
     </select>
 
     <select id="getAllMembers" resultType="com.multi.cookies.member.dto.AdminDTO">
-        SELECT * FROM member
+        SELECT *
+        FROM member
     </select>
 
-    <select id="getMemberById" resultType="com.multi.cookies.member.dto.AdminDTO">
-        SELECT * FROM member WHERE member_id = #{id}
+
+    <select id="getMemberBySignID" resultType="com.multi.cookies.member.dto.AdminDTO">
+        SELECT *
+        FROM member
+        WHERE member_signId = #{member_signId}
     </select>
 
     <update id="updateMember">
         UPDATE member
-        SET member_signId = #{member_signId},
+        SET member_signId   = #{member_signId},
             member_nickname = #{member_nickname},
-            member_age = #{member_age},
-            member_gender = #{member_gender},
-            member_email = #{member_email},
-            member_grade = #{member_grade}
+            member_age      = #{member_age},
+            member_gender   = #{member_gender},
+            member_email    = #{member_email},
+            member_grade    = #{member_grade}
         WHERE member_id = #{member_id}
     </update>
 
@@ -37,7 +41,24 @@
     </insert>
 
     <delete id="deleteMember">
-        DELETE FROM member WHERE member_id = #{id}
+        DELETE
+        FROM member
+        WHERE member_id = #{id}
     </delete>
+
+    <select id="getMemberInfo" parameterType="String" resultType="com.multi.cookies.member.dto.MypageDTO">
+        SELECT *
+        FROM member
+        WHERE member_signId = #{member_signId}
+    </select>
+
+    <update id="updateMemberInfo" parameterType="com.multi.cookies.member.dto.MypageDTO">
+        UPDATE member
+        SET member_nickname = #{member_nickname},
+            member_phone    = #{member_phone},
+            member_email    = #{member_email},
+            member_pw       = #{member_pw}
+        WHERE member_signId = #{member_signId}
+    </update>
 
 </mapper>

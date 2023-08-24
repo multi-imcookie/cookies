@@ -36,7 +36,7 @@
                     <label class="label-bold" for="keyword">Search</label>
                     <input class="p-regular" type="text" name="keyword" id="keyword" placeholder="검색하고 싶은 과자를 입력하세요.">
                 </div>
-                <button class="search-btn"><img src="resources/img/search.svg" alt="돋보기 아이콘"></button>
+                <button class="search-btn"><img src="resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
             </div>
         </form>
         <div class="v-right">
@@ -59,7 +59,7 @@
                         무난한 추천 문구 5개정도 돌려 쓰면 좋을 듯
                     </span>
                     </div>
-                    <img src="resources/img/v-right-box-img01.png" alt="꼬북칩">
+                    <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
                 </a>
                 <a href="#" class="v-r-box box02">
                     <div class="v-r-text">
@@ -73,7 +73,7 @@
                         무난한 추천문구 5개정도 돌려쓰면 좋을듯
                     </span>
                     </div>
-                    <img src="resources/img/v-right-box-img01.png" alt="꼬북칩">
+                    <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
                 </a>
                 <a href="#" class="v-r-box box03">
                     <div class="v-r-text">
@@ -87,12 +87,12 @@
                         무난한 추천문구 5개정도 돌려쓰면 좋을듯
                     </span>
                     </div>
-                    <img src="resources/img/v-right-box-img01.png" alt="꼬북칩">
+                    <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
                 </a>
             </div>
         </div>
-        <div class="slide-btn prev-btn"><img src="resources/img/arrow-left.svg" alt="prev"></div>
-        <div class="slide-btn next-btn"><img src="resources/img/arrow-right.svg" alt="next"></div>
+        <div class="slide-btn prev-btn"><img src="resources/img/icon/arrow-left.svg" alt="prev"></div>
+        <div class="slide-btn next-btn"><img src="resources/img/icon/arrow-right.svg" alt="next"></div>
     </div>
 </div>
 <%@include file="footer.jsp" %>

@@ -64,6 +64,16 @@ input[type='number'] {
     -moz-appearance: textfield;
 }
 
+.container {
+    display: flex;
+    width: 100%;
+    padding: 0 480px;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+}
+
 /* 초기 설정 */
 
 /* button 스타일 */
@@ -252,7 +262,7 @@ input[type='number'] {
 
 .s-h-imcre24 {
     text-align: center;
-    padding: 60px 0 60px;
+    padding: 60px 0 0;
     box-sizing: border-box;
 }
 
@@ -753,3 +763,49 @@ input[type='number'] {
 }
 
 /* sub - 회원가입 페이지 끝 */
+
+/* sub - 마이페이지 시작 */
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.profile-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-image: url("/resources/img/profile/profile_default.png");
+}
+
+.small-btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+    font-size: 14px;
+    line-height: 26px;
+}
+
+.small-fill-btn {
+    display: flex;
+    padding: 4px 0;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 0;
+}
+
+.small-fill-btn:nth-child(1) {
+    border-radius: 4px;
+    border: 1px solid #CBB89B;
+    color: #CBB89B;
+}
+
+.small-fill-btn:nth-child(2) {
+    border-radius: 4px;
+    background-color: #CBB89B;
+    color: #fff;
+}
