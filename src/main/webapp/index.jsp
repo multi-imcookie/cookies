@@ -22,15 +22,6 @@
         </h3>
         <form action="/snack/snackWikiSearch" method="get">
             <div class="cookie-search main-search">
-                <div class="select-wrap">
-                    <label class="label-bold" for="cookie-select">Category</label>
-                    <select class="p-regular" id="cookie-select">
-                        <option>카테고리 선택</option>
-                        <option>달달한</option>
-                        <option>짭쪼름한</option>
-                    </select>
-                </div>
-                <span class="div-line"></span>
                 <div class="search-wrap">
                     <label class="label-bold" for="keyword">Search</label>
                     <input class="p-regular" type="text" name="keyword" id="keyword" placeholder="검색하고 싶은 과자를 입력하세요.">

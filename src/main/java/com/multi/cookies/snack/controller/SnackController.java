@@ -27,7 +27,7 @@ public class SnackController {
    // @RequestMapping("/snack/snackWikiSearch")
     public String snackSearch(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
         System.out.println("컨트롤러 가동!");
-        int pageSize = 10;
+        int pageSize = 9;
 
         String keyword = request.getParameter("keyword");
         System.out.println("입력값 확인! " + keyword);
