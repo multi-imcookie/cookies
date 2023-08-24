@@ -39,6 +39,31 @@
       });
     });
   </script>
+  <style>
+    .detail-container {
+      display: flex;
+      align-items: center;
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .thumbnail img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+
+    .detail-content {
+      margin-left: 20px;
+    }
+
+    .detail-row {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
 <%@ include file="/header.jsp" %>
@@ -49,8 +74,37 @@
   <label>글제목: </label>
   ${dto.review_title}
 
-  <label>별점: </label>
-  ${dto.review_score} <br>
+  <div id="reviewSnack">
+    <div class="detail-container">
+      <div class="thumbnail"><img src="${snack.snack_img}" alt="썸네일"></div>
+      <div class="detail-content">
+        <div class="detail-row">이름 : ${snack.snack_name}</div>
+        <br>
+        <div class="detail-row">제조회사 : ${snack.company}</div>
+        <br>
+        <div class="detail-row">원재료 : ${snack.snack_ingredients}</div>
+        <br>
+        <div class="detail-row">알러지 : ${snack.allergy}</div>
+      </div>
+    </div>
+    <div>
+      <label>내가 준 별점: </label><div class="rating" id="rating"></div>
+      <script>
+        var rating = ${dto.review_score};
+        var fullStars = Math.floor(rating);
+        var hasHalfStar = rating - fullStars >= 0.5;
+
+        for (var i = 0; i < fullStars; i++) {
+
+          document.getElementById("rating").innerHTML += "&#9733;";
+        }
+        if (hasHalfStar) {
+          document.getElementById("rating").innerHTML += "&#9733;";
+        }
+      </script>
+    </div>
+  </div>
+
 
   <label>작성자: </label>
   ${dto.member_id}

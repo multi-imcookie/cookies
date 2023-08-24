@@ -66,7 +66,7 @@
     </form>
 </div>
 
-<div id="search-results-paginated">
+<div id="search-results-paginated" style="display: none;">
     <div id="search-results" class="search-results">
         <%--검색 결과 총 ${fn:length(searchResult)} 건--%>
         <p>"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
@@ -101,7 +101,7 @@
     </div>
 </div>
 
-<div class="pagination">
+<div class="pagination" style="display: none;">
     <a href="#" data-page="1">첫 페이지</a>
 
     <c:if test="${currentPage > 1}">
@@ -128,6 +128,12 @@
 
 <script>
     $(document).ready(function () {
+        let keyword = "${param.keyword}";
+        if (keyword !== "") {
+            $("#search-results-paginated").show(); // 검색 키워드가 있을 경우에만 요소 보이도록 처리
+            $(".pagination").show(); // 검색 키워드가 있을 경우에만 요소 보이도록 처리
+        }
+
         // 상세 페이지를 DIV 영역 내에서 로드하는 클릭 이벤트
         $('#search-results-paginated').on('click', '.goToDetail', function () {
             let snackId = $(this).data('snack-id');

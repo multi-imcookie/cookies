@@ -2,6 +2,8 @@ package com.multi.cookies.board.controller;
 
 import com.multi.cookies.board.dto.ReviewDTO;
 import com.multi.cookies.board.service.ReviewService;
+import com.multi.cookies.snack.service.SnackService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +24,9 @@ public class ReviewController {
 
     @Inject
     ReviewService reviewService;
+
+    @Autowired
+    SnackService snackService;
 
     // 1. 게시글 목록
     @RequestMapping("list.do")
@@ -50,7 +55,7 @@ public class ReviewController {
     // 3. 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // HttpSession 세션객체
     @RequestMapping(value="view.do", method=RequestMethod.GET)
-    public ModelAndView view(@RequestParam int review_id, HttpSession session) throws Exception{
+    public ModelAndView view(@RequestParam int review_id) throws Exception{
 
         // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
         ModelAndView mav = new ModelAndView();
@@ -58,6 +63,15 @@ public class ReviewController {
         mav.setViewName("review/view");
         // 뷰에 전달할 데이터
         mav.addObject("dto", reviewService.read(review_id));
+
+        // 리플렉션을 이용하여 값 가져오기
+        // 원래 GPT 추천은 메소드를 만들든 따로 요청하게끔 했으나, 코드 최대한 안 건들이면서 해봄.
+        // 물론 이 방법도 징징거려서 추천 받은 방법인데, 성능 저하나 등등 때문에 추천하진 않는다고 했음.
+        Map<String, Object> modelMap = mav.getModel();
+        ReviewDTO dto = (ReviewDTO) modelMap.get("dto");
+        int snackId = dto.getSnack_id();
+
+        mav.addObject("snack", snackService.snackInfo(snackId));
         return mav;
     }
 
