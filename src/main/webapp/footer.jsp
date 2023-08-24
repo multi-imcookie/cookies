@@ -37,7 +37,7 @@
             </ul>
         </div>
     </div>
-    <ul class="f-right nav">
+    <ul class="f-right">
         <li>
             <a class="h-imcre24" href="/snack/snackWiki.jsp">쿠키 위키</a>
             <ul class="f-depth2">
