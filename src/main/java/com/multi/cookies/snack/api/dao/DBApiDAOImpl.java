@@ -33,15 +33,11 @@ public class DBApiDAOImpl implements DBApiDAO {
 
     @Override
     public int deleteAllDB() { // DB 전체삭제
-        int result = 0;
-        result += my.delete("db.deleteNutri");    // snack_nutritional DB 데이터 삭제
-        result += my.delete("db.deleteSnack");    // snack DB 데이터 삭제
-        return result;
+        return my.delete("db.deleteSnack");   // snack DB 데이터 삭제 (Cascade설정으로 영양성분DB 함께 삭제)
     }
 
     @Override
     public void resetDBAI() {   // DB 오토인크리먼트 초기화
-        my.update("db.resetNutriAI");   // snack_nutritional DB Auto_Increment 초기화
         my.update("db.resetSnackAI");   // snack DB Auto_Increment 초기화
     }
 }

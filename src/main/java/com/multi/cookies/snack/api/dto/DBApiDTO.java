@@ -12,4 +12,15 @@ public class DBApiDTO {
     String company; // 제조사
     String snack_reportNo;  // 품목보고번호
     String allergy; // 알레르기 성분
+
+    double protein; // 단백질
+    double kcal;    // 열량
+    double fat; // 지방
+    double carb;    // 탄수화물
+    double sugars;  // 당류
+    double calcium; // 칼슘
+    double sodium;  // 나트륨
+    double cholesterol; // 콜레스테롤
+    double saturated_fat;   // 포화지방
+    double trans_fat;   // 트랜스지방
 }
