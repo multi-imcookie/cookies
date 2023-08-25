@@ -53,23 +53,16 @@
             background-color: #FFF;
             font-size: 14px;
         }
-
-        /* 페이지 버튼 스타일 적용 */
-        .pages {
-            background: #E9E2D9;
-            color: #5C492C;
-            width: 50px;
-            padding: 8px;
-            margin-right: 4px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
+        .ideal-board-all {
+            display: flex;
+            justify-content: center; /* 수평 가운데 정렬 */
+            gap: 50px;
         }
-
-        .pages:hover {
-            background-color: #CBB89B;
-            color: #452C07;
+        /* 페이지 버튼 스타일 적용 */
+        .page-buttons {
+            display: flex;
+            justify-content: center; /* 수평 가운데 정렬 */
+            gap: 10px; /* 버튼 사이의 간격 */
         }
     </style>
     <script type="text/javascript">
@@ -171,6 +164,7 @@
 <%@include file="/header.jsp" %>
 <div class="sub-container">
     <h3>전체 의견 수: ${count}</h3>
+    <div class="ideal-board-all">
     <div class="input-wrap" style="background:#E9E2D9">
         닉네임: <input id="ideal_nickname"><br>
         패스워드: <input id="ideal_pw"><br>
@@ -178,17 +172,17 @@
         <input class="saveIdealBoard" id="saveIdealBoard" type="button" value="의견 작성"
                style="background: #5C492C; color: black; width: 70px;">
     </div>
-    <div id="d1">
+    <div id="d1" class="ideal-board">
         <table>
             <tr>
-                <td class="left">글 번호</td>
+<%--                <td class="left">글 번호</td>--%>
                 <td class="left">닉네임</td>
                 <td class="left">내용</td>
                 <td class="left">작성시간</td>
             </tr>
             <c:forEach items="${list}" var="one">
                 <tr>
-                    <td class="right">${one.ideal_id}</td> <!-- one.getId() -->
+<%--                    <td class="right">${one.ideal_id}</td> <!-- one.getId() -->--%>
                     <td class="right">${one.ideal_nickname}</td>
                     <td class="right">${one.ideal_content}</td>
                     <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -201,17 +195,13 @@
             </c:forEach>
         </table>
     </div>
-    <hr color="#5C492C">
-    <%
-        int pages = (int) request.getAttribute("pages");
-        for (int p = 1; p <= pages; p++) {
-    %>
-    <button style="background: #E9E2D9; color: #5C492C; width: 50px;" class="pages"><%= p %>
-    </button>
-    <%
-        }
-    %>
-    <hr color=#5C492C>
+    </div>
+    <div class="page-buttons">
+        <% int pages = (int) request.getAttribute("pages");
+            for (int p = 1; p <= pages; p++) { %>
+        <button class="page-button pages"><%= p %></button>
+        <% } %>
+    </div>
 </div>
 <%@include file="/footer.jsp" %>
 </body>

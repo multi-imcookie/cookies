@@ -46,7 +46,6 @@
     </table>
 </div>
 <%@include file="../footer.jsp" %>
-
 <script>
     // 다시하기 버튼을 누르면 세션 스토리지 초기화
     function resetSessionStorage() {

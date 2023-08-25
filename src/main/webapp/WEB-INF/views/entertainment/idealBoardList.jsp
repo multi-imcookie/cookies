@@ -10,7 +10,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
-
   $(function() {
     $('.deleteIdealBoard').click(function() {  //글 삭제 function
       id_value = $(this).attr('value')
@@ -43,14 +42,12 @@
 </script>
 <table>
   <tr>
-<%--    <td class="left">글 번호</td>--%>
     <td class="left">닉네임</td>
     <td class="left">내용</td>
     <td class="left">작성시간</td>
   </tr>
   <c:forEach items="${list}" var="one">
     <tr>
-<%--      <td class="right">${one.ideal_id}</td> <!-- one.getId() -->--%>
       <td class="right">${one.ideal_nickname}</td>
       <td class="right">${one.ideal_content}</td>
       <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>

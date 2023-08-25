@@ -58,17 +58,15 @@
             </c:forEach>
         </table>
     </div>
-    <hr color="#5C492C">
-    <%
-        int pages = (int) request.getAttribute("pages");
-        for (int p = 1; p <= pages; p++) {
-    %>
-    <button style="background: #E9E2D9; color: #5C492C; width: 50px;" class="pages"><%= p %>
-    </button>
-    <%
-        }
-    %>
-    <hr color=#5C492C>
+    <div class="sub-container">
+        <!-- 기존 내용 ... -->
+        <div class="page-buttons">
+            <% int pages = (int) request.getAttribute("pages");
+                for (int p = 1; p <= pages; p++) { %>
+            <button class="page-button pages"><%= p %></button>
+            <% } %>
+        </div>
+    </div>
 </div>
 <%@include file="/footer.jsp" %>
 </body>

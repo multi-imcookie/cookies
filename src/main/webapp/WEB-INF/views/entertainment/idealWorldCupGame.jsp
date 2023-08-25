@@ -30,9 +30,16 @@
         }
 
         .img-button img {
-            max-width: 100%;
-            max-height: 100%;
+            width: 400px;
+            height: 400px;
+            /*max-width: 100%;*/
+            /*max-height: 100%;*/
             object-fit: contain; /* 이미지 비율 유지하면서 내부에 꽉 채우도록 조정 */
+            transition: transform 0.3s ease;
+        }
+        /* 호버 효과 */
+        .img-button:hover img {
+            transform: scale(1.3); /* 호버 시 이미지 크기를 1.1배로 확대 */
         }
         .vs-container {
             display: flex;
@@ -44,22 +51,12 @@
             position: relative;
             top: -50px; /* 원하는 위치에 맞게 조정 */
             margin-top: 50px; /* 아래로 내릴 값 설정 */
-        }
-
-        /* ... 기존 스타일 ... */
-        .h-imcre24, .s-h-imcre24 {
+            margin-bottom: -20px;
             font-family: ImcreSoojin, serif;
             color: #452C07;
             font-size: 24px;
             font-weight: 400;
             line-height: 36px;
-        }
-
-        /* ... 기존 스타일 ... */
-        .s-h-imcre24 {
-            text-align: center;
-            padding: 160px 0 60px;
-            box-sizing: border-box;
         }
         .snack-name {
             display: block;
@@ -77,21 +74,12 @@
 <body>
 <%@include file="/header.jsp" %>
 <div class="sub-container match-info">
-    <p class="h-imcre24">${param.kang}강</p>
-    <p>
-        <span id="match" class="s-h-imcre24">1</span>
-        <span class="s-h-imcre24"> / </span> <!-- / 문자 스타일 조정을 위한 span 추가 -->
-        <span id="round" class="s-h-imcre24"><%=round%></span>
+    <p style="font-size: 30px; margin-bottom: -20px;">${param.kang}강</p>
+    <p style="margin-top: -20px;">
+        <span id="match">1</span>
+        <span> / </span>
+        <span id="round"><%=round%></span>
     </p>
-<%--    <p>--%>
-<%--        <span id="match" class="s-h-imcre24">1</span>--%>
-<%--        <span class="s-h-imcre24"> / </span>--%>
-<%--        <% if (round == 1) { %>--%>
-<%--        <span class="s-h-imcre24">결승전</span>--%>
-<%--        <% } else { %>--%>
-<%--        <span id="round" class="s-h-imcre24"><%= round %></span>--%>
-<%--        <% } %>--%>
-<%--    </p>--%>
 </div>
 <div id="buttonsContainer">
     <button class="img-button" data-image="" data-id="" data-name="" id="button0">
@@ -144,6 +132,21 @@
 
     buttons.forEach(function (button, buttonIndex) {
         button.addEventListener('click', function () {
+            // 클릭 이벤트 발생 시 이동 애니메이션 적용
+            if (buttonIndex === 0) {
+                button.style.transition = 'transform 0.1s ease';
+                button.style.transform = 'translateX(-50px)'; // 왼쪽으로 50px 이동
+            } else{
+                button.style.transition = 'transform 0.1s ease';
+                button.style.transform = 'translateX(50px)'; // 오른쪽으로 50px 이동
+            }
+            // 애니메이션 종료 후 원래 위치로 복귀
+            setTimeout(function () {
+                button.style.transition = '';
+                button.style.transform = 'translateX(0)';
+            }, 100); // 애니메이션 시간과 동일한 시간으로 설정 (0.3초)
+
+
             if (kangValue == 2) {
                 var image = this.getAttribute('data-image');
                 var snack_id = this.getAttribute('data-id');
@@ -175,16 +178,7 @@
                 updateButton(0, index0);
                 index1 = (index1 + 2) % nextSnackList.length;
                 updateButton(1, index1);
-
-                // console.log("여긴(clickCnt==(kangValue/2))")
-                // console.log("nextSnackList ", nextSnackList);
-                // console.log("winnerList ", winnerList);
-                // console.log("winnerList length ", winnerList.length);
-                // console.log("kangValue", kangValue);
-                // console.log("clickCnt ", clickCnt);
-
             } else {
-
                 var image = this.getAttribute('data-image');
                 var snack_id = this.getAttribute('data-id');
                 var snack_name = this.getAttribute('data-name');
@@ -193,17 +187,13 @@
                 updateButton(0, index0);
                 index1 = (index1 + 2) % nextSnackList.length;
                 updateButton(1, index1);
-                // console.log("여긴else");
-                // console.log("nextSnackList ", nextSnackList);
-                // console.log("winnerList ", winnerList);
-                // console.log("winnerList length ", winnerList.length);
-                // console.log("kangValue", kangValue);
-                // console.log("clickCnt ", clickCnt);
             }
             // match와 round 값 업데이트
             matchElement.textContent = match;
             roundElement.textContent = round;
+
         });
+
         updateButton(0, index0);
         updateButton(1, index1);
     });
