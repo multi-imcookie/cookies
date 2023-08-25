@@ -13,9 +13,9 @@ public class FindDAO {
 
     public String findIdByNameAndPhoneNumber(Map<String,Object> map){
 //        System.out.println("map = " + map);
-        return sqlSession.selectOne("find.id",map);
+        return sqlSession.selectOne("find.signId",map);
     }
     public int findPassWordByNameAndIdAndPhoneNumber(Map<String, Object> map){
-        return sqlSession.update("update_password",map);
+        return sqlSession.update("find.update_password",map);
     }
 }

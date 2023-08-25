@@ -16,27 +16,20 @@ import java.net.URL;
 
 @Service
 public class KaKaoSocialLoginService {
-
+    @Autowired
+    LoginService loginService;
     /* social_login.properties를 참조하여 초기화합니다.*/
     @Autowired
     private Environment env;
-    private String kakaoClientId; //네이버클라이언트 ID
     private String kakaoRestAPIKey; //네이버Secretkey
     private String kakaoRedirectURI; //네이버콜백URI
 
     @PostConstruct
     public void init() {
-        kakaoClientId = env.getProperty("kakao.clientId");
         kakaoRestAPIKey = env.getProperty("kakao.restAPIkey");
         kakaoRedirectURI = env.getProperty("kakao.RedirectURI");
     }
-
-
-//    public int insert() {
-//
-//    }
-//    public
-
+    //카카오 토큰 얻기
     public String getToken(String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
@@ -76,7 +69,7 @@ public class KaKaoSocialLoginService {
         }
         return access_Token;
     }
-
+    //카카오 유저정보 얻기
     public LoginDTO getUserInfo(String access_Token) throws Exception {
         BufferedReader br;
         StringBuffer stringBuffer = new StringBuffer();
@@ -102,7 +95,7 @@ public class KaKaoSocialLoginService {
         System.out.println("카카오 유저 정보 = " + stringBuffer.toString());
         return parserUserInfo(stringBuffer);
     }
-
+    //Json 유저정보를 -> DTO로
     private LoginDTO parserUserInfo(StringBuffer res) {
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(res.toString());
@@ -111,19 +104,21 @@ public class KaKaoSocialLoginService {
         String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 
         JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-        String age = kakao_account.getAsJsonObject().get("age_range").getAsString();
-        String email = kakao_account.getAsJsonObject().get("email").getAsString();
-        String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+        String age = loginService.convertAge(loginService.getAsStringOrNull(kakao_account,"age_range"));
+        String email = loginService.getAsStringOrNull(kakao_account,"email");
+        String gender = loginService.convertGender(loginService.getAsStringOrNull(kakao_account,"gender"));
+        String birthday = loginService.convertBirthDay(loginService.getAsStringOrNull(kakao_account,"birthday"));
         LoginDTO loginDTO = LoginDTO.builder()
                 .kakao_login(id)
                 .member_nickname(nickname)
                 .member_age(age)
                 .member_email(email)
                 .member_gender(gender)
+                .member_birthday(birthday)
                 .build();
         return loginDTO;
     }
-
+    //카카오 로그인 api url
     public String kakaoApiURL(HttpServletRequest request) {
 //https://kauth.kakao.com/oauth/authorize
 // ?client_id=1261702231415abdfd147a813b1623f10d

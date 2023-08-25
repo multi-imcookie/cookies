@@ -63,13 +63,13 @@ public class FindService {
 
     public String findPassWord(Map<String, Object> map) {
         String tempPassWord = getTempPassword();  //임시비밀번호 생성
-        map.put("tempPassWord",tempPassWord);  //map에 추가
-        int updatedRow = findDAO.findPassWordByNameAndIdAndPhoneNumber(map);   //임시비밀번호로 업데이트
+        map.put("tempPassWord",tempPassWord);  //map에  임시비밀번호 추가
+        int updatedRow = findDAO.findPassWordByNameAndIdAndPhoneNumber(map);   //임시비밀번호로 DB 업데이트
         if(!(updatedRow==1)){
             return "데이터베이스 오류입니다";  //영향받는 로우수가 1이 아닌경우 오류인데...이미 db는 업데이트 트랜잭션 알아볼것 ????
         }
         // updatedrow가 1인경우
-        String phoneNumber = (String)map.get("phoneNumber");  //폰넘버 ex) 01012341234
+        String phoneNumber = removeHyphens((String)map.get("phoneNumber"));  //폰넘버 ex) 010-1234-1234 -> 01012341234 변환
         String content = "임시번호는  :  "+tempPassWord +"   입니다.";  //문자로 보낼내용
         int responseCode = sendSMS(content,phoneNumber);
         if(responseCode!=202){
@@ -200,5 +200,10 @@ public class FindService {
             str.append(charSet[idx]);
         }
         return str.toString();
+    }
+    public String removeHyphens(String phoneNumber) {
+        // 문자열에서 하이픈 제거
+        String cleanedNumber = phoneNumber.replaceAll("-", "");
+        return cleanedNumber;
     }
 }

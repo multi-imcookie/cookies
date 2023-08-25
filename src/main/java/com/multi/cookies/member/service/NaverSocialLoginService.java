@@ -25,6 +25,8 @@ import java.security.SecureRandom;
 public class NaverSocialLoginService {
     /* social_login.properties를 참조하여 초기화*/
     @Autowired
+    private LoginService loginService;
+    @Autowired
     private Environment env;
     private String naverClientId; //네이버클라이언트 ID
     private String naverClientSecret; //네이버Secretkey
@@ -35,7 +37,7 @@ public class NaverSocialLoginService {
         naverClientSecret = env.getProperty("naver.clientSecret");
         naverCallBackURL = env.getProperty("naver.callBackURL");
     }
-
+    //네이버 로그인 토큰 얻기
     public String getToken(String code, String state)throws Exception{
         String redirectURI = URLEncoder.encode("http://localhost:8989/member/callback.jsp","UTF-8");
         StringBuffer apiURL = new StringBuffer();
@@ -80,6 +82,7 @@ public class NaverSocialLoginService {
         }
         return access_token;
     }
+    // 얻은 토큰으로 네이버 유저정보 얻고 -> DTO로 변환
     public LoginDTO getUserInfo(String access_token) throws Exception{
         BufferedReader br;
         StringBuffer stringBuffer = new StringBuffer();
@@ -118,6 +121,7 @@ public class NaverSocialLoginService {
                 .toString();
         return apiURL;
     }
+    //csrf 방지를 위한 랜덤난수 생성
     private String naverApiState(HttpSession session){
         SecureRandom random = new SecureRandom();
         String state = new BigInteger(130, random).toString();
@@ -129,7 +133,7 @@ public class NaverSocialLoginService {
 //    "resultcode":"00",
 //    "message":"success",
 //    "response":{"id":"65x6qehmhosf_l-3IPgH12315123OE8HrE",
-//                  "nickname":"a****",
+//                  "nickname":"pap",
 //                  "profile_image":"https:\/\/ssl.pstatic.net\/static\/pwe\/address\/img_profile.png",
 //                  "age":"20-30",
 //                  "gender":"M",
@@ -143,43 +147,27 @@ public class NaverSocialLoginService {
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(res.toString());
         JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
-        String id = response.getAsJsonObject().get("id").getAsString();
-        String age = response.getAsJsonObject().get("age").getAsString();
-        String gender = response.getAsJsonObject().get("gender").getAsString();
-        String email = response.getAsJsonObject().get("email").getAsString();
-        String mobile = response.getAsJsonObject().get("mobile").getAsString();
-        String uniCodeString = response.getAsJsonObject().get("name").getAsString();
-        //유니코드로 출력되기떄문에 스트링으로 변환  ex)"name":"\uc784\uc644\ud0dc"
-        String name = convertString(uniCodeString);
-        String birthday = response.getAsJsonObject().get("birthday").getAsString();
-        String birthyear = response.getAsJsonObject().get("birthyear").getAsString();
+        String id = loginService.getAsStringOrNull(response, "id");
+//        String nickname = loginService.getAsStringOrNull(response, "nickname");
+//        String profile_image = loginService.getAsStringOrNull(response, "profile_image");
+        String age = loginService.getAsStringOrNull(response, "age");
+        String gender = loginService.getAsStringOrNull(response, "gender");
+        String email = loginService.getAsStringOrNull(response, "email");
+//        String mobile = loginService.getAsStringOrNull(response, "mobile");
+        String name = loginService.convertString(loginService.getAsStringOrNull(response, "name"));  //유니코드로 출력되기떄문에 스트링으로 변환  ex)"name":"\uc784\uc644\ud0dc"
+        String birthday = loginService.getAsStringOrNull(response, "birthday");
+//        String birthyear = loginService.getAsStringOrNull(response, "birthyear");
+
         //유저 정보 DTO로 변환
         LoginDTO loginDTO = LoginDTO.builder()
                 .naver_login(id)
-                .member_age(age)
-                .member_gender(gender)
-                .member_email(email)
                 .member_nickname(name)
+                .member_age(loginService.convertAge(age))
+                .member_gender(loginService.convertGender(gender))
+                .member_birthday(loginService.convertBirthDay(birthday))
+                .member_email(email)
                 .build();
+//        System.out.println("loginDTO = " + loginDTO);
         return loginDTO;
-    }
-    // 유니코드에서 String으로 변환
-    public static String convertString(String val) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < val.length(); i++) {
-            if ('\\' == val.charAt(i) && 'u' == val.charAt(i + 1)) {
-                // 그 뒤 네글자는 유니코드의 16진수 코드이다. int형으로 바꾸어서 다시 char 타입으로 강제 변환한다.
-                Character r = (char) Integer.parseInt(val.substring(i + 2, i + 6), 16);
-                // 변환된 글자를 버퍼에 넣는다.
-                sb.append(r);
-                // for의 증가 값 1과 5를 합해 6글자를 점프
-                i += 5;
-            } else {
-                // ascii코드면 그대로 버퍼에 넣는다.
-                sb.append(val.charAt(i));
-            }
-        }
-        // 결과 리턴
-        return sb.toString();
     }
 }
