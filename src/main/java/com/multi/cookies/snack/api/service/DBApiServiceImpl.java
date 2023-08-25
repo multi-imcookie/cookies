@@ -18,6 +18,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class DBApiServiceImpl implements DBApiService {
@@ -101,9 +103,10 @@ public class DBApiServiceImpl implements DBApiService {
     public int initializeDB() {
         int deleteResult = dbApiDAO.deleteAllDB();
         dbApiDAO.resetDBAI();
-        System.out.println("DB " + deleteResult / 2 + " 건 초기화 성공!");    // 한 항목당 테이블(컬럼) 2개
-        return deleteResult / 2;
+        System.out.println("DB " + deleteResult + " 건 초기화 성공!");
+        return deleteResult;
     }
+
 
     @Override
     public List<DBApiDTO> parseJsonData(int page) throws ParseException, IOException {
@@ -130,11 +133,69 @@ public class DBApiServiceImpl implements DBApiService {
             dbApiDTO.setSnack_reportNo((String) innerItem.get("prdlstReportNo"));   // 품목보고번호
             dbApiDTO.setAllergy((String) innerItem.get("allergy"));   // 알레르기 유발 성분
 
+            if (dbApiDTO.getNutri_string() != null && dbApiDTO.getNutri_string() != "알수없음") {
+                dbApiDTO.setProtein(extractNutri(dbApiDTO.getNutri_string()).getProtein()); // 단백질
+                dbApiDTO.setKcal(extractNutri(dbApiDTO.getNutri_string()).getKcal());   // 열량
+                dbApiDTO.setFat(extractNutri(dbApiDTO.getNutri_string()).getFat()); // 지방
+                dbApiDTO.setCarb(extractNutri(dbApiDTO.getNutri_string()).getCarb());   // 탄수화물
+                dbApiDTO.setSugars(extractNutri(dbApiDTO.getNutri_string()).getSugars());   // 당류
+                dbApiDTO.setCalcium(extractNutri(dbApiDTO.getNutri_string()).getCalcium()); // 칼슘
+                dbApiDTO.setSodium(extractNutri(dbApiDTO.getNutri_string()).getSodium());   // 나트륨
+                dbApiDTO.setCholesterol(extractNutri(dbApiDTO.getNutri_string()).getCholesterol()); // 콜레스테롤
+                dbApiDTO.setSaturated_fat(extractNutri(dbApiDTO.getNutri_string()).getSaturated_fat()); // 포화지방
+                dbApiDTO.setTrans_fat(extractNutri(dbApiDTO.getNutri_string()).getTrans_fat()); // 트랜스지방
+            }
             // System.out.println(dbApiDTO);
             dbApiDTOList.add(dbApiDTO);
         }
         // System.out.println(dbApiDTOList);
         return dbApiDTOList;
+    }
+
+    private DBApiDTO extractNutri(String nutrient) {
+        DBApiDTO dbApiDTO = new DBApiDTO();
+        // System.out.println("nutrient>> " + nutrient);
+        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*([\\d]+(?:\\.[\\d]+)?)(kcal|mg|g)?");
+        Matcher matcher = pattern.matcher(nutrient);
+
+        while (matcher.find()) {
+            String nutri = matcher.group(1);
+            Double value = Double.parseDouble(matcher.group(2));
+
+            // System.out.println("nutri>> " + nutri);
+            // System.out.println("value>> " + value);
+            if (nutri.equals("단백질")) {
+                dbApiDTO.setProtein(value);
+            }
+            if (nutri.equals("열량")) {
+                dbApiDTO.setKcal(value);
+            }
+            if (nutri.equals("지방")) {
+                dbApiDTO.setFat(value);
+            }
+            if (nutri.equals("탄수화물")) {
+                dbApiDTO.setCarb(value);
+            }
+            if (nutri.equals("당류")) {
+                dbApiDTO.setSugars(value);
+            }
+            if (nutri.equals("칼슘")) {
+                dbApiDTO.setCalcium(value);
+            }
+            if (nutri.equals("나트륨")) {
+                dbApiDTO.setSodium(value);
+            }
+            if (nutri.equals("콜레스테롤")) {
+                dbApiDTO.setCholesterol(value);
+            }
+            if (nutri.equals("포화지방")) {
+                dbApiDTO.setSaturated_fat(value);
+            }
+            if (nutri.equals("트랜스지방")) {
+                dbApiDTO.setTrans_fat(value);
+            }
+        }
+        return dbApiDTO;
     }
 
     /**
@@ -157,9 +218,7 @@ public class DBApiServiceImpl implements DBApiService {
     }
 
     private String replaceJson(String json) {   // 파싱 중 오류 나는 문자열 처리
-        json = json.replace("\n", " ");
-        json = json.replace("<", "");
-        json = json.replace(">", "");
+        json = json.replaceAll("\\n|\\r|\\r\\n|\\t|\\f", " ");
 
         return json;
     }

@@ -7,8 +7,10 @@
         values (#{snack_name}, #{company}, #{snack_img}, #{snack_ingredients}, #{snack_reportNo});
     </insert>
     <insert id="insertNutri" parameterType="dbApiDTO">
-        insert into snack_nutritional (snack_id, nutri_string, allergy)
-        values (#{snack_id}, #{nutri_string}, #{allergy});
+        insert into snack_nutritional (snack_id, nutri_string, allergy, protein, kcal, fat, carb,
+                                       sugars, calcium, sodium, cholesterol, saturated_fat, trans_fat)
+        values (#{snack_id}, #{nutri_string}, #{allergy}, #{protein}, #{kcal}, #{fat}, #{carb},
+                #{sugars}, #{calcium}, #{sodium}, #{cholesterol}, #{saturated_fat}, #{trans_fat});
     </insert>
     <!--여기까지-->
 
@@ -41,13 +43,6 @@
     <!--여기까지-->
 
     <!--초기화-->
-    <delete id="deleteNutri">
-        delete
-        from snack_nutritional;
-    </delete>
-    <update id="resetNutriAI">
-        alter table snack_nutritional auto_increment = 1;
-    </update>
     <delete id="deleteSnack">
         delete
         from snack;
