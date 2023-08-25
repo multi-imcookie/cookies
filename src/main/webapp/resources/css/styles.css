@@ -417,25 +417,14 @@ label {
 .user-left {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 12px;
 }
 
-.user-left li:first-child {
-    position: relative;
-}
-
-.user-left li:first-child::after {
-    position: absolute;
-    top: 50%;
-    right: -36%;
-    transform: translateY(-50%);
-    content: "";
-    display: inline-block;
+.user-left span {
     width: 4px;
     height: 4px;
-    border-radius: 2px;
+    border-radius: 50%;
     background-color: #CBB89B;
-
 }
 
 .user-right {
@@ -594,7 +583,7 @@ label {
 /* 메인페이지 비쥬얼 시작*/
 .visual {
     width: 1400px;
-    margin: 0 auto;
+    margin: 0 auto 120px;
     display: flex;
     box-sizing: border-box;
     justify-content: space-between;
