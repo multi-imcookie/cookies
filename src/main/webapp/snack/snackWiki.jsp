@@ -15,12 +15,9 @@
 <body>
 <%@include file="/header.jsp" %>
 <div class="sub-container">
-    <div class="v-left">
-        <h3 class="h-pre36">
-            🔍<br>
-            궁금한 과자가 있으신가요?
-        </h3>
-        <form action="snackWikiSearch" method="get">
+    <div class="wiki-search">
+        <img src="/resources/img/design_img/sub-search-img.png">
+        <form class="wiki-form" action="snackWikiSearch" method="get">
             <div class="cookie-search main-search">
                 <div class="search-wrap">
                     <label class="label-bold" for="keyword">Search</label>
