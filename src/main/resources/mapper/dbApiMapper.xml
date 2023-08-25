@@ -10,6 +10,11 @@
         insert into snack_nutritional (snack_id, nutri_string, allergy)
         values (#{snack_id}, #{nutri_string}, #{allergy});
     </insert>
+
+    <insert id="insertScoreId" parameterType="dbApiDTO">
+        insert into avg_score (snack_id)
+        values (#{snack_id});
+    </insert>
     <!--여기까지-->
 
     <!--update-->

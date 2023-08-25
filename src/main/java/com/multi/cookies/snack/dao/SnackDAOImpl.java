@@ -14,12 +14,13 @@ public class SnackDAOImpl implements SnackDAO {
     @Autowired
     SqlSessionTemplate sqlSessionTemplate;
 
-
+    @Override
     public List<SearchDTO> snackSearch(String keyword) {
         System.out.println("DAO까지 잘 왔어!");
         return sqlSessionTemplate.selectList("snack.search", keyword);
     }
 
+    @Override
     public SearchDTO snackInfo(int snack_id) {
         System.out.println("디테일 DAO!");
         return sqlSessionTemplate.selectOne("snack.snackInfo", snack_id);

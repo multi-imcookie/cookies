@@ -18,6 +18,8 @@ public class SnackServiceImpl implements SnackService {
         public Map<String, Object> snackSearch(String keyword, int pageSize, int page) {
         // 마이바티스 매퍼를 통해 검색 결과를 가져옵니다.
         List<SearchDTO> searchResults = snackDAO.snackSearch(keyword);
+
+
         int totalResults = searchResults.size();
         int totalPages = (int) Math.ceil((double) totalResults / pageSize);
 

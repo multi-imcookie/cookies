@@ -88,6 +88,7 @@
         <script>
             $('#selectSnackBtn').click(function () {
                 var selectedSnackInfo = {
+                    snackId : "${searchDTO.snack_id}",
                     snackIngredients: "${searchDTO.snack_ingredients}",
                     snackName: "${searchDTO.snack_name}",
                     company: "${searchDTO.company}",
