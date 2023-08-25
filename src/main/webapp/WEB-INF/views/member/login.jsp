@@ -43,6 +43,9 @@
 
         }
     </style>
+    <script type="text/javascript">
+
+    </script>
     <title>전과자</title>
     <%@ include file="/link.jsp" %>
 </head>
@@ -101,8 +104,8 @@
             </div>
         </div>
     </form>
-    <div class="btn-wrap">
-        <button id="update" class="fill-btn">회원가입</button>
+    <div class="btn-wrap" class="fill-btn">
+        <button id="join" class="fill-btn">회원가입</button>
     </div>
 </div>
 <%@include file="/footer.jsp" %>
@@ -113,6 +116,16 @@
             element.select();
         }
     }
+        // 문서가 준비되면 jQuery 코드를 실행합니다.
+        $(document).ready(function() {
+        // "회원가입" 버튼을 클릭하면 이벤트 핸들러가 실행됩니다.
+        $("#join").click(function() {
+            // 여기에 이동하고 싶은 주소(URL)를 넣어주세요.
+            var destinationURL = "/member/sign.jsp"; // 대체할 URL을 여기에 넣어주세요.
+            // 주소를 이동합니다.
+            window.location.href = destinationURL;
+        });
+    });
 </script>
 </body>
 </html>

@@ -15,13 +15,17 @@
         function modalShow(response) {
             $(".modal-overlay").fadeIn();
             $(".modal-box").addClass("active");
-            $("#span-text").append(response.name + "님의 아이디는" + response.member_signId + "입니다.");
+            if (response.name != null && response.member_signId != null) {
+                $("#span-text").append(response.name + "님의 아이디는" + response.member_signId + "입니다.");
+            }
+            else if(response.name===null && response.phoneNumber!=null){
+                $("#span-text").append("임시 비밀번호가" + response.phoneNumber + "으로 발송 되었습니다.");
+            }
+            else{
+                $("#span-text").append("야 개맛난다...");
+            }
         }
-        function modalShow(phoneNumber) {
-            $(".modal-overlay").fadeIn();
-            $(".modal-box").addClass("active");
-            $("#span-text").append("임시 비밀번호가" + phoneNumber.phoneNumber + "으로 발송 되었습니다.");
-        }
+
         $(function () {
             $('#findId').click(function () {
                 let username = $('#findIdName').val();
@@ -61,8 +65,8 @@
                         userId: signid,
                         phoneNumber: phoneNumber
                     },
-                    success: function (phoneNumber) {
-                        modalShow(phoneNumber);
+                    success: function (response) {
+                        modalShow(response);
                     },
                     error: function () {
                         alert("닉네임,아이디,전화번호가 틀립니다.")
@@ -70,12 +74,28 @@
                 }) //ajax
             })//click
         })//function
-
     </script>
 </head>
 <body>
 <%@include file="/header.jsp" %>
-    <%--    아이디 찾기--%>
+<%--    모달 창 --%>
+<div class="modal-overlay">
+    <div class="modal-box">
+        <div class="mdl-text">
+            <p class="h-pre24"><span id="span-text"></span> 🥰<br>
+                로그인 페이지로 이동할까요?</p>
+            <div class="mdl-info">
+                <img src="/resources/img/icon/info-circle.svg" alt="info icon">
+                <p class="p-regular">로그인 하면 더 많은 기능을 이용할 수 있어요.</p>
+            </div>
+        </div>
+        <div class="btn-wrap">
+            <a class="fill-btn p-medium" href="/login">로그인 화면으로 이동</a>
+            <a class="light-fill-btn p-medium" href="/index.jsp">메인 화면으로 이동</a>
+        </div>
+    </div>
+</div>
+<%--    아이디 찾기--%>
 <div class="sub-container">
     <h3 class="s-h-imcre24" style="padding: 0px 0px 0px 0px;">아이디 찾기</h3>
     <div class="form-style">
@@ -116,24 +136,8 @@
         <button class="fill-btn" id="findPassWord">비밀번호 찾기</button>
     </div>
 </div>
-    <%--    모달 창 --%>
-    <div class="modal-overlay">
-        <div class="modal-box">
-            <div class="mdl-text">
-                <p class="h-pre24"><span id="span-text"></span> 🥰<br>
-                    로그인 페이지로 이동할까요?</p>
-                <div class="mdl-info">
-                    <img src="/resources/img/icon/info-circle.svg" alt="info icon">
-                    <p class="p-regular">로그인 하면 더 많은 기능을 이용할 수 있어요.</p>
-                </div>
-            </div>
-            <div class="btn-wrap">
-                <a class="fill-btn p-medium" href="/login">로그인 화면으로 이동</a>
-                <a class="light-fill-btn p-medium" href="/index.jsp">메인 화면으로 이동</a>
-            </div>
-        </div>
-    </div>
-    <%@include file="../../../footer.jsp" %>
+
+<%@include file="../../../footer.jsp" %>
 </body>
 </html>
 
