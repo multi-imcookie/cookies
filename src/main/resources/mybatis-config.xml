@@ -10,6 +10,7 @@
         <typeAlias type="com.multi.cookies.snack.api.dto.DBApiDTO" alias="dbApiDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.dto.SearchDTO" alias="searchDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.dto.ScoreDTO" alias="scoreDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.snack.dto.CurationDTO" alias="curationDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.LoginDTO" alias="loginDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.MemberDTO" alias="memberDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>
@@ -20,6 +21,7 @@
         <typeAlias type="com.multi.cookies.board.dto.BoardDTO" alias="boardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.ReplyDTO" alias="replyDTO"></typeAlias>
     </typeAliases>
+
     <mappers>
         <mapper resource="mapper/snackMapper.xml"/>
         <mapper resource="mapper/nutritionalMapper.xml"/>
@@ -32,6 +34,7 @@
         <mapper resource="mapper/reviewMapper.xml"/>
         <mapper resource="mapper/boardMapper.xml"/>
         <mapper resource="mapper/replyMapper.xml"/>
+        <mapper resource="mapper/curationMapper.xml"/>
     </mappers>
 
 </configuration>

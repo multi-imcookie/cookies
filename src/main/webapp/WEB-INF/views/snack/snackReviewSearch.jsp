@@ -5,14 +5,12 @@
 
 <head>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-
+        .p-regular {
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
+            font-weight: 400; /* weight 다름 */
+            line-height: 28px;
         }
-
         .search-results {
             list-style: none;
             padding: 0;
@@ -37,13 +35,33 @@
         }
 
         .product-name {
-            margin-top: 10px;
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
             font-weight: bold;
+            line-height: 28px;
+            margin-top: 10px;
         }
 
         .rating {
             margin-top: 5px;
             color: #f39c12; /* 별점 색상 */
+
+        }
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px; /* 상단 여백 설정 */
+        }
+
+        .pagination a {
+            margin: 0 5px; /* 좌우 여백 설정 */
+            text-decoration: none;
+        }
+
+        .pagination span {
+            margin: 0 5px;
+            font-weight: bold;
         }
     </style>
     <%@ include file="/link.jsp" %>
@@ -63,23 +81,21 @@
                     <input class="p-regular" type="text" name="keyword" id="keyword"
                            placeholder="검색하고 싶은 과자 정보를 입력하세요.">
                 </div>
-                <button class="search-btn" type="submit"><img src="/resources/img/search.svg" alt="돋보기 아이콘"></button>
+                <button class="search-btn" type="submit"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
             </div>
         </form>
     </div>
 
     <div id="search-results-paginated" style="display: none;">
+        <p class="p-regular">"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
         <div id="search-results" class="search-results">
             <%--검색 결과 총 ${fn:length(searchResult)} 건--%>
-            <p>"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
-            <br>
             <%--<div class="search-results">--%>
             <c:forEach items="${searchResults}" var="search" varStatus="status">
                 <!-- 검색 결과를 출력 -->
                 <div class="search-item">
                         <%--<a href="/snack/snackInfo?snack_id=${search.snack_id}">--%>
                     <a href="javascript:void(0);" class="goToDetail" data-snack-id="${search.snack_id}">
-                        <li class="search-item">
                             <div class="thumbnail"><img src="${search.snack_img}" alt="썸네일"></div>
                             <div class="product-name">${search.snack_name}</div>
                             <div class="rating" id="rating_${search.snack_id}"></div>
@@ -95,8 +111,6 @@
                                     document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
                                 }
                             </script>
-
-                        </li>
                     </a>
                 </div>
             </c:forEach>
@@ -162,25 +176,6 @@
             window.location.href = "snackReviewSearch?keyword=${keyword}&page=" + page;
         });
 
-        function loadPage(page) {
-            let keyword = "${param.keyword}";
-            $.ajax({
-                url: "snackReviewSearch",
-                type: "GET",
-                data: {
-                    keyword: keyword,
-                    page: page,
-                    <%--timestamp: new Date().getTime()--%>
-                },
-                success: function (data) {
-                    $("#search-results-paginated").html(data);
-                },
-                error: function () {
-                    alert("페이지 로드 실패");
-                }
-            });
-
-        }
     });
 </script>
 </body>

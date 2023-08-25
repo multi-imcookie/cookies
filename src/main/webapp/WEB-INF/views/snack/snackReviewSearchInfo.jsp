@@ -5,11 +5,10 @@
     <%@ include file="/link.jsp" %>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
+            font-weight: 400; /* weight 다름 */
+            line-height: 28px;
         }
 
         .detail-container {
@@ -39,7 +38,8 @@
         .btn {
             font-weight: bold;
             display: flex;
-            text-align: center;
+            justify-content: center;
+            align-items: center;
             width: 200px;
             height: 50px;
             margin: 0 auto;
@@ -59,49 +59,50 @@
     <div class="detail-container">
         <div class="thumbnail"><img src="${searchDTO.snack_img}" alt="썸네일"></div>
         <div class="detail-content">
-            <div class="detail-row">${searchDTO.snack_name}</div>
-            <div class="detail-row">${searchDTO.company}</div>
-            <div class="detail-row">${searchDTO.snack_ingredients}</div>
-            <div class="detail-row">${searchDTO.allergy}</div>
+            <div class="detail-row">과자 이름 : ${searchDTO.snack_name}</div>
+            <div class="detail-row">회사 : ${searchDTO.company}</div>
+            <div class="detail-row">원재료 : ${searchDTO.snack_ingredients}</div>
+            <div class="detail-row">알러지 : ${searchDTO.allergy}</div>
         </div>
     </div>
-    <br>
-    <%--<a href="<c:url value='snackWikiSearch.jsp?keyword=${keyword}'/>" id="goToSearchList">돌아가기</a>--%>
-    <a href="#" id="goToSearchList">
-        <button type="button" class="btn">돌아가기</button>
-    </a>
-    <script>
-        $(document).ready(function () {
-            $('#goToSearchList').click(function (event) {
-                event.preventDefault(); // 기본 동작을 취소합니다.
-                let pageNum = localStorage.getItem('currentPage');
-                let storedKeyword = localStorage.getItem('keyword'); // 저장된 키워드 불러오기
-                if (pageNum === null) {
-                    window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword);
-                } else {
-                    window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword) + '&page=' + encodeURIComponent(pageNum);
-                }
+    <div class="btn-wrap-row">
+        <%--<a href="<c:url value='snackWikiSearch.jsp?keyword=${keyword}'/>" id="goToSearchList">돌아가기</a>--%>
+        <a href="#" id="goToSearchList">
+            <button type="button" class="btn">돌아가기</button>
+        </a>
+        <script>
+            $(document).ready(function () {
+                $('#goToSearchList').click(function (event) {
+                    event.preventDefault(); // 기본 동작을 취소합니다.
+                    let pageNum = localStorage.getItem('currentPage');
+                    let storedKeyword = localStorage.getItem('keyword'); // 저장된 키워드 불러오기
+                    if (pageNum === null) {
+                        window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword);
+                    } else {
+                        window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword) + '&page=' + encodeURIComponent(pageNum);
+                    }
+                });
             });
-        });
-    </script>
-    <button type="button" class="btn" id="selectSnackBtn">선택하기</button>
-    <br>
-    <script>
-        $('#selectSnackBtn').click(function () {
-            var selectedSnackInfo = {
-                snackId: "${searchDTO.snack_id}",
-                snackName: "${searchDTO.snack_name}",
-                company: "${searchDTO.company}",
-                // ... 다른 정보들도 필요한 대로 추가
-            };
+        </script>
+        <button type="button" class="btn" id="selectSnackBtn">선택하기</button>
+        <script>
+            $('#selectSnackBtn').click(function () {
+                var selectedSnackInfo = {
+                    snackIngredients: "${searchDTO.snack_ingredients}",
+                    snackName: "${searchDTO.snack_name}",
+                    company: "${searchDTO.company}",
+                    snackImg: "${searchDTO.snack_img}"
+                    // ... 다른 정보들도 필요한 대로 추가
+                };
 
-            localStorage.setItem("selectedSnackInfo", JSON.stringify(selectedSnackInfo)); // 변경: sessionStorage -> localStorage
+                localStorage.setItem("selectedSnackInfo", JSON.stringify(selectedSnackInfo)); // 변경: sessionStorage -> localStorage
 
-            // 팝업 창 닫기
-            window.close();
-        });
+                // 팝업 창 닫기
+                window.close();
+            });
 
-    </script>
+        </script>
+    </div>
 </div>
 </body>
 </html>

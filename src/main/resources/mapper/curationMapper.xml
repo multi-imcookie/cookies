@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="curation">
+
+    <!-- 큐레이션 등록
+    <insert id="checkedAllergy" parameterType="curationDTO">
+        INSERT INTO curation(bbs_title, bbs_content, member_id)
+        VALUES(#{bbs_title}, #{bbs_content}, #{member_id})
+    </insert>-->
+
+</mapper>

@@ -7,14 +7,12 @@
 <head>
     <%@ include file="/link.jsp" %>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-
+        .p-regular {
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
+            font-weight: 400; /* weight 다름 */
+            line-height: 28px;
         }
-
         .search-results {
             list-style: none;
             padding: 0;
@@ -39,13 +37,33 @@
         }
 
         .product-name {
-            margin-top: 10px;
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
             font-weight: bold;
+            line-height: 28px;
+            margin-top: 10px;
         }
 
         .rating {
             margin-top: 5px;
             color: #f39c12; /* 별점 색상 */
+
+        }
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px; /* 상단 여백 설정 */
+        }
+
+        .pagination a {
+            margin: 0 5px; /* 좌우 여백 설정 */
+            text-decoration: none;
+        }
+
+        .pagination span {
+            margin: 0 5px;
+            font-weight: bold;
         }
     </style>
     <%@ include file="/link.jsp" %>
@@ -62,17 +80,8 @@
             🔍<br>
             궁금한 과자가 있으신가요?
         </h3>
-        <form action="snackWikiSearch" method="get" onsubmit="return validateForm()">
+        <form action="snackWikiSearch" method="get">
             <div class="cookie-search main-search">
-                <div class="select-wrap">
-                    <label class="label-bold" for="cookie-select">Category</label>
-                    <select class="p-regular" id="cookie-select">
-                        <option value="">카테고리 선택</option>
-                        <option value="sweet">달달한</option>
-                        <option value="salty">짭쪼름한</option>
-                    </select>
-                </div>
-                <span class="div-line"></span>
                 <div class="search-wrap">
                     <label class="label-bold" for="keyword">Search</label>
                     <input class="p-regular" type="text" name="keyword" id="keyword"
@@ -84,17 +93,17 @@
         </form>
     </div>
     <div id="search-results-paginated">
+        <p class="p-regular">"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
         <div id="search-results" class="search-results">
             <%--검색 결과 총 ${fn:length(searchResult)} 건--%>
-            <p>"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
             <br>
+                <br>
             <%--<div class="search-results">--%>
             <c:forEach items="${searchResults}" var="search" varStatus="status">
                 <!-- 검색 결과를 출력 -->
                 <div class="search-item">
                         <%--<a href="/snack/snackInfo?snack_id=${search.snack_id}">--%>
                     <a href="javascript:void(0);" class="goToDetail" data-snack-id="${search.snack_id}">
-                        <li class="search-item">
                             <div class="thumbnail"><img src="${search.snack_img}" alt="썸네일"></div>
                             <div class="product-name">${search.snack_name}</div>
                             <div class="rating" id="rating_${search.snack_id}"></div>
@@ -110,8 +119,6 @@
                                     document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
                                 }
                             </script>
-
-                        </li>
                     </a>
                 </div>
             </c:forEach>
@@ -122,7 +129,7 @@
         <a href="#" data-page="1">첫 페이지</a>
 
         <c:if test="${currentPage > 1}">
-            <a href="#" data-page="${currentPage - 1}">&laquo; 이전</a>
+            <a href="#" data-page="${currentPage - 1}">&laquo;이전</a>
         </c:if>
 
         <c:forEach var="pageNum" begin="${startPage}" end="${endPage}">
@@ -137,7 +144,7 @@
         </c:forEach>
 
         <c:if test="${endPage < totalPages}">
-            <a href="#" data-page="${currentPage + 1}">다음 &raquo;</a>
+            <a href="#" data-page="${currentPage + 1}">다음&raquo;</a>
         </c:if>
 
         <a href="#" data-page="${totalPages}">마지막 페이지</a>
@@ -191,17 +198,6 @@
         });
     }
 
-</script>
-
-<script>
-    function validateForm() {
-        let category = document.getElementById("cookie-select").value;
-        if (category === "") {
-            alert("카테고리를 골라주세요");
-            return false;
-        }
-        return true;
-    }
 </script>
 
 <%@include file="/footer.jsp" %>

@@ -8,6 +8,14 @@
     <meta charset="UTF-8">
     <title>리뷰게시글 작성</title>
     <%@ include file="/link.jsp" %>
+    <style>
+        body {
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
+            font-weight: 400; /* weight 다름 */
+            line-height: 28px;
+        }
+    </style>
     <script>
         <!--$(document).ready(function(){-->
         document.addEventListener("DOMContentLoaded", function () {
@@ -49,7 +57,7 @@
         }
 
         function openSearchPopup() {
-            var popup = window.open("/snack/snackSelectPopup", "_blank", "width=800,height=600");
+            var popup = window.open("/snack/snackSelectPopup", "_blank", "width=1000,height=500");
         }
 
         // AJAX를 통해 선택한 과자 정보 실시간 업데이트
@@ -58,9 +66,10 @@
             var selectSnackResult = document.getElementById("selectSnackResult"); // div 요소 가져오기
             if (selectedSnackInfo) {
                 // 선택한 과자 정보를 사용하여 업데이트
-                $("#selectedSnackId").text(selectedSnackInfo.snackId);
                 $("#selectedSnackName").text(selectedSnackInfo.snackName);
                 $("#selectedSnackCompany").text(selectedSnackInfo.company);
+                $("#selectedSnackIngredients").text(selectedSnackInfo.snackIngredients);
+                $("#selectedSnackImg").attr("src",selectedSnackInfo.snackImg);
                 var getSnackId = selectedSnackInfo.snackId;
                 console.log(getSnackId);
                 $("#snack_id").val(getSnackId);
@@ -94,12 +103,16 @@
 <div class="sub-container">
     <h3 class="s-h-imcre24">리뷰게시판 작성</h3>
     <div id="selectSnack">
-        <button type="button" id="btnSearch">검색</button>
-        <div id="selectSnackResult" style="display: none;">
-            <p>선택한 과자 정보:</p>
-            <p>과자 ID: <span id="selectedSnackId"></span></p>
+
+        <button type="button" id="btnSearch">리뷰 과자 검색</button>
+
+        <div id="selectSnackResult" class="form-style" style="display: none;">
+            <img id="selectedSnackImg" src=""  alt="썸네일">
+            <p>선택한 과자 정보</p>
             <p>과자 이름: <span id="selectedSnackName"></span></p>
             <p>회사: <span id="selectedSnackCompany"></span></p>
+            <p>원재료: <span id="selectedSnackIngredients"></span></p>
+
             <!-- 추가 정보들을 필요에 따라 추가 -->
         </div>
     </div>

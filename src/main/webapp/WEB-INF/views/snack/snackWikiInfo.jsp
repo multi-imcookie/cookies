@@ -12,11 +12,10 @@
     <%@ include file="/link.jsp" %>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
+            font-weight: 400; /* weight 다름 */
+            line-height: 28px;
         }
 
         .detail-container {
@@ -46,7 +45,8 @@
         .btn {
             font-weight: bold;
             display: flex;
-            text-align: center;
+            justify-content : center;
+            align-items : center;
             width: 200px;
             height: 50px;
             margin: 0 auto;
@@ -67,10 +67,10 @@
     <div class="detail-container">
         <div class="thumbnail"><img src="${searchDTO.snack_img}" alt="썸네일"></div>
         <div class="detail-content">
-            <div class="detail-row">${searchDTO.snack_name}</div>
-            <div class="detail-row">${searchDTO.company}</div>
-            <div class="detail-row">${searchDTO.snack_ingredients}</div>
-            <div class="detail-row">${searchDTO.allergy}</div>
+            <div class="detail-row">과자 이름 : ${searchDTO.snack_name}</div>
+            <div class="detail-row">회사 : ${searchDTO.company}</div>
+            <div class="detail-row">원재료 : ${searchDTO.snack_ingredients}</div>
+            <div class="detail-row">알러지 : ${searchDTO.allergy}</div>
         </div>
     </div>
     <br>
