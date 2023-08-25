@@ -13,6 +13,35 @@
     <title>전과자</title>
     <%@ include file="/link.jsp" %>
     <script type="text/javascript" src="/resources/js/sign.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/getMemberInfo", // 컨트롤러에서 처리할 URL 주소
+                method: "GET",
+                dataType: "json",
+                data: {
+                    member_signId : member.member_signId,
+                    member_nickname : getMemberInfo.member_nickname,
+                    member_pw : getMemberInfo.member_pw,
+                    member_birthday : getMemberInfo.member_birthday,
+                    member_age : getMemberInfo.member_age,
+                    member_gender : $("input[name='member_gender']:checked").val(),
+                    member_email : member_email,
+                    member_phone : member_phone
+                },
+                success: function (data) {
+                    if (data != null) {
+                        $("#mypageInfo").html(content);
+                    } else {
+                        $("#mypageInfo").html("User information not available.");
+                    }
+                },
+                error: function () {
+                    $("#mypageInfo").html("Failed to load user info.");
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <%@include file="/header.jsp" %>

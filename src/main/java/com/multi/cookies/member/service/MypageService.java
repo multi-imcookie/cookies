@@ -11,6 +11,6 @@ public class MypageService {
     MypageDAO mypageDAO;
 
     public MypageDTO getMemberInfo(String member_signId) {
-        return mypageDAO.getMemberInfo(member_signId);
+        return mypageDAO.getMemberInfo(String.valueOf(member_signId));
     }
 }
