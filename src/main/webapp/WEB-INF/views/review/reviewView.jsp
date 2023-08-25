@@ -73,22 +73,22 @@
 
         <div id="reviewSnack">
             <div class="detail-container">
-                <div class="thumbnail"><img src="${snack.snack_img}" alt="썸네일"></div>
+                <div class="thumbnail"><img src="${snackDTO.snack_img}" alt="썸네일"></div>
                 <div class="detail-content">
-                    <div class="detail-row">이름 : ${snack.snack_name}</div>
+                    <div class="detail-row">이름 : ${snackDTO.snack_name}</div>
                     <br>
-                    <div class="detail-row">제조회사 : ${snack.company}</div>
+                    <div class="detail-row">제조회사 : ${snackDTO.company}</div>
                     <br>
-                    <div class="detail-row">원재료 : ${snack.snack_ingredients}</div>
+                    <div class="detail-row">원재료 : ${snackDTO.snack_ingredients}</div>
                     <br>
-                    <div class="detail-row">알러지 : ${snack.allergy}</div>
+                    <div class="detail-row">알러지 : ${snackDTO.allergy}</div>
                 </div>
             </div>
             <div>
                 <label>내가 준 별점: </label>
                 <div class="rating" id="rating"></div>
                 <script>
-                    var rating = ${dto.review_score};
+                    var rating = ${reviewDTO.review_score};
                     var fullStars = Math.floor(rating);
                     var hasHalfStar = rating - fullStars >= 0.5;
 

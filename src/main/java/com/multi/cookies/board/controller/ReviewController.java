@@ -33,6 +33,8 @@ public class ReviewController {
     ReplyService replyService;
 
 
+
+
     //작성화면
     @RequestMapping(value = "reviewWrite", method = RequestMethod.GET)
     public String write() {
@@ -49,8 +51,11 @@ public class ReviewController {
     //조회
     @RequestMapping(value = "reviewView", method = RequestMethod.GET)
     public void read(@RequestParam("review_id") int review_id, Model model) throws Exception {
-        model.addAttribute(reviewService.read(review_id));
-
+        ReviewDTO reviewDTO = reviewService.read(review_id);
+        int snack_id = reviewDTO.getSnack_id();
+        System.out.println(snack_id);
+        model.addAttribute("reviewDTO", reviewDTO);
+        model.addAttribute("snackDTO", snackService.snackInfo(snack_id));
     }
 
     //삭제
