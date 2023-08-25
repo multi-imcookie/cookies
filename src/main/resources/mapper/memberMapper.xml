@@ -13,13 +13,14 @@
     </select>
 
     <!-- 총 회원 수를 얻기 위한 쿼리 -->
-    <select id="getAllMembers" resultType="com.multi.cookies.member.dto.AdminDTO">
-        SELECT *
+    <select id="getAllMembers" resultType="adminDTO">
+        SELECT member_id, member_signId, member_pw, member_nickname, member_age, member_gender, member_birthday,
+               member_email, member_phone, member_grade, naver_login, kakao_login, create_dt
         FROM member
-        LIMIT #{start}, #{pageSize}
+                 LIMIT #{start}, #{pageSize}
     </select>
 
-    <select id="searchMembers" resultType="com.multi.cookies.member.dto.MemberDTO">
+    <select id="searchMembers" resultType="memberDTO">
         SELECT *
         FROM imcookie.member
         WHERE (
@@ -35,7 +36,7 @@
     </select>
 
 
-    <select id="getMemberById" resultType="com.multi.cookies.member.dto.AdminDTO">
+    <select id="getMemberById" resultType="adminDTO">
         SELECT *
         FROM member
         WHERE member_id = #{id}
