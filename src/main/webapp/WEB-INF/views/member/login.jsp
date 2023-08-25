@@ -10,166 +10,105 @@
 <%@ page import="java.net.URLDecoder" %>
 <html>
 <head>
-    <title>전과자</title>
-    <%@ include file="/link.jsp" %>
     <style>
-
-        form > h1 {
-            font-family: ImcreSoojin, serif;
-            color: #452C07;
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 36px;
-        }
-
-        #username, #password {
+        .input-section {
             display: flex;
-            padding: 20px 24px;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 10px;
-            align-self: stretch;
-            border-radius: 12px;
-            background: #F9F5F2;
-            margin-left: auto;
-            margin-right: auto;
-            width: 960px;
-        }
-
-        #remember {
-            color: #555;
-            font-family: Pretendard;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 20px; /* 142.857% */
-        }
-
-        .remember {
-            width: 18px;
-            height: 18px;
-            padding: 10px;
-            flex-direction: column;
-            justify-content: left;
-            gap: 10px;
-            border-radius: 2px;
-        }
-
-        /*.login-container {*/
-        /*    background-color: #fff;*/
-        /*    border-radius: 8px;*/
-        /*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-        /*    width: 960px;*/
-        /*    margin-left: auto;*/
-        /*    margin-right: auto;*/
-        /*    display: block;*/
-        /*    padding-top: 5%;*/
-        /*    padding-bottom: 5%;*/
-        /*}*/
-
-        .login-form h1 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .login-form label {
-            margin-top: 10px;
-        }
-
-        .login-form input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 350px;
-            margin-top: 5px;
-        }
-
-        .bu {
-            display: flex;
-            padding: 20px 24px;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: space-between; /* 좌우로 공간을 분배합니다 */
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             align-self: stretch;
-            width: 960px;
-            border-radius: 12px;
-            background: #B48D69;
         }
 
-        .left-box {
-            float: left;
+        .input-section-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .right-box {
-            float: right;
+        .input-section-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px; /* 버튼 사이의 간격 조절 */
+            align-self: stretch;
         }
 
-        .social-container {
-            display: flex; /* Flex 컨테이너로 설정 */
-            justify-content: center; /* 가로 정렬을 중앙으로 설정 */
-        }
+        .fill-btn {
+            margin-bottom: 0; /* 버튼과 다음 섹션 사이의 간격을 없앰 */
 
-        .item {
-            margin: 10px; /* 필요한 간격을 조절할 수 있습니다 */
-        }
-
-        #msg {
-            height: 30px;
-            text-align: center;
-            font-size: 16px;
-            color: red;
-            margin-bottom: 20px;
         }
     </style>
+    <title>전과자</title>
+    <%@ include file="/link.jsp" %>
 </head>
 <body>
-<header>
-    <%@include file="/header.jsp" %>
-</header>
-<br><br>
+<%@include file="/header.jsp" %>
 <div class="sub-container">
-    <form action="<c:url value="/login"/>" method="post" class="login-form">
-        <h1 class="s-h-imcre24">로그인</h1>
+    <form action="<c:url value="/login"/>" method="post" class="signup-form form-style">
+        <h3 class="s-h-imcre24">로그인</h3>
         <div id="msg">
             <c:if test="${not empty param.msg}">
                 <i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
             </c:if>
         </div>
-        <div class="login-input">
-            <input type="text" id="username" name="username" value="${cookie.id.value}" placeholder="아이디 입력" required>
-            <input type="password" id="password" name="password"
-                   placeholder="비밀번호 입력" ${empty cookie.id.value ? "":"autofocus"} required>
+        <div class="input-section">
+            <label class="label-wrap" for="member_signId">아이디<span class="require-val">*</span>
+            </label>
+            <input type="text" id="member_signId" name="username" value="${cookie.id.value}" placeholder="아이디를 입력하세요." required autofocus>
+            <span class="guide id_chk"></span>
         </div>
-        <div class="left-box">
-            <label class=remember for="remember"><input type="checkbox" id="remember"
-                                                        name="remember" ${empty cookie.id.value ? "":"checked"}>아이디 저장
-            </label></div>
-        <div class="right-box">
-            <a href="${findUserOrPwdUrl}">아이디 / 비밀번호 찾기</a>
+        <div class="input-section">
+            <label class="label-wrap" for="member_nickname">비밀번호<span class="require-val">*</span>
+            </label>
+            <input type="password" id="member_nickname" name="password" placeholder="비밀번호를 입력하세요."
+                   required>
         </div>
-        <br>
-        <br>
-        <button type="submit" class="bu">로그인</button>
-        <div class="social-container">
-            <a href="${naverApiUrl}"><img src = "/resources/img/login/naverlogin.png" width="300" height="100"></a>
 
-            <a href="${kakakoApiUrl}"><img src = "/resources/img/login/kakaologin.png"  width="300" height="100"></a>
+        <div class="input-section">
+            <div class="input-section-left">
+                <div class="label-wrap">
+                    <label class="label-wrap" for="remember">
+                        <input type="checkbox" name="remember" id="remember"${empty cookie.id.value ? "":"checked"}>
+                        아이디 저장
+                    </label>
+                </div>
+            </div>
+            <div class="input-section-right">
+                <div class="label-wrap" style="margin-left: auto;">
+                    <label class="label-wrap" for="member_nickname">
+                        <a href="${findUserOrPwdUrl}">아이디 / 비밀번호 찾기</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <button type="submit"  class="fill-btn">로그인</button>
+
+        <div class="input-section">
+            <div class="input-section-left">
+                <div class="label-wrap">
+                    <a href="${naverApiUrl}"><img src="/resources/img/login/naverlogin.png" width="500"></a>
+                </div>
+            </div>
+            <div class="input-section-right">
+                <div class="label-wrap">
+                    <a href="${kakakoApiUrl}"><img src="/resources/img/login/kakaologin.png" width="500"></a>
+                </div>
+            </div>
         </div>
     </form>
-    <a href="${signUrl}">
-        <button class="bu">회원가입</button>
-    </a>
-
+    <div class="btn-wrap">
+        <button id="update" class="fill-btn">회원가입</button>
+    </div>
 </div>
-<footer class="footer">
-    <%@include file="/footer.jsp" %>
-</footer>
+<%@include file="/footer.jsp" %>
 <script>
     function setMessage(msg, element) {
         document.getElementById("msg").innerHTML = ` ${'${msg}'}`;
-
         if (element) {
             element.select();
         }

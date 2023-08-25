@@ -21,4 +21,5 @@ public class LoginDTO {
     private String naver_login;
     private String kakao_login;
     private Date create_dt;
+    private String member_phone;
 }
