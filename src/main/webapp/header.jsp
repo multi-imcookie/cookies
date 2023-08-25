@@ -59,7 +59,7 @@
                 <li><a class="p-medium" href="/member/sign.jsp">회원가입</a></li>
             </c:if>
             <c:if test="${sessionScope.memberId != null}">
-                <li><a class="p-medium" href="/logout">">로그아웃</a></li>
+                <li><a class="p-medium" href="/logout">로그아웃</a></li>
                 <li><div class="p-medium">${sessionScope.memberNickName}님 어서오세요</div></li>
             </c:if>
         </ul>
