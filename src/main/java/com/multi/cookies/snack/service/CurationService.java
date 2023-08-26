@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface CurationService {
 
-    public Map<String, Object> checkedAllergy(Map<String, String> checkedAllergy);
+    void checkedAllergy(Map<String, String> checkedAllergy);
 }

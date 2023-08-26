@@ -8,51 +8,57 @@
 </head>
 <body>
 <%@include file="/header.jsp" %>
+
 <div class="sub-container">
-    <div class="checkbox-container-left">
-        <div class="checkbox-row">
-            <div>
-                <input type="checkbox" name="egg_allergy" value="1">
-                <img src="egg_allergy.jpg" alt="egg_allergy">
-            </div>
-            <div>
-                <input type="checkbox" name="milk_allergy" value="1">
-                <img src="milk_allergy.jpg" alt="milk_allergy">
-            </div>
-            <div>
-                <input type="checkbox" name="wheat_allergy" value="1">
-                <img src="wheat_allergy.jpg" alt="wheat_allergy">
-            </div>
-            <div>
-                <input type="checkbox" name="buckwheat_allergy" value="1">
-                <img src="buckwheat_allergy.jpg" alt="buckwheat_allergy">
-            </div>
-            <div>
-                <input type="checkbox" name="peanut_allergy" value="1">
-                <img src="peanut_allergy.jpg" alt="peanut_allergy">
-            </div>
-            <div>
-                <input type="checkbox" name="soy_allergy" value="1">
-                <img src="soy_allergy.jpg" alt="soy_allergy">
-            </div>
-            <div>
-                <input type="checkbox" name="pine_nut_allergy" value="1">
-                <img src="pine_nut_allergy.jpg" alt="pine_nut_allergy">
-            </div>
-            <div>
-                <input type="checkbox" name="almond_allergy" value="1">
-                <img src="almond_allergy.jpg" alt="almond_allergy">
-            </div>
-            <div>
-                <input type="checkbox" name="walnut_allergy" value="1">
-                <img src="walnut_allergy.jpg" alt="walnut_allergy">
-            </div>
-            <div>
-                <input type="checkbox" name="crab_allergy" value="1">
-                <img src="crab_allergy.jpg" alt="crab_allergy">
+    <form action="curationStepOne" method="get">
+        <input type="hidden" name="member_id" id="member_id" value="1">
+        <div class="checkbox-container-left">
+            <div class="checkbox-row">
+                <div>
+                    <input type="checkbox" name="egg_allergy" value="1">
+                    <img src="egg_allergy.jpg" alt="egg_allergy">
+                </div>
+                <div>
+                    <input type="checkbox" name="milk_allergy" value="1">
+                    <img src="milk_allergy.jpg" alt="milk_allergy">
+                </div>
+                <div>
+                    <input type="checkbox" name="wheat_allergy" value="1">
+                    <img src="https://icons8.kr/icon/1521/%EB%B0%80" alt="wheat_allergy">
+                </div>
+                <div>
+                    <input type="checkbox" name="buckwheat_allergy" value="1">
+                    <img src="buckwheat_allergy.jpg" alt="buckwheat_allergy">
+                </div>
+                <div>
+                    <input type="checkbox" name="peanut_allergy" value="1">
+                    <img src="peanut_allergy.jpg" alt="peanut_allergy">
+                </div>
+                <div>
+                    <input type="checkbox" name="soy_allergy" value="1">
+                    <img src="soy_allergy.jpg" alt="soy_allergy">
+                </div>
+                <div>
+                    <input type="checkbox" name="pine_nut_allergy" value="1">
+                    <img src="pine_nut_allergy.jpg" alt="pine_nut_allergy">
+                </div>
+                <div>
+                    <input type="checkbox" name="almond_allergy" value="1">
+                    <img src="almond_allergy.jpg" alt="almond_allergy">
+                </div>
+                <div>
+                    <input type="checkbox" name="walnut_allergy" value="1">
+                    <img src="walnut_allergy.jpg" alt="walnut_allergy">
+                </div>
+                <div>
+                    <input type="checkbox" name="crab_allergy" value="1">
+                    <img src="crab_allergy.jpg" alt="crab_allergy">
+                </div>
             </div>
         </div>
+
         <div class="checkbox-container-right">
+            <span class="right">
             <div class="checkbox-row">
                 <div>
                     <input type="checkbox" name="shrimp_allergy" value="1">
@@ -91,11 +97,14 @@
                     <img src="beef_allergy.jpg" alt="beef_allergy">
                 </div>
             </div>
+                </span>
         </div>
 
-        <!-- 추가 줄들을 필요한 만큼 생성 -->
-    </div>
+        <button type="submit"> 골랐다</button>
+    </form>
 </div>
+
+<!-- 추가 줄들을 필요한 만큼 생성 -->
 
 
 <%@include file="/footer.jsp" %>
