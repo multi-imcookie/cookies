@@ -27,6 +27,7 @@
             padding: 0;
             width: 50%;
             box-sizing: border-box;
+            transition: transform 0.3s ease;
         }
 
         .img-button img {
@@ -35,13 +36,14 @@
             /*max-width: 100%;*/
             /*max-height: 100%;*/
             object-fit: contain; /* 이미지 비율 유지하면서 내부에 꽉 채우도록 조정 */
-            transition: transform 0.3s ease;
         }
         /* 호버 효과 */
-        .img-button:hover img {
+        .img-button:hover {
             transform: scale(1.3); /* 호버 시 이미지 크기를 1.3배로 확대 */
         }
         .vs-container {
+            position: relative;
+            z-index: 3;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -82,7 +84,6 @@
             <span id="round"><%=round%></span>
         </p>
     </div>
-</div>
 <div id="buttonsContainer">
     <button class="img-button" data-image="" data-id="" data-name="" id="button0">
         <div>
@@ -100,7 +101,7 @@
         <span class="snack-name"></span> <!-- snack_name 출력 -->
     </button>
 </div>
-
+</div>
 <script>
     var round = <%=round%>; // JSP에서 변수의 값을 JavaScript로 전달
     var matchElement = document.getElementById('match');
