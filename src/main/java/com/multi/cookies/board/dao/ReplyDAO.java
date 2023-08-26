@@ -1,8 +1,8 @@
 package com.multi.cookies.board.dao;
 
-import java.util.List;
-
 import com.multi.cookies.board.dto.ReplyDTO;
+
+import java.util.List;
 
 public interface ReplyDAO {
 

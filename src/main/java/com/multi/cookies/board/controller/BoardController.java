@@ -1,19 +1,18 @@
 package com.multi.cookies.board.controller;
 
-import java.util.List;
-import javax.inject.Inject;
-
+import com.multi.cookies.board.dto.BoardDTO;
+import com.multi.cookies.board.dto.Page;
+import com.multi.cookies.board.dto.ReplyDTO;
+import com.multi.cookies.board.service.BoardService;
+import com.multi.cookies.board.service.ReplyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.multi.cookies.board.dto.BoardDTO;
-import com.multi.cookies.board.dto.Page;
-import com.multi.cookies.board.dto.ReplyDTO;
-import com.multi.cookies.board.service.BoardService;
-import com.multi.cookies.board.service.ReplyService;
+import javax.inject.Inject;
+import java.util.List;
 
 
 @Controller
@@ -26,18 +25,38 @@ public class BoardController {
     @Inject
     private ReplyService replyService;
 
-    // 게시물 목록
+    // 게시물 목록 + 페이징 추가 + 검색
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public void getList(Model model) throws Exception {
+    public void List(Model model, @RequestParam(value = "num", required = false, defaultValue = "1") int num,
+                     @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+                     @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
+    ) throws Exception {
 
-        List<BoardDTO> list = null;
-        list = service.list();
+
+        Page page = new Page();
+
+        page.setNum(num);
+        page.setCount(service.searchCount(searchType, keyword));
+
+        // 검색 타입과 검색어
+        page.setSearchType(searchType);
+        page.setKeyword(keyword);
+
+        List<BoardDTO> list = service.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+        //list = service.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+
         model.addAttribute("list", list);
+        model.addAttribute("page", page);
+        model.addAttribute("select", num);
+
+
+
     }
 
-    // 게시물 작성
+
+    // 게시물 작성 폼
     @RequestMapping(value = "write", method = RequestMethod.GET)
-    public void getWrite() throws Exception {
+    public void Write() throws Exception {
 
     }
 
@@ -46,12 +65,12 @@ public class BoardController {
     public String postWrite(BoardDTO dto) throws Exception {
         service.write(dto);
 
-        return "redirect:/board/list";
+        return "redirect:/board/list?num=1"; //서비스에서 게시물 작성 처리후 목록 페이지로 리다이렉트
     }
 
     // 게시물 조회
     @RequestMapping(value = "view", method = RequestMethod.GET)
-    public void getView(@RequestParam("bbs_id") int bbs_id, Model model) throws Exception {
+    public void View(@RequestParam("bbs_id") int bbs_id, Model model) throws Exception {
 
         BoardDTO dto = service.view(bbs_id);
 
@@ -65,9 +84,9 @@ public class BoardController {
 
     }
 
-    // 게시물 수정
+    // 게시물 수정 폼
     @RequestMapping(value = "update", method = RequestMethod.GET)
-    public void getUpdate(@RequestParam("bbs_id") int bbs_id, Model model) throws Exception {
+    public void Update(@RequestParam("bbs_id") int bbs_id, Model model) throws Exception {
 
         BoardDTO dto = service.view(bbs_id);
 
@@ -76,7 +95,7 @@ public class BoardController {
 
     // 게시물 수정
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String postUpdate(BoardDTO dto) throws Exception {
+    public String Update(BoardDTO dto) throws Exception {
 
         service.update(dto);
 
@@ -85,65 +104,11 @@ public class BoardController {
 
     // 게시물 삭제
     @RequestMapping(value = "delete", method = RequestMethod.GET)
-    public String getDelete(@RequestParam("bbs_id") int bbs_id) throws Exception {
+    public String Delete(@RequestParam("bbs_id") int bbs_id) throws Exception {
 
         service.delete(bbs_id);
 
-        return "redirect:/board/list";
-    }
-
-
-
-    // 게시물 목록 + 페이징 추가
-    @RequestMapping(value = "listPage", method = RequestMethod.GET)
-    public void getListPage(Model model, @RequestParam("num") int num) throws Exception {
-
-
-        Page page = new Page();
-
-        page.setNum(num);
-        page.setCount(service.count());
-
-        List<BoardDTO> list = null;
-        list = service.listPage(page.getDisplayPost(), page.getPostNum());
-
-        model.addAttribute("list", list);
-
-
-        model.addAttribute("page", page);
-
-        model.addAttribute("select", num); //선택된 페이지 번호
-
-
-    }
-
-
-    // 게시물 목록 + 페이징 추가 + 검색
-    @RequestMapping(value = "listPageSearch", method = RequestMethod.GET)
-    public void getListPageSearch(Model model, @RequestParam("num") int num,
-                                  @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
-                                  @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
-    ) throws Exception {
-
-
-        Page page = new Page();
-
-        page.setNum(num);
-        page.setCount(service.searchCount(searchType, keyword));
-
-        // 검색 타입과 검색어
-        page.setSearchType(searchType);
-        page.setKeyword(keyword);
-
-        List<BoardDTO> list = null;
-        list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
-
-        model.addAttribute("list", list);
-        model.addAttribute("page", page);
-        model.addAttribute("select", num);
-
-
-
+        return "redirect:/board/list?num=1";
     }
 
 

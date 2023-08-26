@@ -71,7 +71,7 @@
             <ul class="f-depth2">
                 <li><a class="p-medium" href="#">공지사항</a></li>
                 <li><a class="p-medium" href="#">리뷰 게시판</a></li>
-                <li><a class="p-medium" href="#">자유 게시판</a></li>
+                <li><a class="p-medium" href="/board/list?num=1">자유 게시판</a></li>
             </ul>
         </li>
     </ul>

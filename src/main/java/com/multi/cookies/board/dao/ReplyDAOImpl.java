@@ -1,13 +1,11 @@
 package com.multi.cookies.board.dao;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
+import com.multi.cookies.board.dto.ReplyDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.multi.cookies.board.dto.ReplyDTO;
+import javax.inject.Inject;
+import java.util.List;
 
 @Repository
 public class ReplyDAOImpl implements ReplyDAO {
