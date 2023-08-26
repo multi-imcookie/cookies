@@ -19,19 +19,15 @@ public class MypageController {
     MypageService mypageService;
 
     @RequestMapping("/mypage")
-    public String mypage() {
-        return "mypage";
-    }
-
-
-    @RequestMapping("/getMemberInfo")
-    public MypageDTO getMemberInfo(HttpSession session, Model model) {
-        MemberDTO authInfo = (MemberDTO) session.getAttribute("authInfo");
-
-        if (authInfo != null) {
-            return mypageService.getMemberInfo(String.valueOf(authInfo.getMember_id()));
-        } else {
-            return null;
+    public String mypage(HttpSession session, Model model) {
+        String memberId = (String) session.getAttribute("memberId");
+        if (memberId != null) {
+            MypageDTO mypageDTO = mypageService.getMemberInfo(Integer.parseInt(memberId));
+            if (mypageDTO != null) {
+                model.addAttribute("userInfo", mypageDTO);
+                return "member/mypage";
+            }
         }
+        return "redirect:/login"; // 로그인 정보가 없으면 로그인 페이지로 이동
     }
 }

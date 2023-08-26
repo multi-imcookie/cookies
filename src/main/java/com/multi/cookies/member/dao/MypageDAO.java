@@ -11,7 +11,7 @@ public class MypageDAO {
     @Autowired
     SqlSessionTemplate my;
 
-    public MypageDTO getMemberInfo(String member_signId) {
-        return my.selectOne("member.getMemberInfo", member_signId);
+    public MypageDTO getMemberInfo(int member_id) {
+        return my.selectOne("member.getMemberInfo", member_id);
     }
 }

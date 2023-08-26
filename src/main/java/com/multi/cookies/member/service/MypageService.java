@@ -10,7 +10,7 @@ public class MypageService {
     @Autowired
     MypageDAO mypageDAO;
 
-    public MypageDTO getMemberInfo(String member_signId) {
-        return mypageDAO.getMemberInfo(String.valueOf(member_signId));
+    public MypageDTO getMemberInfo(int member_id) {
+        return mypageDAO.getMemberInfo(member_id);
     }
 }
