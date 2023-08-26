@@ -155,43 +155,44 @@ public class DBApiServiceImpl implements DBApiService {
     private DBApiDTO extractNutri(String nutrient) {
         DBApiDTO dbApiDTO = new DBApiDTO();
         // System.out.println("nutrient>> " + nutrient);
-        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*:?\\s*([\\d]+(?:\\.[\\d]+)?)(kcal|mg|g)?");
+        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*(?:\\((kcal|mg|g)\\))?\\s*([\\d]+(?:\\.[\\d]+)?)\\s*(?:kcal|mg|g)?")
+                ;
         Matcher matcher = pattern.matcher(nutrient);
 
         while (matcher.find()) {
             String nutri = matcher.group(1);
-            Double value = Double.parseDouble(matcher.group(2));
+            Double value = Double.parseDouble(matcher.group(3));
 
             // System.out.println("nutri>> " + nutri);
             // System.out.println("value>> " + value);
-            if (nutri.equals("단백질")) {
+            if (nutri.contains("단백질")) {
                 dbApiDTO.setProtein(value);
             }
-            if (nutri.equals("열량")) {
+            if (nutri.contains("열량")) {
                 dbApiDTO.setKcal(value);
             }
-            if (nutri.equals("지방")) {
+            if (nutri.contains("지방")) {
                 dbApiDTO.setFat(value);
             }
-            if (nutri.equals("탄수화물")) {
+            if (nutri.contains("탄수화물")) {
                 dbApiDTO.setCarb(value);
             }
-            if (nutri.equals("당류")) {
+            if (nutri.contains("당류")) {
                 dbApiDTO.setSugars(value);
             }
-            if (nutri.equals("칼슘")) {
+            if (nutri.contains("칼슘")) {
                 dbApiDTO.setCalcium(value);
             }
-            if (nutri.equals("나트륨")) {
+            if (nutri.contains("나트륨")) {
                 dbApiDTO.setSodium(value);
             }
-            if (nutri.equals("콜레스테롤")) {
+            if (nutri.contains("콜레스테롤")) {
                 dbApiDTO.setCholesterol(value);
             }
-            if (nutri.equals("포화지방")) {
+            if (nutri.contains("포화지방")) {
                 dbApiDTO.setSaturated_fat(value);
             }
-            if (nutri.equals("트랜스지방")) {
+            if (nutri.contains("트랜스지방")) {
                 dbApiDTO.setTrans_fat(value);
             }
         }
