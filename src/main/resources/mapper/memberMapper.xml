@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+    <insert id="sign" parameterType="memberDTO" useGeneratedKeys="true" keyProperty="memberId">
+        INSERT INTO member
+        VALUES (null, #{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender},
+                #{member_birthday}, #{member_email}, #{member_grade}, null, null, now(), #{member_phone})
+    </insert>
+    <select id="checkDuplicateId" parameterType="String" resultType="int">
+        SELECT COUNT(member_signId)
+        FROM member
+        WHERE member_signId = #{member_signId}
+    </select>
+
+    <!-- 총 회원 수를 얻기 위한 쿼리 -->
+    <select id="getAllMembers" resultType="adminDTO">
+        SELECT member_id, member_signId, member_pw, member_nickname, member_age, member_gender, member_birthday,
+               member_email, member_phone, member_grade, naver_login, kakao_login, create_dt
+        FROM member
+                 LIMIT #{start}, #{pageSize}
+    </select>
+
+    <select id="searchMembers" resultType="memberDTO">
+        SELECT *
+        FROM imcookie.member
+        WHERE (
+                              #{type} = 'nickname' AND member_nickname LIKE CONCAT('%', #{keyword}, '%')
+                      OR #{type} = 'id' AND member_signId LIKE CONCAT('%', #{keyword}, '%')
+                  )
+    </select>
+
+
+    <select id="getTotalMembers" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+    </select>
+
+
+    <select id="getMemberById" resultType="adminDTO">
+        SELECT *
+        FROM member
+        WHERE member_id = #{id}
+    </select>
+
+    <update id="updateMember">
+        UPDATE member
+        SET member_signId   = #{member_signId},
+            member_nickname = #{member_nickname},
+            member_age      = #{member_age},
+            member_gender   = #{member_gender},
+            member_email    = #{member_email},
+            member_grade    = #{member_grade}
+        WHERE member_id = #{member_id}
+    </update>
+
+    <insert id="createMember">
+        INSERT INTO member (member_signId, member_pw, member_nickname, member_age, member_gender, member_email)
+        VALUES (#{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender}, #{member_email})
+    </insert>
+
+    <delete id="deleteMember">
+        DELETE
+        FROM member
+        WHERE member_id = #{id}
+    </delete>
+
+    <select id="getMemberInfo" parameterType="String" resultType="com.multi.cookies.member.dto.MypageDTO">
+        SELECT *
+        FROM member
+        WHERE member_signId = #{member_signId}
+    </select>
+
+    <update id="updateMemberInfo" parameterType="com.multi.cookies.member.dto.MypageDTO">
+        UPDATE member
+        SET member_nickname = #{member_nickname},
+            member_phone    = #{member_phone},
+            member_email    = #{member_email},
+            member_pw       = #{member_pw}
+        WHERE member_signId = #{member_signId}
+    </update>
+
+</mapper>

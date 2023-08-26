@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="idealBoard">
+
+<!--    <select id="all" resultType="idealBoardDTO"  parameterType="pageDTO">-->
+<!--        select * from (-->
+<!--                          select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*-->
+<!--                          from ideal_worldcup_bbs b) bbs2-->
+<!--        where bbs2.idealBoardNum between ${start} and ${end}-->
+<!--    </select>-->
+    <select id="all" resultType="idealBoardDTO" parameterType="pageDTO">
+        select * from (
+        select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
+        from ideal_worldcup_bbs b) bbs2
+        where bbs2.idealBoardNum between ${start} and ${end}
+        and bbs2.idealBoardNum between #{start} and #{end} <!-- PageDTO의 start와 end 사용 -->
+    </select>
+
+<!--    <select id="list2" resultType="idealBoardDTO" parameterType="pageDTO">-->
+<!--        select * from (-->
+<!--                          select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*-->
+<!--                          from ideal_worldcup_bbs b) bbs2-->
+<!--        where bbs2.idealBoardNum between #{start} and #{end}-->
+<!--    </select>-->
+    <select id="list2" resultType="idealBoardDTO" parameterType="pageDTO">
+        select * from (
+        select ROW_NUMBER() over(order by ideal_id desc) as idealBoardNum, b.*
+        from ideal_worldcup_bbs b) bbs2
+        where bbs2.idealBoardNum between ${start} and ${end}
+        and bbs2.idealBoardNum between #{start} and #{end} <!-- PageDTO의 start와 end 사용 -->
+    </select>
+
+    <insert id="insert" parameterType="idealBoardDTO">
+        insert into ideal_worldcup_bbs values (null, #{ideal_nickname}, #{ideal_pw}, #{ideal_content}, now())
+    </insert>
+
+    <delete id="delete" parameterType="idealBoardDTO">
+        delete from ideal_worldcup_bbs where ideal_id = #{ideal_id} and ideal_pw = #{ideal_pw}
+    </delete>
+
+    <select id="count" resultType="Integer">
+        select count(*) from ideal_worldcup_bbs
+    </select>
+
+</mapper>

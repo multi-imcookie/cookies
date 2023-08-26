@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+
+
+    <!-- 게시물 작성 -->
+    <insert id="create">
+        INSERT INTO review_bbs(review_title, review_score, snack_id, review_content, review_img, member_id)
+        VALUES(#{review_title}, #{review_score}, #{snack_id}, #{review_content}, #{review_img}, #{member_id})
+
+    </insert>
+
+    <!-- 게시물 조회 -->
+    <select id="read" resultType="reviewDTO">
+        SELECT *
+        FROM review_bbs
+        WHERE review_id = #{review_id}
+    </select>
+
+    <!-- 게시물 수정 -->
+    <update id="update">
+        UPDATE review_bbs
+        SET
+            review_title = #{review_title},
+            review_score = #{review_score},
+            snack_id = #{snack_id},
+            review_content = #{review_content},
+            review_img = #{review_img}
+        WHERE review_id = #{review_id}
+    </update>
+
+    <!-- 게시물 삭제 -->
+    <delete id="delete">
+        DELETE FROM review_bbs
+        WHERE review_id = #{review_id}
+    </delete>
+
+    <!-- 게시물 목록 + 페이징 + 검색-->
+    <select id="list" parameterType="hashMap" resultType="reviewDTO">
+        select review_id, review_img, review_title, review_score, snack_id, member_id, create_dt
+        from review_bbs
+        <if test='searchType.equals("review_title")'> WHERE review_title LIKE concat('%', #{keyword}, '%') </if>
+        <if test='searchType.equals("snack_id")'> WHERE snack_id LIKE concat('%', #{keyword}, '%') </if>
+        <if test='searchType.equals("member_id")'> WHERE member_id LIKE concat('%', #{keyword}, '%')</if>
+        order by review_id desc
+        limit #{displayPost}, #{postNum}
+    </select>
+
+    <!-- 게시물 총 갯수 -->
+    <select id="count" resultType="int">
+        select count(review_id) from review_bbs
+    </select>
+
+
+
+
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="curation">
+
+   <!--큐레이션 등록-->
+
+    <insert id="checkedAllergy" parameterType="java.util.Map">
+        INSERT INTO curation (
+            member_id,
+            egg_allergy,
+            milk_allergy,
+            wheat_allergy,
+            buckwheat_allergy,
+            peanut_allergy,
+            soy_allergy,
+            pine_nut_allergy,
+            almond_allergy,
+            walnut_allergy,
+            crab_allergy,
+            shrimp_allergy,
+            squid_allergy,
+            mackerel_allergy,
+            shellfish_allergy,
+            peach_allergy,
+            tomato_allergy,
+            chicken_allergy,
+            pork_allergy,
+            beef_allergy
+        ) VALUES (
+                     #{member_id},
+                     #{egg_allergy},
+                     #{milk_allergy},
+                     #{wheat_allergy},
+                     #{buckwheat_allergy},
+                     #{peanut_allergy},
+                     #{soy_allergy},
+                     #{pine_nut_allergy},
+                     #{almond_allergy},
+                     #{walnut_allergy},
+                     #{crab_allergy},
+                     #{shrimp_allergy},
+                     #{squid_allergy},
+                     #{mackerel_allergy},
+                     #{shellfish_allergy},
+                     #{peach_allergy},
+                     #{tomato_allergy},
+                     #{chicken_allergy},
+                     #{pork_allergy},
+                     #{beef_allergy}
+                 )
+    </insert>
+</mapper>

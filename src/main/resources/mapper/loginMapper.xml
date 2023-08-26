@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+    <select id="kakao_login" resultType="loginDTO" parameterType="loginDTO">
+        select member_id, member_signId, member_pw,
+               member_nickname, member_age, member_gender,
+               member_birthday, member_email, member_grade,
+               naver_login, kakao_login, create_dt
+        from member where kakao_login=#{kakao_login}
+    </select>
+    <select id="naver_login" resultType="loginDTO" parameterType="loginDTO">
+        select member_id, member_signId, member_pw,
+               member_nickname, member_age, member_gender,
+               member_birthday, member_email, member_grade,
+               naver_login, kakao_login, create_dt
+        from member where naver_login=#{naver_login}
+    </select>
+    <select id="member_signId" resultType="loginDTO" parameterType="loginDTO">
+        select member_id, member_signId, member_pw,
+               member_nickname, member_age, member_gender,
+               member_birthday, member_email, member_grade,
+               naver_login, kakao_login, create_dt
+        from member where member_signId=#{member_signId}
+    </select>
+    <insert id="insert" parameterType="loginDTO">
+        insert into member (
+                member_id, member_signId, member_pw,
+                member_nickname, member_age, member_gender,
+                member_birthday, member_email, member_grade,
+                naver_login, kakao_login, create_dt)
+        values (
+                #{member_id},#{member_signId},#{member_pw},
+                #{member_nickname},#{member_age},#{member_gender},
+                #{member_birthday}, #{member_email}, #{member_grade},
+                #{naver_login}, #{kakao_login} ,now()
+                )
+    </insert>
+    <insert id="cookie_insert" parameterType="Map">
+        insert into member (
+            member_id, member_signId, member_pw,
+            member_nickname, member_age, member_gender,
+            member_birthday, member_email, member_grade,
+            naver_login, kakao_login, create_dt)
+        values (
+                   null,#{member_id},#{member_signId},
+                   null,null,null,
+                   null, null, null,
+                   null, null ,now()
+               )
+    </insert>
+    <select id="cookie_select" resultType="int" parameterType="map">
+        SELECT COUNT(*)
+        FROM member
+        WHERE member_signId = #{username} AND member_pw = #{password}
+    </select>
+    <select id="cookie_one" resultType="loginDTO" parameterType="map">
+        select member_id, member_signId, member_pw,
+               member_nickname, member_age, member_gender,
+               member_birthday, member_email, member_grade,
+               naver_login, kakao_login, create_dt
+        FROM member
+        WHERE member_signId = #{username} AND member_pw = #{password}
+    </select>
+
+</mapper>

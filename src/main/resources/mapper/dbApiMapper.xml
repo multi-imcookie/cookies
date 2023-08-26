@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db">
+    <!--insert-->
+    <insert id="insertSnack" parameterType="dbApiDTO" useGeneratedKeys="true" keyProperty="snack_id">
+        insert into snack (snack_name, company, snack_img, snack_ingredients, snack_reportNo)
+        values (#{snack_name}, #{company}, #{snack_img}, #{snack_ingredients}, #{snack_reportNo});
+    </insert>
+    <insert id="insertNutri" parameterType="dbApiDTO">
+        insert into snack_nutritional (snack_id, nutri_string, allergy, protein, kcal, fat, carb,
+                                       sugars, calcium, sodium, cholesterol, saturated_fat, trans_fat)
+        values (#{snack_id}, #{nutri_string}, #{allergy}, #{protein}, #{kcal}, #{fat}, #{carb},
+                #{sugars}, #{calcium}, #{sodium}, #{cholesterol}, #{saturated_fat}, #{trans_fat});
+    </insert>
+
+    <insert id="insertScoreId" parameterType="dbApiDTO">
+        insert into avg_score (snack_id)
+        values (#{snack_id});
+    </insert>
+    <insert id="insertIdealId" parameterType="dbApiDTO">
+        insert into ideal_worldcup (snack_id)
+        values (#{snack_id});
+    </insert>
+    <!--여기까지-->
+
+    <!--update-->
+    <select id="pullData" parameterType="String" resultType="dbApiDTO">
+        select a.snack_name,
+               a.company,
+               a.snack_img,
+               a.snack_ingredients,
+               a.snack_reportNo,
+               b.nutri_string,
+               b.allergy,
+               b.protein,
+               b.kcal,
+               b.fat,
+               b.carb,
+               b.sugars,
+               b.calcium,
+               b.sodium,
+               b.cholesterol,
+               b.saturated_fat,
+               b.trans_fat
+        from snack a
+                 join snack_nutritional b
+                      on a.snack_id = b.snack_id
+        where a.snack_reportNO = #{snack_reportNo}
+    </select>
+    <update id="update" parameterType="dbApiDTO">
+        update snack a
+            join snack_nutritional b
+        on a.snack_id = b.snack_id
+            set a.snack_ingredients = #{snack_ingredients},
+                a.snack_name = #{snack_name},
+                a.snack_img = #{snack_img},
+                a.company = #{company},
+                b.nutri_string = #{nutri_string},
+                b.allergy = #{allergy},
+                b.protein = #{protein},
+                b.kcal = #{kcal},
+                b.fat = #{fat},
+                b.carb = #{carb},
+                b.sugars = #{sugars},
+                b.calcium = #{calcium},
+                b.sodium = #{sodium},
+                b.cholesterol = #{cholesterol},
+                b.saturated_fat = #{saturated_fat},
+                b.trans_fat = #{trans_fat}
+        where a.snack_reportNo = #{snack_reportNo}
+    </update>
+    <!--여기까지-->
+
+    <!--초기화-->
+    <delete id="deleteSnack">
+        delete
+        from snack;
+    </delete>
+    <update id="resetSnackAI">
+        alter table snack auto_increment = 1;
+    </update>
+    <!--여기까지-->
+</mapper>

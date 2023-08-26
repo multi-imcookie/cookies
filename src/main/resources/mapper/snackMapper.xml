@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="snack">
+
+    <resultMap id="keywordMap" type="searchDTO" >
+        <id column="snack_id" property="snack_id"/>
+        <result column="snack_name" property="snack_name"/>
+        <result column="company" property="company"/>
+        <result column="snack_ingredients" property="snack_ingredients"/>
+        <result column="allergy" property="allergy"/>
+    </resultMap>
+
+    <!-- 부분적 일치에 대한 검색을 하기 위해 RESULT MAP 사용 / 칼럼 중 모든 문자열에 대한 검색 결과를 얻기 위한 쿼리 -->
+    <!-- 페이지네이션을 위해서 쿼리를 짰지만, 컨트롤러 단에서 계산하려던 문제 때문이었고,
+         서비스 단으로 옮기니까 검색 결과에서 충분히 결과 얻을 수 있게 되어서 아래 getTotalResults는 안 쓰게 됨-->
+    <select id="search" resultType="searchDTO" resultMap="keywordMap">
+        SELECT *
+        FROM snack a
+                 JOIN snack_nutritional b ON a.snack_id = b.snack_id
+                 JOIN avg_score c ON a.snack_id = c.snack_id
+        WHERE a.snack_name LIKE CONCAT('%', #{keyword}, '%')
+           OR a.company LIKE CONCAT('%', #{keyword}, '%')
+           OR a.snack_ingredients LIKE CONCAT('%', #{keyword}, '%')
+           OR b.allergy LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <!-- 쿠키위키의 검색 결과 중 항목을 선택했을 때 그 항목에 대한 데이터를 모조리 가져오기 위한 쿼리. -->
+    <select id="snackInfo" resultType="searchDTO" resultMap="keywordMap">
+        SELECT *
+        FROM snack a
+                 JOIN snack_nutritional b ON a.snack_id = b.snack_id
+                 JOIN avg_score c ON a.snack_id = c.snack_id
+        WHERE a.snack_id = #{snack_id}
+    </select>
+
+    <!-- 리뷰든 큐레이션이든 별점을 매기는 행위가 있을 때, 스낵에 그 점수를 반영하고 평점을 저장하는 쿼리 -->
+    <update id="addSnackReviewScore" parameterType="reviewDTO">
+        UPDATE avg_score
+        SET total_score = total_score + #{review_score},
+            review_count = review_count + 1,
+            avg_score = total_score / review_count
+        WHERE snack_id = #{snack_id}
+    </update>
+
+    <!-- 리뷰든 큐레이션이든 이미 별점을 매긴 게시물이나 결과를 지웠을 때 그 변화를 반영하는 쿼리. -->
+    <update id="subtractSnackReviewScore" parameterType="int">
+        UPDATE avg_score
+        SET total_score = total_score - (SELECT review_score FROM review_bbs WHERE review_id = #{review_id}),
+            review_count = review_count - 1,
+            avg_score = IF(review_count > 0, (total_score / review_count), 0)
+        WHERE snack_id = (SELECT snack_id FROM review_bbs WHERE review_id = #{review_id})
+    </update>
+
+    <!-- 리뷰든 큐레이션이든 이미 별점을 매긴 게시물이나 결과를 수정해서 별점을 바꾸었을 때 그 변화를 반영하는 쿼리 -->
+    <update id="updateSnackReviewScore" parameterType="reviewDTO">
+        <!-- review_id로부터 review_score 값을 가져옴 -->
+        <selectKey keyProperty="preview_score" resultType="int" order="BEFORE">
+            SELECT review_score FROM review_bbs WHERE review_id = #{review_id}
+        </selectKey>
+
+        <!-- 얻어진 review_score와 reviewDTO의 review_score를 사용하여 avg_score 테이블 업데이트 -->
+        UPDATE avg_score
+        SET total_score = total_score - #{preview_score} + #{reviewDTO.review_score},
+        avg_score = total_score / review_count
+        WHERE snack_id = #{reviewDTO.snack_id}
+    </update>
+
+    <!-- <update id="updateSnackReviewScore" parameterType="reviewDTO">
+    UPDATE avg_score
+    SET total_score = total_score - #{preview_score} + #{new_score},
+        avg_score = total_score / review_count
+    WHERE snack_id = #{snack_id}
+</update>-->
+
+    <!-- 위의 KEYWORD로 인한 검색 결과를 세기 위한 쿼리. 로우가 얼마나 되느냐를 계산해야 페이지 쪼개기 가능. 페이지네이션을 위한 쿼리.
+    <select id="getTotalResults" resultType="int">
+        SELECT count(*)
+        FROM snack a
+                 JOIN snack_nutritional b ON a.snack_id = b.snack_id
+                 JOIN avg_score c ON a.snack_id = c.snack_id
+        WHERE a.snack_name
+            LIKE CONCAT('%', #{keyword}, '%') OR a.company
+            LIKE CONCAT('%', #{keyword}, '%') OR a.snack_ingredients
+            LIKE CONCAT('%', #{keyword}, '%') OR b.allergy
+            LIKE CONCAT('%', #{keyword}, '%')
+    </select> -->
+
+    <!--<update id="subtractSnackReviewScore" parameterType="review_id">
+        UPDATE avg_score
+        SET total_score = total_score - #{review_score},
+            review_count = review_count - 1,
+            avg_score = total_score  / review_count
+        WHERE snack_id = #{snack_id}
+    </update>-->
+
+
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+    <!-- 게시물 목록 + 페이징 + 검색 -->
+    <select id="list" parameterType="hashMap" resultType="boardDTO">
+        SELECT
+        bbs_id, bbs_title, member_id, create_dt, bbs_views
+        FROM bbs
+
+        <if test='searchType.equals("bbs_title")'>
+            WHERE bbs_title LIKE concat('%', #{keyword}, '%')
+        </if>
+
+        <if test='searchType.equals("bbs_content")'>
+            WHERE bbs_content LIKE concat('%', #{keyword}, '%')
+        </if>
+
+        <if test='searchType.equals("member_id")'>
+            WHERE member_id LIKE concat('%', #{keyword}, '%')
+        </if>
+
+        order by bbs_id desc
+        limit #{displayPost}, #{postNum}
+    </select>
+
+    <!-- 게시물 작성 -->
+    <insert id="write" parameterType="boardDTO">
+        INSERT INTO bbs(bbs_title, bbs_content, member_id)
+        VALUES(#{bbs_title}, #{bbs_content}, #{member_id})
+    </insert>
+
+    <!-- 게시물 조회 -->
+    <select id="view" parameterType="int" resultType="boardDTO">
+        SELECT
+            bbs_id, bbs_title, bbs_content, member_id, create_dt, bbs_views
+        FROM bbs
+        WHERE bbs_id = #{bbs_id}
+    </select>
+
+    <!-- 게시물 수정 -->
+    <update id="update" parameterType="boardDTO">
+        UPDATE bbs
+        SET
+            bbs_title = #{bbs_title},
+            bbs_content = #{bbs_content}
+        WHERE bbs_id = #{bbs_id}
+    </update>
+
+    <!-- 게시물 삭제 -->
+    <delete id="delete" parameterType="int">
+        DELETE FROM bbs
+        WHERE bbs_id = #{bbs_id}
+    </delete>
+
+    <!-- 게시물 총 갯수 -->
+    <select id="count" resultType="int">
+        SELECT COUNT(bbs_id) FROM bbs
+    </select>
+
+
+    <!-- 게시물 총 갯수 + 검색 적용 -->
+    <select id="searchCount" parameterType="hashMap" resultType="int">
+        SELECT count(bbs_id) FROM bbs
+
+        <if test='searchType.equals("bbs_title")'>
+            WHERE bbs_title LIKE concat('%', #{keyword}, '%')
+        </if>
+
+        <if test='searchType.equals("bbs_content")'>
+            WHERE bbs_content LIKE concat('%', #{keyword}, '%')
+        </if>
+
+        <if test='searchType.equals("member_id")'>
+            WHERE member_id LIKE concat('%', #{keyword}, '%')
+        </if>
+
+    </select>
+
+
+</mapper>

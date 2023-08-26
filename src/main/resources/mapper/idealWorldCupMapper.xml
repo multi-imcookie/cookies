@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="worldCup">
+
+    <select id="count" resultType="Integer">
+        select count(*) from ideal_worldcup
+    </select>
+
+    <select id="all" resultType="idealWorldCupDTO" parameterType="pageDTO">
+        SELECT ranking2.idealRanking, ranking2.snack_id, ranking2.wins, s.snack_name, s.snack_img
+        FROM (
+                 SELECT ROW_NUMBER() OVER(ORDER BY wins DESC) AS idealRanking, snack_id, wins
+                 FROM ideal_worldcup
+             ) ranking2
+                 JOIN snack s ON ranking2.snack_id = s.snack_id
+        WHERE ranking2.idealRanking BETWEEN #{start} AND #{end}
+    </select>
+
+    <select id="list2" resultType="idealWorldCupDTO" parameterType="pageDTO">
+        SELECT ranking2.idealRanking, ranking2.snack_id, ranking2.wins, s.snack_name, s.snack_img
+        FROM (
+                 SELECT ROW_NUMBER() OVER(ORDER BY wins DESC) AS idealRanking, snack_id, wins
+                 FROM ideal_worldcup
+             ) ranking2
+                 JOIN snack s ON ranking2.snack_id = s.snack_id
+        WHERE ranking2.idealRanking BETWEEN #{start} AND #{end}
+    </select>
+
+        <update id="updateWinsForSnack" parameterType="int">
+            INSERT INTO ideal_worldcup (snack_id, wins)
+            VALUES (#{snack_id}, 1)
+                ON DUPLICATE KEY UPDATE wins = wins + 1;
+        </update>
+
+    <select id="getRandomSnacks" resultType="initialSnackListDTO" parameterType="int">
+        SELECT snack_id, snack_name, snack_img
+        FROM snack
+        ORDER BY RAND() -- MySQL에서 랜덤 순서로 가져오기
+            LIMIT #{limit}
+    </select>
+<!--    <select id="list" resultType="String">-->
+<!--        Select ideal_snack_img from ideal_worldcup Order by rand()-->
+<!--    </select>-->
+
+<!--    <update id="updateWins" parameterType="String">-->
+<!--        UPDATE ideal_worldcup-->
+<!--        SET wins = wins + 1-->
+<!--        WHERE snack_id = #{winner}-->
+<!--    </update>-->
+
+</mapper>
