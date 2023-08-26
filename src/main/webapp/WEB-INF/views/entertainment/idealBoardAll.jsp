@@ -4,20 +4,12 @@
   Date: 2023-08-11
   Time: 오전 11:05
   To change this template use File | Settings | File Templates.
-  // TODO: (해결시 삭제 하겠음)
-           1)글 작성시 닉네임, 비밀번호, 내용 입력안하면 alter 띄우고 insert안되는 기능 (해결)
-           2)삭제 버튼 누르면 비밀번호 입력하는 alter띄우기 (해결)
-           3)삭제 비밀번호 틀리면 삭제 안되게 하기 (해결)
-           4)이상형월드컵 게임 (해결)
-           5)이상형월드컵 랭킹 구현 (해결)
-           6)db 유니크 키
-           7)페이지 합칠지 나눌지 css어떻게할지 정리
-
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <%@ include file="/link.jsp" %>
+    <% int totalpages = (int) request.getAttribute("pages");%>
     <style>
         /* 버튼 스타일 적용 */
         .saveIdealBoard, .deleteIdealBoard, .pages {
@@ -66,7 +58,6 @@
         }
     </style>
     <script type="text/javascript">
-
         $(function () {
             $('#saveIdealBoard').click(function () {  //글 작성 function
                 ///////////////////length로 들어왔는지부터 check 1보다큰지 모두만족하면 실행하게
@@ -134,26 +125,51 @@
                     }
                 }) //ajax
             })
-
+            var currentPage = 1; // 현재 페이지 번호 초기화
+            // 이전 버튼 클릭 시
+            $('#prevPage').click(function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadPage(currentPage);
+                }
+                else{
+                    loadPage(currentPage);
+                }
+            });
+            // 페이지 번호 클릭 시
             $('.pages').click(function () {
+                currentPage = parseInt($(this).text());
+                loadPage(currentPage);
+            });
+            // 다음 버튼 클릭 시
+            $('#nextPage').click(function () {
+                if(currentPage<<%=totalpages%>){
+                    currentPage++;
+                    loadPage(currentPage);
+                    console.log(currentPage)
+                }
+                else{
+                    loadPage(currentPage);
+                }
+            });
+            function loadPage(page) {
                 $.ajax({
                     url: "idealBoardList",
                     data: {
-                        page: $(this).text()
+                        page: page
                     },
-                    success: function(result) { //결과가 담겨진 table부분코드
-                        $('#d1').html(result)//jQuery를 사용하여 HTML 요소 내부의 내용을 변경하는 코드
-
-                        // AJAX 호출 성공 후 화면 맨 위로 스크롤
+                    success: function (result) {
+                        $('#d1').html(result);
                         scrollToTop();
-
                     },
                     error: function () {
-                        alert('실패')
+                        alert('실패');
                     }
-                }) //ajax
-            })
+                });
+            }
         })
+
+
         // 화면을 맨 위로 스크롤하는 함수
         function scrollToTop() {
             window.scrollTo(0, 0);
@@ -175,14 +191,12 @@
     <div id="d1" class="ideal-board">
         <table>
             <tr>
-<%--                <td class="left">글 번호</td>--%>
                 <td class="left">닉네임</td>
                 <td class="left">내용</td>
                 <td class="left">작성시간</td>
             </tr>
             <c:forEach items="${list}" var="one">
                 <tr>
-<%--                    <td class="right">${one.ideal_id}</td> <!-- one.getId() -->--%>
                     <td class="right">${one.ideal_nickname}</td>
                     <td class="right">${one.ideal_content}</td>
                     <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -197,10 +211,12 @@
     </div>
     </div>
     <div class="page-buttons">
+        <button class="page-button" id="prevPage">이전</button>
         <% int pages = (int) request.getAttribute("pages");
             for (int p = 1; p <= pages; p++) { %>
         <button class="page-button pages"><%= p %></button>
         <% } %>
+        <button class="page-button" id="nextPage">다음</button>
     </div>
 </div>
 <%@include file="/footer.jsp" %>
