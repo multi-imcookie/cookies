@@ -13,8 +13,8 @@ public class CurationServiceImpl implements CurationService {
     CurationDAO curationDAO;
 
     @Override
-    public Map<String, Object> checkedAllergy(Map<String, String> checkedAllergy) {
+    public void checkedAllergy(Map<String, String> checkedAllergy) {
+        System.out.println("난 서비스!");
         curationDAO.checkedAllergy(checkedAllergy);
-        return null;
     }
 }

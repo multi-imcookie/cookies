@@ -15,8 +15,9 @@ public class CurationController {
 
     @RequestMapping("curation/curationStepOne")
     public String curationStepOne(@RequestParam Map<String, String> checkedAllergy){
+        System.out.println("나 컨트롤러다!");
         curationService.checkedAllergy(checkedAllergy);
-       return "redirect:/curation/curationStepTwo";
+       return "curation";
     }
 
 }
