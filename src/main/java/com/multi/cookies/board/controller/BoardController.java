@@ -32,7 +32,6 @@ public class BoardController {
                      @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
     ) throws Exception {
 
-
         Page page = new Page();
 
         page.setNum(num);
