@@ -17,6 +17,10 @@
         insert into avg_score (snack_id)
         values (#{snack_id});
     </insert>
+    <insert id="insertIdealId" parameterType="dbApiDTO">
+        insert into ideal_worldcup (snack_id)
+        values (#{snack_id});
+    </insert>
     <!--여기까지-->
 
     <!--update-->
@@ -27,7 +31,17 @@
                a.snack_ingredients,
                a.snack_reportNo,
                b.nutri_string,
-               b.allergy
+               b.allergy,
+               b.protein,
+               b.kcal,
+               b.fat,
+               b.carb,
+               b.sugars,
+               b.calcium,
+               b.sodium,
+               b.cholesterol,
+               b.saturated_fat,
+               b.trans_fat
         from snack a
                  join snack_nutritional b
                       on a.snack_id = b.snack_id
@@ -42,7 +56,17 @@
                 a.snack_img = #{snack_img},
                 a.company = #{company},
                 b.nutri_string = #{nutri_string},
-                b.allergy = #{allergy}
+                b.allergy = #{allergy},
+                b.protein = #{protein},
+                b.kcal = #{kcal},
+                b.fat = #{fat},
+                b.carb = #{carb},
+                b.sugars = #{sugars},
+                b.calcium = #{calcium},
+                b.sodium = #{sodium},
+                b.cholesterol = #{cholesterol},
+                b.saturated_fat = #{saturated_fat},
+                b.trans_fat = #{trans_fat}
         where a.snack_reportNo = #{snack_reportNo}
     </update>
     <!--여기까지-->

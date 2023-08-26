@@ -81,8 +81,8 @@ public class DBApiServiceImpl implements DBApiService {
             }
             System.out.println(i + "페이지 업데이트 성공");
         }
-        System.out.println("총 " + result / 2 + "개 항목 업데이트 완료"); // 한 항목당 테이블(컬럼) 2개
-        return result / 2;
+        System.out.println("총 " + result + "개 항목 업데이트 완료");
+        return result;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class DBApiServiceImpl implements DBApiService {
             System.out.println(i + "페이지 성공");
         }
         System.out.println("DB 목록 생성 성공!");
-        return result / 2;  // 한 항목당 테이블(컬럼) 2개
+        return result / 2;  // snack 테이블, snack_nutritional 총 2개 테이블
     }
 
     @Override
@@ -155,7 +155,7 @@ public class DBApiServiceImpl implements DBApiService {
     private DBApiDTO extractNutri(String nutrient) {
         DBApiDTO dbApiDTO = new DBApiDTO();
         // System.out.println("nutrient>> " + nutrient);
-        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*([\\d]+(?:\\.[\\d]+)?)(kcal|mg|g)?");
+        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*:?\\s*([\\d]+(?:\\.[\\d]+)?)(kcal|mg|g)?");
         Matcher matcher = pattern.matcher(nutrient);
 
         while (matcher.find()) {

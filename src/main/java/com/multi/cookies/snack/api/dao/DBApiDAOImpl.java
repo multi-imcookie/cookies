@@ -18,6 +18,7 @@ public class DBApiDAOImpl implements DBApiDAO {
         result += my.insert("db.insertSnack", dbApiDTO);  // snack DB 데이터 생성
         result += my.insert("db.insertNutri", dbApiDTO);  // snack_nutritional DB 데이터 생성
         my.insert("db.insertScoreId", dbApiDTO); // 평점 테이블 snack_id 생성 
+        my.insert("db.insertIdealId", dbApiDTO); // 이상형월드컵 테이블 snack_id 생성
         return result;
     }
 
@@ -33,7 +34,7 @@ public class DBApiDAOImpl implements DBApiDAO {
 
     @Override
     public int deleteAllDB() { // DB 전체삭제
-        return my.delete("db.deleteSnack");   // snack DB 데이터 삭제 (Cascade설정으로 영양성분DB 함께 삭제)
+        return my.delete("db.deleteSnack");   // snack DB 데이터 삭제 (Cascade설정으로 연결된 테이블 함께 삭제)
     }
 
     @Override
