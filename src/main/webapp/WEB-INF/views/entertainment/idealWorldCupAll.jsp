@@ -9,28 +9,53 @@
 <html>
 <head>
     <%@ include file="/link.jsp" %>
+    <% int totalpages = (int) request.getAttribute("pages");%>
     <title></title>
     <script type="text/javascript">
 
         $(function () {
+            var currentPage = 1; // 현재 페이지 번호 초기화
+            // 이전 버튼 클릭 시
+            $('#prevPage').click(function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadPage(currentPage);
+                }
+                else{
+                    loadPage(currentPage);
+                }
+            });
+            // 페이지 번호 클릭 시
             $('.pages').click(function () {
+                currentPage = parseInt($(this).text());
+                loadPage(currentPage);
+            });
+            // 다음 버튼 클릭 시
+            $('#nextPage').click(function () {
+                if(currentPage<<%=totalpages%>){
+                    currentPage++;
+                    loadPage(currentPage);
+                    console.log(currentPage)
+                }
+                else{
+                    loadPage(currentPage);
+                }
+            });
+            function loadPage(page) {
                 $.ajax({
                     url: "idealWorldCupList",
                     data: {
-                        page: $(this).text()
+                        page: page
                     },
-                    success: function (result) { //결과가 담겨진 table부분코드
-                        $('#d1').html(result)//jQuery를 사용하여 HTML 요소 내부의 내용을 변경하는 코드
-
-                        // AJAX 호출 성공 후 화면 맨 위로 스크롤
+                    success: function (result) {
+                        $('#d1').html(result);
                         scrollToTop();
-
                     },
                     error: function () {
-                        alert('실패')
+                        alert('실패');
                     }
-                }) //ajax
-            })
+                });
+            }
         })
         // 화면을 맨 위로 스크롤하는 함수
         function scrollToTop() {
@@ -61,10 +86,12 @@
     <div class="sub-container">
         <!-- 기존 내용 ... -->
         <div class="page-buttons">
+            <button class="page-button" id="prevPage">이전</button>
             <% int pages = (int) request.getAttribute("pages");
                 for (int p = 1; p <= pages; p++) { %>
             <button class="page-button pages"><%= p %></button>
             <% } %>
+            <button class="page-button" id="nextPage">다음</button>
         </div>
     </div>
 </div>
