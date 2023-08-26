@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -66,6 +67,7 @@ public class DBApiServiceImpl implements DBApiService {
     }
 
     @Override
+    @Scheduled(cron = "0 43 14 * * * *")    // cron: 초 분 시 일 월 요일 연도
     public int updateDB() throws ParseException, IOException {
         int result = 0;
         int maxPage = calculateNumOfPage(); // 최대 페이지 수
@@ -155,8 +157,7 @@ public class DBApiServiceImpl implements DBApiService {
     private DBApiDTO extractNutri(String nutrient) {
         DBApiDTO dbApiDTO = new DBApiDTO();
         // System.out.println("nutrient>> " + nutrient);
-        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*(?:\\((kcal|mg|g)\\))?\\s*([\\d]+(?:\\.[\\d]+)?)\\s*(?:kcal|mg|g)?")
-                ;
+        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*(?:\\((kcal|mg|g)\\))?\\s*([\\d]+(?:\\.[\\d]+)?)\\s*(?:kcal|mg|g)?");
         Matcher matcher = pattern.matcher(nutrient);
 
         while (matcher.find()) {
