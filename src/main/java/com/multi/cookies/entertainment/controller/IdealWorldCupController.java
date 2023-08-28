@@ -35,11 +35,17 @@ public class IdealWorldCupController {
         pageDTO.setStartEnd(pageDTO.getPage());
         List<IdealWorldCupDTO> list = idealWorldCupDAO.all(pageDTO);
         int count = idealWorldCupDAO.count();
-        int pages = count / 10 + 1; //전체 페이지 개수 구하기
+        int pages=0;
+        if(count%10==0) {
+            pages = count / 10 ; //전체 페이지 개수 구하기
+        }
+        else{
+            pages = count / 10 + 1; //전체 페이지 개수 구하기
+        }
+
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         model.addAttribute("pages", pages);
-        System.out.println("리스트가져오기");
     }
 
     @RequestMapping("/updateWinnerWins")
