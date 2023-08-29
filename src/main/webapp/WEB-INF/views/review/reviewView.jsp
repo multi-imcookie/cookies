@@ -117,19 +117,40 @@
             <a href="reviewList?num=1"><button>뒤로가기</button></a>
         </div>
 
-        <%--  <!-- 댓글 -->
-          <div id="reply">
+        <!-- 댓글 -->
+        <div id="reply">
             <ol class="replyList">
-              <c:forEach items="${replyList}" var="replyList">
-                <li>
-                  <p>${replyList.reply_content}</p>
-                  <p>
-                    작성자 : ${replyList.member_id} / 작성 날짜 :  <fmt:formatDate value="${replyList.create_dt}" pattern="yyyy-MM-dd" />
-                  </p>
-                </li>
-              </c:forEach>
+                <c:forEach items="${replyList}" var="replyList">
+                    <li>
+                        <p>${replyList.reply_content}</p>
+                        <p>
+                            작성자 : ${replyList.member_id}
+                            작성날짜 :  <fmt:formatDate value="${replyList.create_dt}" pattern="yyyy-MM-dd" />
+                        </p>
+                    </li>
+                </c:forEach>
             </ol>
-          </div>--%>
+        </div>
+
+
+        <form name="replyForm" method="post">
+            <input type="hidden" id="reply_id" name="reply_id" value="${reviewReplyDTO.reply_id}" />
+            <input type="hidden" id="review_id" name="review_id" value="${reviewReplyDTO.review_id}">
+            <input type="hidden" id="member_id" name="member_id" value="${reviewReplyDTO.member_id}">
+
+            <%--            <div><label &lt;%&ndash;for="reply_content"&ndash;%&gt;>댓글</label>
+                            <input type="text" id="reply_content" name="reply_content" placeholder="댓글 내용을 입력하세요">
+                        </div>--%>
+
+            <div>
+                <label>댓글2</label><br>
+                <textarea cols="50" rows="5" name="reply_content" id="reply_content" placeholder="댓글 내용을 입력하세요"></textarea>
+            </div>
+
+            <div>
+                <button type="submit" class="btn-reviewReplyWrite" id="btn-reviewReplyWrite">작성</button>
+            </div>
+        </form>
 
     </div>
 </section>
