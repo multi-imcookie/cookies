@@ -56,6 +56,12 @@
             justify-content: center; /* 수평 가운데 정렬 */
             gap: 10px; /* 버튼 사이의 간격 */
         }
+        /* 선택된 페이지 버튼의 스타일 */
+        .selected-page {
+            background-color: #FF0000; /* 선택한 색상으로 변경 */
+            color: #FFFFFF; /* 글자색 변경 */
+            /* 원하는 스타일을 추가하세요 */
+        }
     </style>
     <script type="text/javascript">
         $(function () {
@@ -126,32 +132,58 @@
                 }) //ajax
             })
             var currentPage = 1; // 현재 페이지 번호 초기화
+            $('.page-button.pages').hide();// 이 부분은 버튼 초기 숨김 처리입니다.
+            $('#prevPage').hide();
+            $('.page-button.pages:lt(10)').show();// 이 부분은 버튼 초기 버튼 개수입니다.
+            $('.page-button.pages').eq(currentPage-1).addClass('selected-page'); // 페이지 1번 css변경
+
             // 이전 버튼 클릭 시
             $('#prevPage').click(function () {
-                if (currentPage > 1) {
+                $('.pages').removeClass('selected-page');
+                if(currentPage>10){
+                    while(currentPage % 10 != 1){
+                        currentPage--;
+                    }
+                    if(currentPage<21){
+                        $('#prevPage').hide();
+                    }
                     currentPage--;
-                    loadPage(currentPage);
+                    console.log("1",currentPage)
+                    $('#nextPage').show();
+                    $('.page-button.pages:lt(' + (currentPage) + ')').show();
+                    $('.page-button.pages:gt(' + (currentPage - 1) + ')').hide();
+                    $('.page-button.pages:lt(' + (currentPage - 10) + ')').hide();
                 }
-                else{
-                    loadPage(currentPage);
-                }
+                $('.page-button.pages').eq(currentPage-1).addClass('selected-page');
             });
+
             // 페이지 번호 클릭 시
             $('.pages').click(function () {
                 currentPage = parseInt($(this).text());
                 loadPage(currentPage);
+                $('.pages').removeClass('selected-page');
+                $(this).addClass('selected-page');
             });
+
             // 다음 버튼 클릭 시
             $('#nextPage').click(function () {
-                if(currentPage<<%=totalpages%>){
-                    currentPage++;
+                $('.pages').removeClass('selected-page');
+                if( ((<%=totalpages%>)/10) > ((currentPage - 1)/10) ){
+                    while(currentPage % 10 != 0){
+                        currentPage++;
+                    }
+                    currentPage++
+                    if((<%=totalpages%>-currentPage)<10){
+                        $('#nextPage').hide();
+                    }
                     loadPage(currentPage);
-                    console.log(currentPage)
+                    $('#prevPage').show();
+                    $('.page-button.pages:lt(' + (currentPage + 9) + ')').show();
+                    $('.page-button.pages:lt(' + (currentPage - 1) + ')').hide();
                 }
-                else{
-                    loadPage(currentPage);
-                }
+                $('.page-button.pages').eq(currentPage-1).addClass('selected-page');
             });
+
             function loadPage(page) {
                 $.ajax({
                     url: "idealBoardList",
@@ -168,8 +200,6 @@
                 });
             }
         })
-
-
         // 화면을 맨 위로 스크롤하는 함수
         function scrollToTop() {
             window.scrollTo(0, 0);

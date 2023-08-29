@@ -27,7 +27,6 @@
             padding: 0;
             width: 50%;
             box-sizing: border-box;
-            transition: transform 0.3s ease;
         }
 
         .img-button img {
@@ -37,11 +36,12 @@
             /*max-height: 100%;*/
             margin-bottom: 80px;
             object-fit: contain; /* 이미지 비율 유지하면서 내부에 꽉 채우도록 조정 */
+            transition: transform 0.3s ease;
         }
 
         /* 호버 효과 */
-        .img-button:hover {
-            transform: scale(1.3); /* 호버 시 이미지 크기를 1.3배로 확대 */
+        .img-button:hover img {
+            transform: scale(1.3); /* 호버 시 이미지 크기를 1.1배로 확대 */
         }
 
         .vs-container {
@@ -85,15 +85,14 @@
 </head>
 <body>
 <%@include file="/header.jsp" %>
-<div class="sub-container">
-    <div class="match-info">
-        <p style="font-size: 30px">${param.kang}강</p>
-        <p>
-            <span id="match">1</span>
-            <span> / </span>
-            <span id="round"><%=round%></span>
-        </p>
-    </div>
+<div class="sub-container match-info">
+    <p style="font-size: 30px; margin-bottom: -20px;">${param.kang}강</p>
+    <p style="margin-top: -20px;">
+        <span id="match">1</span>
+        <span> / </span>
+        <span id="round"><%=round%></span>
+    </p>
+</div>
 <div id="buttonsContainer">
     <button class="img-button" data-image="" data-id="" data-name="" id="button0">
         <div>
@@ -121,7 +120,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <script>
     var round = <%=round%>; // JSP에서 변수의 값을 JavaScript로 전달
     var matchElement = document.getElementById('match');
@@ -158,10 +157,10 @@
             // 클릭 이벤트 발생 시 이동 애니메이션 적용
             if (buttonIndex === 0) {
                 button.style.transition = 'transform 0.1s ease';
-                button.style.transform = 'translateX(-70px)'; // 왼쪽으로 70px 이동
-            } else {
+                button.style.transform = 'translateX(-50px)'; // 왼쪽으로 50px 이동
+            } else{
                 button.style.transition = 'transform 0.1s ease';
-                button.style.transform = 'translateX(70px)'; // 오른쪽으로 70px 이동
+                button.style.transform = 'translateX(50px)'; // 오른쪽으로 50px 이동
             }
             // 애니메이션 종료 후 원래 위치로 복귀
             setTimeout(function () {
