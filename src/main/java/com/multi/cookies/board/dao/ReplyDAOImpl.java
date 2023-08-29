@@ -13,7 +13,7 @@ public class ReplyDAOImpl implements ReplyDAO {
     @Inject
     private SqlSession sql;
 
-    private static String namespace = "replyDTO";
+    private static String namespace = "reply";
 
     // 댓글 조회
     @Override

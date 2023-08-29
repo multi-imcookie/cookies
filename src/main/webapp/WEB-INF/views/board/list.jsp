@@ -8,7 +8,9 @@
     <%@ include file="/link.jsp" %>
 </head>
 <body>
-<%@ include file="/header.jsp" %>
+<%@include file="/header.jsp" %>
+<div class="sub-container">
+    <h3 class="h-imcre24">게시판 목록</h3>
 
 <form action="list" method="get">
     <select name="searchType">
@@ -48,10 +50,10 @@
             <td>
                 <a href="/board/view?bbs_id=${list.bbs_id}">${list.bbs_title}</a>
             </td>
+            <td>${list.member_id}</td>
             <td>
                 <fmt:formatDate value="${list.create_dt}" pattern="yyyy-MM-dd"/>
             </td>
-            <td>${list.member_id}</td>
             <td>${list.bbs_views}</td>
         </tr>
     </c:forEach>

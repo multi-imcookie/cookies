@@ -39,7 +39,7 @@
         <li>
             <a class="p-medium" href="#">전과자 이벤트</a>
             <ul class="depth2">
-                <li><a class="p-medium" href="#">포인트 상점</a></li>
+                <li><a class="p-medium" href="/message/message_list">포인트 상점</a></li>
                 <li><a class="p-medium" href="#">출석체크</a></li>
             </ul>
         </li>
