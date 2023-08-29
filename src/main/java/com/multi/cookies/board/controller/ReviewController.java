@@ -3,7 +3,9 @@ package com.multi.cookies.board.controller;
 import com.multi.cookies.board.dto.Page;
 import com.multi.cookies.board.dto.ReplyDTO;
 import com.multi.cookies.board.dto.ReviewDTO;
+import com.multi.cookies.board.dto.ReviewReplyDTO;
 import com.multi.cookies.board.service.ReplyService;
+import com.multi.cookies.board.service.ReviewReplyService;
 import com.multi.cookies.board.service.ReviewService;
 import com.multi.cookies.snack.service.SnackService;
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -30,7 +33,8 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
     @Autowired
-    ReplyService replyService;
+    ReviewReplyService reviewReplyService;
+
 
 
 
@@ -56,6 +60,11 @@ public class ReviewController {
         System.out.println(snack_id);
         model.addAttribute("reviewDTO", reviewDTO);
         model.addAttribute("snackDTO", snackService.snackInfo(snack_id));
+
+        //댓글 조회
+        List<ReviewReplyDTO> replyList = reviewReplyService.listReply(reviewDTO.getReview_id());
+        model.addAttribute("replyList", replyList);
+
     }
 
     //삭제
@@ -91,7 +100,7 @@ public class ReviewController {
         page.setNum(num);
         page.setCount(reviewService.count());
         int test = reviewService.count();
-       // list = service.listPage(page.getDisplayPost(), page.getPostNum());
+        // list = service.listPage(page.getDisplayPost(), page.getPostNum());
         List<ReviewDTO> list = reviewService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
         System.out.println(list);
         model.addAttribute("list", list);
@@ -101,5 +110,19 @@ public class ReviewController {
     }
 
 
+    //댓글 작성
+    @RequestMapping(value="replyWrite", method = RequestMethod.POST)
+    public String replyWrite(@ModelAttribute ReviewReplyDTO reviewReplyDTO) throws Exception {
+
+        reviewReplyService.writeReply(reviewReplyDTO);
+        
+        return "redirect:reviewView?review_id=${replyDTO.review_id}";
+    }
+
+
+
+
+
 }
+
 
