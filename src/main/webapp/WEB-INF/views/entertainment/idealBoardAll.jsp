@@ -169,7 +169,6 @@
             }
         })
 
-
         // 화면을 맨 위로 스크롤하는 함수
         function scrollToTop() {
             window.scrollTo(0, 0);
