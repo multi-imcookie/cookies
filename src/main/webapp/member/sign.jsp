@@ -73,28 +73,28 @@
                 <input type="number" min="1" max="31" maxlength="2" oninput="maxLengthChk(this)" id="member_birthday2" name="member_birthday2" placeholder="DD"
                        required>
             </div>
-            <div class="input-section-right">
-                <div class="label-wrap">
+            <div class="score-input input-section-right">
+                <div class="radio-label-wrap">
                     <input type="radio" id="member_age1" name="member_age" value="10-19"><label
                         for="member_age1">10대</label>
                 </div>
-                <div class="label-wrap">
+                <div class="radio-label-wrap">
                     <input type="radio" id="member_age2" name="member_age" value="20-29"><label
                         for="member_age2">20대</label>
                 </div>
-                <div class="label-wrap">
+                <div class="radio-label-wrap">
                     <input type="radio" id="member_age3" name="member_age" value="30-39"><label
                         for="member_age3">30대</label>
                 </div>
-                <div class="label-wrap">
+                <div class="radio-label-wrap">
                     <input type="radio" id="member_age4" name="member_age" value="40-49"><label
                         for="member_age4">40대</label>
                 </div>
-                <div class="label-wrap">
+                <div class="radio-label-wrap">
                     <input type="radio" id="member_age5" name="member_age" value="50-59"><label
                         for="member_age5">50대</label>
                 </div>
-                <div class="label-wrap">
+                <div class="radio-label-wrap">
                     <input type="radio" id="member_age6" name="member_age" value="60-"><label for="member_age6">60대
                     이상</label>
                 </div>

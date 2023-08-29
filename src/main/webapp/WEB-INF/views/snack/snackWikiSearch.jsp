@@ -13,27 +13,37 @@
             font-weight: 400; /* weight 다름 */
             line-height: 28px;
         }
+
         .search-results {
             list-style: none;
-            padding: 0;
+            padding-top: 24px;
             display: flex;
+            gap: 24px;
             flex-wrap: wrap;
-            justify-content: space-between; /* 항목들 간 간격을 조절 */
         }
 
         .search-item {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin: 10px 0; /* 상하 여백을 추가 */
+            background-color: #F9F5F2;
+            border-radius: 12px;
             padding: 15px;
             flex-basis: calc(33.33% - 20px); /* 가로 너비를 조절 */
             box-sizing: border-box;
+            transition: all .3s;
+        }
+
+        .search-item:hover {
+            box-shadow: 0 2px 16px 0 rgba(92, 73, 44, 0.25);
+        }
+
+        .search-item > a {
+            color: #5C492C;
         }
 
         .thumbnail img {
-            max-width: 100%;
-            border-radius: 5px;
+            display: block;
+            margin: 0 auto;
+            height: 180px;
+            border-radius: 6px;
         }
 
         .product-name {
@@ -49,6 +59,7 @@
             color: #f39c12; /* 별점 색상 */
 
         }
+
         .pagination {
             display: flex;
             align-items: center;
@@ -96,29 +107,27 @@
         <p class="p-regular">"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
         <div id="search-results" class="search-results">
             <%--검색 결과 총 ${fn:length(searchResult)} 건--%>
-            <br>
-                <br>
             <%--<div class="search-results">--%>
             <c:forEach items="${searchResults}" var="search" varStatus="status">
                 <!-- 검색 결과를 출력 -->
                 <div class="search-item">
                         <%--<a href="/snack/snackInfo?snack_id=${search.snack_id}">--%>
                     <a href="javascript:void(0);" class="goToDetail" data-snack-id="${search.snack_id}">
-                            <div class="thumbnail"><img src="${search.snack_img}" alt="썸네일"></div>
-                            <div class="product-name">${search.snack_name}</div>
-                            <div class="rating" id="rating_${search.snack_id}"></div>
-                            <script>
-                                var rating = ${search.avg_score};
-                                var fullStars = Math.floor(rating);
-                                var hasHalfStar = rating - fullStars >= 0.5;
+                        <div class="thumbnail"><img src="${search.snack_img}" alt="썸네일"></div>
+                        <div class="product-name">${search.snack_name}</div>
+                        <div class="rating" id="rating_${search.snack_id}"></div>
+                        <script>
+                            var rating = ${search.avg_score};
+                            var fullStars = Math.floor(rating);
+                            var hasHalfStar = rating - fullStars >= 0.5;
 
-                                for (var i = 0; i < fullStars; i++) {
-                                    document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
-                                }
-                                if (hasHalfStar) {
-                                    document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
-                                }
-                            </script>
+                            for (var i = 0; i < fullStars; i++) {
+                                document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
+                            }
+                            if (hasHalfStar) {
+                                document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
+                            }
+                        </script>
                     </a>
                 </div>
             </c:forEach>
