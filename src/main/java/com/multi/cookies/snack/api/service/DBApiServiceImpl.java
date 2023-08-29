@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -17,7 +18,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,18 +74,23 @@ public class DBApiServiceImpl implements DBApiService {
         int maxPage = calculateNumOfPage(); // 최대 페이지 수
         for (int i = 1; i <= maxPage; i++) {
             for (DBApiDTO dbApiDTO : parseJsonData(i)) {
-                if (!dbApiDTO.equals(dbApiDAO.pullDB(dbApiDTO.getSnack_reportNo()))) {
-                    if (dbApiDAO.pullDB(dbApiDTO.getSnack_reportNo()) != null) {    // snack_reportNo가 이미 존재하는 경우
-                        result += dbApiDAO.updateDB(dbApiDTO);
-                    } else {    // snack_reportNo가 존재하지 않는 경우(신규값)
-                        result += dbApiDAO.insertDB(dbApiDTO);
+                dbApiDTO = selectCompany(dbApiDTO); // 제조사 걸러내기
+                if (dbApiDTO != null
+                        && dbApiDTO.getNutri_string() != null
+                        && !dbApiDTO.getNutri_string().equals("알수없음")) { // 영양성분 null, 알수없음 걸러내기
+                    if (!dbApiDTO.equals(dbApiDAO.pullDB(dbApiDTO.getSnack_reportNo()))) {  // dbApiDTO가 기존의 DB 항목 정보와 일치하지 않을 때
+                        if (dbApiDAO.pullDB(dbApiDTO.getSnack_reportNo()) != null) {    // 동일한 snack_reportNo가 이미 존재하는 경우
+                            result += dbApiDAO.updateDB(dbApiDTO);
+                        } else {    // 동일한 snack_reportNo가 존재하지 않는 경우(신규값)
+                            result += dbApiDAO.insertDB(dbApiDTO);
+                        }
                     }
                 }
             }
             System.out.println(i + "페이지 업데이트 성공");
         }
-        System.out.println("총 " + result + "개 항목 업데이트 완료");
-        return result;
+        System.out.println("총 " + result / 2 + "개 항목 업데이트 완료");
+        return result / 2;
     }
 
     @Override
@@ -91,7 +99,12 @@ public class DBApiServiceImpl implements DBApiService {
         int maxPage = calculateNumOfPage(); // 최대 페이지 수
         for (int i = 1; i <= maxPage; i++) {
             for (DBApiDTO dbApiDTO : parseJsonData(i)) {
-                result += dbApiDAO.insertDB(dbApiDTO);
+                dbApiDTO = selectCompany(dbApiDTO); // 제조사 걸러내기
+                if (dbApiDTO != null
+                        && dbApiDTO.getNutri_string() != null
+                        && !dbApiDTO.getNutri_string().equals("알수없음")) { // 영양성분 null, 알수없음 걸러내기
+                    result += dbApiDAO.insertDB(dbApiDTO);
+                }
             }
             System.out.println(i + "페이지 성공");
         }
@@ -133,7 +146,7 @@ public class DBApiServiceImpl implements DBApiService {
             dbApiDTO.setSnack_reportNo((String) innerItem.get("prdlstReportNo"));   // 품목보고번호
             dbApiDTO.setAllergy((String) innerItem.get("allergy"));   // 알레르기 유발 성분
 
-            if (dbApiDTO.getNutri_string() != null && dbApiDTO.getNutri_string() != "알수없음") {
+            if (dbApiDTO.getNutri_string() != null && !dbApiDTO.getNutri_string().equals("알수없음")) {
                 dbApiDTO.setProtein(extractNutri(dbApiDTO.getNutri_string()).getProtein()); // 단백질
                 dbApiDTO.setKcal(extractNutri(dbApiDTO.getNutri_string()).getKcal());   // 열량
                 dbApiDTO.setFat(extractNutri(dbApiDTO.getNutri_string()).getFat()); // 지방
@@ -152,11 +165,53 @@ public class DBApiServiceImpl implements DBApiService {
         return dbApiDTOList;
     }
 
-    private DBApiDTO extractNutri(String nutrient) {
+    /**
+     * 여기부터 private
+     */
+    private DBApiDTO selectCompany(DBApiDTO dbApiDTO) { // 제조사 걸러내기
+        String company = dbApiDTO.getCompany();
+
+        Map<String, String> companyMap = new HashMap<>();
+        companyMap.put("농심", "농심");
+        companyMap.put("해태제과", "해태제과");
+        companyMap.put("해태가루비", "해태가루비");
+        companyMap.put("롯데", "롯데");
+        companyMap.put("오리온", "오리온");
+        companyMap.put("크라운", "크라운제과");
+        companyMap.put("청우", "청우식품");
+        companyMap.put("빙그레", "빙그레");
+        companyMap.put("삼양", "삼양식품");
+        companyMap.put("미가방", "미가방");
+        companyMap.put("오뚜기", "오뚜기");
+        companyMap.put("코스모스", "코스모스제과");
+        companyMap.put("삼진", "삼진식품");
+        companyMap.put("상일", "상일식품");
+        companyMap.put("동아", "동아제과");
+        companyMap.put("제이앤비", "j&b");
+        companyMap.put("훼미리", "훼미리식품");
+
+        String convertedCompany = null;
+
+        for (Map.Entry<String, String> entry : companyMap.entrySet()) {
+            if (company.contains(entry.getKey())) {
+                convertedCompany = entry.getValue();
+                break;
+            }
+        }
+
+        if (convertedCompany != null) {
+            dbApiDTO.setCompany(convertedCompany);
+        } else {
+            dbApiDTO = null;
+        }
+
+        return dbApiDTO;
+    }
+
+    private DBApiDTO extractNutri(String nutrient) {    // 영양성분 분리
         DBApiDTO dbApiDTO = new DBApiDTO();
         // System.out.println("nutrient>> " + nutrient);
-        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*(?:\\((kcal|mg|g)\\))?\\s*([\\d]+(?:\\.[\\d]+)?)\\s*(?:kcal|mg|g)?")
-                ;
+        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*(?:\\((kcal|mg|g)\\))?\\s*([\\d]+(?:\\.[\\d]+)?)\\s*(?:kcal|mg|g)?");
         Matcher matcher = pattern.matcher(nutrient);
 
         while (matcher.find()) {
@@ -199,9 +254,6 @@ public class DBApiServiceImpl implements DBApiService {
         return dbApiDTO;
     }
 
-    /**
-     * 여기부터 private
-     */
     private int calculateNumOfPage() throws IOException, ParseException {    // 총 페이지 개수 계산
         String foodInfo = callHaccpAPI(1);
         foodInfo = replaceJson(foodInfo);

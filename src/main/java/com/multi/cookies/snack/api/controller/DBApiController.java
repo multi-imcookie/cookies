@@ -4,7 +4,6 @@ import com.multi.cookies.snack.api.service.DBApiService;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ public class DBApiController {
     /**
      * TODO: 스케쥴러 미작동(수정예정)
      */
-    @Scheduled(cron = "0 0 15 * * * *")    // cron: 초 분 시 일 월 요일 연도
     @RequestMapping("updateDB")
     public String updateDB(Model model) throws ParseException, IOException { // DB 최신화
         int result = dbApiService.updateDB();
@@ -30,6 +28,10 @@ public class DBApiController {
         return "/api/updateDB";
     }
 
+    /***
+     *
+     * TODO: 개발 이후 삭제할 기능
+     */
     @RequestMapping("insertDB")
     public String insertDB(Model model) throws ParseException, IOException {  // DB 생성
         int result = dbApiService.insertDB();
@@ -37,6 +39,10 @@ public class DBApiController {
         return "/api/insertDB";
     }
 
+    /***
+     *
+     * TODO: 개발 이후 삭제할 기능
+     */
     @RequestMapping("initializeDB")
     public String initializeDB(Model model) {    // DB 초기화
         int result = dbApiService.initializeDB();
