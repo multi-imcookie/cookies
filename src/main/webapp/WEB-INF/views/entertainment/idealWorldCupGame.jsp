@@ -35,7 +35,8 @@
             /*max-width: 100%;*/
             /*max-height: 100%;*/
             margin-bottom: 80px;
-            object-fit: contain; /* 이미지 비율 유지하면서 내부에 꽉 채우도록 조정 */
+            /*object-fit: contain; !* 이미지 비율 유지하면서 내부에 꽉 채우도록 조정 *!*/
+            object-fit: cover;
             transition: transform 0.3s ease;
         }
 

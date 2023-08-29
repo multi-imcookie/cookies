@@ -116,8 +116,8 @@
             element.select();
         }
     }
-        // 문서가 준비되면 jQuery 코드를 실행합니다.
-        $(document).ready(function() {
+    // 문서가 준비되면 jQuery 코드를 실행합니다.
+    $(document).ready(function() {
         // "회원가입" 버튼을 클릭하면 이벤트 핸들러가 실행됩니다.
         $("#join").click(function() {
             // 여기에 이동하고 싶은 주소(URL)를 넣어주세요.

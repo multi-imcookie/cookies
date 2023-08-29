@@ -14,6 +14,7 @@
     $('.deleteIdealBoard').click(function() {  //글 삭제 function
       id_value = $(this).attr('value')
       pw = prompt('비밀번호 입력')
+
       $.ajax({
         url : "idealBoardDelete",
         data : {
