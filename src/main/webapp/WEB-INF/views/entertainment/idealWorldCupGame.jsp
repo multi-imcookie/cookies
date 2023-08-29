@@ -41,7 +41,7 @@
 
         /* 호버 효과 */
         .img-button:hover img {
-            transform: scale(1.3); /* 호버 시 이미지 크기를 1.1배로 확대 */
+            transform: scale(1.3); /* 호버 시 이미지 크기를 1.3배로 확대 */
         }
 
         .vs-container {
@@ -85,21 +85,15 @@
 </head>
 <body>
 <%@include file="/header.jsp" %>
-<div class="sub-container match-info">
-    <p style="font-size: 30px; margin-bottom: -20px;">${param.kang}강</p>
-    <p style="margin-top: -20px;">
-        <span id="match">1</span>
-        <span> / </span>
-        <span id="round"><%=round%></span>
-    </p>
-</div>
-<div id="buttonsContainer">
-    <button class="img-button" data-image="" data-id="" data-name="" id="button0">
-        <div>
-            <img src="" alt="">
-        </div>
-        <span class="snack-name"></span> <!-- snack_name 출력 -->
-    </button>
+<div class="sub-container">
+    <div class="match-info">
+        <p style="font-size: 30px">${param.kang}강</p>
+        <p>
+            <span id="match">1</span>
+            <span> / </span>
+            <span id="round"><%=round%></span>
+        </p>
+    </div>
     <div class="vs-container">
         <div id="buttonsContainer">
             <button class="img-button" data-image="" data-id="" data-name="" id="button0">
@@ -157,10 +151,10 @@
             // 클릭 이벤트 발생 시 이동 애니메이션 적용
             if (buttonIndex === 0) {
                 button.style.transition = 'transform 0.1s ease';
-                button.style.transform = 'translateX(-50px)'; // 왼쪽으로 50px 이동
-            } else{
+                button.style.transform = 'translateX(-70px)'; // 왼쪽으로 70px 이동
+            } else {
                 button.style.transition = 'transform 0.1s ease';
-                button.style.transform = 'translateX(50px)'; // 오른쪽으로 50px 이동
+                button.style.transform = 'translateX(70px)'; // 오른쪽으로 70px 이동
             }
             // 애니메이션 종료 후 원래 위치로 복귀
             setTimeout(function () {
