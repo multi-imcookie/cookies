@@ -41,10 +41,11 @@
     </div>
     <ul class="f-right">
         <li>
-            <a class="h-imcre24" href="/snack/snackWiki.jsp">쿠키 위키</a>
+            <a class="h-imcre24" href="/snack/snackWiki.jsp">바삭 취조실</a>
             <ul class="f-depth2">
-                <li><a class="p-medium" href="/snack/snackWiki.jsp">과자 DB</a></li>
-                <li><a class="p-medium" href="/snack/snackWiki.jsp">새로 나온 과자</a></li>
+                <li><a class="p-medium" href="/snack/snackWiki.jsp">전과자 정보 조회</a></li>
+                <li><a class="p-medium" href="/curation/curation.jsp">지명 수배</a></li>
+                <li><a class="p-medium" href="/curation/curation.jsp">신상 조사</a></li>
             </ul>
         </li>
         <li>
