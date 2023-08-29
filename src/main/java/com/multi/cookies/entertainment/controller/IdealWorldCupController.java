@@ -39,6 +39,7 @@ public class IdealWorldCupController {
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         model.addAttribute("pages", pages);
+        System.out.println("리스트가져오기");
     }
 
     @RequestMapping("/updateWinnerWins")
