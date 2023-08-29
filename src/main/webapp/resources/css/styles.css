@@ -90,6 +90,10 @@ button {
     margin: 60px auto 120px;
 }
 
+.score-img {
+    height: 24px;
+}
+
 /* 초기 설정 */
 
 /* button 스타일 */
@@ -181,7 +185,7 @@ button {
 
 /* form, input, label, radio 스타일 */
 
-[type="radio"] {
+input[type="radio"] {
     vertical-align: middle;
     appearance: none;
     border: 1px solid #CBB89B;
@@ -192,15 +196,15 @@ button {
     transition: border 0.2s ease-in-out;
 }
 
-[type="radio"]:checked {
+input[type="radio"]:checked {
     border: 6px solid #B48D69;
 }
 
-[type="radio"]:checked label {
+input[type="radio"]:checked label {
     border: 6px solid #B48D69;
 }
 
-[type="radio"]:hover {
+input[type="radio"]:hover {
     box-shadow: 0 0 0 6px #F9F5F2;
     cursor: pointer;
 }
@@ -220,6 +224,23 @@ button {
     font-weight: 400;
 }
 
+textarea {
+    display: flex;
+    padding: 24px 20px;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex: 1 0 0;
+    line-height: 28px;
+    color: #5C492C;
+    background-color: #F9F5F2;
+    border-radius: 12px;
+    border: none;
+}
+
+textarea:focus {
+    outline: none;
+}
+
 .form-style input[type=text], input[type=password], input[type=number] {
     display: flex;
     padding: 24px 20px;
@@ -233,6 +254,10 @@ button {
 }
 
 .form-style input::placeholder {
+    color: #CBB89B;
+}
+
+.form-style textarea::placeholder {
     color: #CBB89B;
 }
 
@@ -471,6 +496,21 @@ label {
     color: #5C492C;
 }
 
+.team-admin {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    align-self: stretch;
+}
+
+.team-admin a {
+    background-color: #5C492C;
+    padding: 4px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: #ffffff;
+}
+
 .team-email {
     display: flex;
     padding: 24px 0;
@@ -663,7 +703,7 @@ label {
 }
 
 .search-wrap > .p-regular {
-    color:#5C492C;
+    color: #5C492C;
     width: 100%;
 }
 
@@ -781,8 +821,20 @@ label {
     gap: 24px;
 }
 
-.input-section-right .label-wrap {
+.radio-wrap {
+    display: flex;
+    gap: 48px;
+}
+
+.radio-label-wrap {
     width: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.score-input {
+    width: 20%;
 }
 
 .btn-wrap {

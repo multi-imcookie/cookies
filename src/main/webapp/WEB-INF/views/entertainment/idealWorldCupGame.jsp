@@ -16,7 +16,7 @@
     <style>
         #buttonsContainer {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
         }
 
         .img-button {
@@ -31,23 +31,32 @@
         }
 
         .img-button img {
-            width: 400px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
             /*max-width: 100%;*/
             /*max-height: 100%;*/
+            margin-bottom: 80px;
             object-fit: contain; /* 이미지 비율 유지하면서 내부에 꽉 채우도록 조정 */
         }
+
         /* 호버 효과 */
         .img-button:hover {
             transform: scale(1.3); /* 호버 시 이미지 크기를 1.3배로 확대 */
         }
+
         .vs-container {
             position: relative;
-            z-index: 3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%;
         }
+
+        .vs-image {
+            position: absolute;
+            z-index: 3;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
         .match-info {
             text-align: center;
             position: relative;
@@ -60,6 +69,7 @@
             font-weight: 400;
             line-height: 36px;
         }
+
         .snack-name {
             display: block;
             font-family: Pretendard, serif;
@@ -92,14 +102,24 @@
         <span class="snack-name"></span> <!-- snack_name 출력 -->
     </button>
     <div class="vs-container">
-        <img src="/resources/img/entertainment/vs.png" alt="VS" class="vs-image">
-    </div>
-    <button class="img-button" data-image="" data-id="" data-name="" id="button1">
-        <div>
-            <img src="" alt="">
+        <div id="buttonsContainer">
+            <button class="img-button" data-image="" data-id="" data-name="" id="button0">
+                <div>
+                    <img src="" alt="">
+                </div>
+                <span class="snack-name"></span> <!-- snack_name 출력 -->
+            </button>
+            <button class="img-button" data-image="" data-id="" data-name="" id="button1">
+                <div>
+                    <img src="" alt="">
+                </div>
+                <span class="snack-name"></span> <!-- snack_name 출력 -->
+            </button>
         </div>
-        <span class="snack-name"></span> <!-- snack_name 출력 -->
-    </button>
+        <div class="vs-image">
+            <img src="/resources/img/entertainment/vs.png" alt="VS">
+        </div>
+    </div>
 </div>
 </div>
 <script>
@@ -139,7 +159,7 @@
             if (buttonIndex === 0) {
                 button.style.transition = 'transform 0.1s ease';
                 button.style.transform = 'translateX(-70px)'; // 왼쪽으로 70px 이동
-            } else{
+            } else {
                 button.style.transition = 'transform 0.1s ease';
                 button.style.transform = 'translateX(70px)'; // 오른쪽으로 70px 이동
             }

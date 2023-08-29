@@ -97,9 +97,9 @@
 <%@include file="/header.jsp" %>
 <!-- %@include file="/WEB-INF/views/snack/snackReviewSearch.jsp" %> -->
 <div class="sub-container">
-    <h3>리뷰게시판 작성</h3>
+    <h3 class="s-h-imcre24">리뷰게시판 작성</h3>
 
-    <button type="button" id="btnSearch">리뷰 과자 검색</button>
+    <button class="fill-btn p-medium" type="button" id="btnSearch">리뷰 과자 검색</button>
 
     <div id="selectSnackResult" class="form-style" style="display: none;">
         <img id="selectedSnackImg" src="" alt="썸네일">
@@ -107,57 +107,59 @@
         <p>과자 이름: <span id="selectedSnackName"></span></p>
         <p>회사: <span id="selectedSnackCompany"></span></p>
         <p>원재료: <span id="selectedSnackIngredients"></span></p>
-
         <!-- 추가 정보들을 필요에 따라 추가 -->
     </div>
+    <form name="form" method="post" class="form-style">
+        <div class="input-section">
+            <label for="review_title" class="label-wrap">글제목</label>
+            <input type="text" name="review_title" id="review_title"
+                   placeholder="제목을 입력하세요">
+        </div>
+
+        <div class="input-section">
+            <p class="label-wrap">별점</p>
+            <div class="radio-wrap">
+                <div class="radio-label-wrap">
+                    <input id="review_score1" type="radio" name="review_score" value="1">
+                    <label for="review_score1"><img class="score-img" src="/resources/img/score/score01.png"></label>
+                </div>
+                <div class="radio-label-wrap">
+                    <input id="review_score2" type="radio" name="review_score" value="2">
+                    <label for="review_score2"><img class="score-img" src="/resources/img/score/score02.png"></label>
+                </div>
+                <div class="radio-label-wrap">
+                    <input id="review_score3" type="radio" name="review_score" value="3">
+                    <label for="review_score3"><img class="score-img" src="/resources/img/score/score03.png"></label>
+                </div>
+                <div class="radio-label-wrap">
+                    <input id="review_score4" type="radio" name="review_score" value="4">
+                    <label for="review_score4"><img class="score-img" src="/resources/img/score/score04.png"></label>
+                </div>
+                <div class="radio-label-wrap">
+                    <input id="review_score5" type="radio" name="review_score" value="5">
+                    <label for="review_score5"><img class="score-img" src="/resources/img/score/score05.png"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <label class="label-wrap" for="review_content">내용</label>
+            <textarea cols="50" rows="5" name="review_content" id="review_content"
+                      placeholder="내용을 입력하세요"></textarea>
+        </div>
+
+        <%--    <label>사진파일 선택:</label>
+            <input type="file" id="review_img" name="review_img"><br>--%>
+        <!-- 선택한 과자 정보를 저장하는 hidden input -->
+        <input type="hidden" name="snack_id" id="snack_id">
+        <input type="hidden" name="member_id" id="member_id" value="1">
+    </form>
+    <div class="btn-wrap-column">
+        <button type="submit" class="btn-Save fill-btn p-medium" id="btn-Save">작성</button>
+        <button class="light-fill-btn p-medium" href="/review/reviewList?num=1">뒤로가기</button>
+    </div>
+
 </div>
-<form name="form" method="post">
-
-    <div>
-        <label>글제목</label>
-        <input type="text" name="review_title" class="form-control" size="80" id="review_title" placeholder="제목을 입력하세요">
-    </div>
-
-
-    <div>
-        <td>별점</td>
-        <td>
-            <input type="radio" name="review_score" class="form-control" value="1">1점</input>
-            <input type="radio" name="review_score" class="form-control" value="2">2점</input>
-            <input type="radio" name="review_score" class="form-control" value="3">3점</input>
-            <input type="radio" name="review_score" class="form-control" value="4">4점</input>
-            <input type="radio" name="review_score" class="form-control" value="5">5점</input>
-        </td>
-        <br>
-    </div>
-
-    <div>
-        <label>내용</label><br>
-        <textarea cols="50" rows="5" name="review_content" id="review_content" class="form-control"
-                  placeholder="내용을 입력하세요"></textarea><br>
-    </div>
-
-    <%--    <label>사진파일 선택:</label>
-        <input type="file" id="review_img" name="review_img"><br>--%>
-    <!-- 선택한 과자 정보를 저장하는 hidden input -->
-    <input type="hidden" name="snack_id" id="snack_id">
-    <input type="hidden" name="member_id" id="member_id" value="1">
-
-    <div class="text-center">
-        <button type="submit" class="btn-Save" id="btn-Save">작성</button>
-    </div>
-
-</form>
-
-</div>
-
-
-<div style="width:650px; text-align: center;">
-    <a href="/review/reviewList?num=1">
-        <button>뒤로가기</button>
-    </a>
-</div>
-<br>
 <%@include file="/footer.jsp" %>
 <!--<script>
     $(document).ready(function () {
