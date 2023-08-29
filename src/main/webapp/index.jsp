@@ -26,7 +26,7 @@
                     <label class="label-bold" for="keyword">Search</label>
                     <input class="p-regular" type="text" name="keyword" id="keyword" placeholder="검색하고 싶은 과자를 입력하세요.">
                 </div>
-                <button class="search-btn"><img src="resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
+                <button class="search-btn"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
             </div>
         </form>
         <div class="v-right">
