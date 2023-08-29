@@ -165,7 +165,6 @@
                 $(this).addClass('selected-page');
             });
 
-
             // 다음 버튼 클릭 시
             $('#nextPage').click(function () {
                 $('.pages').removeClass('selected-page');
