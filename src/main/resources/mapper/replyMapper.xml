@@ -19,6 +19,7 @@
     <!-- 댓글 수정 -->
     <update id="replyUpdate" parameterType="replyDTO">
         UPDATE reply SET
+            member_id = #{member_id}
             reply_content = #{reply_content}
         WHERE reply_id = #{reply_id}
           AND bbs_id = #{bbs_id}

@@ -70,13 +70,13 @@ ${view.bbs_content}<br />
         <c:forEach items="${reply}" var="reply">
             <li>
                 <div>
-                    <p>${reply.reply_id} /
+                    <p>${reply.member_id} /
                             <fmt:formatDate value="${reply.create_dt}" pattern="yyyy-MM-dd"/>
                     <p>${reply.reply_content }</p>
 
                     <p>
                         <a href="/reply/update?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">수정</a> / <a
-                            href="">삭제</a>
+                            href="/reply/delete?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">삭제</a>
                     </p>
 
                     <hr/>
@@ -91,7 +91,7 @@ ${view.bbs_content}<br />
         <form method="post" action="/reply/write">
 
             <p>
-                <label>댓글 작성자</label> <input type="text" name="reply_id">
+                <label>댓글 작성자</label> <input type="text" name="member_id">
             </p>
             <p>
                 <textarea rows="5" cols="50" name="reply_content"></textarea>
