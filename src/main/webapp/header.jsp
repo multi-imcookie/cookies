@@ -34,7 +34,7 @@
             <ul class="depth2">
                 <li><a class="p-medium" href="#">나이별 랭킹</a></li>
                 <li><a class="p-medium" href="#">성분별 랭킹</a></li>
-                <li><a class="p-medium" href="#">브랜드별 랭킹</a></li>
+                <li><a class="p-medium" href="/message/message_list">브랜드별 랭킹</a></li>
             </ul>
         </li>
         <li>

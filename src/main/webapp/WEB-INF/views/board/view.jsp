@@ -7,15 +7,12 @@
     <meta charset="UTF-8">
     <title>게시판 글보기</title>
     <%@ include file="/link.jsp" %>
-    <link rel="stylesheet" type="text/css" href="resources/css/menuCss.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <%@ include file="/header.jsp" %>
 <div class="sub-container">
+    <h3 class="h-imcre24">게시글</h3>
     <!--
 <label>제목</label>
 ${view.bbs_title}<br />
@@ -27,7 +24,7 @@ ${view.member_id}<br />
 ${view.bbs_content}<br />
  -->
 
-    <h2>${view.bbe_title}</h2>
+    <h2>${view.bbs_title}</h2>
 
     <hr/>
     <div class="member_id">
@@ -43,7 +40,7 @@ ${view.bbs_content}<br />
     <hr/>
 
     <div>
-        <a href="/update?bbs_id=${view.bbs_id}">게시물 수정</a>, <a href="/delete?bbs_id=${view.bbs_id}">게시물 삭제</a>
+        <a href="/board/update?bbs_id=${view.bbs_id}">게시물 수정</a>, <a href="/board/delete?bbs_id=${view.bbs_id}">게시물 삭제</a>
     </div>
 
     <!-- 댓글 시작 -->
@@ -73,13 +70,13 @@ ${view.bbs_content}<br />
         <c:forEach items="${reply}" var="reply">
             <li>
                 <div>
-                    <p>${reply.reply_id} /
-                            <fmt:formatDate value="${reply.create_dt}" pattern="yyyy-MM-dd"/>
+                    <p>${reply.member_id} /
+                            <fmt:formatDate value="${reply.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/>
                     <p>${reply.reply_content }</p>
 
                     <p>
-                        <a href="/update?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">수정</a> / <a
-                            href="">삭제</a>
+                        <a href="/reply/update?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">수정</a> /
+                        <a href="/reply/delete?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">삭제</a>
                     </p>
 
                     <hr/>
@@ -91,10 +88,10 @@ ${view.bbs_content}<br />
 
     <div>
 
-        <form method="post" action="/reply/reply_id">
+        <form method="post" action="/reply/write">
 
             <p>
-                <label>댓글 작성자</label> <input type="text" name="reply_id">
+                <label>댓글 작성</label> <input type="text" name="member_id">
             </p>
             <p>
                 <textarea rows="5" cols="50" name="reply_content"></textarea>

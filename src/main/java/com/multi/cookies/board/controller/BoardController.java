@@ -77,8 +77,7 @@ public class BoardController {
 
 
         // 댓글 조회
-        List<ReplyDTO> reply = null;
-        reply = replyService.list(bbs_id);
+        List<ReplyDTO> reply = replyService.list(bbs_id);
         model.addAttribute("reply", reply);
 
     }
@@ -98,7 +97,7 @@ public class BoardController {
 
         service.update(dto);
 
-        return "redirect:/board/view?bbs_id=" + dto.getBbs_id();
+        return "redirect:/board/view?bbs_id=" + dto.getBbs_id(); //현재 bbs_id에 해당되는 조회페이지로 이동
     }
 
     // 게시물 삭제

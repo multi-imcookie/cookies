@@ -12,16 +12,19 @@
 <div class="sub-container">
     <h3 class="h-imcre24">글수정</h3>
 
-    <form method="post">
+    <form method="post"action="/board/update">
 
         <label>제목</label>
-        <input type="text" name="title" value="${view.bbs_title}"/><br/>
+        <input type="text" name="bbs_title" value="${view.bbs_title}"/><br/>
 
         <label>작성자</label>
-        <input type="text" name="writer" value="${view.member_id}"/><br/>
+        <input type="text" name="member_id" value="${view.member_id}"/><br/>
 
         <label>내용</label>
-        <textarea cols="50" rows="5" name="content">${view.bbs_content}</textarea><br/>
+        <textarea cols="50" rows="5" name="bbs_content">${view.bbs_content}</textarea><br/>
+
+        <!-- 추가: bbs_id hidden 필드 -->
+        <input type="hidden" name="bbs_id" value="${view.bbs_id}"/>
 
         <button type="submit">완료</button>
 
