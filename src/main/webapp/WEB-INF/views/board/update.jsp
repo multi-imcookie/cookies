@@ -23,6 +23,9 @@
         <label>내용</label>
         <textarea cols="50" rows="5" name="bbs_content">${view.bbs_content}</textarea><br/>
 
+        <!-- 추가: bbs_id hidden 필드 -->
+        <input type="hidden" name="bbs_id" value="${view.bbs_id}"/>
+
         <button type="submit">완료</button>
 
     </form>
