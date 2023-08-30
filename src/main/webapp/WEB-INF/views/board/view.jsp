@@ -71,7 +71,7 @@ ${view.bbs_content}<br />
             <li>
                 <div>
                     <p>${reply.member_id} /
-                            <fmt:formatDate value="${reply.create_dt}" pattern="yyyy-MM-dd"/>
+                            <fmt:formatDate value="${reply.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/>
                     <p>${reply.reply_content }</p>
 
                     <p>
@@ -91,7 +91,7 @@ ${view.bbs_content}<br />
         <form method="post" action="/reply/write">
 
             <p>
-                <label>댓글 작성자</label> <input type="text" name="member_id">
+                <label>댓글 작성</label> <input type="text" name="member_id">
             </p>
             <p>
                 <textarea rows="5" cols="50" name="reply_content"></textarea>

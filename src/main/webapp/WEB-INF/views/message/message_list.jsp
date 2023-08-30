@@ -2,22 +2,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Want 사진자랑하기</title>
+    <title>채팅목록</title>
 
 <%--    <link href="/message_list.css" rel="stylesheet">--%>
     <%@ include file="/link.jsp" %>
 
     <!-- 메세지 전송 아이콘(종이비행기) 때문에 필요 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"/>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-<%@ include file="/header.jsp" %>
+<!-- 메뉴바
+   현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
+<jsp:include page="/header.jsp">
+    <jsp:param value="message" name="thisPage" />
+</jsp:include>
+<div class="sub-container">
+    <h3 class="h-imcre24">DM</h3>
+
 <br />
 <br />
 <br />
@@ -71,7 +79,7 @@
     // 가장 처음 메세지 리스트를 가져온다.
     const FirstMessageList = function(){
         $.ajax({
-            url:"message_ajax_list",
+            url:'/message/message_ajax_list',
             method:"get",
             data:{
             },
@@ -131,7 +139,7 @@
     // 메세지 리스트를 다시 가져온다.
     const MessageList = function(){
         $.ajax({
-            url:"message_ajax_list",
+            url:"message_ajax_list.do",
             method:"get",
             data:{
             },
@@ -196,7 +204,7 @@
     const MessageContentList = function(room) {
 
         $.ajax({
-            url:"message_content_list",
+            url:"message_content_list.do",
             method:"GET",
             data:{
                 room : room,
@@ -233,7 +241,7 @@
             alert("메세지를 입력하세요!");
         }else{
             $.ajax({
-                url:"message_send_inlist",
+                url:"message_send_inlist.do",
                 method:"GET",
                 data:{
                     room : room,
@@ -268,7 +276,7 @@
 
 
 
-
 </script>
+</div>
 </body>
 </html>

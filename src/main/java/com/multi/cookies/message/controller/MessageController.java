@@ -5,6 +5,7 @@ import com.multi.cookies.message.dto.MessageTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,7 +40,7 @@ public class MessageController {
     }
 
     // 메세지 목록
-    @RequestMapping(value = "message_ajax_list")
+    @RequestMapping(value = "message_ajax_list", method = RequestMethod. GET)
     public String message_ajax_list(HttpServletRequest request, HttpSession session) {
 //         System.out.println("현대 사용자 nick : " + session.getAttribute("nick"));
 
