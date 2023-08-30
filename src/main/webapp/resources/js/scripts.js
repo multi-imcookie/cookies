@@ -47,3 +47,8 @@ function modalShow() {
     $(".modal-overlay").fadeIn();
     $(".modal-box").addClass("active");
 }
+
+function modalHide() {
+    $(".modal-overlay").fadeOut();
+    $(".modal-box").removeClass("active");
+}

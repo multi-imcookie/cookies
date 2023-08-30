@@ -13,6 +13,7 @@ public class DBApiDTO {
     String snack_reportNo;  // 품목보고번호
     String allergy; // 알레르기 성분
 
+    double netwt;   // 총 제공량
     double protein; // 단백질
     double kcal;    // 열량
     double fat; // 지방

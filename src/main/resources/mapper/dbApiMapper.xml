@@ -7,9 +7,9 @@
         values (#{snack_name}, #{company}, #{snack_img}, #{snack_ingredients}, #{snack_reportNo});
     </insert>
     <insert id="insertNutri" parameterType="dbApiDTO">
-        insert into snack_nutritional (snack_id, nutri_string, allergy, protein, kcal, fat, carb,
+        insert into snack_nutritional (snack_id, netwt, nutri_string, allergy, protein, kcal, fat, carb,
                                        sugars, calcium, sodium, cholesterol, saturated_fat, trans_fat)
-        values (#{snack_id}, #{nutri_string}, #{allergy}, #{protein}, #{kcal}, #{fat}, #{carb},
+        values (#{snack_id}, #{netwt}, #{nutri_string}, #{allergy}, #{protein}, #{kcal}, #{fat}, #{carb},
                 #{sugars}, #{calcium}, #{sodium}, #{cholesterol}, #{saturated_fat}, #{trans_fat});
     </insert>
 
@@ -30,6 +30,7 @@
                a.snack_img,
                a.snack_ingredients,
                a.snack_reportNo,
+               b.netwt,
                b.nutri_string,
                b.allergy,
                b.protein,
@@ -55,6 +56,7 @@
                 a.snack_name = #{snack_name},
                 a.snack_img = #{snack_img},
                 a.company = #{company},
+                b.netwt = #{netwt},
                 b.nutri_string = #{nutri_string},
                 b.allergy = #{allergy},
                 b.protein = #{protein},
