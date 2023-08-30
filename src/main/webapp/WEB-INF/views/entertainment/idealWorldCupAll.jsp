@@ -12,22 +12,23 @@
     <% int totalpages = (int) request.getAttribute("pages");%>
     <title></title>
     <style>
+        /* 버튼 스타일 적용 */
         .selected-page {
             background-image: url("/resources/img/entertainment/cookie-bite.png")!important;
             background-size: contain; /* 이미지를 버튼에 꽉 채우도록 설정 */
             background-repeat: no-repeat;
-            padding: 5px 20px;
+            width: 40px;
+            height: 40px;
             text-align: center;
-            font-size: 30px;
+            font-size: 20px;
             font-weight: bold;
             color: #784132;
         }
-
         /* 페이지 버튼 스타일 적용 */
         .page-buttons {
             display: flex;
             justify-content: center; /* 수평 가운데 정렬 */
-            gap: 10px; /* 버튼 사이의 간격 */
+            gap: 5px; /* 버튼 사이의 간격 */
 
 
         }
@@ -35,9 +36,10 @@
             background-image: url("/resources/img/entertainment/cookie.png");
             background-size: contain; /* 이미지를 버튼에 꽉 채우도록 설정 */
             background-repeat: no-repeat;
-            padding: 5px 20px;
+            width: 40px;
+            height: 40px;
             text-align: center;
-            font-size: 30px;
+            font-size: 20px;
             font-weight: bold;
             color: #784132;
         }
@@ -267,14 +269,12 @@
 <%--            </tbody>--%>
         </table>
     </div>
-    <div class="sub-container">
-        <div class="page-buttons">
-            <button class="page-button" id="prevPage"><</button>
-            <% for (int p = 1; p <= totalpages; p++) { %>
-            <button class="page-button pages"><%= p %></button>
-            <% } %>
-            <button class="page-button" id="nextPage">></button>
-        </div>
+    <div class="page-buttons">
+        <button class="page-button" id="prevPage"><</button>
+        <% for (int p = 1; p <= totalpages; p++) { %>
+        <button class="page-button pages"><%= p %></button>
+        <% } %>
+        <button class="page-button" id="nextPage">></button>
     </div>
 </div>
 <%@include file="/footer.jsp" %>

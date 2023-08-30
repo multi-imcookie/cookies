@@ -12,7 +12,37 @@
     <% int totalpages = (int) request.getAttribute("pages");%>
     <style>
         /* 버튼 스타일 적용 */
-        .saveIdealBoard, .deleteIdealBoard, .pages {
+        .selected-page {
+            background-image: url("/resources/img/entertainment/cookie-bite.png")!important;
+            background-size: contain; /* 이미지를 버튼에 꽉 채우도록 설정 */
+            background-repeat: no-repeat;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #784132;
+        }
+        /* 페이지 버튼 스타일 적용 */
+        .page-buttons {
+            display: flex;
+            justify-content: center; /* 수평 가운데 정렬 */
+            gap: 5px; /* 버튼 사이의 간격 */
+
+
+        }
+        .page-button{
+            background-image: url("/resources/img/entertainment/cookie.png");
+            background-size: contain; /* 이미지를 버튼에 꽉 채우도록 설정 */
+            background-repeat: no-repeat;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #784132;
+        }
+        .saveIdealBoard, .deleteIdealBoard {
             display: inline-block;
             padding: 8px 16px;
             background-color: #B48D69;
@@ -23,7 +53,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .saveIdealBoard:hover, .deleteIdealBoard:hover, .pages:hover {
+        .saveIdealBoard:hover, .deleteIdealBoard:hover{
             background-color: #966D48;
             color: #FFF;
         }
@@ -49,18 +79,6 @@
             display: flex;
             justify-content: center; /* 수평 가운데 정렬 */
             gap: 50px;
-        }
-        /* 페이지 버튼 스타일 적용 */
-        .page-buttons {
-            display: flex;
-            justify-content: center; /* 수평 가운데 정렬 */
-            gap: 10px; /* 버튼 사이의 간격 */
-        }
-        /* 선택된 페이지 버튼의 스타일 */
-        .selected-page {
-            background-color: #FF0000; /* 선택한 색상으로 변경 */
-            color: #FFFFFF; /* 글자색 변경 */
-            /* 원하는 스타일을 추가하세요 */
         }
     </style>
     <script type="text/javascript">
@@ -241,12 +259,11 @@
     </div>
     </div>
     <div class="page-buttons">
-        <button class="page-button" id="prevPage">이전</button>
-        <% int pages = (int) request.getAttribute("pages");
-            for (int p = 1; p <= pages; p++) { %>
+        <button class="page-button" id="prevPage"><</button>
+        <% for (int p = 1; p <= totalpages; p++) { %>
         <button class="page-button pages"><%= p %></button>
         <% } %>
-        <button class="page-button" id="nextPage">다음</button>
+        <button class="page-button" id="nextPage">></button>
     </div>
 </div>
 <%@include file="/footer.jsp" %>
