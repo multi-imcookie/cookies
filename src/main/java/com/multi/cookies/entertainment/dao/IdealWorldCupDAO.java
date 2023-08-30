@@ -29,4 +29,7 @@ public class IdealWorldCupDAO {
     public List<InitialSnackListDTO> getRandomSnacks(int limit) {
         return my.selectList("worldCup.getRandomSnacks", limit);
     }
+    public int calculateTotalGames() {
+        return my.selectOne("worldCup.calculateTotalGames");
+    }
 }
