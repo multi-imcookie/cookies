@@ -9,11 +9,14 @@
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<style>
+</style>
 <script type="text/javascript">
   $(function() {
     $('.deleteIdealBoard').click(function() {  //글 삭제 function
       id_value = $(this).attr('value')
       pw = prompt('비밀번호 입력')
+
       $.ajax({
         url : "idealBoardDelete",
         data : {
@@ -40,20 +43,24 @@
     })
   })
 </script>
-<table>
-  <tr>
-    <td class="left">닉네임</td>
-    <td class="left">내용</td>
-    <td class="left">작성시간</td>
-  </tr>
-  <c:forEach items="${list}" var="one">
+<div id="d1" class="ideal-board">
+  <table>
     <tr>
-      <td class="right">${one.ideal_nickname}</td>
-      <td class="right">${one.ideal_content}</td>
-      <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-      <td class="right">
-        <button  class="deleteIdealBoard" value="${one.ideal_id}" style="background: #E9E2D9; color: #5C492C; width: 50px;">삭제</button>
-      </td>
+      <td class="left">닉네임</td>
+      <td class="left">내용</td>
+      <td class="left">작성시간</td>
     </tr>
-  </c:forEach>
-</table>
+    <c:forEach items="${list}" var="one">
+      <tr>
+        <td class="right">${one.ideal_nickname}</td>
+        <td class="right">${one.ideal_content}</td>
+        <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+        <td class="right">
+          <button class="deleteIdealBoard" value="${one.ideal_id}"
+                  style="background: #E9E2D9; color: #5C492C; width: 50px;">삭제
+          </button>
+        </td>
+      </tr>
+    </c:forEach>
+  </table>
+</div>
