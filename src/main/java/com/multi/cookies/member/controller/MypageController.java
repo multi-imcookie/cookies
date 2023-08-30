@@ -6,11 +6,9 @@ import com.multi.cookies.member.service.MypageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -18,16 +16,24 @@ public class MypageController {
     @Autowired
     MypageService mypageService;
 
-    @RequestMapping("/mypage")
-    public String mypage(HttpSession session, Model model) {
-        String memberId = (String) session.getAttribute("memberId");
-        if (memberId != null) {
-            MypageDTO mypageDTO = mypageService.getMemberInfo(Integer.parseInt(memberId));
-            if (mypageDTO != null) {
-                model.addAttribute("userInfo", mypageDTO);
-                return "member/mypage";
-            }
+    @GetMapping("/mypage")
+    public String mypage(HttpSession httpSession, Model model) {
+        Integer memberId = (Integer) httpSession.getAttribute("memberId");
+        System.out.println("member_id = " + memberId);
+
+        if (memberId == null) {
+            // 세션에 회원 번호가 없으면 로그인 페이지로 이동
+            return "member/login";
+        } else {
+            // 세션에 회원 번호가 있으면 회원 정보를 가져와서 마이페이지로 이동
+            MypageDTO memberDTO = mypageService.getMemberInfo(memberId);
+            model.addAttribute("memberDTO", memberDTO);
+
+            // 연령대 변환 로직
+            String memberAge = mypageService.replaceMemberAge(memberDTO.getMember_age());
+            model.addAttribute("memberAge", memberAge);
+
+            return "member/mypage";
         }
-        return "redirect:/login"; // 로그인 정보가 없으면 로그인 페이지로 이동
     }
 }

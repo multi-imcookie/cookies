@@ -73,7 +73,7 @@
                 <input type="number" min="1" max="31" maxlength="2" oninput="maxLengthChk(this)" id="member_birthday2" name="member_birthday2" placeholder="DD"
                        required>
             </div>
-            <div class="score-input input-section-right">
+            <div class="input-section-right">
                 <div class="radio-label-wrap">
                     <input type="radio" id="member_age1" name="member_age" value="10-19"><label
                         for="member_age1">10대</label>
@@ -103,11 +103,11 @@
         <div class="input-section">
             <label class="label-wrap" for="member_gender1">성별<span class="require-val">*</span></label>
             <div class="input-section-right">
-                <div class="label-wrap">
+                <div class="radio-label-wrap">
                     <input type="radio" id="member_gender1" name="member_gender" value="여성"><label
                         for="member_gender1">여성</label>
                 </div>
-                <div class="label-wrap">
+                <div class="radio-label-wrap">
                     <input type="radio" id="member_gender2" name="member_gender" value="남성"><label
                         for="member_gender2">남성</label>
                 </div>
@@ -119,8 +119,8 @@
             <span class="form-at">@</span>
             <input type="text" id="member_email2" name="member_email2" placeholder="이메일 주소를 입력하세요." required>
         </div>
-        <input type="button" id="signUp-btn" class="fill-btn" value="회원가입">
     </form>
+    <input type="button" id="signUp-btn" class="fill-btn" value="회원가입">
 </div>
 <%@include file="/footer.jsp" %>
 </body>

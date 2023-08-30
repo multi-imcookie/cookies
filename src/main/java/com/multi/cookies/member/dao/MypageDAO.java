@@ -1,6 +1,5 @@
 package com.multi.cookies.member.dao;
 
-import com.multi.cookies.member.dto.MemberDTO;
 import com.multi.cookies.member.dto.MypageDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,5 +12,9 @@ public class MypageDAO {
 
     public MypageDTO getMemberInfo(int member_id) {
         return my.selectOne("member.getMemberInfo", member_id);
+    }
+
+    public String replaceMemberAge(String member_age){
+        return member_age;
     }
 }
