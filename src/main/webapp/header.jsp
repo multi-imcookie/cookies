@@ -38,13 +38,6 @@
             </ul>
         </li>
         <li>
-            <a class="p-medium" href="#">전과자 이벤트</a>
-            <ul class="depth2">
-                <li><a class="p-medium" href="#">포인트 상점</a></li>
-                <li><a class="p-medium" href="#">출석체크</a></li>
-            </ul>
-        </li>
-        <li>
             <a class="p-medium" href="#">작당모의</a>
             <ul class="depth2">
                 <li><a class="p-medium" href="#">공지사항</a></li>
@@ -79,6 +72,9 @@
             </c:if>
             <li><a href="#">
                 <img src="/resources/img/icon/bell.svg" alt="알림">
+            </a></li>
+            <li><a href="#">
+                <img src="/resources/img/icon/send.svg" alt="dm">
             </a></li>
         </ul>
     </div>

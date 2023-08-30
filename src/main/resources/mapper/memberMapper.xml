@@ -64,10 +64,10 @@
         WHERE member_id = #{id}
     </delete>
 
-    <select id="getMemberInfo" parameterType="String" resultType="com.multi.cookies.member.dto.MypageDTO">
+    <select id="getMemberInfo" resultType="com.multi.cookies.member.dto.MypageDTO">
         SELECT *
         FROM member
-        WHERE member_signId = #{member_signId}
+        WHERE member_id = #{member_id}
     </select>
 
     <update id="updateMemberInfo" parameterType="com.multi.cookies.member.dto.MypageDTO">
