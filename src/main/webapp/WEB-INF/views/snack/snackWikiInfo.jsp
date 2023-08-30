@@ -98,9 +98,9 @@
                 <div><p class="h-pre24"><span>상세정보</span><br>
                     ${searchDTO.snack_name}</p>
                 </div>
-                <div class="search-item"><img src="${searchDTO.snack_img}" style="width:350px"></div>
+                <div class="search-item"><img src="${searchDTO.snack_img}" style="width:400px"></div>
                 <div class="detail-container">
-                    <div class="detail-content">
+                    <div class="detail-content" style="height: 40vh; overflow-y: auto;">
                         <div class="detail-row">원재료 : ${searchDTO.snack_ingredients}</div>
                         <div class="detail-row">알러지 유발 성분 : ${searchDTO.allergy}</div>
                         <table class="table" border="1">
