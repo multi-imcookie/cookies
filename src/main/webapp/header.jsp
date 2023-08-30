@@ -15,10 +15,11 @@
     </h1>
     <ul class="gnb">
         <li>
-            <a class="p-medium" href="/snack/snackWiki.jsp">쿠키 위키</a>
+            <a class="p-medium" href="/snack/snackWiki.jsp">바삭 취조실</a>
             <ul class="depth2">
-                <li><a class="p-medium" href="/snack/snackWiki.jsp">과자 DB</a></li>
-                <li><a class="p-medium" href="/snack/snackWiki.jsp">새로 나온 과자</a></li>
+                <li><a class="p-medium" href="/snack/snackWiki.jsp">전과자 정보 조회</a></li>
+                <li><a class="p-medium" href="/curation/curation.jsp">지명 수배</a></li>
+                <li><a class="p-medium" href="/curation/curation.jsp">신상 조사</a></li>
             </ul>
         </li>
         <li>
@@ -33,14 +34,7 @@
             <ul class="depth2">
                 <li><a class="p-medium" href="#">나이별 랭킹</a></li>
                 <li><a class="p-medium" href="#">성분별 랭킹</a></li>
-                <li><a class="p-medium" href="#">브랜드별 랭킹</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="p-medium" href="#">전과자 이벤트</a>
-            <ul class="depth2">
-                <li><a class="p-medium" href="/message/message_list">포인트 상점</a></li>
-                <li><a class="p-medium" href="#">출석체크</a></li>
+                <li><a class="p-medium" href="/message/message_list">브랜드별 랭킹</a></li>
             </ul>
         </li>
         <li>
@@ -78,6 +72,9 @@
             </c:if>
             <li><a href="#">
                 <img src="/resources/img/icon/bell.svg" alt="알림">
+            </a></li>
+            <li><a href="#">
+                <img src="/resources/img/icon/send.svg" alt="dm">
             </a></li>
         </ul>
     </div>

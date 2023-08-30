@@ -10,8 +10,9 @@ public class SignService {
     @Autowired
     SignDAO signDAO;
 
-    public void sign(MemberDTO memberDTO){
+    public int sign(MemberDTO memberDTO){
         signDAO.sign(memberDTO);
+        return 0;
     }
 
     public int checkId(String member_signId) {

@@ -28,6 +28,7 @@ ul, ol, li {
 
 a {
     text-decoration: none;
+    margin-bottom: 0;
 }
 
 p {
@@ -36,6 +37,7 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
     font-size: 100%;
+    margin-bottom: 0;
 }
 
 body {
@@ -125,7 +127,7 @@ button {
 
 .fill-btn, .light-fill-btn {
     display: flex;
-    padding: 24px 20px;
+    padding: 20px 20px;
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
@@ -135,6 +137,7 @@ button {
     font-weight: 600;
     line-height: 28px;
     cursor: pointer;
+    flex: 1 0 0;
     transition: all .3s;
 }
 
@@ -165,6 +168,41 @@ button {
     flex: 1 0 0;
 }
 
+.tab-btn {
+    display: flex;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 12px;
+    transition: all .3s;
+    border: 1px solid #CBB89B;
+    color: #CBB89B;
+}
+
+.tab-btn:hover {
+    background-color: #B48D69;
+    color: #FFFFFF;
+}
+
+.tab-btn:hover svg path {
+    stroke: #FFFFFF;
+}
+
+.tab-btn svg path {
+    stroke: #CBB89B;
+}
+
+.tab-btn.active {
+    background-color: #B48D69;
+    color: #fff;
+}
+
+.tab-btn.active svg path {
+    stroke: #fff;
+}
+
 .edit-btn {
     display: flex;
     width: 36px;
@@ -182,6 +220,13 @@ button {
 }
 
 /* button 스타일 */
+
+/* table 스타일 */
+tr, td, th {
+    padding: 12px 24px;
+    box-sizing: border-box;
+}
+/* table 스타일 */
 
 /* form, input, label, radio 스타일 */
 
@@ -316,6 +361,13 @@ label {
     font-size: 16px;
     font-weight: 700;
     line-height: 28px;
+}
+
+.p-small {
+    font-family: Pretendard, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
 }
 
 .h-pre36 {
@@ -902,18 +954,83 @@ label {
     color: #fff;
 }
 
-.member-info {
+.member-info-wrap {
     display: flex;
-    padding: 24px 0;
+    padding: 24px 36px;
+    box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
-    border-top: 1px solid #DDD;
-    border-bottom: 1px solid #DDD;
+    border-top: 1px solid #E9E2D9;
+    border-bottom: 1px solid #E9E2D9;
 }
 
+.member-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
 
-/* 쿠키위키 */
+.member-info-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #5C492C;
+}
+
+.grade-label {
+    display: flex;
+    padding: 2px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    background-color: #5C492C;
+    color: #fff;
+}
+
+.member-info-bottom {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #555555;
+}
+
+.member-info-bottom span {
+    width: 1px;
+    height: 16px;
+    background-color: #ddd;
+}
+
+.mypage-btn-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+}
+
+.mypage-btn-wrap a {
+    gap: 8px;
+    flex: 1 0 0;
+}
+
+.mypage-btn-wrap .light-fill-btn:hover {
+    background-color: #B48D69;
+    color: #fff;
+}
+
+.mypage-btn-wrap .light-fill-btn:hover svg path {
+    stroke: #fff;
+}
+
+.mypage-btn-wrap .fill-btn:hover {
+    background-color: #5C492C;
+}
+
+/* sub - 마이페이지 끝 */
+
+/* sub - 쿠키위키 */
 .wiki-search {
     display: flex;
     width: 100%;
@@ -931,7 +1048,7 @@ label {
     margin: 0 auto;
 }
 
-/* 쿠키위키 */
+/* sub - 쿠키위키 */
 
 /* 리뷰게시판 */
 .board {
@@ -1045,3 +1162,82 @@ label {
 }
 
 /* 리뷰게시판 */
+
+/* sub - 로그인 */
+
+.convenience-menu {
+    justify-content: space-between;
+}
+
+.convenience-menu a {
+    color: #5C492C;
+}
+
+.btn-wrap-row.social {
+    gap: 24px;
+}
+
+.social-login {
+    display: flex;
+    padding: 24px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex: 1 0 0;
+    border-radius: 12px;
+}
+
+.social-login.kakao {
+    background-color: #FEE500;
+    color: #232323;
+    font-weight: 500;
+    transition: all .3s;
+}
+
+.social-login.kakao:hover {
+    background-color: #F1D900;
+}
+
+.social-login.naver {
+    background-color: #1DC100;
+    color: #FFFFFF;
+    font-weight: 500;
+    transition: all .3s;
+}
+
+.social-login.naver:hover {
+    background-color: #1AAE00;
+}
+
+.login-join-btn {
+    background-color: #5C492C;
+    transition: all .3s;
+}
+
+.login-join-btn:hover {
+    background-color: #4B391C;
+}
+
+/* sub - 로그인 게시판 */
+
+/* thumbnail */
+.thumbnail {
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f9f5f2;
+}
+
+.detail-thumbnail {
+    border-radius: 12px;
+    width: 76%;
+    height: 400px;
+}
+
+.search-thumbnail {
+    border-radius: 8px;
+    width: 100%;
+    height: 240px;
+    background-size: cover;
+}
+/* thumnail */

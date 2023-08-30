@@ -108,26 +108,57 @@
         <div id="search-results" class="search-results">
             <%--검색 결과 총 ${fn:length(searchResult)} 건--%>
             <%--<div class="search-results">--%>
-            <c:forEach items="${searchResults}" var="search" varStatus="status">
+            <c:forEach items="${searchResults}" var="searchDTO" varStatus="status">
                 <!-- 검색 결과를 출력 -->
                 <div class="search-item">
                         <%--<a href="/snack/snackInfo?snack_id=${search.snack_id}">--%>
-                    <a href="javascript:void(0);" class="goToDetail" data-snack-id="${search.snack_id}">
-                        <div class="thumbnail"><img src="${search.snack_img}" alt="썸네일"></div>
-                        <div class="product-name">${search.snack_name}</div>
-                        <div class="rating" id="rating_${search.snack_id}"></div>
-                        <script>
-                            var rating = ${search.avg_score};
-                            var fullStars = Math.floor(rating);
-                            var hasHalfStar = rating - fullStars >= 0.5;
+                    <a href="javascript:void(0);" class="goToDetail" data-snack-id="${searchDTO.snack_id}">
+                        <div class="thumbnail search-thumbnail" style="background-image: url(${searchDTO.snack_img})"></div>
+                        <div class="product-name">${searchDTO.snack_name}</div>
+                        <c:choose>
+                            <c:when test="${searchDTO.avg_score >= 1 && searchDTO.avg_score < 1.5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score01.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 1.5 && searchDTO.avg_score < 2}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_01_half.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 2 && searchDTO.avg_score < 2.5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score02.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 2.5 && searchDTO.avg_score < 3}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_02_half.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 3 && searchDTO.avg_score < 3.5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score03.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 3.5 && searchDTO.avg_score < 4}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_03_half.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 4 && searchDTO.avg_score < 4.5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score04.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 4.5 && searchDTO.avg_score < 5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_04_half.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score == 5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score05.png' height='18'>" />
+                            </c:when>
+                            <c:otherwise />
+                        </c:choose>
+                        <div>${scoreImg}</div>
+<%--                        <div class="rating" id="rating_${search.snack_id}"></div>--%>
+<%--                        <script>--%>
+<%--                            var rating = ${search.avg_score};--%>
+<%--                            var fullStars = Math.floor(rating);--%>
+<%--                            var hasHalfStar = rating - fullStars >= 0.5;--%>
 
-                            for (var i = 0; i < fullStars; i++) {
-                                document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
-                            }
-                            if (hasHalfStar) {
-                                document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
-                            }
-                        </script>
+<%--                            for (var i = 0; i < fullStars; i++) {--%>
+<%--                                document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";--%>
+<%--                            }--%>
+<%--                            if (hasHalfStar) {--%>
+<%--                                document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";--%>
+<%--                            }--%>
+<%--                        </script>--%>
                     </a>
                 </div>
             </c:forEach>
