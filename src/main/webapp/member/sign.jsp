@@ -31,7 +31,7 @@
         </div>
     </div>
 </div>
-<div class="sub-container">
+<div class="sub-container p-regular">
     <h3 class="s-h-imcre24">회원가입</h3>
     <form class="signup-form form-style" method="post">
         <div class="input-section">

@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SignController {
 
     @Autowired
-    SignDAO signDAO;
+    SignService signService;
 
     // 회원가입 로직
     @RequestMapping("sign")
     @ResponseBody
     public int sign(MemberDTO memberDTO) {
-        return signDAO.sign(memberDTO);
+        return signService.sign(memberDTO);
     }
 
     // 아이디 중복 여부 확인 로직
     @RequestMapping("checkId")
     @ResponseBody
     public int checkId(String member_signId) {
-        return signDAO.checkId(member_signId);
+        return signService.checkId(member_signId);
     }
     
     // 로그인 페이지 이동 경로
