@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+
 <html>
 <head>
     <title>전과자</title>
@@ -10,8 +10,8 @@
 <%@include file="/header.jsp" %>
 
 <div class="sub-container">
-    <form action="curationStepOne" method="get">
-        <input type="hidden" name="member_id" id="member_id" value="1">
+    <form action="getCurationStepOne" method="get">
+       <!-- <input type="hidden" name="member_id" id="member_id" value="1">-->
         <div class="checkbox-container-left">
             <div class="checkbox-row">
                 <div>
@@ -24,7 +24,7 @@
                 </div>
                 <div>
                     <input type="checkbox" name="wheat_allergy" value="1">
-                    <img src="https://icons8.kr/icon/1521/%EB%B0%80" alt="wheat_allergy">
+                    <img src="wheat_allergy.jpg" alt="wheat_allergy">
                 </div>
                 <div>
                     <input type="checkbox" name="buckwheat_allergy" value="1">
@@ -62,7 +62,7 @@
             <div class="checkbox-row">
                 <div>
                     <input type="checkbox" name="shrimp_allergy" value="1">
-<%--                    <img src="shrimp_allergy.jpg" alt="shrimp_allergy">--%>
+                    <img src="shrimp_allergy.jpg" alt="shrimp_allergy">
                 </div>
                 <div>
                     <input type="checkbox" name="squid_allergy" value="1">
@@ -98,8 +98,9 @@
                 </div>
             </div>
                 </span>
-        </div>]
-        <button type="submit"> 골랐다 </button>
+        </div>
+
+        <button type="submit"> 골랐다</button>
     </form>
 </div>
 

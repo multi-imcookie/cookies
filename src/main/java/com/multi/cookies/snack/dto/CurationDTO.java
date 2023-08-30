@@ -27,8 +27,6 @@ public class CurationDTO {
     private int beef_allergy;        // 쇠고기 알러지
     private int chocolate;           // 기호 : 초코
     private int strawberry;          // 기호 : 딸기
-    private int potato;              // 기호 : 감자
-    private int cheese;              // 기호 : 치즈
     private int chili;               // 기호 : 칠리
     private int honey;               // 기호 : 허니
 
