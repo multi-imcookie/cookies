@@ -21,11 +21,10 @@
         .detail-container {
             display: flex;
             align-items: center;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
 
@@ -50,17 +49,18 @@
             width: 200px;
             height: 50px;
             margin: 0 auto;
-            background-color: #CBB89B;
+            background-color: #B48D69;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 10px;
             cursor: pointer;
+            color: white;
         }
 
         .modal-box {
             position: absolute;
             display: flex;
-            width: 600px;
+            width: 800px;
             padding: 20px;
             box-sizing: border-box;
             flex-direction: column;
@@ -75,7 +75,7 @@
         }
 
         .modal-box.active {
-            transform: translate(-50%, 0);
+            transform: translate(-50%, 10%);
         }
 
         .search-item {
@@ -84,6 +84,27 @@
             padding: 15px;
             box-sizing: border-box;
             transition: all .3s;
+        }
+
+        td.td-left {
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 28px;
+            background-color: #F9F5F2;
+            color: #5C492C;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        td.td-right {
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 28px;
+            margin-left: 10%;
+            width: 80%;
+            color: #5C492C;
         }
     </style>
 </head>
@@ -98,47 +119,48 @@
                 <div><p class="h-pre24"><span>상세정보</span><br>
                     ${searchDTO.snack_name}</p>
                 </div>
-                <div class="search-item"><img src="${searchDTO.snack_img}" style="width:400px"></div>
-                <div class="detail-container">
-                    <div class="detail-content" style="height: 40vh; overflow-y: auto;">
-                        <div class="detail-row">원재료 : ${searchDTO.snack_ingredients}</div>
-                        <div class="detail-row">알러지 유발 성분 : ${searchDTO.allergy}</div>
-                        <table class="table" border="1">
+                <div class="detail-container p-medium">
+                    <div class="detail-content" style="height: 45vh; overflow-y: auto;">
+                        <table class="table">
                             <tr>
-                                <td>열량</td>
-                                <td>${searchDTO.kcal}kcal</td>
+                                <td class="td-left">원재료</td>
+                                <td class="td-right">${searchDTO.snack_ingredients}</td>
                             </tr>
                             <tr>
-                                <td>나트륨</td>
-                                <td>${searchDTO.sodium}mg</td>
+                                <td class="td-left">열량</td>
+                                <td class="td-right">${searchDTO.kcal}kcal</td>
                             </tr>
                             <tr>
-                                <td>탄수화물</td>
-                                <td>${searchDTO.carb}g</td>
+                                <td class="td-left">나트륨</td>
+                                <td class="td-right">${searchDTO.sodium}mg</td>
                             </tr>
                             <tr>
-                                <td>당류</td>
-                                <td>${searchDTO.sugars}g</td>
+                                <td class="td-left">탄수화물</td>
+                                <td class="td-right">${searchDTO.carb}g</td>
                             </tr>
                             <tr>
-                                <td>단백질</td>
-                                <td>${searchDTO.protein}g</td>
+                                <td class="td-left">당류</td>
+                                <td class="td-right">${searchDTO.sugars}g</td>
                             </tr>
                             <tr>
-                                <td>콜레스테롤</td>
-                                <td>${searchDTO.cholesterol}mg</td>
+                                <td class="td-left">단백질</td>
+                                <td class="td-right">${searchDTO.protein}g</td>
                             </tr>
                             <tr>
-                                <td>지방</td>
-                                <td>${searchDTO.fat}g</td>
+                                <td class="td-left">콜레스테롤</td>
+                                <td class="td-right">${searchDTO.cholesterol}mg</td>
                             </tr>
                             <tr>
-                                <td>포화지방</td>
-                                <td>${searchDTO.saturated_fat}g</td>
+                                <td class="td-left">지방</td>
+                                <td class="td-right">${searchDTO.fat}g</td>
                             </tr>
                             <tr>
-                                <td>트랜스지방</td>
-                                <td>${searchDTO.trans_fat}g</td>
+                                <td class="td-left">포화지방</td>
+                                <td class="td-right">${searchDTO.saturated_fat}g</td>
+                            </tr>
+                            <tr>
+                                <td class="td-left">트랜스지방</td>
+                                <td class="td-right">${searchDTO.trans_fat}g</td>
                             </tr>
                         </table>
                     </div>
@@ -150,10 +172,10 @@
         <div class="detail-container">
             <div class="thumbnail search-item"><img src="${searchDTO.snack_img}" alt="썸네일"></div>
             <div class="detail-content" style="width:70%">
-                <p class="p-regular">${searchDTO.company}</p>
+                <p style="color: #B48D69;">${searchDTO.company}</p>
                 <div class="detail-row">
                     <span class="h-imcre24">${searchDTO.snack_name} </span>
-                    <span class="p-regular">(${searchDTO.netwt}g / ${searchDTO.kcal}kcal)</span>
+                    <span style="color: #B48D69;">(${searchDTO.netwt}g / ${searchDTO.kcal}kcal)</span>
                 </div>
                 <div class="detail-row">탄수화물 : ${searchDTO.carb}g</div>
                 <div class="detail-row">당류 : ${searchDTO.sugars}g</div>
