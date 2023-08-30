@@ -87,7 +87,7 @@
         <button type="button" class="btn" id="selectSnackBtn">선택하기</button>
         <script>
             $('#selectSnackBtn').click(function () {
-                var selectedSnackInfo = {
+                let selectedSnackInfo = {
                     snackId : "${searchDTO.snack_id}",
                     snackIngredients: "${searchDTO.snack_ingredients}",
                     snackName: "${searchDTO.snack_name}",

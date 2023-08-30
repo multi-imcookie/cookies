@@ -90,7 +90,7 @@
                 <script>
                     var rating = ${reviewDTO.review_score};
                     var fullStars = Math.floor(rating);
-                    var hasHalfStar = rating - fullStars >= 0.5;
+                    let hasHalfStar = rating - fullStars >= 0.5;
 
                     for (var i = 0; i < fullStars; i++) {
 

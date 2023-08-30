@@ -1,6 +1,7 @@
 package com.multi.cookies.snack.controller;
 
 import com.multi.cookies.snack.dto.CurationDTO;
+import com.multi.cookies.snack.dto.SearchDTO;
 import com.multi.cookies.snack.service.CurationService;
 import com.multi.cookies.snack.service.SnackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,26 +89,24 @@ public class CurationController {
             model.addAttribute("curationDTO", combinedCurationDTO);
 
             // 알러지 정보를 담을 리스트 생성
-            List<String> allergyDivContents = new ArrayList<>();
+            List<String> allergyList = new ArrayList<>();
 
             // CurationDTO의 필드 순회
             for (Field field : fields) {
                 field.setAccessible(true);
 
                 // 필드 이름이 _allergy로 끝나고 값이 1인 경우
-                if (field.getName().endsWith("_allergy") && field.getType() == int.class && field.getInt(curationDTO) == 1) {
-                    // _allergy를 제외한 필드 이름 추출
-                    String allergyName = field.getName().replace("_allergy", "");
+                if (field.getName().endsWith("_allergy") && field.getType() == int.class && field.getInt(combinedCurationDTO) == 1) {
+                    String allergyName = field.getName();
                     // 알러지 정보를 div 형태로 추가
-                    allergyDivContents.add("<div class=\"personal-allergy\">" + allergyName + "</div>");
+                    allergyList.add(allergyName);
                 }
             }
 
-            // 알러지 정보를 String으로 변환하여 모델에 추가
-            String allergyDivContent = String.join("", allergyDivContents);
-            model.addAttribute("allergyDivContent", allergyDivContent);
+            System.out.println(allergyList);
+            model.addAttribute("allergyData", allergyList);
 
-            return "curation/curationResult";
+            return "/curation/curationCheck";
             // 예외 처리
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,12 +115,15 @@ public class CurationController {
         }
     }
 
-    @RequestMapping("/curation/getCurationData/")
-   public Map<String, List<String>> curationData(int member_id) {
+    @RequestMapping("/curation/getCurationData")
+   public String curationData(@RequestParam("member_id") int member_id, Model model) {
+        System.out.println("큐레이션 컨트롤러");
+        Map<String, List<SearchDTO>> curationData = curationService.curationData(member_id);
+        System.out.println("큐레이션 임무완료!");
         System.out.println(member_id);
-        Map<String, List<String>> curationData = curationService.curationData(member_id);
         System.out.println(curationData.toString());
-        return curationData;
+        model.addAttribute("curationData", curationData);
+        return "/curation/curationResult";
     }
 }
 

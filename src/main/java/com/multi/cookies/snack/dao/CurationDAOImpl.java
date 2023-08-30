@@ -34,13 +34,13 @@ public class CurationDAOImpl implements CurationDAO {
     }
 
     @Override
-    public Map<String, List<String>> curationData(int member_id) {
-
+    public Map<String, List<SearchDTO>> curationData(int member_id) {
+        System.out.println("큐레이션 다오다오다오!");
         // 유니크한 member_id로 CURATION TABLE 조회
         CurationDTO curationDTO = sqlSessionTemplate.selectOne("curation.curationFavorite", member_id);
 
         if (curationDTO != null) {
-            Map<String, List<String>> columnDataMap = new HashMap<>();
+            Map<String, List<SearchDTO>> columnDataMap = new HashMap<>();
             List<String> favoriteList = new ArrayList<>();
 
             // "chocolate", "strawberry", "chili", "honey" 칼럼에 해당하는 값을 가져와서 처리
@@ -73,13 +73,19 @@ public class CurationDAOImpl implements CurationDAO {
                     List<SearchDTO> searchData = sqlSessionTemplate.selectList("curation.search", paramsMap);
                     totalSearchData.addAll(searchData);
                 }
-                // totalSearchData를 avg_score 기준으로 정렬하기 (내림차순)
-                Collections.sort(totalSearchData, Comparator.comparing(SearchDTO::getAvg_score).reversed());
+
+                // totalSearchData를 hashset으로 중복값 삭제 => filteredSearchData
+                Set<SearchDTO> filteredSearchData = new HashSet<>(totalSearchData);
+
+                // filteredSearchData를 다시 List 화 => uniqueSearchData
+                List<SearchDTO> uniqueSearchData = new ArrayList<>(filteredSearchData);
+
+                // uniqueSearchData를 avg_score 기준으로 정렬하기 (내림차순)
+                Collections.sort(uniqueSearchData, Comparator.comparing(SearchDTO::getAvg_score).reversed());
 
                 // 상위 5개만 선택하기
-                List<String> top5Data = totalSearchData.stream()
+                List<SearchDTO> top5Data = uniqueSearchData.stream()
                         .limit(5)
-                        .map(SearchDTO::toString)
                         .collect(Collectors.toList());
 
                 columnDataMap.put(favoriteColumn, top5Data);

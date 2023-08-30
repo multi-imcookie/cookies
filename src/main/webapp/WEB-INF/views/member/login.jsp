@@ -69,7 +69,7 @@
         // "회원가입" 버튼을 클릭하면 이벤트 핸들러가 실행됩니다.
         $("#join").click(function () {
             // 여기에 이동하고 싶은 주소(URL)를 넣어주세요.
-            var destinationURL = "/member/sign.jsp"; // 대체할 URL을 여기에 넣어주세요.
+            let destinationURL = "/member/sign.jsp"; // 대체할 URL을 여기에 넣어주세요.
             // 주소를 이동합니다.
             window.location.href = destinationURL;
         });
