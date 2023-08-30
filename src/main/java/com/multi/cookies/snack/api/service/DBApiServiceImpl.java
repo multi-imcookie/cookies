@@ -77,7 +77,8 @@ public class DBApiServiceImpl implements DBApiService {
                 dbApiDTO = selectCompany(dbApiDTO); // 제조사 걸러내기
                 if (dbApiDTO != null
                         && dbApiDTO.getNutri_string() != null
-                        && !dbApiDTO.getNutri_string().equals("알수없음")) { // 영양성분 null, 알수없음 걸러내기
+                        && !dbApiDTO.getNutri_string().equals("알수없음")
+                        && dbApiDTO.getNetwt() != 0) { // 영양성분 null, 알수없음 걸러내기
                     if (!dbApiDTO.equals(dbApiDAO.pullDB(dbApiDTO.getSnack_reportNo()))) {  // dbApiDTO가 기존의 DB 항목 정보와 일치하지 않을 때
                         if (dbApiDAO.pullDB(dbApiDTO.getSnack_reportNo()) != null) {    // 동일한 snack_reportNo가 이미 존재하는 경우
                             result += dbApiDAO.updateDB(dbApiDTO);
@@ -102,7 +103,8 @@ public class DBApiServiceImpl implements DBApiService {
                 dbApiDTO = selectCompany(dbApiDTO); // 제조사 걸러내기
                 if (dbApiDTO != null
                         && dbApiDTO.getNutri_string() != null
-                        && !dbApiDTO.getNutri_string().equals("알수없음")) { // 영양성분 null, 알수없음 걸러내기
+                        && !dbApiDTO.getNutri_string().equals("알수없음")
+                        && dbApiDTO.getNetwt() != 0) { // 영양성분 null, 알수없음 걸러내기
                     result += dbApiDAO.insertDB(dbApiDTO);
                 }
             }
@@ -143,12 +145,21 @@ public class DBApiServiceImpl implements DBApiService {
             dbApiDTO.setSnack_ingredients((String) innerItem.get("rawmtrl"));   // 원재료명
             dbApiDTO.setSnack_img((String) innerItem.get("imgurl1"));   // 이미지(url)
             dbApiDTO.setCompany((String) innerItem.get("manufacture"));   // 제조사
+            if (dbApiDTO.getCompany() == null || dbApiDTO.getCompany().equals("알수없음")) {    // manufacture에서 정보가 없는 경우
+                dbApiDTO.setCompany((String) innerItem.get("seller"));
+            }
             dbApiDTO.setSnack_reportNo((String) innerItem.get("prdlstReportNo"));   // 품목보고번호
             dbApiDTO.setAllergy((String) innerItem.get("allergy"));   // 알레르기 유발 성분
+            if (innerItem.get("capacity") != null) {    // 총 내용량
+                dbApiDTO.setNetwt(extractNetwt((String) innerItem.get("capacity")));
+            }
 
             if (dbApiDTO.getNutri_string() != null && !dbApiDTO.getNutri_string().equals("알수없음")) {
                 dbApiDTO.setProtein(extractNutri(dbApiDTO.getNutri_string()).getProtein()); // 단백질
                 dbApiDTO.setKcal(extractNutri(dbApiDTO.getNutri_string()).getKcal());   // 열량
+                if (dbApiDTO.getKcal() == 0) {
+                    dbApiDTO.setKcal(extractKcal(dbApiDTO.getNutri_string()));
+                }
                 dbApiDTO.setFat(extractNutri(dbApiDTO.getNutri_string()).getFat()); // 지방
                 dbApiDTO.setCarb(extractNutri(dbApiDTO.getNutri_string()).getCarb());   // 탄수화물
                 dbApiDTO.setSugars(extractNutri(dbApiDTO.getNutri_string()).getSugars());   // 당류
@@ -168,6 +179,20 @@ public class DBApiServiceImpl implements DBApiService {
     /**
      * 여기부터 private
      */
+    private double extractNetwt(String netwt) {
+        double extracted = 0;
+        netwt = netwt.replaceAll(",", "");
+
+        Pattern pattern = Pattern.compile("(\\d+)g");
+        Matcher matcher = pattern.matcher(netwt);
+
+        while (matcher.find()) {
+            extracted = Double.parseDouble(matcher.group(1));
+        }
+        // System.out.println(extracted);
+        return extracted;
+    }
+
     private DBApiDTO selectCompany(DBApiDTO dbApiDTO) { // 제조사 걸러내기
         String company = dbApiDTO.getCompany();
 
@@ -207,26 +232,52 @@ public class DBApiServiceImpl implements DBApiService {
 
         return dbApiDTO;
     }
+    private double extractKcal(String nutrient) {   // 열량 분리
+        nutrient = nutrient.replaceAll("kcal기준", "기준");
+        nutrient = nutrient.replaceAll("kcal 기준", "기준");
+        nutrient = nutrient.replaceAll(",", "");
+
+        Pattern pattern = Pattern.compile("\\b(kcal)\\s*(\\d+[\\d,]*)\\b|\\b(\\d+[\\d,]*)\\s*(kcal)\\b");
+        Matcher matcher = pattern.matcher(nutrient);
+        double value = 0;
+        while (matcher.find()) {
+            String valueString = matcher.group(2) != null ? matcher.group(2) : matcher.group(3);
+            valueString = valueString.replaceAll(",", "");
+            value = Double.parseDouble(valueString);
+        }
+        return value;
+    }
 
     private DBApiDTO extractNutri(String nutrient) {    // 영양성분 분리
         DBApiDTO dbApiDTO = new DBApiDTO();
+        nutrient = nutrient.replaceAll("kcal기준", "기준");
+        nutrient = nutrient.replaceAll("kcal 기준", "기준");
+        nutrient = nutrient.replaceAll(",", "");
         // System.out.println("nutrient>> " + nutrient);
-        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*(?:\\((kcal|mg|g)\\))?\\s*([\\d]+(?:\\.[\\d]+)?)\\s*(?:kcal|mg|g)?");
+        Pattern pattern = Pattern.compile("(단백질|열량|지방|탄수화물|당류|칼슘|나트륨|콜레스테롤|포화지방|트랜스지방)\\s*(kcal|mg|g)?\\s*([\\d]+(?:\\.[\\d]+)?)\\s*(kcal|mg|g)?");
         Matcher matcher = pattern.matcher(nutrient);
 
         while (matcher.find()) {
             String nutri = matcher.group(1);
+            String facts1 = matcher.group(2);
             Double value = Double.parseDouble(matcher.group(3));
+            String facts2 = matcher.group(4);
 
+//            if (facts1 != null && facts1.equals("kcal")) {
+//                System.out.println(facts1);
+//            }
+//            if (facts2 != null && facts2.equals("kcal")) {
+//                System.out.println(facts2);
+//            }
             // System.out.println("nutri>> " + nutri);
             // System.out.println("value>> " + value);
             if (nutri.contains("단백질")) {
                 dbApiDTO.setProtein(value);
             }
-            if (nutri.contains("열량")) {
+            if (nutri.contains("열량") || (facts1 != null && facts1.contains("kcal")) || (facts2 != null && facts2.contains("kcal"))) {
                 dbApiDTO.setKcal(value);
             }
-            if (nutri.contains("지방")) {
+            if (nutri.equals("지방")) {   // 포화지방, 트랜스지방 중복 피하기 위해 equals
                 dbApiDTO.setFat(value);
             }
             if (nutri.contains("탄수화물")) {
