@@ -116,7 +116,7 @@
                 <div style="float:right">
                     <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
                 </div>
-                <div><p class="h-pre24"><span>상세정보</span><br>
+                <div><p class="h-pre24"><span>상세정보</span>
                     ${searchDTO.snack_name}</p>
                 </div>
                 <div class="detail-container p-medium">
@@ -176,15 +176,52 @@
                 <div class="detail-row">
                     <span class="h-imcre24">${searchDTO.snack_name} </span>
                     <span style="color: #B48D69;">(${searchDTO.netwt}g / ${searchDTO.kcal}kcal)</span>
+                    <c:choose>
+                        <c:when test="${searchDTO.avg_score >= 1 && searchDTO.avg_score < 1.5}">
+                            <c:set var="scoreImg" value="<img src='/resources/img/score/score01.png' height='24'>"/>
+                        </c:when>
+                        <c:when test="${searchDTO.avg_score >= 1.5 && searchDTO.avg_score < 2}">
+                            <c:set var="scoreImg"
+                                   value="<img src='/resources/img/score/score_01_half.png' height='24'>"/>
+                        </c:when>
+                        <c:when test="${searchDTO.avg_score >= 2 && searchDTO.avg_score < 2.5}">
+                            <c:set var="scoreImg" value="<img src='/resources/img/score/score02.png' height='24'>"/>
+                        </c:when>
+                        <c:when test="${searchDTO.avg_score >= 2.5 && searchDTO.avg_score < 3}">
+                            <c:set var="scoreImg"
+                                   value="<img src='/resources/img/score/score_02_half.png' height='24'>"/>
+                        </c:when>
+                        <c:when test="${searchDTO.avg_score >= 3 && searchDTO.avg_score < 3.5}">
+                            <c:set var="scoreImg" value="<img src='/resources/img/score/score03.png' height='24'>"/>
+                        </c:when>
+                        <c:when test="${searchDTO.avg_score >= 3.5 && searchDTO.avg_score < 4}">
+                            <c:set var="scoreImg"
+                                   value="<img src='/resources/img/score/score_03_half.png' height='24'>"/>
+                        </c:when>
+                        <c:when test="${searchDTO.avg_score >= 4 && searchDTO.avg_score < 4.5}">
+                            <c:set var="scoreImg" value="<img src='/resources/img/score/score04.png' height='24'>"/>
+                        </c:when>
+                        <c:when test="${searchDTO.avg_score >= 4.5 && searchDTO.avg_score < 5}">
+                            <c:set var="scoreImg"
+                                   value="<img src='/resources/img/score/score_04_half.png' height='24'>"/>
+                        </c:when>
+                        <c:when test="${searchDTO.avg_score == 5}">
+                            <c:set var="scoreImg" value="<img src='/resources/img/score/score05.png' height='24'>"/>
+                        </c:when>
+                        <c:otherwise/>
+                    </c:choose>
+                    <p style="color: #B48D69; margin-top:5px">${scoreImg} 리뷰 (${searchDTO.avg_score} / ${searchDTO.review_count}개)</p>
                 </div>
-                <div class="detail-row">탄수화물 : ${searchDTO.carb}g</div>
-                <div class="detail-row">당류 : ${searchDTO.sugars}g</div>
-                <div class="detail-row">나트륨 : ${searchDTO.sodium}mg</div>
-                <div class="detail-row">단백질 : ${searchDTO.protein}g</div>
-                <div class="detail-row">알러지 : ${searchDTO.allergy}</div>
-                <div class="detail-row">
-                    <button class="btn" id="detailInfo">상세보기</button>
+                <div style="margin: 20px 0 30px 0;">
+                    <div class="detail-row">탄수화물 : ${searchDTO.carb}g</div>
+                    <div class="detail-row">당류 : ${searchDTO.sugars}g</div>
+                    <div class="detail-row">나트륨 : ${searchDTO.sodium}mg</div>
+                    <div class="detail-row">단백질 : ${searchDTO.protein}g</div>
+                    <div class="detail-row">알러지 : ${searchDTO.allergy}</div>
+                    <div class="detail-row">
+                    </div>
                 </div>
+                <button class="btn" id="detailInfo" style="background-color: #CBB89B;">상세보기</button>
             </div>
         </div>
         <%--<a href="<c:url value='snackWikiSearch.jsp?keyword=${keyword}'/>" id="goToSearchList">돌아가기</a>--%>

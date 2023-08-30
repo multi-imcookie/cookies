@@ -28,5 +28,6 @@ public class SearchDTO {
     String allergy;
 
     float avg_score;
+    int review_count;
 
 }
