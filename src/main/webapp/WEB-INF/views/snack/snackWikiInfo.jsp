@@ -122,7 +122,7 @@
                             </tr>
                             <tr>
                                 <td>단백질</td>
-                                <td>${searchDTO.protein}</td>
+                                <td>${searchDTO.protein}g</td>
                             </tr>
                             <tr>
                                 <td>콜레스테롤</td>
