@@ -113,7 +113,7 @@
                 <div class="search-item">
                         <%--<a href="/snack/snackInfo?snack_id=${search.snack_id}">--%>
                     <a href="javascript:void(0);" class="goToDetail" data-snack-id="${searchDTO.snack_id}">
-                        <div class="thumbnail"><img src="${searchDTO.snack_img}" alt="썸네일"></div>
+                        <div class="thumbnail search-thumbnail" style="background-image: url(${searchDTO.snack_img})"></div>
                         <div class="product-name">${searchDTO.snack_name}</div>
                         <c:choose>
                             <c:when test="${searchDTO.avg_score >= 1 && searchDTO.avg_score < 1.5}">

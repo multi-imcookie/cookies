@@ -127,7 +127,7 @@ button {
 
 .fill-btn, .light-fill-btn {
     display: flex;
-    padding: 24px 20px;
+    padding: 20px 20px;
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
@@ -137,6 +137,7 @@ button {
     font-weight: 600;
     line-height: 28px;
     cursor: pointer;
+    flex: 1 0 0;
     transition: all .3s;
 }
 
@@ -169,7 +170,7 @@ button {
 
 .tab-btn {
     display: flex;
-    padding: 24px 20px;
+    padding: 20px 20px;
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
@@ -219,6 +220,13 @@ button {
 }
 
 /* button 스타일 */
+
+/* table 스타일 */
+tr, td, th {
+    padding: 12px 24px;
+    box-sizing: border-box;
+}
+/* table 스타일 */
 
 /* form, input, label, radio 스타일 */
 
@@ -1154,3 +1162,82 @@ label {
 }
 
 /* 리뷰게시판 */
+
+/* sub - 로그인 */
+
+.convenience-menu {
+    justify-content: space-between;
+}
+
+.convenience-menu a {
+    color: #5C492C;
+}
+
+.btn-wrap-row.social {
+    gap: 24px;
+}
+
+.social-login {
+    display: flex;
+    padding: 24px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex: 1 0 0;
+    border-radius: 12px;
+}
+
+.social-login.kakao {
+    background-color: #FEE500;
+    color: #232323;
+    font-weight: 500;
+    transition: all .3s;
+}
+
+.social-login.kakao:hover {
+    background-color: #F1D900;
+}
+
+.social-login.naver {
+    background-color: #1DC100;
+    color: #FFFFFF;
+    font-weight: 500;
+    transition: all .3s;
+}
+
+.social-login.naver:hover {
+    background-color: #1AAE00;
+}
+
+.login-join-btn {
+    background-color: #5C492C;
+    transition: all .3s;
+}
+
+.login-join-btn:hover {
+    background-color: #4B391C;
+}
+
+/* sub - 로그인 게시판 */
+
+/* thumbnail */
+.thumbnail {
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f9f5f2;
+}
+
+.detail-thumbnail {
+    border-radius: 12px;
+    width: 76%;
+    height: 400px;
+}
+
+.search-thumbnail {
+    border-radius: 8px;
+    width: 100%;
+    height: 240px;
+    background-size: cover;
+}
+/* thumnail */
