@@ -64,6 +64,9 @@ public class ReplyController {
     public String Delete(@RequestParam("bbs_id") int bbs_id, @RequestParam("reply_id") int reply_id) throws Exception {
         ReplyDTO dto = new ReplyDTO();
 
+        dto.setBbs_id(bbs_id);
+        dto.setReply_id(reply_id);
+
         replyService.delete(dto);
 
         return "redirect:/board/view?bbs_id=" + bbs_id;

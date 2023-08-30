@@ -75,8 +75,8 @@ ${view.bbs_content}<br />
                     <p>${reply.reply_content }</p>
 
                     <p>
-                        <a href="/reply/update?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">수정</a> / <a
-                            href="/reply/delete?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">삭제</a>
+                        <a href="/reply/update?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">수정</a> /
+                        <a href="/reply/delete?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">삭제</a>
                     </p>
 
                     <hr/>
