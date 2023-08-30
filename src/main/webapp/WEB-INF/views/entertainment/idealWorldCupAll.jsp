@@ -30,7 +30,6 @@
             justify-content: center; /* 수평 가운데 정렬 */
             gap: 5px; /* 버튼 사이의 간격 */
 
-
         }
         .page-button{
             background-image: url("/resources/img/entertainment/cookie.png");
@@ -47,9 +46,11 @@
             color: #F9F5F2; /* 호버시 글자 색상 변경 */
         }
         table {
-            border-collapse: collapse;
-            width: 100%;
-            background: #fff;
+            /*border-collapse: collapse;*/
+            /*width: 100%;*/
+            /*background: #fff;*/
+            table-layout: auto;
+            width: 100%; /* 테이블 전체 너비를 100%로 설정 */
         }
         th {
             background-color: #B48D69;
@@ -61,15 +62,17 @@
             color: #232323;
             font-size: 24px;
             font-weight: 400;
-            line-height: 36px;
-            padding: 160px 0 60px;
+            /*line-height: 36px;*/
+            /*padding: 160px 0 60px;*/
+            padding: 0.8em 1.5em; /* 수정된 부분 */
             box-sizing: border-box;
         }
 
         td, th {
-            padding: 1em 1.5em;
+            /*padding: 1em 1.5em;*/
+            padding: 1em 1em;
             text-align: center;
-            align-content: center;
+            /*align-content: center;*/
         }
 
         /*tbody th {*/
@@ -137,9 +140,49 @@
             font-weight: bold;
             line-height: 28px;
         }
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background-color: #fdf5e2;
+            font-weight: 600;
+            font-size: .8rem;
+        }
+        .progress-bar .progress {
+            height: 100%;
+            width: 0; /* 초기에는 0으로 설정 */
+            padding: 0;
+            text-align: center;
+            background-color: #89674a;
+            color: #111;
+        }
+
+        .win-rate{
+            font-family: Pretendard, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            /*line-height: 28px;*/
+            text-align: left;
+        }
     </style>
     <script type="text/javascript">
+    var winRateArray= [];
         $(function () {
+            $(document).ready(function () {
+                var winRateArray = []; // 승률 값을 담을 배열
+
+                // winRate 값을 배열에 추가
+                $('.win-rate').each(function () {
+                    var winRate = parseFloat($(this).text());
+                    winRateArray.push(winRate);
+                });
+
+                // 배열 값들을 순서대로 가져와서 진행 막대의 너비로 적용
+                $('.progress-bar').each(function (index) {
+                    var progressBar = $(this).find('.progress');
+                    progressBar.css('width', winRateArray[index] + '%');
+                });
+            });
+
             if((<%=totalpages%>) < 11){
                 $('#nextPage').hide();
             }
@@ -232,11 +275,12 @@
     <div id="d1">
         <table>
             <thead>
-                <tr>
-                    <th class="rank">랭킹</th>
-                    <th class="image">이미지</th>
-                    <th class="name">이름</th>
-                </tr>
+            <tr>
+                <th class="rank">랭킹</th>
+                <th class="image">이미지</th>
+                <th class="name">이름</th>
+                <th class="winRatio">우승 확률</th>
+            </tr>
             </thead>
             <tbody>
             <c:forEach items="${list}" var="one" varStatus="status">
@@ -245,6 +289,13 @@
                         <td class="medal"><img src="/resources/img/entertainment/medal-gold.svg" class="medal-image"></td>
                         <td class="snack-img"><img src="${one.snack_img}" class="image-style"></td>
                         <td class="snack-name">${one.snack_name}</td>
+                        <td>
+                            <div class="win-rate">${one.winRate}%</div>
+                            <div class="progress-bar">
+                                <div class="progress"></div>
+                            </div>
+                        </td>
+
                     </tr>
                 </c:if>
                 <c:if test="${status.index == 1}">
@@ -252,6 +303,13 @@
                         <td class="medal"><img src="/resources/img/entertainment/medal-silver.svg" class="medal-image"></td>
                         <td class="snack-img"><img src="${one.snack_img}" class="image-style"></td>
                         <td class="snack-name">${one.snack_name}</td>
+                        <td>
+                            <div class="win-rate">${one.winRate}%</div>
+                            <div class="progress-bar">
+                                <div class="progress"></div>
+                            </div>
+                        </td>
+
                     </tr>
                 </c:if>
                 <c:if test="${status.index == 2}">
@@ -259,6 +317,12 @@
                         <td class="medal"><img src="/resources/img/entertainment/medal-bronze.svg" class="medal-image"></td>
                         <td class="snack-img"><img src="${one.snack_img}" class="image-style"></td>
                         <td class="snack-name">${one.snack_name}</td>
+                        <td>
+                            <div class="win-rate">${one.winRate}%</div>
+                            <div class="progress-bar">
+                                <div class="progress"></div>
+                            </div>
+                        </td>
                     </tr>
                 </c:if>
                 <c:if test="${status.index >= 3}">
@@ -266,10 +330,16 @@
                         <td class="snack-ranking">${one.idealRanking}</td>
                         <td class="snack-img"><img src="${one.snack_img}" class="image-style"></td>
                         <td class="snack-name">${one.snack_name}</td>
+                        <td>
+                            <div class="win-rate">${one.winRate}%</div>
+                            <div class="progress-bar">
+                                <div class="progress"></div>
+                            </div>
+                        </td>
                     </tr>
                 </c:if>
             </c:forEach>
-<%--            </tbody>--%>
+            </tbody>
         </table>
     </div>
     <div class="page-buttons">

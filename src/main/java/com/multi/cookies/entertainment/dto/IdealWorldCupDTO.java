@@ -6,6 +6,7 @@ public class IdealWorldCupDTO {
     private String snack_name;
     private String snack_img;
     private int wins;
+    private double winRate;
     public int getIdealRanking() {
         return idealRanking;
     }
@@ -45,6 +46,12 @@ public class IdealWorldCupDTO {
     public void setWins(int wins) {
         this.wins = wins;
     }
+    public double getWinRate() {
+        return winRate;
+    }
+    public void setWinRate(double winRate) {
+        this.winRate = winRate;
+    }
 
     @Override
     public String toString() {
@@ -54,6 +61,7 @@ public class IdealWorldCupDTO {
                 ", ideal_snack_name='" + snack_name + '\'' +
                 ", ideal_snack_img='" + snack_img + '\'' +
                 ", ideal_snack_wins=" + wins +
+                ", ideal_snack_winRate=" + winRate +
                 '}';
     }
 }
