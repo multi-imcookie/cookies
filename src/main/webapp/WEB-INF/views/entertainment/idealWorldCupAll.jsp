@@ -43,6 +43,9 @@
             font-weight: bold;
             color: #784132;
         }
+        .page-button:hover {
+            color: #F9F5F2; /* 호버시 글자 색상 변경 */
+        }
         table {
             border-collapse: collapse;
             width: 100%;
