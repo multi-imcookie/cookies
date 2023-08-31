@@ -10,27 +10,182 @@
 <head>
     <title>Title</title>
     <%@ include file="../link.jsp" %>
+    <style>
+        /*body {*/
+        /*    background-color: #e2e6f0;*/
+        /*}*/
+        /*#wrapper {*/
+        /*    position: absolute;*/
+        /*    top: 45%;*/
+        /*    left: 50%;*/
+        /*    transform:translate(-50%,-50%);*/
+        /*}*/
+        .selectMenu {
+            position: relative;
+            width: 200px;
+            font-family: sans-serif,helvetica;
+            color: white;
+            transform-style: preserve-3d;
+            perspective: 1500px;
+        }
+        .selectMenu span {
+            height: inherit;
+            margin-left: 20px;
+            line-height: 60px;
+        }
+        .selectMenu .front,
+        .selectMenu .back {
+            -moz-transition: all 0.32s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            -webkit-transition: all 0.32s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            transition: all 0.32s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        .selectMenu .front {
+            margin-top: 30px;
+            width: 200px;
+            height: 60px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 28px;
+            background-color: #E04C47;
+            color: #F9F5F2;
+            -moz-backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            cursor: pointer;
+            padding-left: 51px;
+        }
+        .selectMenu .front:hover {
+            background-color: #B48D69;
+        }
+        .selectMenu .front:after {
+            position: absolute;
+            content: "";
+            top: 26px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #fff;
+        }
+        .selectMenu .back {
+            -moz-transform: rotateX(180deg);
+            -webkit-transform: rotateX(180deg);
+            transform: rotateX(180deg);
+            -moz-backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .selectMenu ul {
+            position: absolute;
+            width: calc(100% - 40px);
+            top: -140px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.32);
+            list-style: none;
+            z-index: 1;
+        }
+        .selectMenu ul li {
+            text-align: center;
+            color: #B48D69;
+            line-height: 35px;
+            cursor: pointer;
+            font-family: Pretendard, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 28px;
+        }
+        .selectMenu ul li:hover {
+            background: #e7e7e7;
+        }
+        .selectMenu.flip .back {
+            -moz-transform: rotateX(0deg);
+            -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+        }
+        .produce-img{
+            width: 320px;
+            height: auto; /* 자동으로 높이를 조정하여 비율 유지 */
+            max-width: 100%; /* 최대 너비를 설정하여 화면 크기에 맞게 조정 */
+        }
+        .modal-box {
+            position: absolute;
+            display: flex;
+            width: 980px;
+            padding: 48px;
+            box-sizing: border-box;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            border-radius: 24px;
+            background-color: #ffffff;
+            margin: 0 auto;
+            left: 50%;
+            transform: translate(160%, 4%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .modal-box.active {
+            transform: translate(-50%, 0%);
+        }
+    </style>
 </head>
 <body>
 <%@include file="../header.jsp" %>
+<div class="modal-overlay">
+    <div class="modal-box">
+        <p class="h-pre36">🍪<span>나의 PICK은?</span>🍪</p>
+        <div class="mdl-info">
+            <img class="produce-img" src="/resources/img/entertainment/produce-pick.png">
+            <p>${count}</p>
+            <span id="championName" class="snack-name"></span>
+        </div>
+        <div class="btn-wrap">
+            <div id="wrapper">
+                <div class="selectMenu">
+                    <div class="front">
+                        <span>시작하기</span>
+                    </div>
+                    <div class="back">
+                        <ul>
+                            <li id="round4">4강</li>
+                            <li id="round8">8강</li>
+                            <li id="round16">16강</li>
+                            <li id="round32">32강</li>
+                            <li id="round64">64강</li>
+                            <li id="round128">128강</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a class="light-fill-btn p-medium" href="/entertainment/idealWorldCupAll?page=1">랭킹 보기</a>
+            <a class="fill-btn p-medium" href="/entertainment/idealBoardAll?page=1">의견 보기</a>
+            <a class="light-fill-btn p-medium" href="/index.jsp">돌아가기</a>
+        </div>
+    </div>
+</div>
 <div class="sub-container">
+<%--    <div id="wrapper">&lt;%&ndash;화살표 겉표면? &ndash;%&gt;--%>
+<%--        <div class="selectMenu">&lt;%&ndash; 핵심 걍 모든거&ndash;%&gt;--%>
+<%--            <div class="front">&lt;%&ndash;안에는 있는데 겉이 없어짐 &ndash;%&gt;--%>
+<%--                <span>시작하기</span>--%>
+<%--            </div>--%>
+<%--            <div class="back">--%>
+<%--                <ul>--%>
+<%--                    <li id="round4">4강</li>--%>
+<%--                    <li id="round8">8강</li>--%>
+<%--                    <li id="round16">16강</li>--%>
+<%--                    <li id="round32">32강</li>--%>
+<%--                    <li id="round64">64강</li>--%>
+<%--                    <li id="round128">128강</li>--%>
+<%--                </ul>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
     <table>
-        <tr>
-            <form action="/entertainment/idealWorldCupGame" method="get">
-                <label for="kang">라운드를 선택 해주세요:</label>
-                <select name="kang" id="kang">
-                    <option value="4">4강</option>
-                    <option value="8">8강</option>
-                    <option value="16">16강</option>
-                    <option value="32">32강</option>
-                    <option value="64">64강</option>
-                    <option value="128">128강</option>
-                </select>
-                <br><br>
-                <input type="submit" value="시작하기" style="background: #5C492C; color: black; width: 70px;"
-                       onclick="resetSessionStorage()">
-            </form>
-        </tr>
         <tr>
             <td><a href="/entertainment/idealWorldCupAll?page=1">
                 <button>랭킹</button>
@@ -50,11 +205,54 @@
 </div>
 <%@include file="../footer.jsp" %>
 <script>
-    // 시작하기 버튼을 누르면 세션 스토리지 초기화
-    function resetSessionStorage() {
-        sessionStorage.removeItem('champion');
-        sessionStorage.removeItem('updated');
-    }
+    $(document).ready(function(){
+        modalShow();
+        $(".selectMenu").click(function(){
+            $(this).toggleClass("flip");
+        });
+        $(".back ul li").click(function(){
+            var option = $(this).html();
+            $(".front span").html(option);
+        });
+
+        // 추가한 새로운 스크립트
+        $(".back ul li").click(function(){
+            var selectedValue = $(this).html();
+            if (selectedValue === "4강") {
+                redirectToIdealWorldCupGame('4');
+            }
+            else if (selectedValue === "8강") {
+                redirectToIdealWorldCupGame('8');
+            }
+            else if (selectedValue === "16강") {
+                redirectToIdealWorldCupGame('16');
+            }
+            else if (selectedValue === "32강") {
+                redirectToIdealWorldCupGame('32');
+            }
+            else if (selectedValue === "64강") {
+                redirectToIdealWorldCupGame('64');
+            }
+            else if (selectedValue === "128강") {
+                redirectToIdealWorldCupGame('128');
+            }
+        });
+
+        function redirectToIdealWorldCupGame(round) {
+            const form = document.createElement('form');
+            form.method = 'get';
+            form.action = '/entertainment/idealWorldCupGame';
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'kang';
+            input.value = round;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
 </script>
 </body>
 </html>

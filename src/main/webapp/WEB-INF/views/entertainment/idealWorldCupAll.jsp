@@ -147,6 +147,12 @@
             font-weight: 600;
             font-size: .8rem;
         }
+        /* Animation Keyframes */
+        @keyframes growAnimation {
+            0% {
+                width: 0;
+            }
+        }
         .progress-bar .progress {
             height: 100%;
             width: 0; /* 초기에는 0으로 설정 */
@@ -154,6 +160,8 @@
             text-align: center;
             background-color: #89674a;
             color: #111;
+            /* Apply animation properties */
+            animation: growAnimation 4s ease-in-out infinite;
         }
 
         .win-rate{
@@ -169,18 +177,35 @@
         $(function () {
             $(document).ready(function () {
                 var winRateArray = []; // 승률 값을 담을 배열
+                var maxProgressWidth = 100; // 최대 막대 폭 설정 (예: 100px)
 
                 // winRate 값을 배열에 추가
                 $('.win-rate').each(function () {
                     var winRate = parseFloat($(this).text());
                     winRateArray.push(winRate);
                 });
-
                 // 배열 값들을 순서대로 가져와서 진행 막대의 너비로 적용
                 $('.progress-bar').each(function (index) {
                     var progressBar = $(this).find('.progress');
-                    progressBar.css('width', winRateArray[index] + '%');
+                    var adjustedWidth = (winRateArray[index] / 100) * maxProgressWidth;
+                    progressBar.css('width', adjustedWidth + 'px'); // 최대 폭에 비례한 조절된 너비 설정
                 });
+                // 애니메이션 및 일시 정지 기능 추가
+                var progressBar = $('.progress-bar .progress');
+                var animationDuration = 4000; // 애니메이션 지속 시간 (4초)
+                var pauseDuration = 5000; // 일시 정지 시간 (5초)
+
+                function startAnimation() {
+                    progressBar.css('animation', 'growAnimation ' + animationDuration + 'ms ease-in-out infinite');
+                    setTimeout(pauseAnimation, animationDuration); // 애니메이션 실행 후 정지
+                }
+
+                function pauseAnimation() {
+                    progressBar.css('animation', 'none');
+                    setTimeout(startAnimation, pauseDuration); // 일시 정지 후 애니메이션 다시 시작
+                }
+
+                startAnimation(); // 초기에 애니메이션 시작
             });
 
             if((<%=totalpages%>) < 11){
@@ -279,7 +304,7 @@
                 <th class="rank">랭킹</th>
                 <th class="image">이미지</th>
                 <th class="name">이름</th>
-                <th class="winRatio">우승 확률</th>
+                <th class="winRatio">우승 비율</th>
             </tr>
             </thead>
             <tbody>

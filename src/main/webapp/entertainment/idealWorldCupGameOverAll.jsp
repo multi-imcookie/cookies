@@ -80,22 +80,22 @@
         });
 
         // 서버에 업데이트를 한 경우 세션에 값을 설정하여 중복 업데이트를 방지
-        var updatedSession = sessionStorage.getItem('updated');
-        if (!updatedSession) {
-            // MyBatis를 사용하여 DB 업데이트 수행
-            fetch('/updateWinnerWins?snack_id=' + champion[0].snack_id)
-                .then(response => response.text())
-                .then(result => {
-                    console.log('DB update result:', result);
-                    // 업데이트를 했음을 세션에 설정
-                    sessionStorage.setItem('updated', 'true');
-                })
-                .catch(error => {
-                    console.error('Error updating DB:', error);
-                });
-        } else {
-            console.log('Already updated in this session');
-        }
+        // var updatedSession = sessionStorage.getItem('updated');
+        // if (!updatedSession) {
+        //     // MyBatis를 사용하여 DB 업데이트 수행
+        //     fetch('/updateWinnerWins?snack_id=' + champion[0].snack_id)
+        //         .then(response => response.text())
+        //         .then(result => {
+        //             console.log('DB update result:', result);
+        //             // 업데이트를 했음을 세션에 설정
+        //             sessionStorage.setItem('updated', 'true');
+        //         })
+        //         .catch(error => {
+        //             console.error('Error updating DB:', error);
+        //         });
+        // } else {
+        //     console.log('Already updated in this session');
+        // }
     };
 </script>
 </body>
