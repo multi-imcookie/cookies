@@ -125,7 +125,7 @@ button {
     align-self: stretch;
 }
 
-.fill-btn, .light-fill-btn {
+.fill-btn, .light-fill-btn, .dark-fill-btn {
     display: flex;
     padding: 20px 20px;
     box-sizing: border-box;
@@ -134,7 +134,7 @@ button {
     align-self: stretch;
     border-radius: 12px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 28px;
     cursor: pointer;
     flex: 1 0 0;
@@ -168,6 +168,16 @@ button {
     flex: 1 0 0;
 }
 
+.dark-fill-btn {
+    color: #FFFFFF;
+    background-color: #5C492C;
+    transition: all .3s;
+}
+
+.dark-fill-btn:hover {
+    background-color: #4B391C;
+}
+
 .tab-btn {
     display: flex;
     padding: 20px 20px;
@@ -179,6 +189,7 @@ button {
     transition: all .3s;
     border: 1px solid #CBB89B;
     color: #CBB89B;
+    cursor: pointer;
 }
 
 .tab-btn:hover {
@@ -619,6 +630,27 @@ label {
     color: #452C07;
 }
 
+@media screen and (max-width: 1200px) {
+    #footer {
+        justify-content: center;
+    }
+    .f-left {
+        align-items: center;
+    }
+
+    .f-right {
+        display: none;
+    }
+
+    .team {
+        align-items: center;
+    }
+
+    .team-admin {
+        justify-content: center;
+    }
+}
+
 /* 푸터 끝 */
 
 /* 모달창 시작 */
@@ -1028,6 +1060,10 @@ label {
     background-color: #5C492C;
 }
 
+#mypageReview {
+    display: none;
+}
+
 /* sub - 마이페이지 끝 */
 
 /* sub - 쿠키위키 */
@@ -1130,10 +1166,10 @@ label {
 }
 
 .list-box span {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
-    background-color: #CBB89B;
+    background-color: #E9E2D9;
 }
 
 .list-box .left-text {
@@ -1145,7 +1181,7 @@ label {
 .list-box .left-bottom {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
 }
 
 .reply-count {
@@ -1159,6 +1195,14 @@ label {
     border: 1px solid #CBB89B;
     color: #5C492C;
     background-color: #fff;
+}
+
+.btn-Write {
+    flex: none;
+}
+
+#btnSearch {
+    align-self: inherit;
 }
 
 /* 리뷰게시판 */
@@ -1209,15 +1253,6 @@ label {
     background-color: #1AAE00;
 }
 
-.login-join-btn {
-    background-color: #5C492C;
-    transition: all .3s;
-}
-
-.login-join-btn:hover {
-    background-color: #4B391C;
-}
-
 /* sub - 로그인 게시판 */
 
 /* thumbnail */
@@ -1225,6 +1260,7 @@ label {
     background-blend-mode: darken;
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
     background-color: #f9f5f2;
 }
 
@@ -1238,6 +1274,5 @@ label {
     border-radius: 8px;
     width: 100%;
     height: 240px;
-    background-size: cover;
 }
 /* thumnail */

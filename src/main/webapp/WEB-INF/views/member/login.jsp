@@ -52,7 +52,7 @@
                 네이버 로그인
             </a>
         </div>
-        <button id="join" class="fill-btn login-join-btn">회원가입</button>
+        <button id="join" class="dark-fill-btn">회원가입</button>
     </form>
 </div>
 <%@include file="/footer.jsp" %>

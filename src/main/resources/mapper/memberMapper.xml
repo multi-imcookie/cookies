@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
+
+    <!-- 회원가입 -->
     <insert id="sign" parameterType="memberDTO" useGeneratedKeys="true" keyProperty="memberId">
         INSERT INTO member
         VALUES (null, #{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender},
                 #{member_birthday}, #{member_email}, #{member_grade}, null, null, now(), #{member_phone})
     </insert>
+
+    <!-- 회원가입 아이디 중복 체크 -->
     <select id="checkDuplicateId" parameterType="String" resultType="int">
         SELECT COUNT(member_signId)
         FROM member
@@ -64,13 +68,16 @@
         WHERE member_id = #{id}
     </delete>
 
-    <select id="getMemberInfo" resultType="com.multi.cookies.member.dto.MypageDTO">
+
+    <!-- mypage 멤버 정보 조회 -->
+    <select id="getMemberInfo" resultType="mypageDTO">
         SELECT *
         FROM member
         WHERE member_id = #{member_id}
     </select>
 
-    <update id="updateMemberInfo" parameterType="com.multi.cookies.member.dto.MypageDTO">
+    <!-- mypage 멤버 정보 수정 -->
+    <update id="updateMemberInfo" parameterType="mypageDTO">
         UPDATE member
         SET member_nickname = #{member_nickname},
             member_phone    = #{member_phone},
@@ -78,5 +85,17 @@
             member_pw       = #{member_pw}
         WHERE member_signId = #{member_signId}
     </update>
+
+    <!-- mypage 작성한 리뷰 조회 -->
+    <select id="getMyReview" parameterType="int" resultType="reviewDTO">
+        select * from review_bbs
+        where member_id = #{member_id}
+    </select>
+
+    <!-- mypage 작성한 게시글 조회 -->
+    <select id="getMyBoard" parameterType="int" resultType="boardDTO">
+        select * from bbs
+        where member_id = #{member_id}
+    </select>
 
 </mapper>
