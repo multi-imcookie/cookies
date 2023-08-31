@@ -48,7 +48,7 @@ public class KaKaoSocialLoginService {
             bw.write(stringBuilder.toString());
             bw.flush();
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
+//            System.out.println("responseCode : " + responseCode);
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line = "";
             String result = "";
@@ -92,7 +92,7 @@ public class KaKaoSocialLoginService {
             stringBuffer.append(inputLine);
         }
         br.close();
-        System.out.println("카카오 유저 정보 = " + stringBuffer.toString());
+//        System.out.println("카카오 유저 정보 = " + stringBuffer.toString());
         return parserUserInfo(stringBuffer);
     }
     //Json 유저정보를 -> DTO로

@@ -15,6 +15,9 @@ public class LoginDAO {
     public LoginDTO findIdByUsername(String id,String findNullFieldInId){
         return sqlSession.selectOne("login."+findNullFieldInId,id);
     }
+    public LoginDTO findIdByLoginKey(String findNullFieldInId,LoginDTO loginDTO){
+        return sqlSession.selectOne("login."+findNullFieldInId,loginDTO);
+    }
 
     public int insert(LoginDTO loginDTO){
         return sqlSession.insert("login.insert",loginDTO);
