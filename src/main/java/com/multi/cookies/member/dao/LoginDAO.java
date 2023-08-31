@@ -36,4 +36,7 @@ public class LoginDAO {
     public LoginDTO cookieOne(Map<String, String> map) {
         return sqlSession.selectOne("cookie_one",map);
     }
+    public LoginDTO cookieOnebyUserName(String name){
+        return sqlSession.selectOne("cookie_onebyusername",name);
+    }
 }
