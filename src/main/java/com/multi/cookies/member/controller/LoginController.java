@@ -52,21 +52,21 @@ public class LoginController {
     public String login(HttpServletResponse response,@RequestParam Map<String, String> map,HttpSession session) throws UnsupportedEncodingException {
         //to do 1):  id , password유효성검사 추가
         //to do 2):  비밀번호 암호화 추가
-        if(!(loginService.isValidPassWord(map))){                    //id ,pw 유효하지 않으면 -> 아이디 비밀번호가 일치 하지 않습니다.
+//        if(!loginService.isValidPassWord(map)){                    //id ,pw 유효하지 않으면 -> 아이디 비밀번호가 일치 하지 않습니다.
+        if(!true){                    //id ,pw 유효하지 않으면 -> 아이디 비밀번호가 일치 하지 않습니다.
             String msg = URLEncoder.encode("아이디 또는 패스워드가 일치하지 않습니다.","utf-8"); //todo :Exception처리
             return "redirect:/login?msg="+msg;
         }
-        Cookie cookieId = new Cookie("id",map.get("username"));  //id pw 일치시 쿠키 생성
-        Cookie recentLogin =loginService.recentLoginCookie("login","self","/login");
-        LoginDTO loginDTO = loginService.getUserInfo(map);
+        Cookie cookieId = new Cookie("id",map.get("username"));  // id , member_id 쿠키 제작
+        Cookie recentLogin =loginService.recentLoginCookie("login","self","/login"); //최근로그인한 쿠키  자체로그인 or 카카오로그인 or 네이버로그인
+        LoginDTO loginDTO = loginService.getMemberDTObyUserName((String)map.get("username"));
 //        System.out.println("loginDTO = " + loginDTO);
         session.setAttribute("memberId", loginDTO.getMember_id());
         session.setAttribute("memberNickName", loginDTO.getMember_nickname());
+//        System.out.println("안녕");
         if(map.get("remember")==null){  //체크박스 체크 아닐시 , id저장 하지 않기
             cookieId.setMaxAge(0);
             response.addCookie(cookieId);
-        }else{
-            response.addCookie(cookieId);   //체크박스 체크시 id저장
         }
         response.addCookie(recentLogin);
         return "redirect:/index.jsp"; //홈으로 이동

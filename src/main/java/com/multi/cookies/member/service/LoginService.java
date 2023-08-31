@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.multi.cookies.member.dao.LoginDAO;
 import com.multi.cookies.member.dto.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -23,6 +24,8 @@ import static org.springframework.util.StringUtils.capitalize;
 @Service
 public class LoginService {
     @Autowired
+    BCryptPasswordEncoder encoder;
+    @Autowired
     LoginDAO loginDAO;
 
     //카카오 로그인 or 네이버 로그인 or 자체 로그인인지 확인후 DB 테이블 가져옴.
@@ -30,7 +33,9 @@ public class LoginService {
         String loginByKey = hasNullFields(loginDTO);
         return loginDAO.findIdByLoginKey(loginByKey, loginDTO);
     }
-
+    public LoginDTO getMemberDTObyUserName(String name){
+        return loginDAO.cookieOnebyUserName(name);
+    }
     //네이버 로그인, 카카오로그인인지 확인
     public boolean hasRegisteredBefore(LoginDTO loginDTO) {
         String findNullFieldInId = hasNullFields(loginDTO);  //네이버로그인 or 카카오 로그인 인지를 판단.
@@ -55,11 +60,17 @@ public class LoginService {
 
     //전과자 자체 로그인 , id pwd 받은후 유효성 검사
     public boolean isValidPassWord(Map<String, String> map) {
-        int rowNumber = loginDAO.cookieSelect(map);
-        if (rowNumber != 1) {
-            return false;
+        LoginDTO loginDTO = loginDAO.cookieOnebyUserName((String)map.get("username"));
+        if (loginDTO!=null) {
+            String encoderPassWord = loginDTO.getMember_pw();
+            String plainPassWord = (String)map.get("password");
+            System.out.println("encoderPassWord = " + encoderPassWord);
+            System.out.println("plainPassWord = " + plainPassWord);
+            boolean pwdIsTrue = encoder.matches(plainPassWord,encoderPassWord);
+            System.out.println("pwdIsTrue = " + pwdIsTrue);
+            return pwdIsTrue;
         }
-        return true;
+        return false;
     }
 
     public LoginDTO getUserInfo(Map<String, String> map) {
