@@ -2,6 +2,7 @@ package com.multi.cookies.snack.service;
 
 import com.multi.cookies.snack.dao.CurationDAO;
 import com.multi.cookies.snack.dto.CurationDTO;
+import com.multi.cookies.snack.dto.SearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,9 @@ public class CurationServiceImpl implements CurationService {
     }
 
     @Override
-    public Map<String, List<String>> curationData(int member_id) {
+    public Map<String, List<SearchDTO>> curationData(int member_id) {
+        System.out.println("큐레이션 서비스!");
+        System.out.println(curationDAO.curationData(member_id));
         return curationDAO.curationData(member_id);
     }
 

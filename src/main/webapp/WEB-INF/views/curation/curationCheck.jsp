@@ -1,24 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
+    <title>전과자</title>
     <%@ include file="/link.jsp" %>
 </head>
 <body>
-    <div id="curation">
-        <c:forEach items="${curationData}" var="entry">
-            <div id="${entry.key}">
-                <h1>${entry.key}</h1>
-                <ul>
-                    <c:forEach items="${entry.value}" var="value">
-                        <li>과자 이름 : ${value.snack_name}</li>
-                        <li>회사 이름 : ${value.company}</li>
-                        <li>-------------------------------</li>
-                    </c:forEach>
-                </ul>
-            </div>
+<%@include file="/header.jsp" %>
+
+<div class="sub-container">
+    <div id="allergy" style="display: none;">
+        <c:forEach items="${allergyData}" var="allergyName">
+            <div class="personal-allergy">${allergyName}</div>
         </c:forEach>
     </div>
+    <div id="curation">
+
+    </div>
+</div>
+
+<%@include file="/footer.jsp" %>
 <script>
     $(document).ready(function () {
         let memberId = ${sessionScope.memberId};
@@ -33,12 +35,24 @@
             success: function(data) {
                 console.log(data);
                 document.getElementById('curation').innerHTML = data;
+                showAllergy();
             },
             error: function(xhr, status, error) {
                 console.error(error);
             }
         });
     }
-</script>
+    function showAllergy() {
+        let allergyContent = $("#allergy").html();
+        console.log(allergyContent);
+
+        // 값이 비어있지 않으면 #allergy 보이게, 비어있으면 안 보이게
+        if (allergyContent.trim() !== "") {
+            $("#allergy").show();
+        } else {
+            $("#allergy").hide();
+        }
+    }
+    </script>
 </body>
 </html>

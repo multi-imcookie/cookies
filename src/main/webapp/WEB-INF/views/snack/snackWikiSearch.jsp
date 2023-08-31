@@ -143,16 +143,16 @@
                             <c:when test="${searchDTO.avg_score == 5}">
                                 <c:set var="scoreImg" value="<img src='/resources/img/score/score05.png' height='18'>" />
                             </c:when>
-                            <c:otherwise />
+                            <c:otherwise><c:set var="scoreImg" value="" /></c:otherwise>
                         </c:choose>
                         <div>${scoreImg}</div>
 <%--                        <div class="rating" id="rating_${search.snack_id}"></div>--%>
 <%--                        <script>--%>
-<%--                            var rating = ${search.avg_score};--%>
-<%--                            var fullStars = Math.floor(rating);--%>
-<%--                            var hasHalfStar = rating - fullStars >= 0.5;--%>
+<%--                            let rating = ${search.avg_score};--%>
+<%--                            let fullStars = Math.floor(rating);--%>
+<%--                            let hasHalfStar = rating - fullStars >= 0.5;--%>
 
-<%--                            for (var i = 0; i < fullStars; i++) {--%>
+<%--                            for (let i = 0; i < fullStars; i++) {--%>
 <%--                                document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";--%>
 <%--                            }--%>
 <%--                            if (hasHalfStar) {--%>

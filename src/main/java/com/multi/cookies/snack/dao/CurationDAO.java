@@ -2,6 +2,7 @@ package com.multi.cookies.snack.dao;
 
 
 import com.multi.cookies.snack.dto.CurationDTO;
+import com.multi.cookies.snack.dto.SearchDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,6 @@ public interface CurationDAO {
 
     void updatePersonality(CurationDTO curationDTO);
 
-    Map<String, List<String>> curationData(int member_id);
+    Map<String, List<SearchDTO>> curationData(int member_id);
 
 }
