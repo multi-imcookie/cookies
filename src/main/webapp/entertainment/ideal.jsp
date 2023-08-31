@@ -125,11 +125,14 @@
             margin: 0 auto;
             left: 50%;
             transform: translate(160%, 4%);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
         .modal-box.active {
             transform: translate(-50%, 0%);
+        }
+        .spacer {
+            height: 300px; /* 원하는 공백 높이로 조정 */
         }
     </style>
 </head>
@@ -167,42 +170,7 @@
         </div>
     </div>
 </div>
-<div class="sub-container">
-<%--    <div id="wrapper">&lt;%&ndash;화살표 겉표면? &ndash;%&gt;--%>
-<%--        <div class="selectMenu">&lt;%&ndash; 핵심 걍 모든거&ndash;%&gt;--%>
-<%--            <div class="front">&lt;%&ndash;안에는 있는데 겉이 없어짐 &ndash;%&gt;--%>
-<%--                <span>시작하기</span>--%>
-<%--            </div>--%>
-<%--            <div class="back">--%>
-<%--                <ul>--%>
-<%--                    <li id="round4">4강</li>--%>
-<%--                    <li id="round8">8강</li>--%>
-<%--                    <li id="round16">16강</li>--%>
-<%--                    <li id="round32">32강</li>--%>
-<%--                    <li id="round64">64강</li>--%>
-<%--                    <li id="round128">128강</li>--%>
-<%--                </ul>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-    <table>
-        <tr>
-            <td><a href="/entertainment/idealWorldCupAll?page=1">
-                <button>랭킹</button>
-            </a></td>
-        </tr>
-        <tr>
-            <td><a href="/entertainment/idealBoardAll?page=1">
-                <button>의견</button>
-            </a></td>
-        </tr>
-        <tr>
-            <td><a href="../index.jsp">
-                <button>뒤로가기</button>
-            </a></td>
-        </tr>
-    </table>
-</div>
+<div class="spacer"></div> <!-- 공백 추가 -->
 <%@include file="../footer.jsp" %>
 <script>
     $(document).ready(function(){

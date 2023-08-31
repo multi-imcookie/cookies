@@ -177,7 +177,7 @@
         $(function () {
             $(document).ready(function () {
                 var winRateArray = []; // 승률 값을 담을 배열
-                var maxProgressWidth = 100; // 최대 막대 폭 설정 (예: 100px)
+                var maxProgressWidth = 108; // 최대 막대 폭 설정 (예: 100px)
 
                 // winRate 값을 배열에 추가
                 $('.win-rate').each(function () {
