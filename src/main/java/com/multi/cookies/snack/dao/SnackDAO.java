@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SnackDAO {
 
-    List<SearchDTO> snackSearch(String keyword);
+    List<SearchDTO> snackSearch(String keyword, String category);
     SearchDTO snackInfo(int snack_id);
 
 

@@ -15,9 +15,9 @@ public class SnackServiceImpl implements SnackService {
     @Autowired
     SnackDAO snackDAO;
 
-        public Map<String, Object> snackSearch(String keyword, int pageSize, int page) {
+        public Map<String, Object> snackSearch(String keyword, int pageSize, int page, String category) {
         // 마이바티스 매퍼를 통해 검색 결과를 가져옵니다.
-        List<SearchDTO> searchResults = snackDAO.snackSearch(keyword);
+        List<SearchDTO> searchResults = snackDAO.snackSearch(keyword, category);
 
 
         int totalResults = searchResults.size();
