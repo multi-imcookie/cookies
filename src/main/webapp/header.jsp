@@ -23,10 +23,11 @@
             </ul>
         </li>
         <li>
-            <a class="p-medium" href="#">쿠키마스터</a>
+            <a class="p-medium">바삭 월드컵</a>
             <ul class="depth2">
-                <li><a class="p-medium" href="/entertainment/ideal.jsp">과자 이상형 월드컵</a></li>
-                <li><a class="p-medium" href="#">오늘의 과자</a></li>
+                <li><a class="p-medium" href="/entertainment/ideal.jsp">이상형 월드컵</a></li>
+                <li><a class="p-medium" href="/entertainment/idealWorldCupAll?page=1">랭킹</a></li>
+                <li><a class="p-medium" href="/entertainment/idealBoardAll?page=1">의견</a></li>
             </ul>
         </li>
         <li>
