@@ -28,7 +28,8 @@ public class SnackController {
     public String snackSearch(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
         System.out.println("컨트롤러 가동!");
         int pageSize = 9;
-
+        String category = request.getParameter("category");
+        System.out.println(category);
         String keyword = request.getParameter("keyword");
         System.out.println("입력값 확인! " + keyword);
         if (keyword == null) {
@@ -36,13 +37,14 @@ public class SnackController {
             throw new IllegalArgumentException("키워드가 null입니다.");
         }
 
-        Map<String, Object> paginationResult = snackService.snackSearch(keyword, pageSize, page);
+        Map<String, Object> paginationResult = snackService.snackSearch(keyword, pageSize, page, category);
 
         List<SearchDTO> pageResults = (List<SearchDTO>) paginationResult.get("pageResults");
 
         String requestURI = (String)request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 
         model.addAttribute("keyword", keyword);
+        model.addAttribute("category", category);
         model.addAttribute("searchResults", pageResults);
         model.addAttribute("totalPages", paginationResult.get("totalPages"));
         model.addAttribute("totalResults", paginationResult.get("totalResults"));
@@ -61,9 +63,10 @@ public class SnackController {
     }
 
     @RequestMapping(value = {"/snack/snackWikiInfo", "snack/snackReviewSearchInfo"}, method = RequestMethod.GET)
-    public void snackInfo(int snack_id, @RequestParam(required = false) String keyword, Model model) {
+    public void snackInfo(int snack_id, @RequestParam(required = false) String keyword, String category, Model model) {
         System.out.println("snack_id : " + snack_id);
         SearchDTO searchDTO = snackService.snackInfo(snack_id);
+        model.addAttribute("category", category);
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchDTO", searchDTO);
     }

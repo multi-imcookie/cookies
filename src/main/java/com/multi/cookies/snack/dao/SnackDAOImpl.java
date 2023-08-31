@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class SnackDAOImpl implements SnackDAO {
@@ -15,9 +15,20 @@ public class SnackDAOImpl implements SnackDAO {
     SqlSessionTemplate sqlSessionTemplate;
 
     @Override
-    public List<SearchDTO> snackSearch(String keyword) {
+    public List<SearchDTO> snackSearch(String keyword, String category) {
         System.out.println("DAO까지 잘 왔어!");
-        return sqlSessionTemplate.selectList("snack.search", keyword);
+        System.out.println(category);
+        List<SearchDTO> searchResults;
+        if (category.equals("name")) {
+            System.out.println("category: " + category);
+            searchResults = sqlSessionTemplate.selectList("snack.searchName", keyword);
+        } else if (category.equals("ingredient")) {
+            searchResults = sqlSessionTemplate.selectList("snack.searchIngredient", keyword);
+        } else {
+            searchResults = sqlSessionTemplate.selectList("snack.searchAll", keyword);
+        }
+
+        return searchResults;
     }
 
     @Override

@@ -1,7 +1,4 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <head>
@@ -77,7 +74,6 @@
             font-weight: bold;
         }
     </style>
-    <%@ include file="/link.jsp" %>
     <title>전과자</title>
 
 </head>
@@ -91,8 +87,18 @@
             🔍<br>
             궁금한 과자가 있으신가요?
         </h3>
-        <form action="snackWikiSearch" method="get">
+        <form action="snackWikiSearch" method="get" onsubmit="return validateForm()">
             <div class="cookie-search main-search">
+                <div class="select-wrap">
+                    <label class="label-bold" for="cookie-select">Category</label>
+                    <select class="p-regular" id="cookie-select" name="category">
+                        <option value="">검색 항목</option>
+                        <option value="all">전체</option>
+                        <option value="name">과자 이름</option>
+                        <option value="ingredient">원재료</option>
+                    </select>
+                </div>
+                <span class="div-line"></span>
                 <div class="search-wrap">
                     <label class="label-bold" for="keyword">Search</label>
                     <input class="p-regular" type="text" name="keyword" id="keyword"
@@ -199,13 +205,15 @@
             let snackId = $(this).data('snack-id');
             let urlParams = new URL(location.href).searchParams;
             let keyword = urlParams.get('keyword');
+            let category = urlParams.get('category');
             let currentPage = urlParams.get('page');
             localStorage.setItem('keyword', keyword);
+            localStorage.setItem('category', category);
             if (currentPage == null) {
                 currentPage = 1;
             }
             localStorage.setItem('currentPage', currentPage);
-            window.location.href = '/snack/snackWikiInfo?snack_id=' + snackId;
+            window.location.href = '/snack/snackWikiInfo?category=' + category + '&snack_id=' + snackId;
         });
 
         // 페이지 로딩 버튼 클릭 시 AJAX로 페이지 로드
@@ -215,18 +223,20 @@
             if (!page) {
                 return;
             }
-            window.location.href = "snackWikiSearch?keyword=${keyword}&page=" + page;
+            window.location.href = "snackWikiSearch?category=${category}&keyword=${keyword}&page=" + page;
         });
     });
 
     function loadPage(page) {
         let keyword = "${param.keyword}";
+        let category = ${category};
         $.ajax({
             url: "snackWikiSearch",
             type: "GET",
             data: {
                 keyword: keyword,
                 page: page,
+                category: category
                 <%--timestamp: new Date().getTime()--%>
             },
             success: function (data) {
@@ -237,7 +247,14 @@
             }
         });
     }
-
+    function validateForm() {
+        let category = document.getElementById("cookie-select").value;
+        if (category === "") {
+            alert("카테고리를 골라주세요");
+            return false;
+        }
+        return true;
+    }
 </script>
 
 <%@include file="/footer.jsp" %>

@@ -20,15 +20,25 @@
             🔍<br>
             궁금한 과자가 있으신가요?
         </h3>
-        <form action="/snack/snackWikiSearch" method="get">
+        <form action="/snack/snackWikiSearch" method="get" onsubmit="return validateForm()">
             <div class="cookie-search main-search">
+                <div class="select-wrap">
+                    <label class="label-bold" for="cookie-select">Category</label>
+                    <select class="p-regular" id="cookie-select" name="category">
+                        <option value="">검색 항목</option>
+                        <option value="all">전체</option>
+                        <option value="name">과자 이름</option>
+                        <option value="ingredient">원재료</option>
+                    </select>
+                </div>
+                <span class="div-line"></span>
                 <div class="search-wrap">
                     <label class="label-bold" for="keyword">Search</label>
                     <input class="p-regular" type="text" name="keyword" id="keyword" placeholder="검색하고 싶은 과자를 입력하세요.">
                 </div>
                 <button class="search-btn"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
-            </div>
         </form>
+    </div>
         <div class="v-right">
 
         </div>
@@ -86,5 +96,15 @@
     </div>
 </div>
 <%@include file="footer.jsp" %>
+<script>
+    function validateForm() {
+        let category = document.getElementById("cookie-select").value;
+        if (category === "") {
+            alert("카테고리를 골라주세요");
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
