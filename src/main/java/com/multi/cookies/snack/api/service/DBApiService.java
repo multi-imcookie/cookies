@@ -12,7 +12,7 @@ public interface DBApiService {
     String callHaccpAPI(int page) throws IOException;
     @Scheduled(cron = "0 49 17 * * * *")    // cron: 초 분 시 일 월 요일 연도
     int updateDB() throws ParseException, IOException;
-    int insertDB() throws IOException, ParseException;
+//    int insertDB() throws IOException, ParseException;
     int initializeDB();
     List<DBApiDTO> parseJsonData(int page) throws ParseException, IOException;
 }

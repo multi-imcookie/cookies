@@ -32,12 +32,12 @@ public class DBApiController {
      *
      * TODO: 개발 이후 삭제할 기능
      */
-    @RequestMapping("insertDB")
-    public String insertDB(Model model) throws ParseException, IOException {  // DB 생성
-        int result = dbApiService.insertDB();
-        model.addAttribute("result", result);
-        return "/api/insertDB";
-    }
+//    @RequestMapping("insertDB")
+//    public String insertDB(Model model) throws ParseException, IOException {  // DB 생성
+//        int result = dbApiService.insertDB();
+//        model.addAttribute("result", result);
+//        return "/api/insertDB";
+//    }
 
     /***
      *
