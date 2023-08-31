@@ -36,6 +36,7 @@
                     <label class="label-bold" for="keyword">Search</label>
                     <input class="p-regular" type="text" name="keyword" id="keyword" placeholder="검색하고 싶은 과자를 입력하세요.">
                 </div>
+                <input type="hidden" name="sortName" value="sortHighCalorie">
                 <button class="search-btn"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
         </form>
     </div>
