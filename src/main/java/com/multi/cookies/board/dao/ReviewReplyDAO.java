@@ -7,16 +7,12 @@ import java.util.List;
 
 public interface ReviewReplyDAO {
 
-    // 댓글 목록
-    public List<ReviewReplyDTO> listReply(int review_id) throws Exception;
+    public List<ReviewReplyDTO> list(int review_id) throws Exception;
+    public void write(ReviewReplyDTO reviewReplyDTO) throws Exception;
+    public void modify(ReviewReplyDTO reviewReplyDTO) throws Exception;
+    public void delete(ReviewReplyDTO reviewReplyDTO) throws Exception;
 
-    // 댓글 조회
-    public void writeReply(ReviewReplyDTO reviewReplyDTO) throws Exception;
-
-    // 댓글 수정
-    public void updateReply(ReviewReplyDTO reviewReplyDTO) throws Exception;
-
-    // 댓글 삭제
-    public void deleteReply(ReviewReplyDTO reviewReplyDTO) throws Exception;
+    // 단일 댓글 조회
+    public ReviewReplyDTO replySelect(ReviewReplyDTO reviewReplyDTO) throws Exception;
 
 }

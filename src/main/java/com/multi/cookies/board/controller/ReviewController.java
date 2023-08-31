@@ -62,8 +62,8 @@ public class ReviewController {
         model.addAttribute("snackDTO", snackService.snackInfo(snack_id));
 
         //댓글 조회
-        List<ReviewReplyDTO> replyList = reviewReplyService.listReply(reviewDTO.getReview_id());
-        model.addAttribute("replyList", replyList);
+        List<ReviewReplyDTO> reviewReply = reviewReplyService.list(review_id);
+        model.addAttribute("reviewReply", reviewReply);
 
     }
 
@@ -110,13 +110,27 @@ public class ReviewController {
     }
 
 
-    //댓글 작성
-    @RequestMapping(value="replyWrite", method = RequestMethod.POST)
-    public String replyWrite(@ModelAttribute ReviewReplyDTO reviewReplyDTO) throws Exception {
 
-        reviewReplyService.writeReply(reviewReplyDTO);
-        
-        return "redirect:reviewView?review_id=${replyDTO.review_id}";
+    //댓글
+    @RequestMapping(value = "replyWrite", method = RequestMethod.POST)
+    public String postWrite(ReviewReplyDTO reviewReplyDTO) throws Exception {
+
+        reviewReplyService.write(reviewReplyDTO);
+
+        return "redirect:/review/reviewView?review_id=" + reviewReplyDTO.getReview_id();
+    }
+
+
+    @RequestMapping(value = "replyModify", method = RequestMethod.GET)
+    public void getModify(@RequestParam("review_id") int review_id, @RequestParam("reply_id") int reply_id, Model model) throws Exception {
+
+        ReviewReplyDTO reviewReplyDTO = new ReviewReplyDTO();
+        reviewReplyDTO.setReview_id(review_id);
+        reviewReplyDTO.setReply_id(reply_id);
+
+        ReviewReplyDTO reply = reviewReplyService.replySelect(reviewReplyDTO);
+
+        model.addAttribute("reply", reply);
     }
 
 

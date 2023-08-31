@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ page session="false" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,20 +12,41 @@
             let formObj = $("form[role='form']");
             console.log(formObj);
 
-
             $(".btn-Update").on("click", function(){
                 self.location = "reviewUpdate?review_id=${reviewDTO.review_id}";
-
             });
 
             $(".btn-Delete").on("click", function(){
                 if(confirm("삭제하시겠습니까?")){
-                    formObj.attr("action", "/review/reviewDelete");
-                    formObj.attr("method", "post");
-                    formObj.submit();
+                    self.location = "reviewDelete?review_id=${reviewDTO.review_id}";
                 }
             });
+
+
+            $(".btn-replyWrite").on("click", function() {
+                //               self.location = "replyWrite?review_id=${reviewDTO.review_id}";
+                let formObj = $("form[name='replyForm']");
+                formObj.attr("action", "replyWrite");
+                formObj.submit();
+            });
         });
+
+
+        $(document).ready(function(){
+            createReply();
+        });
+
+        function createReply() {
+            $(".btn-replyWrite").on("click", function() {
+                //               self.location = "replyWrite?review_id=${reviewDTO.review_id}";
+                let formObj = $("form[name='replyForm']");
+                formObj.attr("action", "replyWrite");
+                formObj.submit();
+            });
+        }
+
+
+
 
     </script>
     <style>
@@ -58,11 +79,11 @@
 <%@ include file="/header.jsp" %>
 <section class="page-section" id="review">
     <div class="container">
-        <h2>리뷰게시글 보기</h2>
+        <h3 class="s-h-imcre24">리뷰게시판</h3>
 
-        <div class = "text-center">
-            <button type="submit" class="btn-Update">수정</button>
-            <button type="submit" class="btn-Delete">삭제</button>
+        <div class = "board-top">
+            <button type="submit" class="btn-Update fill-btn">수정</button>
+            <button type="submit" class="btn-Delete fill-btn">삭제</button>
         </div>
 
         <form name="form" method="post">
@@ -90,7 +111,7 @@
                 <script>
                     var rating = ${reviewDTO.review_score};
                     var fullStars = Math.floor(rating);
-                    let hasHalfStar = rating - fullStars >= 0.5;
+                    var hasHalfStar = rating - fullStars >= 0.5;
 
                     for (var i = 0; i < fullStars; i++) {
 
@@ -108,49 +129,48 @@
         <div> 작성일자 : <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/> </div>
         <div> <label> 내용 : </label> <input name="review_content" class="form-control" value="${reviewDTO.review_content}"> </div>
 
-        <%--  <div> 사진
-            <input name="review_img" class="form-control" value="${reviewDTO.review_img}">
-          </div>--%>
-
 
         <div style="width:650px; text-align: center;">
             <a href="reviewList?num=1"><button>뒤로가기</button></a>
         </div>
 
+
         <!-- 댓글 -->
-        <div id="reply">
-            <ol class="replyList">
-                <c:forEach items="${replyList}" var="replyList">
-                    <li>
-                        <p>${replyList.reply_content}</p>
-                        <p>
-                            작성자 : ${replyList.member_id}
-                            작성날짜 :  <fmt:formatDate value="${replyList.create_dt}" pattern="yyyy-MM-dd" />
-                        </p>
-                    </li>
-                </c:forEach>
-            </ol>
+
+        <div>
+            <form method="post" action="/review/replyWrite">
+                <p>
+                    <textarea cols="50" name="reply_content"></textarea>
+                    <button type="submit">댓글 작성</button>
+                </p>
+                <p>
+                    <input type="hidden" name="member_id" id="member_id" value="1">
+                    <input type="hidden" name="review_id" value="${reviewDTO.review_id}">
+                    <%--<button type="submit">댓글 작성</button>--%>
+                <hr />
+                </p>
+            </form>
         </div>
 
 
-        <form name="replyForm" method="post">
-            <input type="hidden" id="reply_id" name="reply_id" value="${reviewReplyDTO.reply_id}" />
-            <input type="hidden" id="review_id" name="review_id" value="${reviewReplyDTO.review_id}">
-            <input type="hidden" id="member_id" name="member_id" value="${reviewReplyDTO.member_id}">
 
-            <%--            <div><label &lt;%&ndash;for="reply_content"&ndash;%&gt;>댓글</label>
-                            <input type="text" id="reply_content" name="reply_content" placeholder="댓글 내용을 입력하세요">
-                        </div>--%>
+        <ul>
+            <c:forEach items="${reviewReply}" var="reviewReply">
+                <li>
+                    <div>
+                        <p>${reviewReply.reply_content }</p>
+                        <p>${reviewReply.member_id} / <fmt:formatDate value="${reviewReply.create_dt}" pattern="yyyy-MM-dd" /></p>
+                        <p>
+                            <a href="/review/reviewReplyModify?review_id=${reviewDTO.review_id}&reply_id=${reviewReplyDTO.reply_id}">수정</a> / <a href="">삭제</a>
+                        </p>
 
-            <div>
-                <label>댓글2</label><br>
-                <textarea cols="50" rows="5" name="reply_content" id="reply_content" placeholder="댓글 내용을 입력하세요"></textarea>
-            </div>
+                        <hr />
+                    </div>
+                </li>
+            </c:forEach>
+        </ul>
 
-            <div>
-                <button type="submit" class="btn-reviewReplyWrite" id="btn-reviewReplyWrite">작성</button>
-            </div>
-        </form>
+
 
     </div>
 </section>
@@ -159,3 +179,4 @@
 <%@include file="/footer.jsp" %>
 </body>
 </html>
+

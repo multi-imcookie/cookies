@@ -2,33 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reviewReply">
 
-    <!-- 댓글 목록 -->
-    <select id="listReply" resultType="reviewReplyDTO">
+    <select id="replyList" parameterType="int" resultType="reviewReplyDTO">
         SELECT
             reply_id, review_id, member_id, reply_content, create_dt
         FROM review_reply
         WHERE review_id = #{review_id}
+        order by reply_id desc
     </select>
 
-    <!-- 댓글 작성 -->
-    <insert id="writeReply" parameterType="reviewReplyDTO">
-        INSERT INTO review_reply(reply_id, review_id, member_id, reply_content)
-        VALUES(#{reply_id}, #{review_id}, #{member_id}, #{reply_content})
+
+    <insert id="replyWrite" parameterType="reviewReplyDTO">
+        INSERT INTO review_reply(review_id, member_id, reply_content)
+        VALUES(#{review_id}, #{member_id}, #{reply_content})
     </insert>
 
-    <!-- 댓글 수정 -->
-    <update id="updateReply" parameterType="reviewReplyDTO">
+
+    <update id="replyModify" parameterType="reviewReplyDTO">
         UPDATE review_reply
-        SET reply_content = #{reply_content}
+        SET reply_content = #{reply_content},
+            member_id = #{member_id}
         WHERE reply_id = #{reply_id}
           AND review_id = #{review_id}
     </update>
 
-    <!-- 댓글 삭제 -->
-    <delete id="deleteReply" parameterType="reviewReplyDTO">
+
+    <delete id="replyDelete" parameterType="reviewReplyDTO">
         DELETE FROM review_reply
         WHERE reply_id = #{reply_id}
           AND review_id = #{review_id}
     </delete>
+
+
+
+    <!-- 단일 댓글 조회 -->
+    <select id="replySelect" parameterType="reviewReplyDTO" resultType="reviewReplyDTO">
+        select reply_id, review_id, member_id, reply_content, update_dt
+        from review_reply
+        where review_id = #{review_id}
+          and reply_id = #{reply_id}
+    </select>
 
 </mapper>
