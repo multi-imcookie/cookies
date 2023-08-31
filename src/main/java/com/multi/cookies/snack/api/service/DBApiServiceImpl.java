@@ -94,25 +94,25 @@ public class DBApiServiceImpl implements DBApiService {
         return result / 2;
     }
 
-    @Override
-    public int insertDB() throws IOException, ParseException {
-        int result = 0;
-        int maxPage = calculateNumOfPage(); // 최대 페이지 수
-        for (int i = 1; i <= maxPage; i++) {
-            for (DBApiDTO dbApiDTO : parseJsonData(i)) {
-                dbApiDTO = selectCompany(dbApiDTO); // 제조사 걸러내기
-                if (dbApiDTO != null
-                        && dbApiDTO.getNutri_string() != null
-                        && !dbApiDTO.getNutri_string().equals("알수없음")
-                        && dbApiDTO.getNetwt() != 0) { // 영양성분 null, 알수없음 걸러내기
-                    result += dbApiDAO.insertDB(dbApiDTO);
-                }
-            }
-            System.out.println(i + "페이지 성공");
-        }
-        System.out.println("DB 목록 생성 성공!");
-        return result / 2;  // snack 테이블, snack_nutritional 총 2개 테이블
-    }
+//    @Override
+//    public int insertDB() throws IOException, ParseException {
+//        int result = 0;
+//        int maxPage = calculateNumOfPage(); // 최대 페이지 수
+//        for (int i = 1; i <= maxPage; i++) {
+//            for (DBApiDTO dbApiDTO : parseJsonData(i)) {
+//                dbApiDTO = selectCompany(dbApiDTO); // 제조사 걸러내기
+//                if (dbApiDTO != null
+//                        && dbApiDTO.getNutri_string() != null
+//                        && !dbApiDTO.getNutri_string().equals("알수없음")
+//                        && dbApiDTO.getNetwt() != 0) { // 영양성분 null, 알수없음 걸러내기
+//                    result += dbApiDAO.insertDB(dbApiDTO);
+//                }
+//            }
+//            System.out.println(i + "페이지 성공");
+//        }
+//        System.out.println("DB 목록 생성 성공!");
+//        return result / 2;  // snack 테이블, snack_nutritional 총 2개 테이블
+//    }
 
     @Override
     public int initializeDB() {
