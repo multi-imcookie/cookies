@@ -99,7 +99,7 @@
 <div class="sub-container">
     <h3 class="s-h-imcre24">리뷰게시판 작성</h3>
 
-    <button class="fill-btn p-medium" type="button" id="btnSearch">리뷰 과자 검색</button>
+    <button class="dark-fill-btn p-medium" type="button" id="btnSearch">리뷰할 과자 검색</button>
 
     <div id="selectSnackResult" class="form-style" style="display: none;">
         <img id="selectedSnackImg" src="" alt="썸네일">

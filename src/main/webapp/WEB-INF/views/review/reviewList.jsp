@@ -75,7 +75,7 @@
                                 <span></span>
                                 <li>${reviewDTO.member_id}</li>
                                 <span></span>
-                                <li><fmt:formatDate value="${reviewDTO.create_dt}" pattern="HH:mm"/></li>
+                                <li><fmt:formatDate value="${reviewDTO.create_dt}" pattern="a HH:mm"/></li>
                             </ul>
                         </div>
                     </div>
@@ -95,17 +95,17 @@
                 <th>작성자</th>
                 <th>작성시간</th>
             </tr>
-            <c:forEach var="reviewDTO" items="${list}">
-                <tr>
-                    <td>${reviewDTO.review_id}</td>
-                    <td>${reviewDTO.review_img}</td>
-                    <td><a href='/review/reviewView?review_id=${reviewDTO.review_id}'>${reviewDTO.review_title}</a></td>
-                    <td>${reviewDTO.review_score}</td>
-                    <td>${reviewDTO.snack_id}</td>
-                    <td>${reviewDTO.member_id}</td>
-                    <td><fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                </tr>
-            </c:forEach>
+<%--            <c:forEach var="reviewDTO" items="${list}">--%>
+<%--                <tr>--%>
+<%--                    <td>${reviewDTO.review_id}</td>--%>
+<%--                    <td>${reviewDTO.review_img}</td>--%>
+<%--                    <td><a href='/review/reviewView?review_id=${reviewDTO.review_id}'>${reviewDTO.review_title}</a></td>--%>
+<%--                    <td>${reviewDTO.review_score}</td>--%>
+<%--                    <td>${reviewDTO.snack_id}</td>--%>
+<%--                    <td>${reviewDTO.member_id}</td>--%>
+<%--                    <td><fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>--%>
+<%--                </tr>--%>
+<%--            </c:forEach>--%>
         </table> -->
     </div>
 

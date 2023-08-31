@@ -1,19 +1,35 @@
 package com.multi.cookies.member.service;
 
+import com.multi.cookies.board.dto.BoardDTO;
+import com.multi.cookies.board.dto.ReviewDTO;
 import com.multi.cookies.member.dao.MypageDAO;
 import com.multi.cookies.member.dto.MypageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MypageService {
     @Autowired
     MypageDAO mypageDAO;
 
+    // 멤버 정보 조회
     public MypageDTO getMemberInfo(int member_id) {
         return mypageDAO.getMemberInfo(member_id);
     }
 
+    // 작성한 리뷰 조회
+    public List<ReviewDTO> getMyReview(int member_id) {
+        return mypageDAO.getMyReview(member_id);
+    }
+
+    // 작성한 게시글 조회
+    public List<BoardDTO> getMyBoard(int member_id) {
+        return mypageDAO.getMyBoard(member_id);
+    }
+
+    // 연령대 노출 형식 변형
     public String replaceMemberAge(String member_age){
         member_age = member_age.replace("~", "-"); // "~"를 "-"로 변경
 
