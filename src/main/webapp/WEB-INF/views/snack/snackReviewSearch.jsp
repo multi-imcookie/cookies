@@ -1,9 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <head>
+    <%@ include file="/link.jsp" %>
     <style>
         .p-regular {
             font-family: Pretendard, sans-serif;
@@ -64,7 +63,6 @@
             font-weight: bold;
         }
     </style>
-    <%@ include file="/link.jsp" %>
     <title>전과자</title>
 </head>
 
@@ -74,8 +72,18 @@
         <h3 class="s-h-imcre24">
             과자를 골라주세요.
         </h3>
-        <form action="/snack/snackReviewSearch" method="get">
+        <form action="/snack/snackReviewSearch" method="get" onsubmit="return validateForm()">
             <div class="cookie-search main-search">
+                <div class="select-wrap">
+                    <label class="label-bold" for="cookie-select">Category</label>
+                    <select class="p-regular" id="cookie-select" name="category">
+                        <option value="">검색 항목</option>
+                        <option value="all">전체</option>
+                        <option value="name">과자 이름</option>
+                        <option value="ingredient">원재료</option>
+                    </select>
+                </div>
+                <span class="div-line"></span>
                 <div class="search-wrap">
                     <label class="label-bold" for="keyword">Search</label>
                     <input class="p-regular" type="text" name="keyword" id="keyword"
@@ -91,26 +99,44 @@
         <div id="search-results" class="search-results">
             <%--검색 결과 총 ${fn:length(searchResult)} 건--%>
             <%--<div class="search-results">--%>
-            <c:forEach items="${searchResults}" var="search" varStatus="status">
+            <c:forEach items="${searchResults}" var="searchDTO" varStatus="status">
                 <!-- 검색 결과를 출력 -->
                 <div class="search-item">
                         <%--<a href="/snack/snackInfo?snack_id=${search.snack_id}">--%>
-                    <a href="javascript:void(0);" class="goToDetail" data-snack-id="${search.snack_id}">
-                            <div class="thumbnail"><img src="${search.snack_img}" alt="썸네일"></div>
-                            <div class="product-name">${search.snack_name}</div>
-                            <div class="rating" id="rating_${search.snack_id}"></div>
-                            <script>
-                                let rating = ${search.avg_score};
-                                let fullStars = Math.floor(rating);
-                                let hasHalfStar = rating - fullStars >= 0.5;
-
-                                for (let i = 0; i < fullStars; i++) {
-                                    document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
-                                }
-                                if (hasHalfStar) {
-                                    document.getElementById("rating_${search.snack_id}").innerHTML += "&#9733;";
-                                }
-                            </script>
+                    <a href="javascript:void(0);" class="goToDetail" data-snack-id="${searchDTO.snack_id}">
+                        <div class="thumbnail search-thumbnail" style="background-image: url(${searchDTO.snack_img})"></div>
+                        <div class="product-name">${searchDTO.snack_name}</div>
+                        <c:choose>
+                            <c:when test="${searchDTO.avg_score >= 1 && searchDTO.avg_score < 1.5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score01.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 1.5 && searchDTO.avg_score < 2}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_01_half.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 2 && searchDTO.avg_score < 2.5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score02.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 2.5 && searchDTO.avg_score < 3}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_02_half.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 3 && searchDTO.avg_score < 3.5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score03.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 3.5 && searchDTO.avg_score < 4}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_03_half.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 4 && searchDTO.avg_score < 4.5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score04.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score >= 4.5 && searchDTO.avg_score < 5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_04_half.png' height='18'>" />
+                            </c:when>
+                            <c:when test="${searchDTO.avg_score == 5}">
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score05.png' height='18'>" />
+                            </c:when>
+                            <c:otherwise><c:set var="scoreImg" value="" /></c:otherwise>
+                        </c:choose>
+                        <div>${scoreImg}</div>
                     </a>
                 </div>
             </c:forEach>
@@ -157,13 +183,15 @@
             let snackId = $(this).data('snack-id');
             let urlParams = new URL(location.href).searchParams;
             let keyword = urlParams.get('keyword');
+            let category = urlParams.get('category');
             let currentPage = urlParams.get('page');
             localStorage.setItem('keyword', keyword);
+            localStorage.setItem('category', category);
             if (currentPage == null) {
                 currentPage = 1;
             }
             localStorage.setItem('currentPage', currentPage);
-            window.location.href = '/snack/snackReviewSearchInfo?snack_id=' + snackId;
+            window.location.href = '/snack/snackReviewSearchInfo?category=' + category + '&snack_id=' + snackId;
         });
 
         // 페이지 로딩 버튼 클릭 시 AJAX로 페이지 로드
@@ -173,10 +201,18 @@
             if (!page) {
                 return;
             }
-            window.location.href = "snackReviewSearch?keyword=${keyword}&page=" + page;
+            window.location.href = "snackReviewSearch?category=" + ${category} + "&keyword=${keyword}&page=" + page;
         });
 
     });
+    function validateForm() {
+        let category = document.getElementById("cookie-select").value;
+        if (category === "") {
+            alert("카테고리를 골라주세요");
+            return false;
+        }
+        return true;
+    }
 </script>
 </body>
 

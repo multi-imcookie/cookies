@@ -104,6 +104,8 @@ public class CurationDAOImpl implements CurationDAO {
             keywords.add("초코");
             keywords.add("초콜렛");
             keywords.add("초콜릿");
+            keywords.add("쵸코");
+            keywords.add("카카오");
             keywords.add("코코아");
         } else if (columnName.equals("strawberry")) {
             keywords.add("딸기");
@@ -118,6 +120,7 @@ public class CurationDAOImpl implements CurationDAO {
         } else if (columnName.equals("honey")) {
             keywords.add("허니");
             keywords.add("꿀");
+            keywords.add("달달");
         }
         return keywords;
     }

@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface SnackService {
 
-    Map<String, Object> snackSearch(String keyword, int pageSize, int page);
+    Map<String, Object> snackSearch(String keyword, int pageSize, int page, String category);
 
     SearchDTO snackInfo(int snack_id);
 

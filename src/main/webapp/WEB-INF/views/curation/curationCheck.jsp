@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
@@ -34,7 +33,8 @@
             data: { member_id: memberId }, // 요청 파라미터 설정
             success: function(data) {
                 console.log(data);
-                document.getElementById('curation').innerHTML = data;
+                //document.getElementById('curation').innerHTML = data;
+                $('#curation').html(data);
                 showAllergy();
             },
             error: function(xhr, status, error) {

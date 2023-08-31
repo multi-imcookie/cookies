@@ -218,10 +218,11 @@
             event.preventDefault(); // 기본 동작을 취소합니다.
             let pageNum = localStorage.getItem('currentPage');
             let storedKeyword = localStorage.getItem('keyword'); // 저장된 키워드 불러오기
+            let storedCategory = localStorage.getItem('category'); // 저장된 키워드 불러오기
             if (pageNum === null) {
-                window.location.href = 'snackWikiSearch?keyword=' + encodeURIComponent(storedKeyword);
+                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(storedCategory) + '&keyword=' + encodeURIComponent(storedKeyword);
             } else {
-                window.location.href = 'snackWikiSearch?keyword=' + encodeURIComponent(storedKeyword) + '&page=' + encodeURIComponent(pageNum);
+                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(storedCategory) + '&keyword=' + encodeURIComponent(storedKeyword) + '&page=' + encodeURIComponent(pageNum);
             }
         });
     });

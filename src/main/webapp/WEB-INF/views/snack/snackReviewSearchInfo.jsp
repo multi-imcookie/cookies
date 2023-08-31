@@ -76,10 +76,11 @@
                     event.preventDefault(); // 기본 동작을 취소합니다.
                     let pageNum = localStorage.getItem('currentPage');
                     let storedKeyword = localStorage.getItem('keyword'); // 저장된 키워드 불러오기
+                    let storedCategory = localStorage.getItem('category');
                     if (pageNum === null) {
-                        window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword);
+                        window.location.href = 'snackReviewSearch?category=' + encodeURIComponent(storedCategory) + '&keyword=' + encodeURIComponent(storedKeyword);
                     } else {
-                        window.location.href = 'snackReviewSearch?keyword=' + encodeURIComponent(storedKeyword) + '&page=' + encodeURIComponent(pageNum);
+                        window.location.href = 'snackReviewSearch?category=' + encodeURIComponent(storedCategory) + '&keyword=' + encodeURIComponent(storedKeyword) + '&page=' + encodeURIComponent(pageNum);
                     }
                 });
             });
