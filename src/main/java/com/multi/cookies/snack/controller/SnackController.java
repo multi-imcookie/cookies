@@ -24,8 +24,16 @@ public class SnackController {
     SnackService snackService;
 
     @RequestMapping(value = {"/snack/snackWikiSearch", "/snack/snackReviewSearch"}, method = RequestMethod.GET)
-   // @RequestMapping("/snack/snackWikiSearch")
-    public String snackSearch(HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
+    public String snackSearch(HttpServletRequest request,
+                              @RequestParam(value = "page", defaultValue = "1") int page,
+                              @RequestParam(value = "selectedAllergies", required = false) String[] selectedAllergies, Model model) {
+
+        if (selectedAllergies != null) {
+            for (String allergy : selectedAllergies) {
+                System.out.println("Selected Allergy: " + allergy);
+            }
+        }
+
         System.out.println("컨트롤러 가동!");
         int pageSize = 9;
         String category = request.getParameter("category");
@@ -38,12 +46,10 @@ public class SnackController {
             // keyword가 null인 경우 처리해야 할 로직을 추가합니다.
             throw new IllegalArgumentException("키워드가 null입니다.");
         }
-        String requestURI = (String)request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-        Map<String, Object> paginationResult = snackService.snackSearch(keyword, pageSize, page, category, sortName);
+        String requestURI = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        Map<String, Object> paginationResult = snackService.snackSearch(keyword, pageSize, page, category, sortName, selectedAllergies);
         List<SearchDTO> pageResults = (List<SearchDTO>) paginationResult.get("pageResults");
         model.addAttribute("keyword", keyword);
-        model.addAttribute("category", category);
-        model.addAttribute("sortName", sortName);
         model.addAttribute("searchResults", pageResults);
         model.addAttribute("totalPages", paginationResult.get("totalPages"));
         model.addAttribute("totalResults", paginationResult.get("totalResults"));
@@ -51,7 +57,7 @@ public class SnackController {
         model.addAttribute("startPage", paginationResult.get("startPage"));
         model.addAttribute("endPage", paginationResult.get("endPage"));
 
-        if(requestURI.equals("/snack/snackReviewSearch")){
+        if (requestURI.equals("/snack/snackReviewSearch")) {
             System.out.println("리뷰에서 검색!");
             return "/snack/snackReviewSearch";
         } else {
@@ -61,7 +67,7 @@ public class SnackController {
     }
 
     @RequestMapping(value = {"/snack/snackWikiInfo", "snack/snackReviewSearchInfo"}, method = RequestMethod.GET)
-    public void snackInfo(int snack_id, @RequestParam(required = false) String keyword, String category, @RequestParam(value="sortName", defaultValue = "sortHighCalorie") String sortName, Model model) {
+    public void snackInfo(int snack_id, @RequestParam(required = false) String keyword, String category, @RequestParam(value = "sortName", defaultValue = "sortHighCalorie") String sortName, Model model) {
         System.out.println("snack_id : " + snack_id);
         SearchDTO searchDTO = snackService.snackInfo(snack_id);
         model.addAttribute("sortName", sortName);
