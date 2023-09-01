@@ -13,6 +13,12 @@ public class SnackServiceImpl implements SnackService {
     @Autowired
     SnackDAO snackDAO;
 
+
+    public void saveKeyword(String keyword) {
+
+        snackDAO.saveKeyword(keyword);
+    }
+
     public Map<String, Object> snackSearch(String keyword, int pageSize, int page, String category, String sortName, String[] selectedAllergies) {
 
         // 마이바티스 매퍼를 통해 검색 결과를 가져옵니다.
@@ -96,6 +102,13 @@ public class SnackServiceImpl implements SnackService {
         System.out.println("디테일 서비스 실행!");
         return snackDAO.snackInfo(snack_id);
     }
+
+   public List<String> getPopularKeywords(){
+       System.out.println("서비스 요청이 되었느냐?");
+       List<String> popularKeywords = snackDAO.getPopularKeywords();
+       System.out.println(popularKeywords);
+        return popularKeywords;
+    };
 
 
     private List<String> convertAllergy(String[] selectedAllergies) {

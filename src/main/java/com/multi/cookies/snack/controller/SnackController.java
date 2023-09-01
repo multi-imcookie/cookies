@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +55,8 @@ public class SnackController {
         model.addAttribute("startPage", paginationResult.get("startPage"));
         model.addAttribute("endPage", paginationResult.get("endPage"));
 
+        snackService.saveKeyword(keyword);
+
         if (requestURI.equals("/snack/snackReviewSearch")) {
             System.out.println("리뷰에서 검색!");
             return "/snack/snackReviewSearch";
@@ -79,6 +79,15 @@ public class SnackController {
     @RequestMapping(value = {"/snack/snackSelectPopup"}, method = RequestMethod.GET)
     public String openSnackReviewSearch() {
         return "/snack/snackReviewSearch";
+    }
+
+    @GetMapping("/popularKeyword")
+    @ResponseBody
+    public List<String> getPopularKeywords(Model model) {
+        System.out.println("컨트롤 요청이 되었느냐?");
+        List<String> snackList = snackService.getPopularKeywords();
+        System.out.println(snackList);
+        return snackList;
     }
 
 }
