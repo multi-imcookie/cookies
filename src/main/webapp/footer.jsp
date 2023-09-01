@@ -49,10 +49,11 @@
             </ul>
         </li>
         <li>
-            <a class="h-imcre24" href="#">쿠키마스터</a>
+            <a class="h-imcre24" href="#">바삭 월드컵</a>
             <ul class="f-depth2">
-                <li><a class="p-medium" href="/entertainment/ideal.jsp">과자 이상형 월드컵</a></li>
-                <li><a class="p-medium" href="#">오늘의 과자</a></li>
+                <li><a class="p-medium" href="/entertainment/ideal.jsp">이상형 월드컵</a></li>
+                <li><a class="p-medium" href="/entertainment/idealWorldCupAll?page=1">랭킹</a></li>
+                <li><a class="p-medium" href="/entertainment/idealBoardAll?page=1">의견</a></li>
             </ul>
         </li>
         <li>
@@ -61,13 +62,6 @@
                 <li><a class="p-medium" href="#">나이별 랭킹</a></li>
                 <li><a class="p-medium" href="#">성분별 랭킹</a></li>
                 <li><a class="p-medium" href="#">브랜드별 랭킹</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="h-imcre24" href="#">전과자 이벤트</a>
-            <ul class="f-depth2">
-                <li><a class="p-medium" href="#">포인트 상점</a></li>
-                <li><a class="p-medium" href="#">출석체크</a></li>
             </ul>
         </li>
         <li>

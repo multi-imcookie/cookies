@@ -4,10 +4,12 @@
 
     <select id="replyList" parameterType="int" resultType="reviewReplyDTO">
         SELECT
-            reply_id, review_id, member_id, reply_content, create_dt
-        FROM review_reply
+            r.reply_id, r.review_id, r.member_id, r.reply_content, r.create_dt,
+            m.member_nickname
+        FROM review_reply r
+        left join member m on r.member_id = m.member_id
         WHERE review_id = #{review_id}
-        order by reply_id desc
+        order by reply_id asc
     </select>
 
 

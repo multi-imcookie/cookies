@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -108,24 +107,48 @@
             <div>
                 <label>내가 준 별점: </label>
                 <div class="rating" id="rating"></div>
-                <script>
-                    var rating = ${reviewDTO.review_score};
-                    var fullStars = Math.floor(rating);
-                    var hasHalfStar = rating - fullStars >= 0.5;
+                <c:choose>
+                    <c:when test="${reviewDTO.review_score == 1}">
+                        <c:set var="scoreImg"
+                               value="<img src='/resources/img/score/score01.png' height='18'>"/>
+                    </c:when>
+                    <c:when test="${reviewDTO.review_score == 2}">
+                        <c:set var="scoreImg"
+                               value="<img src='/resources/img/score/score02.png' height='18'>"/>
+                    </c:when>
+                    <c:when test="${reviewDTO.review_score == 3}">
+                        <c:set var="scoreImg"
+                               value="<img src='/resources/img/score/score03.png' height='18'>"/>
+                    </c:when>
+                    <c:when test="${reviewDTO.review_score == 4}">
+                        <c:set var="scoreImg"
+                               value="<img src='/resources/img/score/score04.png' height='18'>"/>
+                    </c:when>
+                    <c:when test="${reviewDTO.review_score == 5}">
+                        <c:set var="scoreImg"
+                               value="<img src='/resources/img/score/score05.png' height='18'>"/>
+                    </c:when>
+                    <c:otherwise><c:set var="scoreImg" value=""/></c:otherwise>
+                </c:choose>
+                <li>${scoreImg} ${reviewDTO.review_score}</li>
+<%--                <script>--%>
+<%--                    var rating = ${reviewDTO.review_score};--%>
+<%--                    var fullStars = Math.floor(rating);--%>
+<%--                    var hasHalfStar = rating - fullStars >= 0.5;--%>
 
-                    for (var i = 0; i < fullStars; i++) {
+<%--                    for (var i = 0; i < fullStars; i++) {--%>
 
-                        document.getElementById("rating").innerHTML += "&#9733;";
-                    }
-                    if (hasHalfStar) {
-                        document.getElementById("rating").innerHTML += "&#9733;";
-                    }
-                </script>
+<%--                        document.getElementById("rating").innerHTML += "&#9733;";--%>
+<%--                    }--%>
+<%--                    if (hasHalfStar) {--%>
+<%--                        document.getElementById("rating").innerHTML += "&#9733;";--%>
+<%--                    }--%>
+<%--                </script>--%>
             </div>
         </div>
 
-        <div> <label> 과자명 : </label> ${reviewDTO.snack_id} </div>
-        <div> <label> 작성자 : </label> ${reviewDTO.member_id} </div>
+        <div> <label> 과자명 : </label> ${reviewDTO.snack_name} </div>
+        <div> <label> 작성자 : </label> ${reviewDTO.member_nickname} </div>
         <div> 작성일자 : <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/> </div>
         <div> <label> 내용 : </label> <input name="review_content" class="form-control" value="${reviewDTO.review_content}"> </div>
 
@@ -159,7 +182,7 @@
                 <li>
                     <div>
                         <p>${reviewReply.reply_content }</p>
-                        <p>${reviewReply.member_id} / <fmt:formatDate value="${reviewReply.create_dt}" pattern="yyyy-MM-dd" /></p>
+                        <p>${reviewReply.member_nickname} / <fmt:formatDate value="${reviewReply.create_dt}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
                         <p>
                             <a href="/review/reviewReplyModify?review_id=${reviewDTO.review_id}&reply_id=${reviewReplyDTO.reply_id}">수정</a> / <a href="">삭제</a>
                         </p>
