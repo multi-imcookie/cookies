@@ -681,6 +681,24 @@ label {
     transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
+.allergy-modal-box {
+    position: absolute;
+    display: flex;
+    width: 1600px;
+    padding: 80px;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    border-radius: 24px;
+    background-color: #ffffff;
+    margin: 0 auto;
+    left: 50%;
+    top : -20%;
+    transform: translate(160%, 22%);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
 .modal-box.active {
     transform: translate(-50%, 22%);
 }
@@ -1276,3 +1294,25 @@ label {
     height: 240px;
 }
 /* thumnail */
+
+/* 검색 알러지 모달 박스 */
+.allergy-check-box {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    align-self: stretch;
+}
+
+/* 검색 알러지 모달 박스 */
+.allergy-check-btn {
+    display: flex;
+    padding: 8px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex: 1 0 0;
+    border-radius: 12px;
+    border: 1px solid #E9E2D9;
+    background: #F9F5F2;
+}

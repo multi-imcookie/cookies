@@ -83,6 +83,9 @@ public class CurationDAOImpl implements CurationDAO {
                 // uniqueSearchData를 avg_score 기준으로 정렬하기 (내림차순)
                 Collections.sort(uniqueSearchData, Comparator.comparing(SearchDTO::getAvg_score).reversed());
 
+
+                //그리고 여기서 필터링으로 알러지 거르기.
+
                 // 상위 5개만 선택하기
                 List<SearchDTO> top5Data = uniqueSearchData.stream()
                         .limit(5)

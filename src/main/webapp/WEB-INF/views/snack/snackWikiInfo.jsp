@@ -221,10 +221,11 @@
             let keyword = urlParams.get('keyword');
             let category = urlParams.get('category');
             let sortName = urlParams.get('sortName');
+            let selectedAllergies = urlParams.get('selectedAllergies');
             if (pageNum === null) {
-                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(category)  +'&keyword=' + encodeURIComponent(keyword) + '&sortName=' + encodeURIComponent(sortName);
+                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(category)  +'&keyword=' + encodeURIComponent(keyword) + '&sortName=' + encodeURIComponent(sortName) + '&selectedAllergies=' + encodeURIComponent(selectedAllergies);
             } else {
-                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(category) + '&keyword=' + encodeURIComponent(keyword) + '&sortName=' + encodeURIComponent(sortName) + '&page=' + encodeURIComponent(pageNum);
+                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(category) + '&keyword=' + encodeURIComponent(keyword) + '&sortName=' + encodeURIComponent(sortName) + '&selectedAllergies=' + encodeURIComponent(selectedAllergies) + '&page=' + encodeURIComponent(pageNum);
             }
         });
     });
@@ -233,7 +234,7 @@
     });
     $("#modal-close").click(function () {
         modalHide();
-    })
+    });
 </script>
 <%@include file="/footer.jsp" %>
 </body>

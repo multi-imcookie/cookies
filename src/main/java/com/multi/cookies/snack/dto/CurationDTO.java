@@ -29,7 +29,7 @@ public class CurationDTO {
     private int strawberry;          // 기호 : 딸기
     private int chili;               // 기호 : 칠리
     private int honey;               // 기호 : 허니
-
-
 }
+
+
 
