@@ -11,10 +11,10 @@ public class SignService {
     @Autowired
     SignDAO signDAO;
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    JasyptEncoderService jasyptEncoderService;
 
     public int sign(MemberDTO memberDTO){
-        String encodePw = bCryptPasswordEncoder.encode(memberDTO.getMember_pw());
+        String encodePw = jasyptEncoderService.encrypt(memberDTO.getMember_pw());
         memberDTO.setMember_pw(encodePw);
         return signDAO.sign(memberDTO);
     }

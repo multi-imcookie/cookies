@@ -52,8 +52,7 @@ public class LoginController {
     public String login(HttpServletResponse response,@RequestParam Map<String, String> map,HttpSession session) throws UnsupportedEncodingException {
         //to do 1):  id , password유효성검사 추가
         //to do 2):  비밀번호 암호화 추가
-//        if(!loginService.isValidPassWord(map)){                    //id ,pw 유효하지 않으면 -> 아이디 비밀번호가 일치 하지 않습니다.
-        if(!true){                    //id ,pw 유효하지 않으면 -> 아이디 비밀번호가 일치 하지 않습니다.
+        if(!loginService.isValidPassWord(map)){                    //id ,pw 유효하지 않으면 -> 아이디 비밀번호가 일치 하지 않습니다.
             String msg = URLEncoder.encode("아이디 또는 패스워드가 일치하지 않습니다.","utf-8"); //todo :Exception처리
             return "redirect:/login?msg="+msg;
         }
