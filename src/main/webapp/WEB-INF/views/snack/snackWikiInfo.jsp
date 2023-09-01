@@ -216,13 +216,15 @@
     $(document).ready(function () {
         $('#goToSearchList').click(function (event) {
             event.preventDefault(); // 기본 동작을 취소합니다.
-            let pageNum = localStorage.getItem('currentPage');
-            let storedKeyword = localStorage.getItem('keyword'); // 저장된 키워드 불러오기
-            let storedCategory = localStorage.getItem('category'); // 저장된 키워드 불러오기
+            let urlParams = new URL(location.href).searchParams;
+            let pageNum = urlParams.get('page');
+            let keyword = urlParams.get('keyword');
+            let category = urlParams.get('category');
+            let sortName = urlParams.get('sortName');
             if (pageNum === null) {
-                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(storedCategory) + '&keyword=' + encodeURIComponent(storedKeyword);
+                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(category)  +'&keyword=' + encodeURIComponent(keyword) + '&sortName=' + encodeURIComponent(sortName);
             } else {
-                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(storedCategory) + '&keyword=' + encodeURIComponent(storedKeyword) + '&page=' + encodeURIComponent(pageNum);
+                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(category) + '&keyword=' + encodeURIComponent(keyword) + '&sortName=' + encodeURIComponent(sortName) + '&page=' + encodeURIComponent(pageNum);
             }
         });
     });

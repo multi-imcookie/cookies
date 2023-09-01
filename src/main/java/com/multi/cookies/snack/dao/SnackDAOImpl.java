@@ -15,12 +15,11 @@ public class SnackDAOImpl implements SnackDAO {
     SqlSessionTemplate sqlSessionTemplate;
 
     @Override
-    public List<SearchDTO> snackSearch(String keyword, String category) {
+    public List<SearchDTO> snackSearch(String keyword, String category, String sortName) {
         System.out.println("DAO까지 잘 왔어!");
-        System.out.println(category);
+
         List<SearchDTO> searchResults;
         if (category.equals("name")) {
-            System.out.println("category: " + category);
             searchResults = sqlSessionTemplate.selectList("snack.searchName", keyword);
         } else if (category.equals("ingredient")) {
             searchResults = sqlSessionTemplate.selectList("snack.searchIngredient", keyword);
@@ -28,6 +27,37 @@ public class SnackDAOImpl implements SnackDAO {
             searchResults = sqlSessionTemplate.selectList("snack.searchAll", keyword);
         }
 
+        if (sortName.equals("sortHighCalorie")) {
+            //avg_score 기준으로 정렬하기 (내림차순 / 높은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getKcal).reversed());
+        } else if (sortName.equals("sortLowCalorie")) {
+            //avg_score 기준으로 정렬하기 (올림차순 / 낮은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getKcal));
+        } else if (sortName.equals("sortHighSugar")) {
+            //sugars 기준으로 정렬하기 (내림차순 / 높은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getSugars).reversed());
+        } else if (sortName.equals("sortLowSugar")) {
+            //sugars 기준으로 정렬하기 (올림차순 / 낮은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getSugars));
+        } else if (sortName.equals("sortHighProtein")) {
+            //protein 기준으로 정렬하기 (내림차순 / 높은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getProtein).reversed());
+        } else if (sortName.equals("sortLowProtein")) {
+            //protein 기준으로 정렬하기 (올림차순 / 낮은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getProtein));
+        } else if (sortName.equals("sortHighFat")) {
+            //fat 기준으로 정렬하기 (내림차순 / 높은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getFat).reversed());
+        } else if (sortName.equals("sortLowFat")) {
+            //fat 기준으로 정렬하기 (올림차순 / 낮은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getFat));
+        } else if (sortName.equals("sortHighScore")) {
+            //avg_score 기준으로 정렬하기 (내림차순 / 높은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getAvg_score).reversed());
+        } else if (sortName.equals("sortLowAvgScore")) {
+            //avg_score 기준으로 정렬하기 (올림차순 / 낮은 것부터)
+            Collections.sort(searchResults, Comparator.comparing(SearchDTO::getAvg_score));
+        }
         return searchResults;
     }
 

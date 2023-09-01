@@ -10,6 +10,7 @@
             font-weight: 400; /* weight 다름 */
             line-height: 28px;
         }
+
         .search-results {
             list-style: none;
             padding: 0;
@@ -46,6 +47,7 @@
             color: #f39c12; /* 별점 색상 */
 
         }
+
         .pagination {
             display: flex;
             align-items: center;
@@ -89,13 +91,28 @@
                     <input class="p-regular" type="text" name="keyword" id="keyword"
                            placeholder="검색하고 싶은 과자 정보를 입력하세요.">
                 </div>
-                <button class="search-btn" type="submit"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
+                <input type="hidden" name="sortName" value="sortHighCalorie">
+                <button class="search-btn" type="submit"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘">
+                </button>
             </div>
         </form>
     </div>
 
     <div id="search-results-paginated" style="display: none;">
         <p class="p-regular">"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
+        <div id="sort-form">
+            <button id="sortHighCalorie" class="sort-btn">칼로리 ▲</button>
+            <button id="sortLowCalorie" class="sort-btn">칼로리 ▼</button>
+            <button id="sortHighSugar" class="sort-btn">당 ▲</button>
+            <button id="sortLowSugar" class="sort-btn">당 ▼</button>
+            <button id="sortHighProtein" class="sort-btn">단백질 ▲</button>
+            <button id="sortLowProtein" class="sort-btn">단백질 ▼</button>
+            <button id="sortHighFat" class="sort-btn">지방 ▲</button>
+            <button id="sortLowFat" class="sort-btn">지방 ▼</button>
+            <button id="sortHighScore" class="sort-btn">평점 ▲</button>
+            <button id="sortLowScore" class="sort-btn">평점 ▼</button>
+        </div>
+
         <div id="search-results" class="search-results">
             <%--검색 결과 총 ${fn:length(searchResult)} 건--%>
             <%--<div class="search-results">--%>
@@ -104,37 +121,42 @@
                 <div class="search-item">
                         <%--<a href="/snack/snackInfo?snack_id=${search.snack_id}">--%>
                     <a href="javascript:void(0);" class="goToDetail" data-snack-id="${searchDTO.snack_id}">
-                        <div class="thumbnail search-thumbnail" style="background-image: url(${searchDTO.snack_img})"></div>
+                        <div class="thumbnail search-thumbnail"
+                             style="background-image: url(${searchDTO.snack_img})"></div>
                         <div class="product-name">${searchDTO.snack_name}</div>
                         <c:choose>
                             <c:when test="${searchDTO.avg_score >= 1 && searchDTO.avg_score < 1.5}">
-                                <c:set var="scoreImg" value="<img src='/resources/img/score/score01.png' height='18'>" />
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score01.png' height='18'>"/>
                             </c:when>
                             <c:when test="${searchDTO.avg_score >= 1.5 && searchDTO.avg_score < 2}">
-                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_01_half.png' height='18'>" />
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score_01_half.png' height='18'>"/>
                             </c:when>
                             <c:when test="${searchDTO.avg_score >= 2 && searchDTO.avg_score < 2.5}">
-                                <c:set var="scoreImg" value="<img src='/resources/img/score/score02.png' height='18'>" />
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score02.png' height='18'>"/>
                             </c:when>
                             <c:when test="${searchDTO.avg_score >= 2.5 && searchDTO.avg_score < 3}">
-                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_02_half.png' height='18'>" />
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score_02_half.png' height='18'>"/>
                             </c:when>
                             <c:when test="${searchDTO.avg_score >= 3 && searchDTO.avg_score < 3.5}">
-                                <c:set var="scoreImg" value="<img src='/resources/img/score/score03.png' height='18'>" />
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score03.png' height='18'>"/>
                             </c:when>
                             <c:when test="${searchDTO.avg_score >= 3.5 && searchDTO.avg_score < 4}">
-                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_03_half.png' height='18'>" />
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score_03_half.png' height='18'>"/>
                             </c:when>
                             <c:when test="${searchDTO.avg_score >= 4 && searchDTO.avg_score < 4.5}">
-                                <c:set var="scoreImg" value="<img src='/resources/img/score/score04.png' height='18'>" />
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score04.png' height='18'>"/>
                             </c:when>
                             <c:when test="${searchDTO.avg_score >= 4.5 && searchDTO.avg_score < 5}">
-                                <c:set var="scoreImg" value="<img src='/resources/img/score/score_04_half.png' height='18'>" />
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score_04_half.png' height='18'>"/>
                             </c:when>
                             <c:when test="${searchDTO.avg_score == 5}">
-                                <c:set var="scoreImg" value="<img src='/resources/img/score/score05.png' height='18'>" />
+                                <c:set var="scoreImg" value="<img src='/resources/img/score/score05.png' height='18'>"/>
                             </c:when>
-                            <c:otherwise><c:set var="scoreImg" value="" /></c:otherwise>
+                            <c:otherwise><c:set var="scoreImg" value=""/></c:otherwise>
                         </c:choose>
                         <div>${scoreImg}</div>
                     </a>
@@ -176,22 +198,30 @@
         if (keyword !== "") {
             $("#search-results-paginated").show(); // 검색 키워드가 있을 경우에만 요소 보이도록 처리
             $(".pagination").show(); // 검색 키워드가 있을 경우에만 요소 보이도록 처리
-        }
+        };
+        function attachSortClickEvent() {
+            $('#sort-form .sort-btn').click(function () {
+                let sortName = $(this).attr("id");
+                let urlParams = new URL(location.href);
+                let keyword = urlParams.searchParams.get('keyword');
+                let category = urlParams.searchParams.get('category');
+                // 페이지를 1로 설정하여 정렬 후 첫 페이지로 이동
+                let currentPage = 1;
+                urlParams.searchParams.set('sortName', sortName);
+                window.location.href = "snackReviewSearch?category=" + category + "&keyword=" + keyword + "&sortName=" + sortName + "&page=" + currentPage;
+            });
+        };
 
-        // 상세 페이지를 DIV 영역 내에서 로드하는 클릭 이벤트
-        $('#search-results-paginated').on('click', '.goToDetail', function () {
-            let snackId = $(this).data('snack-id');
+        attachSortClickEvent(); // 초기 정렬 버튼 클릭 이벤트 등록
+
+        $("#sort-form").on("click", ".sort-btn", function (event) {
+            event.preventDefault();
+            let sortName = $(this).attr("id");
             let urlParams = new URL(location.href).searchParams;
+            urlParams.set('sortName', sortName);
             let keyword = urlParams.get('keyword');
             let category = urlParams.get('category');
-            let currentPage = urlParams.get('page');
-            localStorage.setItem('keyword', keyword);
-            localStorage.setItem('category', category);
-            if (currentPage == null) {
-                currentPage = 1;
-            }
-            localStorage.setItem('currentPage', currentPage);
-            window.location.href = '/snack/snackReviewSearchInfo?category=' + category + '&snack_id=' + snackId;
+            submitSortRequest(sortName, keyword, category);
         });
 
         // 페이지 로딩 버튼 클릭 시 AJAX로 페이지 로드
@@ -200,11 +230,57 @@
             let page = $(this).data("page");
             if (!page) {
                 return;
-            }
-            window.location.href = "snackReviewSearch?category=" + ${category} + "&keyword=${keyword}&page=" + page;
+            };
+            let urlParams = new URL(location.href).searchParams;
+            let keyword = urlParams.searchParams.get('keyword');
+            let category = urlParams.searchParams.get('category');
+            let sortName = urlParams.searchParams.get('sortName');
+            window.location.href = "snackReviewSearch?category=" + category + "&keyword=" + keyword + "&sortName=" + sortName + "&page=" + page;
         });
 
+        // 상세 페이지를 DIV 영역 내에서 로드하는 클릭 이벤트
+        $('#search-results-paginated').on('click', '.goToDetail', function () {
+            let snackId = $(this).data('snack-id');
+            let urlParams = new URL(location.href);
+            let keyword = urlParams.searchParams.get('keyword');
+            let category = urlParams.searchParams.get('category');
+            let currentPage = urlParams.searchParams.get('page');
+            let sortName = urlParams.searchParams.get('sortName');
+            if (currentPage == null) {
+                currentPage = 1;
+            }
+            window.location.href = '/snack/snackReviewSearchInfo?category=' + category + '&sortName=' + sortName + '&keyword=' + keyword + '&snack_id=' + snackId + '&page=' + currentPage;
+        });
+        // 정렬 후에 이벤트 다시 등록
+        $(document).ajaxComplete(function () {
+            attachSortClickEvent();
+        });
     });
+    function submitSortRequest(sortName, keyword, category) {
+        $.ajax({
+            url: "snackReviewSearch",
+            type: "GET",
+            data: {
+                sortName: sortName,
+                keyword: keyword,
+                category: category,
+            },
+            success: function (data) {
+                // 검색 결과를 업데이트하는 코드 작성
+                console.log(data)
+                let $data = $(data);
+
+                // 페이지내의 특정 부분을 찾아 업데이트
+                $("#search-results-paginated").html($data.find("#search-results-paginated").html());
+                $("#pagination").html($data.find("#pagination").html());
+            },
+            error: function () {
+                alert("정렬 실패");
+            }
+        });
+    };
+
+
     function validateForm() {
         let category = document.getElementById("cookie-select").value;
         if (category === "") {
