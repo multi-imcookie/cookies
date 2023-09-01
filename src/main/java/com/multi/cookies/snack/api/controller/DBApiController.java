@@ -18,9 +18,6 @@ public class DBApiController {
     @Autowired
     DBApiService dbApiService;
 
-    /**
-     * TODO: 스케쥴러 미작동(수정예정)
-     */
     @RequestMapping("updateDB")
     public String updateDB(Model model) throws ParseException, IOException { // DB 최신화
         int result = dbApiService.updateDB();

@@ -103,6 +103,7 @@ public class ReviewController {
         // list = service.listPage(page.getDisplayPost(), page.getPostNum());
         List<ReviewDTO> list = reviewService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
         System.out.println(list);
+        model.addAttribute("listSize", list.size());
         model.addAttribute("list", list);
         model.addAttribute("page", page);
         model.addAttribute("select", num);
