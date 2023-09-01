@@ -233,7 +233,7 @@
     });
     $("#modal-close").click(function () {
         modalHide();
-    })
+    });
 </script>
 <%@include file="/footer.jsp" %>
 </body>

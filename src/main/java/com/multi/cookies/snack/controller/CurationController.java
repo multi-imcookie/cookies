@@ -48,15 +48,9 @@ public class CurationController {
     @RequestMapping(value = {"/curation/curationStepTwo", "/curation/reCurationStepTwo"}, method = RequestMethod.GET)
     public String curationStepTwo(HttpServletRequest request, HttpSession httpSession,@ModelAttribute CurationDTO curationDTO, Model model) {
         try {
-            //System.out.println(httpSession.getAttribute("savedCurationDTO"));
-
             CurationDTO storedCurationDTO = (CurationDTO) httpSession.getAttribute("savedCurationDTO");
 
-            //System.out.println("storedCurationDTO = " + storedCurationDTO);
-
             System.out.println(httpSession.getAttribute("memberId"));
-
-            // curationDTO.setMember_id((int) httpSession.getAttribute("memberId"));
 
             int memberId = (int) httpSession.getAttribute("memberId");
 
@@ -80,6 +74,7 @@ public class CurationController {
             System.out.println("combinedCurationDTO = " + combinedCurationDTO);
             String requestURI = request.getRequestURI();
             System.out.println(requestURI);
+
             // 조합된 DTO를 이용하여 curationService 호출
             if (requestURI.equals("/curation/reCurationStepTwo")) {
                 curationService.updatePersonality(combinedCurationDTO);
@@ -107,6 +102,7 @@ public class CurationController {
             model.addAttribute("allergyData", allergyList);
 
             return "/curation/curationCheck";
+
             // 예외 처리
         } catch (Exception e) {
             e.printStackTrace();
