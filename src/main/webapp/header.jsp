@@ -31,9 +31,9 @@
             </ul>
         </li>
         <li>
-            <a class="p-medium" href="#">쿠키랭킹</a>
+            <a class="p-medium" >쿠키랭킹</a>
             <ul class="depth2">
-                <li><a class="p-medium" href="#">나이별 랭킹</a></li>
+                <li><a class="p-medium" href="/ranking/rankingAll?page=1">리뷰 평점 랭킹</a></li>
                 <li><a class="p-medium" href="#">성분별 랭킹</a></li>
                 <li><a class="p-medium" href="/message/message_list">브랜드별 랭킹</a></li>
             </ul>

@@ -74,14 +74,6 @@
             text-align: center;
             /*align-content: center;*/
         }
-
-        /*tbody th {*/
-        /*    background-color: #2ea879;*/
-        /*}*/
-
-        /*tbody tr:hover {*/
-        /*    background-color: rgba(50,98,149,.3);*/
-        /*}*/
         .rank-1{
             border: solid 0.125em #ECC81A;
 
@@ -102,27 +94,6 @@
             height: 200px;
             object-fit: cover ;
         }
-        .produce-image{
-            width: 214px;
-            height: 180px;
-        }
-        .produce-title {
-            margin-top: -70px;
-            margin-bottom: -50px;
-            position: relative;
-            color: white;
-        }
-        .produce-count {
-            position: absolute;
-            top: 52%;
-            left: 50%;
-            transform: translate(-50%, 43%);
-            font-family: Pretendard, sans-serif;
-            font-size: 48px;
-            font-weight: 700;
-            line-height: 48px;
-            color: black;
-        }
         .snack-name{
             font-family: Pretendard, sans-serif;
             font-size: 28px;
@@ -140,75 +111,76 @@
             font-weight: bold;
             line-height: 28px;
         }
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background-color: #fdf5e2;
-            font-weight: 600;
-            font-size: .8rem;
-        }
-        /* Animation Keyframes */
-        @keyframes growAnimation {
-            0% {
-                width: 0;
-            }
-        }
-        .progress-bar .progress {
-            height: 100%;
-            width: 0; /* 초기에는 0으로 설정 */
-            padding: 0;
-            text-align: center;
-            background-color: #89674a;
-            color: #111;
-            /* Apply animation properties */
-            animation: growAnimation 4s ease-in-out infinite;
-        }
-
-        .win-rate{
+        .avg-score{
             font-family: Pretendard, sans-serif;
             font-size: 14px;
             font-weight: bold;
             /*line-height: 28px;*/
             text-align: left;
+            margin-left: 5px;
         }
+        .avg-score-image{
+            text-align: left;
+        }
+        .review-count{
+            font-family: Pretendard, sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 28px;
+            margin-left: 700px;
+        }
+
     </style>
     <script type="text/javascript">
-    var winRateArray= [];
+
         $(function () {
             $(document).ready(function () {
-                var winRateArray = []; // 승률 값을 담을 배열
-                var maxProgressWidth = 108; // 최대 막대 폭 설정 (예: 100px)
+                var avgScoreArray= [];
+                var scoreImage=[];
+                var imageArray = [];
 
-                // winRate 값을 배열에 추가
-                $('.win-rate').each(function () {
-                    var winRate = parseFloat($(this).text());
-                    winRateArray.push(winRate);
-                    console.log("winRate",winRate)
-                    console.log("winRateArray",winRateArray)
+                console.log("scoreImage", scoreImage)
+
+                // avg-score 값을 배열에 추가
+                $('.avg-score').each(function () {
+                    var avgScore = parseFloat($(this).text());
+                    avgScoreArray.push(avgScore);
+                    console.log("avgScore", avgScore)
+                    console.log("avgScoreArray", avgScoreArray)
                 });
-                // 배열 값들을 순서대로 가져와서 진행 막대의 너비로 적용
-                $('.progress-bar').each(function (index) {
-                    var progressBar = $(this).find('.progress');
-                    console.log("progressBar",progressBar)
-                    var adjustedWidth = (winRateArray[index] / 100) * maxProgressWidth;
-                    progressBar.css('width', adjustedWidth + 'px'); // 최대 폭에 비례한 조절된 너비 설정
+
+                // 배열 값들을 순서대로 가져와서 이미지 적용
+                $('.avg-score-image-cookie').each(function (index) {
+                    var imgElement = $(this); // 현재 이미지 요소를 선택합니다.
+
+                    console.log("avgScoreArray11", avgScoreArray)
+
+                    if (avgScoreArray[index] >= 5) {
+                        imageArray.push('/resources/img/score/score05.png');
+                    } else if (avgScoreArray[index] >= 4.5) {
+                        imageArray.push('/resources/img/score/score_04_half.png');
+                    } else if (avgScoreArray[index] >= 4) {
+                        imageArray.push('/resources/img/score/score04.png');
+                    } else if (avgScoreArray[index] >= 3.5) {
+                        imageArray.push('/resources/img/score/score_03_half.png');
+                    } else if (avgScoreArray[index] >= 3) {
+                        imageArray.push('/resources/img/score/score03.png');
+                    } else if (avgScoreArray[index] >= 2.5) {
+                        imageArray.push('/resources/img/score/score_02_half.png');
+                    } else if (avgScoreArray[index] >= 2) {
+                        imageArray.push('/resources/img/score/score02.png');
+                    } else if (avgScoreArray[index] >= 1.5) {
+                        imageArray.push('/resources/img/score/score_01_half.png');
+                    } else {
+                        imageArray.push('/resources/img/score/score01.png');
+                    }
+                    console.log("avgScoreArray22", avgScoreArray)
+                    var imageSrc = imageArray[index]; // imageArray에서 해당 인덱스의 이미지 경로를 가져옵니다.
+                    console.log("imageSrc", imageSrc)
+
+                    // 이미지 경로 설정
+                    imgElement.attr('src', imageSrc);
                 });
-                // 애니메이션 및 일시 정지 기능 추가
-                var progressBar = $('.progress-bar .progress');
-                var animationDuration = 4000; // 애니메이션 지속 시간 (4초)
-                var pauseDuration = 5000; // 일시 정지 시간 (5초)
-
-                function startAnimation() {
-                    progressBar.css('animation', 'growAnimation ' + animationDuration + 'ms ease-in-out infinite');
-                    setTimeout(pauseAnimation, animationDuration); // 애니메이션 실행 후 정지
-                }
-
-                function pauseAnimation() {
-                    progressBar.css('animation', 'none');
-                    setTimeout(startAnimation, pauseDuration); // 일시 정지 후 애니메이션 다시 시작
-                }
-
-                startAnimation(); // 초기에 애니메이션 시작
             });
 
             if((<%=totalpages%>) < 11){
@@ -273,13 +245,13 @@
 
             function loadPage(page) {
                 $.ajax({
-                    url: "idealWorldCupList",
+                    url: "rankingList",
                     data: {
                         page: page
                     },
                     success: function (result) {
                         $('#d1').html(result);
-                         scrollToTop();
+                        scrollToTop();
                     },
                     error: function () {
                         alert('실패');
@@ -296,10 +268,7 @@
 <body>
 <%@include file="/header.jsp" %>
 <div class="sub-container">
-    <div class="produce-title">
-        <img src="/resources/img/entertainment/produce.png" class="produce-image">
-        <div class="produce-count">${count}</div>
-    </div>
+    <div class="review-count">총 리뷰 수 : ${count}</div>
     <div id="d1">
         <table>
             <thead>
@@ -307,7 +276,7 @@
                 <th class="rank">랭킹</th>
                 <th class="image">이미지</th>
                 <th class="name">이름</th>
-                <th class="winRatio">우승 비율</th>
+                <th class="grade">평점</th>
             </tr>
             </thead>
             <tbody>
@@ -318,12 +287,12 @@
                         <td class="snack-img"><img src="${one.snack_img}" class="image-style"></td>
                         <td class="snack-name">${one.snack_name}</td>
                         <td>
-                            <div class="win-rate">${one.winRate}%</div>
-                            <div class="progress-bar">
-                                <div class="progress"></div>
+                            <div class="avg-score">${one.avg_score}</div>
+                            <div class="avg-score-image">
+                                <!-- 이미지를 동적으로 변경할 img 요소 -->
+                                <img class="avg-score-image-cookie" src="" alt="Average Score Image">
                             </div>
                         </td>
-
                     </tr>
                 </c:if>
                 <c:if test="${status.index == 1}">
@@ -332,12 +301,12 @@
                         <td class="snack-img"><img src="${one.snack_img}" class="image-style"></td>
                         <td class="snack-name">${one.snack_name}</td>
                         <td>
-                            <div class="win-rate">${one.winRate}%</div>
-                            <div class="progress-bar">
-                                <div class="progress"></div>
+                            <div class="avg-score">${one.avg_score}</div>
+                            <div class="avg-score-image" >
+                                <!-- 이미지를 동적으로 변경할 img 요소 -->
+                                <img class="avg-score-image-cookie" src="" alt="Average Score Image">
                             </div>
                         </td>
-
                     </tr>
                 </c:if>
                 <c:if test="${status.index == 2}">
@@ -346,22 +315,24 @@
                         <td class="snack-img"><img src="${one.snack_img}" class="image-style"></td>
                         <td class="snack-name">${one.snack_name}</td>
                         <td>
-                            <div class="win-rate">${one.winRate}%</div>
-                            <div class="progress-bar">
-                                <div class="progress"></div>
+                            <div class="avg-score">${one.avg_score}</div>
+                            <div class="avg-score-image">
+                                <!-- 이미지를 동적으로 변경할 img 요소 -->
+                                <img class="avg-score-image-cookie" src="" alt="Average Score Image">
                             </div>
                         </td>
                     </tr>
                 </c:if>
                 <c:if test="${status.index >= 3}">
                     <tr class="rank-other">
-                        <td class="snack-ranking">${one.idealRanking}</td>
+                        <td class="snack-ranking">${one.rankingNumber}</td>
                         <td class="snack-img"><img src="${one.snack_img}" class="image-style"></td>
                         <td class="snack-name">${one.snack_name}</td>
                         <td>
-                            <div class="win-rate">${one.winRate}%</div>
-                            <div class="progress-bar">
-                                <div class="progress"></div>
+                            <div class="avg-score">${one.avg_score}</div>
+                            <div class="avg-score-image">
+                                <!-- 이미지를 동적으로 변경할 img 요소 -->
+                                <img class="avg-score-image-cookie" src="" alt="Average Score Image">
                             </div>
                         </td>
                     </tr>

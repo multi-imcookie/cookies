@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="snackRanking">
+
+    <select id="rankingAll" resultType="rankingDTO" parameterType="rankingPageDTO">
+        SELECT ranking.rankingNumber, ranking.snack_id, ranking.avg_score, s.snack_name, s.snack_img
+        FROM (
+                 SELECT ROW_NUMBER() OVER(ORDER BY avg_score DESC) AS rankingNumber, snack_id, avg_score
+                 FROM avg_score
+                 WHERE avg_score IS NOT NULL
+             ) ranking
+                 JOIN snack s ON ranking.snack_id = s.snack_id
+        WHERE ranking.rankingNumber BETWEEN #{start} AND #{end}
+    </select>
+    <select id="rankingList" resultType="rankingDTO" parameterType="rankingPageDTO">
+        SELECT ranking.rankingNumber, ranking.snack_id, ranking.avg_score, s.snack_name, s.snack_img
+        FROM (
+                 SELECT ROW_NUMBER() OVER(ORDER BY avg_score DESC) AS rankingNumber, snack_id, avg_score
+                 FROM avg_score
+                 WHERE avg_score IS NOT NULL
+             ) ranking
+                 JOIN snack s ON ranking.snack_id = s.snack_id
+        WHERE ranking.rankingNumber BETWEEN #{start} AND #{end}
+    </select>
+
+    <select id="count" resultType="Integer">
+        select count(*) from avg_score WHERE avg_score IS NOT NULL
+    </select>
+
+<!--    <select id="all" resultType="rankingDTO">-->
+<!--        SELECT ranking.rankingNumber, ranking.snack_id, ranking.avg_score, s.snack_name, s.snack_img-->
+<!--        FROM (-->
+<!--                 SELECT ROW_NUMBER() OVER(ORDER BY avg_score DESC) AS rankingNumber, snack_id, avg_score-->
+<!--                 FROM avg_score-->
+<!--                 WHERE avg_score IS NOT NULL-->
+<!--             ) ranking-->
+<!--                 JOIN snack s ON ranking.snack_id = s.snack_id-->
+<!--        WHERE ranking.rankingNumber BETWEEN 1 AND 100-->
+<!--    </select>-->
+</mapper>

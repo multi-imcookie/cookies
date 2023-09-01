@@ -155,57 +155,58 @@
         <button class="fill-btn" id="checkingAllergies">알러지 체크</button>
     </div>
     </div>
-    <div class="v-right">
-        <div class="v-right-view">
-            <div class="v-right-warp">
-                <%-- v-r-box에 링크 안 넣을거면 div 태그로 변경하세요 --%>
-                <a href="#" class="v-r-box box01">
-                    <div class="v-r-text">
-                        <h4 class="h-pre24">
-                            🍪<br>
-                            오늘의 과자는?
-                        </h4>
-                        <p>꼬북칩!</p>
-                        <span class="p-regular">
+</div>
+<div class="v-right">
+    <div class="v-right-view">
+        <div class="v-right-warp">
+            <%-- v-r-box에 링크 안 넣을거면 div 태그로 변경하세요 --%>
+            <a href="#" class="v-r-box box01">
+                <div class="v-r-text">
+                    <h4 class="h-pre24">
+                        🍪<br>
+                        오늘의 과자는?
+                    </h4>
+                    <p>꼬북칩!</p>
+                    <span class="p-regular">
                         오늘 날씨가 어쩌고 저쩌고 그래서 꼬북칩 드셔 보시는 게 어떠실런지 어쩌고<br>
                         무난한 추천 문구 5개정도 돌려 쓰면 좋을 듯
                     </span>
-                    </div>
-                    <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
-                </a>
-                <a href="#" class="v-r-box box02">
-                    <div class="v-r-text">
-                        <h4 class="h-pre24">
-                            🍪<br>
-                            오늘의 과자는?
-                        </h4>
-                        <p>꼬북칩!</p>
-                        <span class="p-regular">
+                </div>
+                <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
+            </a>
+            <a href="#" class="v-r-box box02">
+                <div class="v-r-text">
+                    <h4 class="h-pre24">
+                        🍪<br>
+                        오늘의 과자는?
+                    </h4>
+                    <p>꼬북칩!</p>
+                    <span class="p-regular">
                         오늘 날씨가 어쩌고 저쩌고 그래서 꼬북칩 드셔보시는게 어떠실런지 어쩌고<br>
                         무난한 추천문구 5개정도 돌려쓰면 좋을듯
                     </span>
-                    </div>
-                    <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
-                </a>
-                <a href="#" class="v-r-box box03">
-                    <div class="v-r-text">
-                        <h4 class="h-pre24">
-                            🍪<br>
-                            오늘의 과자는?
-                        </h4>
-                        <p>꼬북칩!</p>
-                        <span class="p-regular">
+                </div>
+                <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
+            </a>
+            <a href="#" class="v-r-box box03">
+                <div class="v-r-text">
+                    <h4 class="h-pre24">
+                        🍪<br>
+                        오늘의 과자는?
+                    </h4>
+                    <p>꼬북칩!</p>
+                    <span class="p-regular">
                         오늘 날씨가 어쩌고 저쩌고 그래서 꼬북칩 드셔보시는게 어떠실런지 어쩌고<br>
                         무난한 추천문구 5개정도 돌려쓰면 좋을듯
                     </span>
-                    </div>
-                    <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
-                </a>
-            </div>
+                </div>
+                <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
+            </a>
         </div>
-        <div class="slide-btn prev-btn"><img src="resources/img/icon/arrow-left.svg" alt="prev"></div>
-        <div class="slide-btn next-btn"><img src="resources/img/icon/arrow-right.svg" alt="next"></div>
     </div>
+    <div class="slide-btn prev-btn"><img src="resources/img/icon/arrow-left.svg" alt="prev"></div>
+    <div class="slide-btn next-btn"><img src="resources/img/icon/arrow-right.svg" alt="next"></div>
+</div>
 </div>
 <%@include file="footer.jsp" %>
 <script>

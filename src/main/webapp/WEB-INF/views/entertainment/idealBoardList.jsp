@@ -43,24 +43,18 @@
     })
   })
 </script>
-<div id="d1" class="ideal-board">
-  <table>
-    <tr>
-      <td class="left">닉네임</td>
-      <td class="left">내용</td>
-      <td class="left">작성시간</td>
-    </tr>
+<div class="ideal-board-all">
+  <div class="ideal-board" id="d1">
     <c:forEach items="${list}" var="one">
-      <tr>
-        <td class="right">${one.ideal_nickname}</td>
-        <td class="right">${one.ideal_content}</td>
-        <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-        <td class="right">
-          <button class="deleteIdealBoard" value="${one.ideal_id}"
-                  style="background: #E9E2D9; color: #5C492C; width: 50px;">삭제
-          </button>
-        </td>
-      </tr>
+      <div class="comment">
+        <div class="comment-nickname p-bold">${one.ideal_nickname}</div>
+
+        <div class="comment-datetime"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+        <div class="comment-delete">
+          <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
+        </div>
+        <div class="comment-content p-regular">${one.ideal_content}</div>
+      </div>
     </c:forEach>
-  </table>
+  </div>
 </div>
