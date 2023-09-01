@@ -64,17 +64,5 @@ public class AdminController {
         adminservice.deleteMember(id);
         return "redirect:/members";
     }
-        /* 회원 생성 페이지로 이동
-    @GetMapping("/create")
-    public String create() {
-        return "createMember";
-    }
-
-    // 회원 생성 처리
-    @PostMapping("/create")
-    public String create(AdminDTO member) {
-        adminservice.createMember(member);
-        return "redirect:/members";
-    } */
 }
 
