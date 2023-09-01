@@ -17,6 +17,8 @@
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealWorldCupDTO" alias="idealWorldCupDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.InitialSnackListDTO" alias="InitialSnackListDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.ranking.dto.RankingPageDTO" alias="rankingPageDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.ranking.dto.RankingDTO" alias="rankingDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.PageDTO" alias="pageDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.ReviewDTO" alias="reviewDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.ReviewReplyDTO" alias="reviewReplyDTO"></typeAlias>
@@ -30,6 +32,7 @@
         <mapper resource="mapper/dbApiMapper.xml"/>
         <mapper resource="mapper/idealBoardMapper.xml"/>
         <mapper resource="mapper/idealWorldCupMapper.xml"/>
+        <mapper resource="mapper/snackRankingMapper.xml"/>
         <mapper resource="mapper/loginMapper.xml"/>
         <mapper resource="mapper/findMapper.xml"/>
         <mapper resource="mapper/memberMapper.xml"/>

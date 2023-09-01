@@ -62,13 +62,6 @@
         }
 
         /* 입력 필드 스타일 적용 */
-        .input-wrap {
-            background: #E9E2D9;
-            padding: 16px;
-            border-radius: 12px;
-            margin: 20px 0;
-        }
-
         .input-wrap input {
             display: block;
             margin-bottom: 12px;
@@ -79,11 +72,82 @@
             font-size: 14px;
         }
         .ideal-board-all {
+            display: flex; /* Flex 컨테이너로 설정 */
+            flex-direction: row; /* 수평으로 나열하도록 설정 */
+            justify-content: space-between; /* 요소들 사이의 간격을 최대로 설정 */
+        }
+
+        /* 이하의 CSS 스타일은 필요에 따라 조정할 수 있습니다. */
+        .form-style {
+            flex: 1; /* Flex 아이템이 차지하는 공간을 조정할 수 있습니다. */
+            margin-right: 20px;
+        }
+
+        .ideal-board {
+            flex: 3; /* Flex 아이템이 차지하는 공간을 조정할 수 있습니다. */
+            margin-left: 20px;
+        }
+        /* 호버 효과 스타일 */
+        .comment {
+            border-radius: 10px; /* 라운드된 테두리 적용 */
+            background-color: #F9F5F2;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 10px;
+            position: relative;
+        }
+        .comment:hover{
+            background-color: #F4EFEC; /* 호버 시 배경색 변경 */
+        }
+
+        .comment-nickname{
+            font-size: 20px;
+        }
+        .comment-datetime{
+            font-family: Pretendard, sans-serif;
+            font-size: 14px;
+            font-weight: 400; /* weight 다름 */
+            line-height: 28px;
+        }
+        .comment-content{
+            width: 400px;
+            padding: 5px;
+        }
+        .comment-delete {
+            position: absolute;
+            top: 0; /* 상단 위치를 조절하여 우측 상단에 고정합니다. */
+            right: 0; /* 오른쪽 위치를 조절하여 우측 상단에 고정합니다. */
+            padding: 10px;
+        }
+        .comment-nickname, .comment-datetime, .comment-delete {
+            display: inline-block;
+            vertical-align: top;
+        }
+        .deleteIdealBoard{
+            background: #F9F5F2;
+            color: #966D48;
+            font-family: Pretendard, sans-serif;
+            font-size: 14px;
+            font-weight: 400; /* weight 다름 */
+            line-height: 28px;
+            width: 60px;
+            height: 24px;
+        }
+        td {
+            border-spacing: 10px; /* td 간격 설정 (원하는 크기로 조정) */
+        }
+        td{
+            padding: 5px;
+        }
+        .center-text {
             display: flex;
-            justify-content: center; /* 수평 가운데 정렬 */
-            gap: 50px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
         }
     </style>
+
     <script type="text/javascript">
         $(function () {
             $('#saveIdealBoard').click(function () {  //글 작성 function
@@ -170,6 +234,7 @@
                     }
                     currentPage--;
                     console.log("1",currentPage)
+                    loadPage(currentPage);
                     $('#nextPage').show();
                     $('.page-button.pages:lt(' + (currentPage) + ')').show();
                     $('.page-button.pages:gt(' + (currentPage - 1) + ')').hide();
@@ -225,41 +290,46 @@
         function scrollToTop() {
             window.scrollTo(0, 0);
         }
+        // 페이지가 로드될 때 기본값 "익명"을 설정합니다.
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("ideal_nickname").value = "익명";
+        });
+
     </script>
 </head>
 <body>
 <%@include file="/header.jsp" %>
 <div class="sub-container">
-    <h3>전체 의견 수: ${count}</h3>
+    <h3 class="s-h-imcre24">전체 의견 수 : ${count}</h3>
     <div class="ideal-board-all">
-    <div class="input-wrap" style="background:#E9E2D9">
-        닉네임: <input id="ideal_nickname"><br>
-        패스워드: <input id="ideal_pw"><br>
-        내용: <input id="ideal_content"><br>
-        <input class="saveIdealBoard" id="saveIdealBoard" type="button" value="의견 작성"
-               style="background: #5C492C; color: black; width: 70px;">
-    </div>
-    <div id="d1" class="ideal-board">
-        <table>
-            <tr>
-                <td class="left">닉네임</td>
-                <td class="left">내용</td>
-                <td class="left">작성시간</td>
-            </tr>
-            <c:forEach items="${list}" var="one">
-                <tr>
-                    <td class="right">${one.ideal_nickname}</td>
-                    <td class="right">${one.ideal_content}</td>
-                    <td class="right"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                    <td class="right">
-                        <button class="deleteIdealBoard" value="${one.ideal_id}"
-                                style="background: #E9E2D9; color: #5C492C; width: 50px;">삭제
-                        </button>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
+        <div class="form-style">
+            <div class="input-section">
+                <label for="ideal_nickname" class="label-wrap">닉네임</label>
+                <input type="text" name="ideal_nickname" id="ideal_nickname" placeholder="익명">
+            </div>
+            <div class="input-section">
+                <label for="ideal_pw" class="label-wrap">패스워드</label>
+                <input type="password" name="ideal_pw" id="ideal_pw" placeholder="비밀번호를 입력하세요">
+            </div>
+            <div class="input-section">
+                <label for="ideal_content" class="label-wrap">내용</label>
+                <textarea cols="30" rows="3" name="ideal_content" id="ideal_content" placeholder="의견을 입력하세요"></textarea>
+            </div>
+            <input class="saveIdealBoard" id="saveIdealBoard" type="button" value="의견 작성">
+        </div>
+        <div class="ideal-board" id="d1">
+                <c:forEach items="${list}" var="one">
+                        <div class="comment">
+                            <div class="comment-nickname p-bold">${one.ideal_nickname}</div>
+
+                            <div class="comment-datetime"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+                            <div class="comment-delete">
+                                <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
+                            </div>
+                            <div class="comment-content p-regular">${one.ideal_content}</div>
+                        </div>
+                </c:forEach>
+        </div>
     </div>
     <div class="page-buttons">
         <button class="page-button" id="prevPage"><</button>
@@ -269,6 +339,7 @@
         <button class="page-button" id="nextPage">></button>
     </div>
 </div>
+
 <%@include file="/footer.jsp" %>
 </body>
 </html>

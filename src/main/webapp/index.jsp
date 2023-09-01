@@ -38,10 +38,10 @@
                 </div>
                 <input type="hidden" name="sortName" value="sortHighCalorie">
                 <button class="search-btn"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
+            </div>
         </form>
     </div>
         <div class="v-right">
-
         </div>
     </div>
     <div class="v-right">
