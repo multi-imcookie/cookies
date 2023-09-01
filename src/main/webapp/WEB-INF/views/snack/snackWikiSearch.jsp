@@ -325,10 +325,11 @@
                 let urlParams = new URL(location.href);
                 let keyword = urlParams.searchParams.get('keyword');
                 let category = urlParams.searchParams.get('category');
+                let selectedAllergies = urlParams.searchParams.get('selectedAllergies');
                 // 페이지를 1로 설정하여 정렬 후 첫 페이지로 이동
                 let currentPage = 1;
                 urlParams.searchParams.set('sortName', sortName);
-                window.location.href = "snackWikiSearch?category=" + category + "&keyword=" + keyword + "&sortName=" + sortName + "&page=" + currentPage;
+                window.location.href = "snackWikiSearch?category=" + category + "&keyword=" + keyword + "&sortName=" + sortName + "&selectedAllergies=" + selectedAllergies + "&page=" + currentPage;
             });
         }
 
@@ -355,7 +356,8 @@
             let keyword = urlParams.searchParams.get('keyword');
             let category = urlParams.searchParams.get('category');
             let sortName = urlParams.searchParams.get('sortName');
-            window.location.href = "snackWikiSearch?category=" + category + "&keyword=" + keyword + "&sortName=" + sortName + "&page=" + page;
+            let selectedAllergies = urlParams.searchParams.get('selectedAllergies');
+            window.location.href = "snackWikiSearch?category=" + category + "&keyword=" + keyword + "&sortName=" + sortName + "&selectedAllergies=" + selectedAllergies + "&page=" + page;
         });
 
         // 상세 페이지로 이동하는 클릭 이벤트
@@ -366,10 +368,11 @@
             let category = urlParams.searchParams.get('category');
             let currentPage = urlParams.searchParams.get('page');
             let sortName = urlParams.searchParams.get('sortName');
+            let selectedAllergies = urlParams.searchParams.get('selectedAllergies');
             if (currentPage == null) {
                 currentPage = 1;
             }
-            window.location.href = '/snack/snackWikiInfo?category=' + category + "&keyword=" + keyword + '&sortName=' + sortName + '&snack_id=' + snackId + '&page=' + currentPage;
+            window.location.href = "/snack/snackWikiInfo?category=" + category + "&keyword=" + keyword + "&sortName=" + sortName + "&selectedAllergies=" + selectedAllergies + "&snack_id="+ snackId + "&page=" + currentPage;
         });
         // 정렬 후에 이벤트 다시 등록
         $(document).ajaxComplete(function () {
@@ -419,6 +422,11 @@
 
     function validateFormAndAddAllergyData() {
 
+        let category = document.getElementById("cookie-select").value;
+        if (category === "") {
+            alert("카테고리를 골라주세요");
+            return false;
+        }
         // 체크된 모든 체크박스 값을 수집하거나 처리할 데이터를 여기에서 구성
         let selectedAllergies = [];
 
@@ -439,12 +447,6 @@
 
         // 폼 제출
         form.submit();
-
-        let category = document.getElementById("cookie-select").value;
-        if (category === "") {
-            alert("카테고리를 골라주세요");
-            return false;
-        }
         return true;
     }
 

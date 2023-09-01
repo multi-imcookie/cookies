@@ -50,13 +50,20 @@ public class SnackServiceImpl implements SnackService {
             Collections.sort(searchResults, Comparator.comparing(SearchDTO::getAvg_score));
         }
         List<SearchDTO> allergyConvertedResult = new ArrayList<>();
-        if (selectedAllergies != null) {
-            for (SearchDTO searchDTO : searchResults) {
-                for (int j = 0; j < convertAllergy(selectedAllergies).size(); j++) {
-                    if (!searchDTO.getAllergy().contains(convertAllergy(selectedAllergies).get(j))) {
-                        allergyConvertedResult.add(searchDTO);
+
+        for (SearchDTO searchDTO : searchResults) {
+            if (selectedAllergies != null) {    // selectedAllergies가 null이 아닐 경우에는
+                int match = 0;  // 매치하는 알러지 개수를 담을 변수
+                for (String convertedAllergy : convertAllergy(selectedAllergies)) {    // convertAllergy(selectedAllergies)의 개수만큼 반복
+                    if (searchDTO.getAllergy() != null && searchDTO.getAllergy().contains(convertedAllergy)) {   // searchDTO.getAllergy()가 convertedAllergy를 포함할 경우
+                        match++;   // match 값 증가
                     }
                 }
+                if (match == 0) {    // match값이 없을 경우에만 searchDTO를 추가
+                    allergyConvertedResult.add(searchDTO);
+                }
+            } else {    // selectedAllergies가 null일 경우에는 그냥 추가한다
+                allergyConvertedResult.add(searchDTO);
             }
         }
         //convertAllergy
