@@ -29,4 +29,9 @@ public class MypageDAO {
         return my.selectList("member.getMyBoard", member_id);
     }
 
+    // 회원 정보 업데이트 메서드
+    public int updateMemberInfo(MypageDTO mypageDTO) {
+        return my.update("member.updateMemberInfo", mypageDTO);
+    }
+
 }

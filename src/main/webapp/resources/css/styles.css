@@ -310,6 +310,10 @@ textarea:focus {
     border-radius: 12px;
 }
 
+input[type=text]:disabled {
+    background-color: #eee;
+}
+
 .form-style input::placeholder {
     color: #CBB89B;
 }
@@ -1059,6 +1063,10 @@ label {
 
 .mypage-btn-wrap .fill-btn:hover {
     background-color: #5C492C;
+}
+
+.edit-btn-wrap {
+    align-items: center;
 }
 
 #mypageReview {

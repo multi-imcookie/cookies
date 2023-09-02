@@ -40,7 +40,10 @@
                 <li>${memberDTO.member_email}</li>
             </ul>
         </div>
-        <button href="#" class="edit-btn"><img src="/resources/img/icon/edit.svg" alt="수정버튼"></button>
+        <div class="btn-wrap-row edit-btn-wrap">
+            <a href="/editMyInfo" class="edit-btn"><img src="/resources/img/icon/edit.svg" alt="회원 정보 수정버튼"></a>
+            <a href="/editMyPassword" class="edit-btn"><img src="/resources/img/icon/passcode.svg" alt="비밀번호 변경 버튼"></a>
+        </div>
     </div>
     <div class="mypage-btn-wrap p-regular">
         <a id="myBoardBtn" class="tab-btn active">
