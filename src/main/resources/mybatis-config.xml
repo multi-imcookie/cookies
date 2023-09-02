@@ -13,6 +13,9 @@
         <typeAlias type="com.multi.cookies.member.dto.LoginDTO" alias="loginDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.MemberDTO" alias="memberDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.AdminDTO" alias="adminDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.member.dto.AdminBoardDTO" alias="adminBoardDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.member.dto.AdminReplyDTO" alias="adminReplyDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.member.dto.AdminReviewDTO" alias="adminReviewDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.MypageDTO" alias="mypageDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealWorldCupDTO" alias="idealWorldCupDTO"></typeAlias>
@@ -28,6 +31,9 @@
     </typeAliases>
 
     <mappers>
+        <mapper resource="mapper/adminBoardMapper.xml"/>
+        <mapper resource="mapper/adminReplyMapper.xml"/>
+        <mapper resource="mapper/adminReviewMapper.xml"/>
         <mapper resource="mapper/snackMapper.xml"/>
         <mapper resource="mapper/dbApiMapper.xml"/>
         <mapper resource="mapper/idealBoardMapper.xml"/>

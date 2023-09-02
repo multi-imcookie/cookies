@@ -38,12 +38,20 @@
     <div class="sub-container">
         <h1 class="s-h-imcre24">회원 목록</h1>
         <form action="/members/search" method="get">
+            <div class="main-search">
+                <div class="select-wrap">
             <select name="type">
                 <option value="nickname">닉네임</option>
                 <option value="id">아이디</option>
             </select>
-            <input type="text" name="keyword" placeholder="검색어를 입력하세요">
-            <input type="submit" value="검색">
+                </div>
+                <span class="div-line"></span>
+                <div class="search-wrap">
+                    <label class="label-bold" for="keyword">Search</label>
+                    <input class="p-regular" type="text" id="keyword" name="keyword" placeholder="검색하고 싶은 내용을 입력하세요.">
+                </div>
+                <button class="search-btn" id="btn-search"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
+            </div>
         </form>
 
 
