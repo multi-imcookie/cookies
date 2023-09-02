@@ -113,6 +113,7 @@ public class LoginController {
         }
         LoginDTO DBloginDTO= loginService.getLoginDTOByKey(loginDTO);           //DB DTO 를 가져옴
         session.setAttribute("memberId", DBloginDTO.getMember_id());        //세션에 memberId 값 지정
+        session.setAttribute("memberGrade", DBloginDTO.getMember_grade());
         session.setAttribute("memberNickName", DBloginDTO.getMember_nickname());
     }
 }

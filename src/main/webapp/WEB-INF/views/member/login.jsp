@@ -44,12 +44,12 @@
         <button type="submit" class="fill-btn">로그인${cookie.login.value=="self" ? "<img src='resources/img/score/score01.png'>":""}</button>
         <div class="btn-wrap-row social">
             <a class="social-login kakao" href="${kakakoApiUrl}">
-                <img src="resources/img/login/kakao.svg">
+                <img src="/resources/img/login/kakao.svg">
                 ${cookie.login.value=="kakao" ? "<img src='resources/img/score/score01.png'>":""}
                 카카오 로그인
             </a>
             <a class="social-login naver" href="${naverApiUrl}">
-                <img src="resources/img/login/naver.svg">
+                <img src="/resources/img/login/naver.svg">
                 ${cookie.login.value=="naver" ? "<img src='resources/img/score/score01.png'>":""}
                 네이버 로그인
             </a>

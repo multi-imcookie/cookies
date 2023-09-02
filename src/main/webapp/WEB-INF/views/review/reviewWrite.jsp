@@ -155,7 +155,7 @@
             <input type="file" id="review_img" name="review_img"><br>--%>
         <!-- 선택한 과자 정보를 저장하는 hidden input -->
         <input type="hidden" name="snack_id" id="snack_id">
-        <input type="hidden" name="member_id" id="member_id" value="10">
+        <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
     </form>
     <div class="btn-wrap-column">
         <button type="submit" class="btn-Save fill-btn p-medium" id="btn-Save">작성</button>

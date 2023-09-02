@@ -4,6 +4,43 @@
 <head>
     <%@ include file="/link.jsp" %>
     <style>
+        /* 버튼 스타일 적용 */
+        .selected-page {
+            background-image: url("/resources/img/entertainment/cookie-bite.png")!important;
+            background-size: contain; /* 이미지를 버튼에 꽉 채우도록 설정 */
+            background-repeat: no-repeat;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #784132;
+        }
+
+        /* 페이지 버튼 스타일 적용 */
+        .page-buttons {
+            display: flex;
+            justify-content: center; /* 수평 가운데 정렬 */
+            gap: 5px; /* 버튼 사이의 간격 */
+
+        }
+
+        .page-button{
+            background-image: url("/resources/img/entertainment/cookie.png");
+            background-size: contain; /* 이미지를 버튼에 꽉 채우도록 설정 */
+            background-repeat: no-repeat;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #784132;
+        }
+
+        .page-button:hover {
+            color: #F9F5F2; /* 호버시 글자 색상 변경 */
+        }
+
         .p-regular {
             font-family: Pretendard, sans-serif;
             font-size: 16px;
@@ -291,7 +328,7 @@
         </div>
     </div>
 
-    <div class="pagination" id="pagination">
+    <div class="pagination page-buttons" id="pagination">
         <a href="#" data-page="1">첫 페이지</a>
 
         <c:if test="${currentPage > 1}">
@@ -301,10 +338,10 @@
         <c:forEach var="pageNum" begin="${startPage}" end="${endPage}">
             <c:choose>
                 <c:when test="${pageNum == currentPage}">
-                    <span>${pageNum}</span>
+                    <a class="page-button selected-page" href="#">${pageNum}</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="#" data-page="${pageNum}">${pageNum}</a>
+                    <a class="page-button" href="#" data-page="${pageNum}">${pageNum}</a>
                 </c:otherwise>
             </c:choose>
         </c:forEach>

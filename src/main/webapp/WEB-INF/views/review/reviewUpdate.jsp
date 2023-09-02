@@ -48,7 +48,7 @@
         <h3>리뷰게시글 수정</h3>
 
         <form name="form" method="post">
-            <input type='hidden' name='review-id' value="${reviewDTO.review_id}">
+            <input type='hidden' name='review_id' value="${reviewDTO.review_id}">
 
 
             <div> <label>제목1 : </label>

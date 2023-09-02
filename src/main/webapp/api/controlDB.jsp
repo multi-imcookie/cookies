@@ -10,6 +10,12 @@
 <head>
     <title>전과자</title>
     <%@ include file="/link.jsp" %>
+    <c:if test="${sessionScope.memberGrade != 99}">
+        <script>
+            alert("권한이 없습니다.")
+            location.replace("/index.jsp");
+        </script>
+    </c:if>
     <script type="text/javascript">
         $(function () {
             $('#update').click(function () {
@@ -55,7 +61,7 @@
     <div class="sub-container">
         <div class="btn-wrap">
             <button id="update" class="fill-btn">DB 업데이트</button>
-<%--            <button id="insert" class="light-fill-btn" style="color:red">DB 생성(초기화 후 1회만 사용하세요!)</button>--%>
+            <%--            <button id="insert" class="light-fill-btn" style="color:red">DB 생성(초기화 후 1회만 사용하세요!)</button>--%>
             <button id="initialize" class="light-fill-btn" style="color:red">DB 초기화 (사용 시 주의하세요!)</button>
         </div>
         <div id="result" class="p-medium mt-3">
