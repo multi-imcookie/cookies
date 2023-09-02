@@ -2,7 +2,9 @@ package com.multi.cookies.snack.dao;
 
 import com.multi.cookies.snack.dto.SearchDTO;
 
+
 import java.util.List;
+import java.util.Map;
 
 public interface SnackDAO {
 
@@ -10,7 +12,9 @@ public interface SnackDAO {
 
     SearchDTO snackInfo(int snack_id);
 
+    public void saveKeyword(String keyword);
 
-//    int getTotalResults(String keyword);
+    List<String> getPopularKeywords();
+
 
 }
