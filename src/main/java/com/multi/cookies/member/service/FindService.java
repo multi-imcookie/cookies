@@ -24,6 +24,8 @@ import java.util.Map;
 @Service
 public class FindService {
     @Autowired
+    JasyptEncoderService jasyptEncoderService;
+    @Autowired
     FindDAO findDAO;
     @Autowired
     private Environment environment;
@@ -63,7 +65,9 @@ public class FindService {
 
     public String findPassWord(Map<String, Object> map) {
         String tempPassWord = getTempPassword();  //임시비밀번호 생성
-        map.put("tempPassWord",tempPassWord);  //map에  임시비밀번호 추가
+        String encodePassWord = jasyptEncoderService.encrypt(tempPassWord);
+        map.put("tempPassWord",encodePassWord);  //map에  임시비밀번호 추가
+//        map.put("tempPassWord",tempPassWord);  //map에  임시비밀번호 추가
         int updatedRow = findDAO.findPassWordByNameAndIdAndPhoneNumber(map);   //임시비밀번호로 DB 업데이트
         if(!(updatedRow==1)){
             return "데이터베이스 오류입니다";  //영향받는 로우수가 1이 아닌경우 오류인데...이미 db는 업데이트 트랜잭션 알아볼것 ????

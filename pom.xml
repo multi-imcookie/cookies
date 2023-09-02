@@ -22,7 +22,12 @@
             <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
-
+        <!--        암호화-->
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.9.3</version>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
