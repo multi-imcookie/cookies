@@ -74,10 +74,6 @@ $(document).ready(function () {
         }
     });
 
-    function signRuleGuide(element, message, color) {
-        $(element).text(message).css("color", color);
-    }
-
     // 아이디 중복 확인 실시간 반영
     $("#member_signId").keyup(function () {
         let member_signId = $(this).val();
@@ -90,19 +86,19 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response !== 0) {
-                    signRuleGuide(".id_chk", "이미 사용 중인 아이디입니다.", "#E04C47");
+                    inputRuleGuide(".id_chk", "이미 사용 중인 아이디입니다.", "#E04C47");
                 } else if (member_signId.length <= 5 || member_signId.length >= 13) { // 아이디 문자열의 입력 길이 검사
-                    signRuleGuide(".id_chk", "아이디는 6자리 이상 12자리 이하만 가능합니다.", "#E04C47");
+                    inputRuleGuide(".id_chk", "아이디는 6자리 이상 12자리 이하만 가능합니다.", "#E04C47");
                 } else if (/[~!@#$%^&*()_+|<>?:{}]/.test(member_signId)) { // 아이디 문자열에 특수문자 존재 여부 검사
-                    signRuleGuide(".id_chk", "아이디는 특수문자를 사용할 수 없습니다.", "#E04C47");
+                    inputRuleGuide(".id_chk", "아이디는 특수문자를 사용할 수 없습니다.", "#E04C47");
                 } else if (!/[0-9]/.test(member_signId) || !/[a-zA-Z]/.test(member_signId)) { // 아이디 문자열에 숫자와 영문 존재 여부 검사
-                    signRuleGuide(".id_chk", "아이디는 숫자와 영문을 함께 조합해야 합니다.", "#E04C47");
+                    inputRuleGuide(".id_chk", "아이디는 숫자와 영문을 함께 조합해야 합니다.", "#E04C47");
                 } else { // 모든 조건을 만족할 경우
-                    signRuleGuide(".id_chk", "사용 가능한 아이디입니다.", "#78CA5B");
+                    inputRuleGuide(".id_chk", "사용 가능한 아이디입니다.", "#78CA5B");
                 }
             },
             error: function () {
-                signRuleGuide(".id_chk", "아이디 중복 확인에 실패하였습니다.", "#E04C47");
+                inputRuleGuide(".id_chk", "아이디 중복 확인에 실패하였습니다.", "#E04C47");
             }
         });
     });
@@ -110,36 +106,24 @@ $(document).ready(function () {
     // 비밀번호 확인 실시간 반영
     $("#member_pwChk").keyup(function () {
         if ($("#member_pw").val() === $(this).val()) {
-            signRuleGuide(".pw_chk", "비밀번호가 일치합니다.", "#78CA5B");
+            inputRuleGuide(".pw_chk", "비밀번호가 일치합니다.", "#78CA5B");
         } else {
-            signRuleGuide(".pw_chk", "비밀번호가 일치하지 않습니다.", "#E04C47");
+            inputRuleGuide(".pw_chk", "비밀번호가 일치하지 않습니다.", "#E04C47");
         }
     });
 
     // 비밀번호 규칙 실시간 반영
     $("#member_pw").keyup(function () {
         if ($(this).val().length <= 7 || $(this).val().length >= 17) { // 비밀번호 문자열의 입력 길이 검사
-            signRuleGuide(".pw_rule", "비밀번호는 8자리 이상 16자리 이하만 가능합니다.", "#E04C47")
+            inputRuleGuide(".pw_rule", "비밀번호는 8자리 이상 16자리 이하만 가능합니다.", "#E04C47")
         } else if (!/[0-9]/.test($(this).val()) || !/[a-zA-Z]/.test($(this).val())) { // 비밀번호 문자열에 숫자와 영문 존재 여부 검사
-            signRuleGuide(".pw_rule", "비밀번호는 숫자와 영문을 함께 조합해야 합니다.", "#E04C47")
+            inputRuleGuide(".pw_rule", "비밀번호는 숫자와 영문을 함께 조합해야 합니다.", "#E04C47")
         } else if (!/[~!@#$%^&*()_+|<>?:{}]/.test($(this).val())) { // 비밀번호 문자열에 특수문자 존재 여부 검사
-            signRuleGuide(".pw_rule", "특수문자를 입력해 주세요.", "#E04C47")
+            inputRuleGuide(".pw_rule", "특수문자를 입력해 주세요.", "#E04C47")
         } else { // 모든 조건을 만족할 경우
-            signRuleGuide(".pw_rule", "사용 가능한 비밀번호 입니다.", "#78CA5B")
+            inputRuleGuide(".pw_rule", "사용 가능한 비밀번호 입니다.", "#78CA5B")
         }
     });
-
-    // 도움말 창
-    $(".help").click(function () {
-        $(".help-content").show();
-    });
-
-    $(document).mouseup(function (e) {
-        let helpPopup = $(".help-content");
-        if (helpPopup.has(e.target).length === 0) {
-            helpPopup.css("display", "none");
-        }
-    })
 
     // 회원가입 script 끝
 });

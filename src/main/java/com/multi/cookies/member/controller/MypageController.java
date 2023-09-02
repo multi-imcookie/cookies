@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class MypageController {
     @Autowired
     MypageService mypageService;
 
-    @GetMapping("/mypage")
+    @GetMapping("mypage")
     public String mypage(HttpSession httpSession, Model model) {
         Integer memberId = (Integer) httpSession.getAttribute("memberId");
 
@@ -46,4 +47,35 @@ public class MypageController {
             return "member/mypage";
         }
     }
+
+    @GetMapping("/editMyInfo")
+    public String editMyInfo(HttpSession httpSession, Model model) {
+        // 로그인된 회원의 정보를 가져와서 폼에 기본 값으로 설정
+        Integer memberId = (Integer) httpSession.getAttribute("memberId");
+
+        if (memberId == null) {
+            // 세션에 회원 번호가 없으면 로그인 페이지로 이동
+            return "member/login";
+        } else {
+            MypageDTO memberDTO = mypageService.getMemberInfo(memberId);
+            model.addAttribute("memberDTO", memberDTO);
+            return "member/editMyInfo"; // 수정 화면으로 이동
+        }
+    }
+
+    @PostMapping("/updateMemberInfo")
+    public String updateMemberInfo(MypageDTO mypageDTO, HttpSession httpSession, Model model) {
+        int result = mypageService.updateMemberInfo(mypageDTO);
+
+        if (result > 0) {
+            // 업데이트가 성공하면 세션 정보도 업데이트
+            httpSession.setAttribute("memberNickName", mypageDTO.getMember_nickname());
+            httpSession.setAttribute("memberEmail", mypageDTO.getMember_email());
+            httpSession.setAttribute("memberPhone", mypageDTO.getMember_phone());
+        }
+
+        model.addAttribute("result", result);
+        return "member/editMyInfo";
+    }
+
 }
