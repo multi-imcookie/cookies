@@ -177,16 +177,19 @@
         $(function () {
             $(document).ready(function () {
                 var winRateArray = []; // 승률 값을 담을 배열
-                var maxProgressWidth = 100; // 최대 막대 폭 설정 (예: 100px)
+                var maxProgressWidth = 108; // 최대 막대 폭 설정 (예: 100px)
 
                 // winRate 값을 배열에 추가
                 $('.win-rate').each(function () {
                     var winRate = parseFloat($(this).text());
                     winRateArray.push(winRate);
+                    console.log("winRate",winRate)
+                    console.log("winRateArray",winRateArray)
                 });
                 // 배열 값들을 순서대로 가져와서 진행 막대의 너비로 적용
                 $('.progress-bar').each(function (index) {
                     var progressBar = $(this).find('.progress');
+                    console.log("progressBar",progressBar)
                     var adjustedWidth = (winRateArray[index] / 100) * maxProgressWidth;
                     progressBar.css('width', adjustedWidth + 'px'); // 최대 폭에 비례한 조절된 너비 설정
                 });

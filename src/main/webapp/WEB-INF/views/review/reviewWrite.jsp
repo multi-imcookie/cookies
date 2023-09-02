@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +14,7 @@
                 let review_title = $("#review_title").val();
                 let snack_id = $("#snack_id").val();
                 let review_content = $("#review_content").val();
+                let member_id = $("#member_id").val();
                 if (review_title == "") {
                     alert("제목을 입력하세요");
                     document.form.review_title.focus();
@@ -29,6 +28,10 @@
                 if (review_content == "") {
                     alert("내용을 입력하세요");
                     document.form.review_content.focus();
+                    return;
+                }
+                if (member_id == "") {
+                    alert("로그인 해주세요");
                     return;
                 }
                 document.form.submit();
@@ -152,7 +155,7 @@
             <input type="file" id="review_img" name="review_img"><br>--%>
         <!-- 선택한 과자 정보를 저장하는 hidden input -->
         <input type="hidden" name="snack_id" id="snack_id">
-        <input type="hidden" name="member_id" id="member_id" value="1">
+        <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
     </form>
     <div class="btn-wrap-column">
         <button type="submit" class="btn-Save fill-btn p-medium" id="btn-Save">작성</button>

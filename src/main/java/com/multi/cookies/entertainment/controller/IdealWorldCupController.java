@@ -49,7 +49,13 @@ public class IdealWorldCupController {
         pageDTO.setStartEnd(pageDTO.getPage());
         List<IdealWorldCupDTO> list = idealWorldCupDAO.all(pageDTO);
         int count = idealWorldCupDAO.count();
-        int pages = (count + 9) / 10; // 페이지 개수 계산 수정
+        int pages=0;
+        if(count%10==0) {
+            pages = count / 10 ; //전체 페이지 개수 구하기
+        }
+        else{
+            pages = count / 10 + 1; //전체 페이지 개수 구하기
+        }
 
         // 승률 계산 메서드를 호출하여 리스트에 적용
         list = calculateWinRateForList(list);

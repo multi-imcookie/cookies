@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminReply">
+
+    <!-- 모든 댓글 정보 가져오기 -->
+    <select id="getAllReplies" resultType="adminReplyDTO" parameterType="map">
+        SELECT * FROM reply
+                          LIMIT #{start}, #{pageSize}
+    </select>
+
+    <!-- 총 댓글 수 가져오기 -->
+    <select id="getTotalReplies" resultType="int">
+        SELECT COUNT(*) FROM reply
+    </select>
+
+    <!-- 댓글 검색 기능 -->
+    <select id="searchReplies" resultType="adminReplyDTO" parameterType="map">
+        SELECT * FROM reply
+        WHERE
+        <choose>
+            <when test="type == 'reply_content'">
+                content LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test="type == 'member_id'">
+                member_id = #{keyword}
+            </when>
+        </choose>
+        LIMIT #{start}, #{pageSize}
+    </select>
+
+    <!-- 특정 댓글 정보 가져오기 -->
+    <select id="getReplyById" resultType="adminReplyDTO">
+        SELECT * FROM reply WHERE reply_id = #{id}
+    </select>
+
+    <!-- 댓글 정보 수정 -->
+    <update id="updateReply" parameterType="adminReplyDTO">
+        UPDATE reply
+        SET
+            content = #{content}
+        WHERE reply_id = #{reply_id}
+    </update>
+
+    <!-- 댓글 삭제 -->
+    <delete id="deleteReply">
+        DELETE FROM reply WHERE reply_id = #{id}
+    </delete>
+
+</mapper>
+

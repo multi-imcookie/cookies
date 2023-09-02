@@ -16,7 +16,9 @@
         <ul class="team">
             <li class="team-admin">
                 <p class="p-regular">팀명 : 불멸의 코더스</p>
-                <a class="p-regular" href="#">관리자 페이지</a>
+                <c:if test="${sessionScope.memberGrade == 99}">
+                    <a class="p-regular" href="members">관리자 페이지</a>
+                </c:if>
             </li>
             <li class="p-regular">손영석 · 최영규 · 정진기 · 오현지 · 최유정 · 안서희 · 임완태 · 이성보</li>
         </ul>
@@ -49,10 +51,11 @@
             </ul>
         </li>
         <li>
-            <a class="h-imcre24" href="#">쿠키마스터</a>
+            <a class="h-imcre24" href="#">바삭 월드컵</a>
             <ul class="f-depth2">
-                <li><a class="p-medium" href="/entertainment/ideal.jsp">과자 이상형 월드컵</a></li>
-                <li><a class="p-medium" href="#">오늘의 과자</a></li>
+                <li><a class="p-medium" href="/entertainment/ideal.jsp">이상형 월드컵</a></li>
+                <li><a class="p-medium" href="/entertainment/idealWorldCupAll?page=1">랭킹</a></li>
+                <li><a class="p-medium" href="/entertainment/idealBoardAll?page=1">의견</a></li>
             </ul>
         </li>
         <li>
@@ -61,13 +64,6 @@
                 <li><a class="p-medium" href="#">나이별 랭킹</a></li>
                 <li><a class="p-medium" href="#">성분별 랭킹</a></li>
                 <li><a class="p-medium" href="#">브랜드별 랭킹</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="h-imcre24" href="#">전과자 이벤트</a>
-            <ul class="f-depth2">
-                <li><a class="p-medium" href="#">포인트 상점</a></li>
-                <li><a class="p-medium" href="#">출석체크</a></li>
             </ul>
         </li>
         <li>

@@ -45,12 +45,12 @@
         <div class="btn-wrap-row social">
             <a class="social-login kakao" href="${kakakoApiUrl}">
                 ${cookie.login.value=="kakao" ? "<img class='login-cookie' src='resources/img/score/score01.png'>":""}
-                <img src="resources/img/login/kakao.svg">
+                <img src="/resources/img/login/kakao.svg">
                 카카오 로그인
             </a>
             <a class="social-login naver" href="${naverApiUrl}">
                 ${cookie.login.value=="naver" ? "<img class='login-cookie' src='resources/img/score/score01.png'>":""}
-                <img src="resources/img/login/naver.svg">
+                <img src="/resources/img/login/naver.svg">
                 네이버 로그인
             </a>
         </div>
