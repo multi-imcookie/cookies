@@ -83,9 +83,9 @@
 
         <label for="grade">Grade:</label>
         <select id="grade" name="member_grade">
-            <option value="0" ${member.member_grade == 0 ? 'selected' : ''}>0</option>
             <option value="1" ${member.member_grade == 1 ? 'selected' : ''}>1</option>
             <option value="2" ${member.member_grade == 2 ? 'selected' : ''}>2</option>
+            <option value="3" ${member.member_grade == 3 ? 'selected' : ''}>3</option>
         </select><br>
 
         <input type="submit" value="Update">

@@ -136,7 +136,7 @@
                     <label class="label-bold" for="cookie-select">Category</label>
                     <select class="p-regular" id="cookie-select" name="category">
                         <option value="">검색 항목</option>
-                        <option value="all">전체</option>
+                        <option value="all" selected>전체</option>
                         <option value="name">과자 이름</option>
                         <option value="ingredient">원재료</option>
                     </select>
