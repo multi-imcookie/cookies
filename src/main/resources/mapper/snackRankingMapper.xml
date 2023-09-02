@@ -7,7 +7,7 @@
         FROM (
                  SELECT ROW_NUMBER() OVER(ORDER BY avg_score DESC) AS rankingNumber, snack_id, avg_score
                  FROM avg_score
-                 WHERE avg_score IS NOT NULL
+                 WHERE avg_score > 0
              ) ranking
                  JOIN snack s ON ranking.snack_id = s.snack_id
         WHERE ranking.rankingNumber BETWEEN #{start} AND #{end}
@@ -17,14 +17,14 @@
         FROM (
                  SELECT ROW_NUMBER() OVER(ORDER BY avg_score DESC) AS rankingNumber, snack_id, avg_score
                  FROM avg_score
-                 WHERE avg_score IS NOT NULL
+                 WHERE avg_score > 0
              ) ranking
                  JOIN snack s ON ranking.snack_id = s.snack_id
         WHERE ranking.rankingNumber BETWEEN #{start} AND #{end}
     </select>
 
     <select id="count" resultType="Integer">
-        select count(*) from avg_score WHERE avg_score IS NOT NULL
+        select count(*) from avg_score WHERE avg_score > 0
     </select>
 
 <!--    <select id="all" resultType="rankingDTO">-->
