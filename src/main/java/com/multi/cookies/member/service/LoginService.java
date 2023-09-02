@@ -24,10 +24,9 @@ import static org.springframework.util.StringUtils.capitalize;
 @Service
 public class LoginService {
     @Autowired
-    BCryptPasswordEncoder encoder;
-    @Autowired
     LoginDAO loginDAO;
-
+    @Autowired
+    JasyptEncoderService jasyptEncoderService;
     //카카오 로그인 or 네이버 로그인 or 자체 로그인인지 확인후 DB 테이블 가져옴.
     public LoginDTO getLoginDTOByKey(LoginDTO loginDTO) {
         String loginByKey = hasNullFields(loginDTO);
@@ -64,9 +63,7 @@ public class LoginService {
         if (loginDTO!=null) {
             String encoderPassWord = loginDTO.getMember_pw();
             String plainPassWord = (String)map.get("password");
-            System.out.println("encoderPassWord = " + encoderPassWord);
-            System.out.println("plainPassWord = " + plainPassWord);
-            boolean pwdIsTrue = encoder.matches(plainPassWord,encoderPassWord);
+            boolean pwdIsTrue =jasyptEncoderService.decrypt(encoderPassWord).equals(plainPassWord);
             System.out.println("pwdIsTrue = " + pwdIsTrue);
             return pwdIsTrue;
         }

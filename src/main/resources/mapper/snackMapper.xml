@@ -81,6 +81,19 @@
         WHERE snack_id = #{reviewDTO.snack_id}
     </update>
 
+    <insert id="saveKeyword" parameterType="String">
+        INSERT INTO popular_keyword(searched_keyword) VALUES(#{keyword})
+    </insert>
+
+    <select id="getPopularKeywords" resultType="string">
+        SELECT searched_keyword
+        FROM popular_keyword
+        GROUP BY searched_keyword
+        ORDER BY COUNT(*) DESC
+            LIMIT 5;
+    </select>
+
+
     <!-- 페이지네이션을 위해서 쿼리를 짰지만, 컨트롤러 단에서 계산하려던 문제 때문이었고,
         서비스 단으로 옮기니까 검색 결과에서 충분히 결과 얻을 수 있게 되어서 아래 getTotalResults는 안 쓰게 됨-->
 

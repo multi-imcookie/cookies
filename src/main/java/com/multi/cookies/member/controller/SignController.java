@@ -1,6 +1,5 @@
 package com.multi.cookies.member.controller;
 
-import com.multi.cookies.member.dao.SignDAO;
 import com.multi.cookies.member.dto.MemberDTO;
 import com.multi.cookies.member.service.SignService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class SignController {
     public int checkId(String member_signId) {
         return signService.checkId(member_signId);
     }
-    
+
     // 로그인 페이지 이동 경로
     @RequestMapping("moveLogin")
     public String moveLogin(){

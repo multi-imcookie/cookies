@@ -36,7 +36,7 @@
     <form class="signup-form form-style" method="post">
         <div class="input-section">
             <label class="label-wrap" for="member_signId">아이디<span class="require-val">*</span></label>
-            <input type="text" id="member_signId" name="member_signId" placeholder="아이디를 입력하세요." required>
+            <input oninput="idExp(this)" type="text" id="member_signId" name="member_signId" placeholder="아이디를 입력하세요." required>
             <span class="guide id_chk"></span>
         </div>
         <div class="input-section">
@@ -46,7 +46,7 @@
         </div>
         <div class="input-section">
             <label class="label-wrap" for="member_phone1">휴대폰번호
-                <img class="help" src="/resources/img/icon/help-circle.svg" alt="도움말">
+                <img onclick="phoneHelp()" class="help" src="/resources/img/icon/help-circle.svg" alt="도움말">
                 <span class="help-content">아이디 또는 비밀번호를 찾을 때 필요한 정보입니다.</span>
             </label>
             <input type="number" min="1" maxlength="3" oninput="maxLengthChk(this)" id="member_phone1" name="member_phone1" placeholder="000">
@@ -115,9 +115,9 @@
         </div>
         <div class="input-section">
             <label class="label-wrap" for="member_email1">이메일<span class="require-val">*</span></label>
-            <input type="text" id="member_email1" name="member_email1" placeholder="이메일을 입력하세요." required>
+            <input oninput="numberAndEngExp(this)" type="text" id="member_email1" name="member_email1" placeholder="이메일을 입력하세요." required>
             <span class="form-at">@</span>
-            <input type="text" id="member_email2" name="member_email2" placeholder="이메일 주소를 입력하세요." required>
+            <input oninput="emailExp(this)" type="text" id="member_email2" name="member_email2" placeholder="이메일 주소를 입력하세요." required>
         </div>
     </form>
     <input type="button" id="signUp-btn" class="fill-btn" value="회원가입">

@@ -54,4 +54,9 @@ public class MypageService {
         }
         return "알 수 없는 연령대";
     }
+
+    // 회원 정보 업데이트 메서드
+    public int updateMemberInfo(MypageDTO mypageDTO) {
+        return mypageDAO.updateMemberInfo(mypageDTO);
+    }
 }
