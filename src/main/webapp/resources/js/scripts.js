@@ -52,3 +52,33 @@ function modalHide() {
     $(".modal-overlay").fadeOut();
     $(".modal-box").removeClass("active");
 }
+
+// 핸드폰번호 입력 가이드창
+function phoneHelp() {
+    // 도움말 창
+    $(".help-content").show();
+
+    $(document).mouseup(function (e) {
+        let helpPopup = $(".help-content");
+        if (helpPopup.has(e.target).length === 0) {
+            helpPopup.css("display", "none");
+        }
+    })
+}
+
+// 입력창에 영어 숫자 제외 다른 문자 입력 불가
+let numberAndEngExp = (target) => {
+    target.value = target.value
+        .replace(/[^0-9a-zA-Z]/g, '');
+}
+
+// 입력창에 영어와 점 제외 다른 문자 입력 불가
+let emailExp = (target) => {
+    target.value = target.value
+        .replace(/[^a-zA-Z.]/g, '');
+}
+
+// input 입력 가이드
+function inputRuleGuide(element, message, color) {
+    $(element).text(message).css("color", color);
+}

@@ -76,16 +76,6 @@
         WHERE member_id = #{member_id}
     </select>
 
-    <!-- mypage 멤버 정보 수정 -->
-    <update id="updateMemberInfo" parameterType="mypageDTO">
-        UPDATE member
-        SET member_nickname = #{member_nickname},
-            member_phone    = #{member_phone},
-            member_email    = #{member_email},
-            member_pw       = #{member_pw}
-        WHERE member_signId = #{member_signId}
-    </update>
-
     <!-- mypage 작성한 리뷰 조회 -->
     <select id="getMyReview" parameterType="int" resultType="reviewDTO">
         select * from review_bbs
@@ -97,5 +87,14 @@
         select * from bbs
         where member_id = #{member_id}
     </select>
+
+    <!-- mypage 멤버 정보 수정 -->
+    <update id="updateMemberInfo" parameterType="mypageDTO">
+        UPDATE member
+        SET member_nickname = #{member_nickname},
+            member_email    = #{member_email},
+            member_phone    = #{member_phone}
+        WHERE member_id = #{member_id}
+    </update>
 
 </mapper>
