@@ -61,6 +61,7 @@ public class LoginController {
         LoginDTO loginDTO = loginService.getMemberDTObyUserName((String)map.get("username"));
 //        System.out.println("loginDTO = " + loginDTO);
         session.setAttribute("memberId", loginDTO.getMember_id());
+        session.setAttribute("memberGrade", loginDTO.getMember_grade());
         session.setAttribute("memberNickName", loginDTO.getMember_nickname());
 //        System.out.println("안녕");
         if(map.get("remember")==null){  //체크박스 체크 아닐시 , id저장 하지 않기
