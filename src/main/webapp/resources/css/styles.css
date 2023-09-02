@@ -139,6 +139,7 @@ button {
     cursor: pointer;
     flex: 1 0 0;
     transition: all .3s;
+    gap: 8px;
 }
 
 .fill-btn {
@@ -1249,6 +1250,10 @@ label {
     gap: 12px;
     flex: 1 0 0;
     border-radius: 12px;
+}
+
+.login-cookie {
+    width: 24px;
 }
 
 .social-login.kakao {

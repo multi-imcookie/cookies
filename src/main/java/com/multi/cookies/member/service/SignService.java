@@ -20,6 +20,6 @@ public class SignService {
     }
 
     public int checkId(String member_signId) {
-        return 0;
+        return signDAO.checkId(member_signId);
     }
 }
