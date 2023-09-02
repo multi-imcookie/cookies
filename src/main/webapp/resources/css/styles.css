@@ -311,6 +311,10 @@ textarea:focus {
     border-radius: 12px;
 }
 
+input[type=text]:disabled {
+    background-color: #eee;
+}
+
 .form-style input::placeholder {
     color: #CBB89B;
 }
@@ -1056,29 +1060,33 @@ label {
     background-color: #ddd;
 }
 
-.mypage-btn-wrap {
+.tab-btn-wrap {
     display: flex;
     align-items: flex-start;
     gap: 12px;
     align-self: stretch;
 }
 
-.mypage-btn-wrap a {
+.tab-btn-wrap a {
     gap: 8px;
     flex: 1 0 0;
 }
 
-.mypage-btn-wrap .light-fill-btn:hover {
+.tab-btn-wrap .light-fill-btn:hover {
     background-color: #B48D69;
     color: #fff;
 }
 
-.mypage-btn-wrap .light-fill-btn:hover svg path {
+.tab-btn-wrap .light-fill-btn:hover svg path {
     stroke: #fff;
 }
 
-.mypage-btn-wrap .fill-btn:hover {
+.tab-btn-wrap .fill-btn:hover {
     background-color: #5C492C;
+}
+
+.edit-btn-wrap {
+    align-items: center;
 }
 
 #mypageReview {
