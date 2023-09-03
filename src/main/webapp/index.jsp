@@ -14,7 +14,7 @@
 </head>
 <body>
 <%@include file="/header.jsp" %>
-<div class="modal-overlay">
+<div class="modal-overlay p-bold">
     <div class="allergy-modal-box modal-box">
         <div class="mdl-text">
             <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
@@ -122,7 +122,9 @@
                 </table>
             </div>
         </div>
-        <button type="button" id="checkedAllergiesData"> 확인</button>
+        <div class="btn-wrap-row p-bold">
+        <button class="fill-btn" type="button" id="checkedAllergiesData"> 확인 </button>
+        </div>
     </div>
 </div>
 <div class="visual">
@@ -156,8 +158,8 @@
         <span id="checkedAllergies">
         </span>
 
-        <div class="btn-wrap-row">
-            <button class="fill-btn" id="checkingAllergies">주의할 알레르기를 체크해주세요!</button>
+        <div class="btn-wrap-row p-bold">
+            <button class="fill-btn" id="checkingAllergies"> 주의할 알레르기를 체크해주세요! </button>
         </div>
         <div class="popular-slide" id="popular-slide">
             <ul id="ticker">
