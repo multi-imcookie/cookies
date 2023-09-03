@@ -113,7 +113,7 @@
             width: 400px;
             padding: 5px;
         }
-        .comment-delete {
+        .comment-datetime-delete {
             position: absolute;
             top: 0; /* 상단 위치를 조절하여 우측 상단에 고정합니다. */
             right: 0; /* 오른쪽 위치를 조절하여 우측 상단에 고정합니다. */
@@ -216,6 +216,9 @@
                     }
                 }) //ajax
             })
+            if((<%=totalpages%>) < 11){
+                $('#nextPage').hide();
+            }
             var currentPage = 1; // 현재 페이지 번호 초기화
             $('.page-button.pages').hide();// 이 부분은 버튼 초기 숨김 처리입니다.
             $('#prevPage').hide();
@@ -322,8 +325,8 @@
                         <div class="comment">
                             <div class="comment-nickname p-bold">${one.ideal_nickname}</div>
 
-                            <div class="comment-datetime"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
-                            <div class="comment-delete">
+                            <div class="comment-datetime-delete">
+                                <div class="comment-datetime"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
                                 <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
                             </div>
                             <div class="comment-content p-regular">${one.ideal_content}</div>

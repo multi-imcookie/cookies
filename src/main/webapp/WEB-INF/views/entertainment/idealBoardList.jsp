@@ -9,8 +9,6 @@
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<style>
-</style>
 <script type="text/javascript">
   $(function() {
     $('.deleteIdealBoard').click(function() {  //글 삭제 function
@@ -49,8 +47,8 @@
       <div class="comment">
         <div class="comment-nickname p-bold">${one.ideal_nickname}</div>
 
-        <div class="comment-datetime"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
-        <div class="comment-delete">
+        <div class="comment-datetime-delete">
+          <div class="comment-datetime"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
           <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
         </div>
         <div class="comment-content p-regular">${one.ideal_content}</div>
