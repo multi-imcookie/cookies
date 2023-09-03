@@ -1333,6 +1333,41 @@ label {
     background: #F9F5F2;
 }
 
+/* 이미지 크기 조절*/
+.allergy-check-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.allergy-check-box input[type="checkbox"] {
+    display: none;
+    /* 체크 박스가 체크된 경우에 적용할 스타일 */
+}
+
+.allergy-check-box input[type="checkbox"]:checked + label {
+    display: flex;
+    font-weight: bold;
+    padding: 8px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex: 1 0 0;
+    border-radius: 12px;
+    border: 2px solid #B48D69;
+    background: #CBB89B;
+}
+
+.allergy-check-box div {
+    margin-bottom: 20px;
+}
+
+
+.curation-favorite-item input[type="checkbox"] {
+    display: none;
+    /* 체크 박스가 체크된 경우에 적용할 스타일 */
+}
+
+
 .curation-favorite-item {
     display: flex;
     padding: 8px 0px;
@@ -1346,8 +1381,6 @@ label {
 }
 
 .curation-favorite-item input[type="checkbox"]:checked + label {
-    display: none;
-    /* 체크 박스가 체크된 경우에 적용할 스타일 */
     display: flex;
     font-weight: bold;
     padding: 8px 0px;
@@ -1360,35 +1393,6 @@ label {
     background: #CBB89B;
 }
 
-.allergy-check-box div {
-    margin-bottom: 20px;
-}
-
-.allergy-check-box, .curation-favorite-item input[type="checkbox"] {
-    display: none;
-    /* 체크 박스가 체크된 경우에 적용할 스타일 */
-}
-
-.allergy-check-box input[type="checkbox"]:checked + label {
-    display: none;
-    /* 체크 박스가 체크된 경우에 적용할 스타일 */
-    display: flex;
-    font-weight: bold;
-    padding: 8px 0px;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    flex: 1 0 0;
-    border-radius: 12px;
-    border: 2px solid #B48D69;
-    background: #CBB89B;
-}
-
-/* 이미지 크기 조절*/
-.allergy-check-btn img {
-    width: 24px;
-    height: 24px;
-}
 
 /* 체크한 알러지 span*/
 .checkedAllergies {
@@ -1492,7 +1496,7 @@ label {
     grid-template-columns: 1fr 1fr; /* 2개의 열로 나눔 */
     grid-template-rows: 1fr 1fr; /* 2개의 행으로 나눔 */
     height: 600px; /* 화면 높이를 100%로 설정 */
-    width: 1000px%;
+    width: 1000px;
 }
 
 /* 이미지 크기 조절*/
