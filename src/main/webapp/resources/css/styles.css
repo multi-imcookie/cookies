@@ -688,24 +688,6 @@ label {
     transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.allergy-modal-box {
-    position: absolute;
-    display: flex;
-    width: 1600px;
-    padding: 80px;
-    box-sizing: border-box;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
-    border-radius: 24px;
-    background-color: #ffffff;
-    margin: 0 auto;
-    left: 50%;
-    top: -20%;
-    transform: translate(160%, 22%);
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
 .modal-box.active {
     transform: translate(-50%, 22%);
 }
@@ -1311,6 +1293,24 @@ label {
 
 /* thumnail */
 
+.allergy-modal-box {
+    position: absolute;
+    display: flex;
+    width: 1000px;
+    padding: 70px;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    border-radius: 210px;
+    background-color: #ffffff;
+    margin: 6px auto;
+    left: 50%;
+    top: -33%;
+    transform: translate(160%, 22%);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
 /* 검색 알러지 모달 박스 */
 .allergy-check-box {
     display: flex;
@@ -1320,7 +1320,7 @@ label {
     align-self: stretch;
 }
 
-/* 검색 알러지 모달 박스 */
+/* 검색 알러지 모달 박스 버튼 */
 .allergy-check-btn {
     display: flex;
     padding: 8px 0px;
@@ -1332,6 +1332,63 @@ label {
     border: 1px solid #E9E2D9;
     background: #F9F5F2;
 }
+
+
+.allergy-check-box input[type="checkbox"] {
+    display: none;
+    /* 체크 박스가 체크된 경우에 적용할 스타일 */
+}
+
+
+.allergy-check-box input[type="checkbox"]:checked + label {
+    display: none;
+    /* 체크 박스가 체크된 경우에 적용할 스타일 */
+    display: flex;
+    padding: 8px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex: 1 0 0;
+    border-radius: 12px;
+    border: 2px solid #B48D69;
+    background: #CBB89B;
+}
+
+/* 이미지 크기 조절*/
+.allergy-check-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 체크한 알러지 span*/
+.checkedAllergies{
+    display: flex;
+    flex-wrap: wrap; /* 너비를 넘어갈 경우 자동으로 다음 줄로 넘어감 */
+}
+
+/* 검색창 밑 알레르기 꾸밈 */
+.checked-allergy {
+    font-family: Pretendard, sans-serif;
+    display: flex;
+    padding: 8px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex: 1 0 0;
+    border-radius: 12px;
+    border: 1px solid #E9E2D9;
+    background: #F9F5F2;
+    display: inline-block; /* 가로로 나열되도록 함 */
+    margin: 5px 10px; /* 알레르기 주변에 여백 추가 (상하좌우 모두 5px, 필요에 따라 조정) */
+}
+
+/* 이미지 크기 조절*/
+.checked-allergy img {
+    width: 24px;
+    height: 24px;
+}
+
+
 
 /* 인기 검색어 슬라이드 */
 .popular-slide {

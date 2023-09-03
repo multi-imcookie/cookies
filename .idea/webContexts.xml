@@ -11,6 +11,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review/write.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/header.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/member/mypage.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/snack/snackWiki.jsp" value="file://$PROJECT_DIR$/src/main/webapp/snack" />
       </map>
     </option>
   </component>
