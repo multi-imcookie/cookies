@@ -60,4 +60,15 @@ public class BoardServiceImpl implements BoardService {
     public int searchCount(String searchType, String keyword) throws Exception {
         return dao.searchCount(searchType, keyword);
     }
+
+    // 조회수 업데이트
+    @Override
+    public void updateViews(int bbs_id) {
+        try {
+            dao.updateViews(bbs_id); // dao를 통해 메서드 호출
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 예외 처리
+        }
+    }
 }

@@ -113,7 +113,7 @@
             width: 400px;
             padding: 5px;
         }
-        .comment-delete {
+        .comment-datetime-delete {
             position: absolute;
             top: 0; /* 상단 위치를 조절하여 우측 상단에 고정합니다. */
             right: 0; /* 오른쪽 위치를 조절하여 우측 상단에 고정합니다. */
@@ -157,7 +157,10 @@
                 let input_pw = document.getElementById("ideal_pw").value;
                 let input_content = document.getElementById("ideal_content").value;
                 if (input_nickname.length > 0) {
-                    if (input_pw.length > 0) {
+                    if(input_nickname.length > 10){
+                        alert("닉네임은 10글자까지 가능합니다.")
+                    }
+                    else if (input_pw.length > 0) {
                         if (input_content.length > 0) {
                             $.ajax({
                                 url: "idealBoardInsert",
@@ -216,6 +219,9 @@
                     }
                 }) //ajax
             })
+            if((<%=totalpages%>) < 11){
+                $('#nextPage').hide();
+            }
             var currentPage = 1; // 현재 페이지 번호 초기화
             $('.page-button.pages').hide();// 이 부분은 버튼 초기 숨김 처리입니다.
             $('#prevPage').hide();
@@ -305,7 +311,7 @@
         <div class="form-style">
             <div class="input-section">
                 <label for="ideal_nickname" class="label-wrap">닉네임</label>
-                <input type="text" name="ideal_nickname" id="ideal_nickname" placeholder="익명">
+                <input type="text" name="ideal_nickname" id="ideal_nickname" placeholder="닉네임은 10글자까지 가능합니다">
             </div>
             <div class="input-section">
                 <label for="ideal_pw" class="label-wrap">패스워드</label>
@@ -319,15 +325,16 @@
         </div>
         <div class="ideal-board" id="d1">
                 <c:forEach items="${list}" var="one">
-                        <div class="comment">
-                            <div class="comment-nickname p-bold">${one.ideal_nickname}</div>
-
-                            <div class="comment-datetime"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
-                            <div class="comment-delete">
-                                <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
+                    <div class="comment">
+                        <div class="comment-nickname p-bold">${one.ideal_nickname}</div>
+                        <div class="comment-datetime-delete">
+                            <div class="comment-datetime">
+                                <fmt:formatDate value="${one.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
                             </div>
-                            <div class="comment-content p-regular">${one.ideal_content}</div>
+                            <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
                         </div>
+                        <div class="comment-content p-regular">${one.ideal_content}</div>
+                    </div>
                 </c:forEach>
         </div>
     </div>

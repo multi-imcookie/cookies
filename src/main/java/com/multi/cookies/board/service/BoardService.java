@@ -29,4 +29,7 @@ public interface BoardService {
 
     // 게시물 총 갯수 + 검색 적용
     public int searchCount(String searchType, String keyword) throws Exception;
+
+    // 게시물 조회수 업데이트
+    void updateViews(int bbs_id);
 }
