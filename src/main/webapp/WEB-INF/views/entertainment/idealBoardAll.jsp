@@ -294,7 +294,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("ideal_nickname").value = "익명";
         });
-
     </script>
 </head>
 <body>
