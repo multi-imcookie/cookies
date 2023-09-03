@@ -15,12 +15,12 @@ public class AdminReviewReplyService {
     @Autowired
     private AdminReviewReplyDAO dao;
 
-    public Map<String, Object> getReplies(int page) {
+    public Map<String, Object> getReviewReplies(int page) {
         int pageSize = 20; // 페이지당 표시될 댓글 수
         int start = (page - 1) * pageSize;
-        List<AdminReviewReplyDTO> replies = dao.getAllReplies(start, pageSize);
+        List<AdminReviewReplyDTO> replies = dao.getAllReviewReplies(start, pageSize);
 
-        int totalReplies = dao.getTotalReplies();
+        int totalReplies = dao.getTotalReviewReplies();
         int totalPages = (int) Math.ceil((double) totalReplies / pageSize);
 
         int startPage = ((page - 1) / 10) * 10 + 1;
@@ -37,8 +37,8 @@ public class AdminReviewReplyService {
     }
 
     // 검색된 리뷰 댓글 조회
-    public Map<String, Object> searchReplies(String query) {
-        List<AdminReviewReplyDTO> searchedReplies = dao.searchReplies(query);
+    public Map<String, Object> searchReviewReplies(String query) {
+        List<AdminReviewReplyDTO> searchedReplies = dao.searchReviewReplies(query);
 
         Map<String, Object> result = new HashMap<>();
         result.put("searchedReplies", searchedReplies);
@@ -47,17 +47,17 @@ public class AdminReviewReplyService {
     }
 
     // 리뷰 댓글 상세 조회
-    public AdminReviewReplyDTO getReplyDetail(Long reply_id) {
-        return dao.getReplyDetail(reply_id);
+    public AdminReviewReplyDTO getReviewReplyDetail(Long reply_id) {
+        return dao.getReviewReplyDetail(reply_id);
     }
 
     // 리뷰 댓글 수정
-    public void updateReply(Long reply_id, String reply_content) {
-        dao.updateReply(reply_id, reply_content);
+    public void updateReviewReply(Long reply_id, String reply_content) {
+        dao.updateReviewReply(reply_id, reply_content);
     }
 
     // 리뷰 댓글 삭제
-    public void deleteReply(Long reply_id) {
-        dao.deleteReply(reply_id);
+    public void deleteReviewReply(Long reply_id) {
+        dao.deleteReviewReply(reply_id);
     }
 }

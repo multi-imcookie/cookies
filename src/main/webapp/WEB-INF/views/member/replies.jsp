@@ -31,12 +31,46 @@
         th {
             background-color: #f2f2f2;
         }
+        /* 버튼 그룹을 감싸는 컨테이너에 대한 스타일 */
+        .button-group {
+            display: flex;
+            flex-direction: row;
+            gap: 10px; /* 버튼 간의 간격 */
+        }
+
+        .manage-btn {
+            display: flex;
+            padding: 20px 20px;
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+            align-self: stretch;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 28px;
+            cursor: pointer;
+            background-color: #B48D69;
+            color: #F9F5F2;
+            transition: all .3s;
+            gap: 8px;
+            flex: none; /* 이 부분이 중요합니다. */
+        }
+
     </style>
 </head>
 <body>
 <%@include file="/header.jsp" %>
 <div class="sub-container">
     <h1 class="s-h-imcre24">댓글 목록</h1>
+    <div class="button-group" style="margin-top: 20px;">
+        <a href="/members" class="manage-btn">회원 관리</a>
+        <a href="/boards" class="manage-btn">자유게시판</a>
+        <a href="/replies" class="manage-btn">자게 댓글</a>
+        <a href="/reviews" class="manage-btn">리뷰게시판</a>
+        <a href="/review/replies" class="manage-btn">리뷰 댓글</a>
+        <a href="/api/controlDB.jsp" class="manage-btn">API 관리</a>
+    </div>
     <form action="/replies/search" method="get">
         <div class="main-search">
             <div class="select-wrap">
