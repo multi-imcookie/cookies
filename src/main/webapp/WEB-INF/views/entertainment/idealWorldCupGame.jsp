@@ -79,26 +79,7 @@
             font-weight: 700;
             line-height: 48px;
         }
-        .modal-box {
-            position: absolute;
-            display: flex;
-            width: 980px;
-            padding: 48px;
-            box-sizing: border-box;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            border-radius: 24px;
-            background-color: #ffffff;
-            margin: 0 auto;
-            left: 50%;
-            transform: translate(160%, 4%);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
 
-        .modal-box.active {
-            transform: translate(-50%, 0%);
-        }
         .mdl-info{
             flex-direction: column;
             align-items: center;
