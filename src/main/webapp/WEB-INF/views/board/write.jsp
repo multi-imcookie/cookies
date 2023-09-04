@@ -30,10 +30,19 @@
                       placeholder="내용을 입력하세요"></textarea>
         </div>
 
-    <div class="btn-wrap-column">
-        <button type="submit" class="fill-btn p-medium" name="action" value="write">작성</button>
-        <button class="light-fill-btn p-medium" id="backButton">뒤로가기</button>
-    </div>
+    <form action="write" method="post">
+        <label for="bbs_title">제목</label>
+        <input type="text" id="bbs_title" name="bbs_title"><br>
+        <label for="bbs_content">내용</label>
+        <textarea id="bbs_content" name="bbs_content" rows="4" cols="50"></textarea><br>
+
+        <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
+
+        <div class="btn-wrap-column">
+            <button type="submit" class="fill-btn p-medium" name="action" value="write">작성</button>
+            <button class="light-fill-btn p-medium" id="backButton">뒤로가기</button>
+        </div>
+
     </form>
 </div>
 
