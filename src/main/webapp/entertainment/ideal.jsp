@@ -124,13 +124,9 @@
             background-color: #ffffff;
             margin: 0 auto;
             left: 50%;
-            transform: translate(160%, 4%);
             transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
-        .modal-box.active {
-            transform: translate(-50%, 0%);
-        }
         .spacer {
             height: 300px; /* 원하는 공백 높이로 조정 */
         }

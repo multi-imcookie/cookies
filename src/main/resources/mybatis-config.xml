@@ -16,6 +16,7 @@
         <typeAlias type="com.multi.cookies.member.dto.AdminBoardDTO" alias="adminBoardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.AdminReplyDTO" alias="adminReplyDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.AdminReviewDTO" alias="adminReviewDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.member.dto.AdminReviewReplyDTO" alias="adminReviewReplyDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.MypageDTO" alias="mypageDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealWorldCupDTO" alias="idealWorldCupDTO"></typeAlias>
@@ -27,13 +28,14 @@
         <typeAlias type="com.multi.cookies.board.dto.ReviewReplyDTO" alias="reviewReplyDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.BoardDTO" alias="boardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.ReplyDTO" alias="replyDTO"></typeAlias>
-        <typeAlias type="com.multi.cookies.message.dto.MessageTO" alias="messageTO"></typeAlias>
+
     </typeAliases>
 
     <mappers>
         <mapper resource="mapper/adminBoardMapper.xml"/>
         <mapper resource="mapper/adminReplyMapper.xml"/>
         <mapper resource="mapper/adminReviewMapper.xml"/>
+        <mapper resource="mapper/adminReviewReplyMapper.xml"/>
         <mapper resource="mapper/snackMapper.xml"/>
         <mapper resource="mapper/dbApiMapper.xml"/>
         <mapper resource="mapper/idealBoardMapper.xml"/>
@@ -47,7 +49,6 @@
         <mapper resource="mapper/boardMapper.xml"/>
         <mapper resource="mapper/replyMapper.xml"/>
         <mapper resource="mapper/curationMapper.xml"/>
-        <mapper resource="mapper/messageMapper.xml"/>
     </mappers>
 
 </configuration>

@@ -82,14 +82,21 @@
     </update>
 
     <insert id="saveKeyword" parameterType="String">
-        INSERT INTO popular_keyword(searched_keyword) VALUES(#{keyword})
+        INSERT INTO popular_keyword(searched_keyword, searched_count) VALUES(#{keyword}, 1)
     </insert>
+
+    <select id="duplicateCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM popular_keyword WHERE searched_keyword = #{keyword}
+    </select>
+    
+    <update id="updateKeywordCount" parameterType="String">
+        UPDATE popular_keyword SET searched_count = searched_count + 1 WHERE searched_keyword = #{keyword}
+    </update>
 
     <select id="getPopularKeywords" resultType="string">
         SELECT searched_keyword
         FROM popular_keyword
-        GROUP BY searched_keyword
-        ORDER BY COUNT(*) DESC
+        ORDER BY searched_count DESC
             LIMIT 5;
     </select>
 

@@ -74,7 +74,7 @@
             <li><a href="#">
                 <img src="/resources/img/icon/bell.svg" alt="알림">
             </a></li>
-            <li><a href="#">
+            <li><a href="/chat/chatbot.jsp">
                 <img src="/resources/img/icon/send.svg" alt="dm">
             </a></li>
         </ul>

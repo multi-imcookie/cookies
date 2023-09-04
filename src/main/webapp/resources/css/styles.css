@@ -89,7 +89,7 @@ button {
     flex-direction: column;
     gap: 60px;
     align-items: center;
-    margin: 60px auto 120px;
+    margin: 180px auto 120px;
 }
 
 .score-img {
@@ -426,8 +426,9 @@ label {
 /* 헤더 시작 */
 
 #header {
-    position: sticky;
+    position: fixed;
     z-index: 99;
+    margin-bottom: 120px;
     top: 0;
     width: 100%;
     box-sizing: border-box;
@@ -664,6 +665,7 @@ label {
 
 .modal-overlay {
     position: fixed;
+    top: 0;
     z-index: 100;
     display: none;
     width: 100%;
@@ -683,34 +685,18 @@ label {
     border-radius: 24px;
     background-color: #ffffff;
     margin: 0 auto;
+    top: 50%;
     left: 50%;
-    transform: translate(160%, 22%);
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-.allergy-modal-box {
-    position: absolute;
-    display: flex;
-    width: 1600px;
-    padding: 80px;
-    box-sizing: border-box;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
-    border-radius: 24px;
-    background-color: #ffffff;
-    margin: 0 auto;
-    left: 50%;
-    top: -20%;
-    transform: translate(160%, 22%);
+    transform: translate(160%, -50%);
     transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 .modal-box.active {
-    transform: translate(-50%, 22%);
+    transform: translate(-50%, -50%);
 }
 
 .mdl-text {
+    width: 100%;
     color: #232323;
     display: flex;
     flex-direction: column;
@@ -740,7 +726,7 @@ label {
 /* 메인페이지 비쥬얼 시작*/
 .visual {
     width: 1400px;
-    margin: 0 auto 120px;
+    margin: 180px auto 120px;
     display: flex;
     box-sizing: border-box;
     justify-content: space-between;
@@ -986,6 +972,18 @@ label {
 /* sub - 회원가입 페이지 끝 */
 
 /* sub - 마이페이지 시작 */
+
+.modal-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    transition: all .3s;
+}
+
+.modal-close:hover {
+    transform: rotate(90deg);
+}
+
 .profile {
     display: flex;
     flex-direction: column;
@@ -1101,7 +1099,7 @@ label {
     width: 100%;
     flex-direction: column;
     align-items: center;
-    gap: 48px;
+    gap: 24px;
     flex: 1 0 0;
 }
 
@@ -1311,33 +1309,202 @@ label {
 
 /* thumnail */
 
-/* 검색 알러지 모달 박스 */
-.allergy-check-box {
+.allergy-modal-box {
+    position: absolute;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 24px;
-    align-self: stretch;
+    width: 800px;
+    padding: 80px;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    border-radius: 36px;
+    background-color: #ffffff;
+    margin: 6px auto;
+    left: 50%;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.modal-detail-content {
+    width: 100%;
+}
+
+.modal-detail-content table {
+    width: 100%;
 }
 
 /* 검색 알러지 모달 박스 */
+.allergy-check-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+    cursor: pointer;
+    padding: 6px;
+}
+
+
+#filter-allergies {
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+#checkingAllergies {
+    color: #B48D69;
+    cursor: pointer;
+    min-width: 10%;
+    line-height: 40px;
+}
+
+#checkingAllergies img {
+    margin-right: 8px;
+}
+
+#checkedAllergies {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.v-top {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+
+/* 검색 알러지 모달 박스 버튼 */
 .allergy-check-btn {
+    position: relative;
+    display: flex;
+    height: 50px;
+    padding: 12px 8px;
+    box-sizing: border-box;
+    justify-content: center;
+    flex: 1 0 0;
+    border-radius: 8px;
+    border: 1px solid #E9E2D9;
+    background: #F9F5F2;
+    cursor: pointer;
+
+}
+
+.allergy-check-box:last-child .allergy-check-btn {
+    width: 32%;
+    flex: inherit;
+}
+
+/* 이미지 크기 조절*/
+.allergy-check-btn img {
+    width: 24px;
+    height: 24px;
+}
+.allergy-check-box label {
+    color: #5C492C;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+}
+
+.allergy-check-box input[type="checkbox"] {
+    display: none;
+    /* 체크 박스가 체크된 경우에 적용할 스타일 */
+}
+
+.allergy-check-box input[type="checkbox"]:checked + label {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding: 8px 0;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex: 1 0 0;
+    border-radius: 8px;
+    border: 1px solid #CBB89B;
+    background-color: #E9E2D9;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.allergy-check-box div {
+    margin-bottom: 20px;
+}
+
+
+.curation-favorite-item input[type="checkbox"] {
+    display: none;
+    /* 체크 박스가 체크된 경우에 적용할 스타일 */
+}
+
+
+.curation-favorite-item {
     display: flex;
     padding: 8px 0px;
     justify-content: center;
     align-items: center;
     gap: 12px;
     flex: 1 0 0;
+    border-radius: 52px;
+    border: 1px solid #E9E2D9;
+    background: #F9F5F2;
+    cursor: pointer;
+}
+
+.curation-favorite-item input[type="checkbox"]:checked + label {
+    display: flex;
+    font-weight: bold;
+    padding: 8px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex: 1 0 0;
+    border-radius: 52px;
+    border: 10px solid #5C492C;
+    background: #CBB89B;
+    cursor: pointer;
+}
+
+
+/* 체크한 알러지 span*/
+.checkedAllergies {
+    display: flex;
+    flex-wrap: wrap; /* 너비를 넘어갈 경우 자동으로 다음 줄로 넘어감 */
+}
+
+/* 검색창 밑 알레르기 꾸밈 */
+.checked-allergy {
+    font-family: Pretendard, sans-serif;
+    display: flex;
+    padding: 8px 12px;
+    justify-content: center;
+    gap: 8px;
     border-radius: 12px;
     border: 1px solid #E9E2D9;
     background: #F9F5F2;
 }
 
+/* 이미지 크기 조절*/
+.checked-allergy img {
+    width: 24px;
+    height: 24px;
+}
+
 /* 인기 검색어 슬라이드 */
 .popular-slide {
     border: 2px solid #B48D69;
+    border-radius: 8px;
     padding: 0 10px;
-    height: 20px;
     overflow: hidden;
     background: #fff;
     width: 150px;
@@ -1369,4 +1536,53 @@ label {
     color: #fff;
     font-weight: bold;
     margin-right: 3px;
+}
+
+/* 큐레이션 메인 페이지*/
+.curation-main {
+    display: flex; /* 요소를 가로로 나열 */
+    align-items: center; /* 요소를 세로 중앙 정렬 */
+    margin: 5px 0; /* 위아래 간격을 조절 */
+}
+
+.curation-main-left {
+    flex: 1; /* 왼쪽 영역을 확장합니다. */
+    margin-right: 100px;
+}
+
+.curation-main-right {
+    flex: 2; /* 오른쪽 영역을 확장합니다. */
+    display: flex;
+    flex-direction: column; /* 자식 요소들을 세로로 나열합니다. */
+    align-items: center; /* 요소를 세로 중앙 정렬 */
+    margin: 10px 0; /* 위아래 간격을 조절 */
+    align-items: center; /* 세로 정렬을 위해 추가 */
+}
+
+.curation-main-name,
+.curation-start-btn {
+    display: block; /* 두 요소를 블록 수준 요소로 만듭니다. */
+    width: 100%; /* 너비를 100%로 설정하여 가로로 확장되지 않도록 합니다. */
+}
+
+.curation-main-name {
+    margin-bottom: 50px; /* 원하는 간격을 설정하세요. */
+}
+
+.curation-favorite-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2개의 열로 나눔 */
+    grid-template-rows: 1fr 1fr; /* 2개의 행으로 나눔 */
+    height: 600px; /* 화면 높이를 100%로 설정 */
+    width: 1000px;
+}
+
+/* 이미지 크기 조절*/
+.curation-favorite-item img {
+    width: 240px;
+    height: 240px;
+}
+
+.del-allergy-btn {
+    cursor: pointer;
 }

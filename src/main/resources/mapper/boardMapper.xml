@@ -77,5 +77,10 @@
 
     </select>
 
+    <update id="updateViews" parameterType="int">
+        UPDATE bbs
+        SET bbs_views = bbs_views + 1
+        WHERE bbs_id = #{bbs_id}
+    </update>
 
 </mapper>

@@ -17,31 +17,25 @@ public class ReviewReplyDAOImpl implements ReviewReplyDAO {
     SqlSessionTemplate my;
 
 
+    // 댓글 목록
     @Override
-    public List<ReviewReplyDTO> list(int review_id) throws Exception {
-        return my.selectList("reviewReply.replyList", review_id);
+    public List<ReviewReplyDTO> getReplyList(int review_id) throws Exception {
+        return my.selectList("reviewReply.getReplyList", review_id);
     }
-
+    // 댓글 작성
     @Override
-    public void write(ReviewReplyDTO reviewReplyDTO) throws Exception {
-        my.insert("reviewReply.replyWrite", reviewReplyDTO);
+    public int saveReply(ReviewReplyDTO reviewReplyDTO) throws Exception {
+        return my.insert("reviewReply.saveReply", reviewReplyDTO);
     }
-
+    // 댓글 수정
     @Override
-    public void modify(ReviewReplyDTO reviewReplyDTO) throws Exception {
-        my.update("reviewReply.replyModify", reviewReplyDTO);
+    public int updateReply(ReviewReplyDTO reviewReplyDTO) throws Exception {
+        return my.update("reviewReply.updateReply", reviewReplyDTO);
     }
-
+    // 댓글 삭제
     @Override
-    public void delete(ReviewReplyDTO reviewReplyDTO) throws Exception {
-        my.delete("reviewReply.replyDelete", reviewReplyDTO);
-    }
-
-    // 단일 댓글 조회
-    @Override
-    public ReviewReplyDTO replySelect(ReviewReplyDTO reviewReplyDTO) throws Exception {
-
-        return my.selectOne("reviewReply.replySelect", reviewReplyDTO);
+    public int deleteReply(int reply_id) throws Exception {
+        return my.delete("reviewReply.deleteReply", reply_id);
     }
 
 

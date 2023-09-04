@@ -63,6 +63,7 @@
         if (element) {
             element.select();
         }
+    }
 
         // 문서가 준비되면 jQuery 코드를 실행합니다.
         $(document).ready(function () {

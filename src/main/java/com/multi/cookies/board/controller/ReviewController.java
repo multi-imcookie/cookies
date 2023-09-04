@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -47,7 +48,11 @@ public class ReviewController {
 
     //작성
     @RequestMapping(value = "reviewWrite", method = RequestMethod.POST)
-    public String write(@ModelAttribute ReviewDTO reviewDTO) throws Exception {
+    public String write(@ModelAttribute ReviewDTO reviewDTO, HttpSession session) throws Exception {
+
+        int member_id = (int) session.getAttribute("userId");
+        reviewDTO.setMember_id(member_id);
+
         reviewService.write(reviewDTO);
         return "redirect:reviewList?num=1";
     }
@@ -60,33 +65,34 @@ public class ReviewController {
         System.out.println(snack_id);
         model.addAttribute("reviewDTO", reviewDTO);
         model.addAttribute("snackDTO", snackService.snackInfo(snack_id));
+        model.addAttribute("reviewReplyDTO", new ReviewReplyDTO());
 
         //댓글 조회
-        List<ReviewReplyDTO> reviewReply = reviewReplyService.list(review_id);
-        model.addAttribute("reviewReply", reviewReply);
+//        List<ReviewReplyDTO> reviewReply = reviewReplyService.list(review_id);
+//        model.addAttribute("reviewReply", reviewReply);
 
     }
 
     //삭제
-    @RequestMapping(value = "reviewDelete", method = RequestMethod.POST)
-    public String delete(ReviewDTO reviewDTO) throws Exception {
-        logger.info("delete");
-
-        reviewService.delete(reviewDTO.getReview_id());
-
-        return "redirect:review/reviewList?num=1";
+    @RequestMapping(value = "reviewDelete", method = RequestMethod.GET)
+    public String delete(@RequestParam("review_id") int review_id) throws Exception {
+        reviewService.delete(review_id);
+        return "redirect:reviewList?num=1";
     }
 
 
     //수정 화면
     @RequestMapping(value = "reviewUpdate", method = RequestMethod.GET)
-    public String update() {
-        return "review/reviewUpdate";
+    public void update(@RequestParam("review_id") int review_id, Model model) throws Exception{
+        ReviewDTO reviewDTO = reviewService.read(review_id);
+        int snack_id = reviewDTO.getSnack_id();
+        model.addAttribute("read", reviewDTO);
+        model.addAttribute("snackDTO", snackService.snackInfo(snack_id));
     }
 
     //수정
     @RequestMapping(value = "reviewUpdate", method = RequestMethod.POST)
-    public String update(@ModelAttribute ReviewDTO reviewDTO) throws Exception {
+    public String update(ReviewDTO reviewDTO) throws Exception {
         reviewService.update(reviewDTO);
         return "redirect:reviewList?num=1";
     }
@@ -112,7 +118,7 @@ public class ReviewController {
 
 
 
-    //댓글
+/*    //댓글
     @RequestMapping(value = "replyWrite", method = RequestMethod.POST)
     public String postWrite(ReviewReplyDTO reviewReplyDTO) throws Exception {
 
@@ -132,7 +138,7 @@ public class ReviewController {
         ReviewReplyDTO reply = reviewReplyService.replySelect(reviewReplyDTO);
 
         model.addAttribute("reply", reply);
-    }
+    }*/
 
 
 
