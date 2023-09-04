@@ -226,7 +226,7 @@
         </div>
 
         <div style="font-size:13px" class="p-regular">  ${reviewDTO.snack_name} <span>&#183;</span> ${reviewDTO.member_nickname}
-            <span>&#183;</span> <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/></div><br>
+            <span>&#183;</span> <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/></div>
 
 
         <div id="reviewSnack" class="p-regular">
@@ -283,13 +283,13 @@
 &lt;%&ndash;                    }&ndash;%&gt;
 &lt;%&ndash;                </script>&ndash;%&gt;
             </div>--%>
-        </div><br>
+        </div>
 
 <%--        <div> <label> 과자명 : </label> ${reviewDTO.snack_name} </div>
         <div> <label> 작성자 : </label> ${reviewDTO.member_nickname} </div>
         <div> 작성일자 : <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/> </div>
         <div> <label> 내용 : </label> <input name="review_content" class="form-control" value="${reviewDTO.review_content}"> </div>--%>
-        <div> ${reviewDTO.review_content} </div><br>
+        <div> ${reviewDTO.review_content} </div>
 
         <div style="width:650px; text-align: center;">
             <a href="reviewList?num=1"><button class="fill-btn">뒤로가기</button></a>
