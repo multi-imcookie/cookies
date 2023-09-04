@@ -1392,6 +1392,10 @@ label {
 
 }
 
+.curation-favorite-container{
+    width: 100%;
+}
+
 .allergy-check-box:last-child .allergy-check-btn {
     width: 32%;
     flex: inherit;
@@ -1448,6 +1452,10 @@ label {
 .curation-favorite-item input[type="checkbox"] {
     display: none;
     /* 체크 박스가 체크된 경우에 적용할 스타일 */
+}
+
+.curation-form{
+    width: 100%;
 }
 
 
