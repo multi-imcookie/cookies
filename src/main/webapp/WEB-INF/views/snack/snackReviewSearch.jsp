@@ -70,7 +70,7 @@
 
 <body>
 <div class="modal-overlay">
-    <div class="allergy-modal-box modal-box">
+    <div class="allergy-modal-box modal-box p-bold">
         <div class="mdl-text">
             <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
             <div class="s-h-imcre24">알레르기 체크</div>
@@ -177,7 +177,7 @@
                 </table>
             </div>
         </div>
-        <button type="button" id="checkedAllergiesData"> 확인</button>
+        <button type="button" id="checkedAllergiesData"> 확인 </button>
     </div>
 </div>
 <div class="sub-container">
@@ -208,7 +208,7 @@
         </form>
     <span id="checkedAllergies">
     </span>
-    <div class="btn-wrap-row">
+    <div class="btn-wrap-row p-bold">
         <button class="fill-btn" id="checkingAllergies">주의할 알레르기를 체크해주세요!</button>
     </div>
 
