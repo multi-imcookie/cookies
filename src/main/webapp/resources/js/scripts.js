@@ -66,6 +66,14 @@ function phoneHelp() {
     })
 }
 
+// 휴대폰 하이픈 자동 생성
+let autoHyphen = (target) => {
+    target.value = target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+        .replace(/(\-{1,2})$/g, "");
+}
+
 // 입력창에 영어 숫자 제외 다른 문자 입력 불가
 let numberAndEngExp = (target) => {
     target.value = target.value
@@ -73,9 +81,15 @@ let numberAndEngExp = (target) => {
 }
 
 // 입력창에 영어와 점 제외 다른 문자 입력 불가
-let emailExp = (target) => {
+let emailAddressExp = (target) => {
     target.value = target.value
         .replace(/[^a-zA-Z.]/g, '');
+}
+
+// 입력창에 영어와 점, at 제외 다른 문자 입력 불가
+let emailExp = (target) => {
+    target.value = target.value
+        .replace(/[^0-9a-zA-Z.@]/g, '');
 }
 
 // input 입력 가이드

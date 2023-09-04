@@ -36,7 +36,7 @@
     <form class="signup-form form-style" method="post">
         <div class="input-section">
             <label class="label-wrap" for="member_signId">아이디<span class="require-val">*</span></label>
-            <input oninput="idExp(this)" type="text" id="member_signId" name="member_signId" placeholder="아이디를 입력하세요." required>
+            <input oninput="numberAndEngExp(this)" type="text" id="member_signId" name="member_signId" placeholder="아이디를 입력하세요." required>
             <span class="guide id_chk"></span>
         </div>
         <div class="input-section">
@@ -117,7 +117,7 @@
             <label class="label-wrap" for="member_email1">이메일<span class="require-val">*</span></label>
             <input oninput="numberAndEngExp(this)" type="text" id="member_email1" name="member_email1" placeholder="이메일을 입력하세요." required>
             <span class="form-at">@</span>
-            <input oninput="emailExp(this)" type="text" id="member_email2" name="member_email2" placeholder="이메일 주소를 입력하세요." required>
+            <input oninput="emailAddressExp(this)" type="text" id="member_email2" name="member_email2" placeholder="이메일 주소를 입력하세요." required>
         </div>
     </form>
     <input type="button" id="signUp-btn" class="fill-btn" value="회원가입">

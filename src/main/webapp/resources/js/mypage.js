@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    // 비밀번호 변경 모달창
+    $(".pw-edit").click(function () {
+        modalShow();
+    });
+    $(".modal-close").click(function () {
+        modalHide();
+    });
+
     // 마이페이지 내가 쓴 리뷰 탭
     $("#myReviewBtn").click(function () {
         $("#mypageReview").css("display", "flex");
@@ -16,6 +24,30 @@ $(document).ready(function () {
         $("#myReviewBtn").removeClass("active");
     })
 
+    // 회원정보 수정 페이지 접근 전 비밀번호 체크
+    $(".edit-MyInfo").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/checkMyPw",
+            dataType: "text",
+            data: {
+                member_id: $("#member_id").val(),
+                chkMemberPw: $("#chkMemberPw").val()
+            },
+            success: function (result) {
+                console.log(result);
+                alert("비밀번호 변경 페이지로 이동합니다");
+            },
+            error: function () {
+                // 에러 발생 시 에러 메시지 표시
+                alert("비밀번호 확인 중 오류가 발생하였습니다.");
+                window.location.reload();
+            }
+        });
+    });
+
+
+    // 회원정보 수정 페이지
     $("#editMyInfo-btn").click(function () {
 
         // 빈 문자열을 null로 변환, 빈 문자열로 데이터에 저장되지 않기 위해
@@ -30,25 +62,30 @@ $(document).ready(function () {
         // 입력값이 null일 경우
         if (formIsValid) {
             // 비밀번호 일치 확인
-            $.ajax({
-                type: "post",
-                url: "/updateMemberInfo",
-                dataType: "text",
-                data: {
-                    member_id: $("#member_id").val(),
-                    member_nickname: $("#member_nickname").val(),
-                    member_email: $("#member_email").val(),
-                    member_phone: $("#member_phone").val()
-                },
-                success: function (response) {
-                    if (response !== 0) {
-                        modalShow();
+            if ($("#member_pw").val() === $("#member_pwChk").val()) {
+                $.ajax({
+                    type: "post",
+                    url: "/updateMemberInfo",
+                    dataType: "text",
+                    data: {
+                        member_id: $("#member_id").val(),
+                        member_nickname: $("#member_nickname").val(),
+                        member_pw: $("#member_pw").val() !== "" ? $("#member_pw").val() : null,
+                        member_email: $("#member_email").val(),
+                        member_phone: $("#member_phone").val()
+                    },
+                    success: function (response) {
+                        if (response !== 0) {
+                            modalShow();
+                        }
+                    },
+                    error: function () {
+                        alert("회원 정보 수정에 실패하였습니다.");
                     }
-                },
-                error: function () {
-                    alert("회원 정보 수정에 실패하였습니다.");
-                }
-            });
+                });
+            } else {
+                alert("비밀번호가 일치하지 않습니다.");
+            }
         } else {
             alert("필수 입력값을 모두 입력해주세요.");
         }
@@ -87,11 +124,4 @@ $(document).ready(function () {
         }
     });
 });
-
-let autoHyphen = (target) => {
-    target.value = target.value
-        .replace(/[^0-9]/g, '')
-        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
-        .replace(/(\-{1,2})$/g, "");
-}
 

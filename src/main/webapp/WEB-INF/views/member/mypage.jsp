@@ -15,14 +15,28 @@
 </head>
 <body>
 <%@include file="/header.jsp" %>
+<div class="modal-overlay">
+    <div class="mypage-modal modal-box">
+        <a href="#" class="modal-close"><img src="/resources/img/icon/close-btn.svg" alt="close-btn"></a>
+        <div class="mdl-text">
+            <p class="h-pre24"><span>비밀번호 변경</span> 🔑<br>
+                현재 비밀번호를 입력해주세요.</p>
+            <div class="input-section">
+                <input type="hidden" id="member_id" name="member_id" value="${sessionScope.memberId}">
+                <input type="password" id="chkMemberPw" name="chkMemberPw" placeholder="현재 비밀번호를 입력해주세요." required>
+            </div>
+        </div>
+        <a class="fill-btn p-medium edit-MyInfo">회원정보 수정 페이지로 이동</a>
+    </div>
+</div>
 <div class="sub-container">
     <h3 class="s-h-imcre24">마이페이지</h3>
     <div class="profile">
         <div class="profile-img"></div>
-        <%--        <div class="btn-wrap-row p-regular">--%>
-        <%--            <a href="#" class="small-fill-btn">변경하기</a>--%>
-        <%--            <a href="#" class="small-fill-btn">삭제하기</a>--%>
-        <%--        </div>--%>
+        <div class="btn-wrap-row p-regular">
+            <a href="#" class="small-fill-btn">변경하기</a>
+            <a href="#" class="small-fill-btn">삭제하기</a>
+        </div>
     </div>
     <div class="member-info-wrap">
         <div class="member-info">
@@ -42,7 +56,7 @@
         </div>
         <div class="btn-wrap-row edit-btn-wrap">
             <a href="/editMyInfo" class="edit-btn"><img src="/resources/img/icon/edit.svg" alt="회원 정보 수정버튼"></a>
-            <a href="/editMyPassword" class="edit-btn"><img src="/resources/img/icon/passcode.svg" alt="비밀번호 변경 버튼"></a>
+            <a href="#" class="pw-edit edit-btn"><img src="/resources/img/icon/passcode.svg" alt="비밀번호 변경 버튼"></a>
         </div>
     </div>
     <div class="tab-btn-wrap p-regular">
@@ -116,18 +130,41 @@
                         <div class="left-text">
                             <h5 class="h-pre24">${myReviews.review_title}</h5>
                             <ul class="p-regular left-bottom">
-                                <li>${myReviews.review_score}</li>
+                                <c:choose>
+                                    <c:when test="${myReviews.review_score == 1}">
+                                        <c:set var="scoreImg"
+                                               value="<img src='/resources/img/score/score01.png' height='18'>"/>
+                                    </c:when>
+                                    <c:when test="${myReviews.review_score == 2}">
+                                        <c:set var="scoreImg"
+                                               value="<img src='/resources/img/score/score02.png' height='18'>"/>
+                                    </c:when>
+                                    <c:when test="${myReviews.review_score == 3}">
+                                        <c:set var="scoreImg"
+                                               value="<img src='/resources/img/score/score03.png' height='18'>"/>
+                                    </c:when>
+                                    <c:when test="${myReviews.review_score == 4}">
+                                        <c:set var="scoreImg"
+                                               value="<img src='/resources/img/score/score04.png' height='18'>"/>
+                                    </c:when>
+                                    <c:when test="${myReviews.review_score == 5}">
+                                        <c:set var="scoreImg"
+                                               value="<img src='/resources/img/score/score05.png' height='18'>"/>
+                                    </c:when>
+                                    <c:otherwise><c:set var="scoreImg" value=""/></c:otherwise>
+                                </c:choose>
+                                <li>${scoreImg} ${myReviews.review_score}</li>
                                 <span></span>
-                                <li>${myReviews.snack_id}</li>
+                                <li>${myReviews.snack_name}</li>
                                 <span></span>
-                                <li>${myReviews.member_id}</li>
+                                <li>${myReviews.member_nickname}</li>
                                 <span></span>
-                                <li><fmt:formatDate value="${myReviews.create_dt}" pattern="yyyy-MM-dd"/></li>
+                                <li><fmt:formatDate value="${myReviews.create_dt}" pattern="a HH:mm"/></li>
                             </ul>
                         </div>
                     </div>
                     <div class="right">
-                        <div class="reply-count">0</div>
+                        <div class="reply-count">${myReviews.reply_count}</div>
                     </div>
                 </a>
             </c:forEach>
