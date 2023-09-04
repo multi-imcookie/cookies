@@ -94,6 +94,7 @@
                  left join snack s on r.snack_id = s.snack_id
                  left join member m on r.member_id = m.member_id
         WHERE m.member_id = #{member_id}
+        order by r.review_id desc
     </select>
 
     <!-- mypage 작성한 게시글 조회 -->
@@ -101,6 +102,7 @@
         select *
         from bbs
         where member_id = #{member_id}
+        order by bbs_id desc
     </select>
 
     <!-- mypage 멤버 정보 수정 -->

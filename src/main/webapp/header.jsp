@@ -34,8 +34,6 @@
             <a class="p-medium" >쿠키랭킹</a>
             <ul class="depth2">
                 <li><a class="p-medium" href="/ranking/rankingAll?page=1">리뷰 평점 랭킹</a></li>
-                <li><a class="p-medium" href="#">성분별 랭킹</a></li>
-                <li><a class="p-medium" href="/message/message_list">브랜드별 랭킹</a></li>
             </ul>
         </li>
         <li>
@@ -71,9 +69,6 @@
                     <img src="/resources/img/icon/user.svg" alt="유저메뉴">
                 </a></li>
             </c:if>
-            <li><a href="#">
-                <img src="/resources/img/icon/bell.svg" alt="알림">
-            </a></li>
             <li><a href="/chat/chatbot.jsp">
                 <img src="/resources/img/icon/send.svg" alt="dm">
             </a></li>

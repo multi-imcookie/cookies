@@ -56,7 +56,7 @@
         }
 
         function openSearchPopup() {
-            window.open("/snack/snackSelectPopup", "_blank", "width=1200,height=600");
+            window.open("/snack/snackSelectPopup", "_blank", "width=1200,height=900");
         }
 
         // AJAX를 통해 선택한 과자 정보 실시간 업데이트
@@ -109,7 +109,6 @@
         <p>선택한 과자 정보</p>
         <p>과자 이름: <span id="selectedSnackName"></span></p>
         <p>회사: <span id="selectedSnackCompany"></span></p>
-        <p>원재료: <span id="selectedSnackIngredients"></span></p>
         <!-- 추가 정보들을 필요에 따라 추가 -->
     </div>
     <form name="form" method="post" class="form-style">

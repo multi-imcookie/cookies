@@ -183,7 +183,7 @@
 <body id="page-top">
 <%@ include file="/header.jsp" %>
 <section class="page-section" id="review">
-    <div class="container">
+    <div class="sub-container">
         <h3 class="s-h-imcre24">리뷰게시판</h3>
 
         <div>
