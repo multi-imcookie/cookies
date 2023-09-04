@@ -7,12 +7,13 @@ import java.util.List;
 
 public interface ReviewReplyService {
 
-    public List<ReviewReplyDTO> list(int review_id) throws Exception;
-    public void write(ReviewReplyDTO reviewReplyDTO) throws Exception;
-    public void modify(ReviewReplyDTO reviewReplyDTO) throws Exception;
-    public void delete(ReviewReplyDTO reviewReplyDTO) throws Exception;
 
-    // 단일 댓글 조회
-    public ReviewReplyDTO replySelect(ReviewReplyDTO reviewReplyDTO) throws Exception;
+    public List<ReviewReplyDTO> getReplyList(int review_id) throws Exception;
+
+    public int saveReply(ReviewReplyDTO reviewReplyDTO) throws Exception;
+
+    public int updateReply(ReviewReplyDTO reviewReplyDTO) throws Exception;
+
+    public int deleteReply(int reply_id) throws Exception;
 
 }

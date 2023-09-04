@@ -16,31 +16,25 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
     @Autowired
     ReviewReplyDAO reviewReplydao;
 
+
     @Override
-    public List<ReviewReplyDTO> list(int review_id) throws Exception {
-        return reviewReplydao.list(review_id);
+    public List<ReviewReplyDTO> getReplyList(int review_id) throws Exception {
+        return reviewReplydao.getReplyList(review_id);
     }
 
     @Override
-    public void write(ReviewReplyDTO reviewReplyDTO) throws Exception {
-        reviewReplydao.write(reviewReplyDTO);
+    public int saveReply(ReviewReplyDTO reviewReplyDTO) throws Exception {
+        return reviewReplydao.saveReply(reviewReplyDTO);
     }
 
     @Override
-    public void modify(ReviewReplyDTO reviewReplyDTO) throws Exception {
-        reviewReplydao.modify(reviewReplyDTO);
+    public int updateReply(ReviewReplyDTO reviewReplyDTO) throws Exception {
+        return reviewReplydao.updateReply(reviewReplyDTO);
     }
 
     @Override
-    public void delete(ReviewReplyDTO reviewReplyDTO) throws Exception {
-        reviewReplydao.delete(reviewReplyDTO);
-    }
-
-
-    // 단일 댓글 조회
-    @Override
-    public ReviewReplyDTO replySelect(ReviewReplyDTO reviewReplyDTO) throws Exception {
-        return reviewReplydao.replySelect(reviewReplyDTO);
+    public int deleteReply(int reply_id) throws Exception {
+        return reviewReplydao.deleteReply(reply_id);
     }
 
 
