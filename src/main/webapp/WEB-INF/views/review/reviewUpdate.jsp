@@ -88,13 +88,39 @@
 
     </script>
 
+    <style>
+        .detail-container {
+            display: flex;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .thumbnail img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .detail-content {
+            margin-left: 20px;
+        }
+
+        .detail-row {
+            margin-bottom: 10px;
+        }
+    </style>
+
 </head>
 <body>
 <%@include file="/header.jsp" %>
 <div class="sub-container">
     <h3 class="s-h-imcre24">리뷰게시판 수정</h3>
 
-    <button class="fill-btn p-medium" type="button" id="btnSearch">리뷰 과자 검색</button>
+<%--    <button class="fill-btn p-medium" type="button" id="btnSearch">리뷰 과자 검색</button>
 
     <div id="selectSnackResult" class="form-style" style="display: none;">
         <img id="selectedSnackImg" src="" alt="썸네일" value="${snackDTO.snack_img}">
@@ -103,7 +129,24 @@
         <p>회사: <span id="selectedSnackCompany" value="${snackDTO.company}"></span></p>
         <p>원재료: <span id="selectedSnackIngredients" value="${snackDTO.snack_ingredients}"></span></p>
         <!-- 추가 정보들을 필요에 따라 추가 -->
+    </div>--%>
+
+    <div id="reviewSnack" class="p-regular">
+        <div class="detail-container">
+            <div class="thumbnail"><img src="${snackDTO.snack_img}" alt="썸네일"></div>
+            <div class="detail-content">
+                <div class="detail-row">이름 : ${snackDTO.snack_name}</div>
+                <br>
+                <div class="detail-row">제조회사 : ${snackDTO.company}</div>
+                <br>
+                <div class="detail-row">원재료 : ${snackDTO.snack_ingredients}</div>
+                <br>
+                <div class="detail-row">알러지 : ${snackDTO.allergy}</div>
+            </div>
+        </div>
     </div>
+
+
     <form name="form" method="post" class="form-style">
         <div class="input-section">
             <label for="review_title" class="label-wrap">글제목</label>
