@@ -17,28 +17,28 @@ public class AdminReplyDAO {
         Map<String, Object> params = new HashMap<>();
         params.put("start", start);
         params.put("pageSize", pageSize);
-        return sqlSession.selectList("getAllReplies", params);
+        return sqlSession.selectList("adminReply.getAllReplies", params);
     }
 
     public int getTotalReplies() {
-        return sqlSession.selectOne("getTotalReplies");
+        return sqlSession.selectOne("adminReply.getTotalReplies");
     }
 
     public List<AdminReplyDTO> searchReplies(Map<String, String> params) {
-        return sqlSession.selectList("searchReplies", params);
+        return sqlSession.selectList("adminReply.searchReplies", params);
     }
 
     public AdminReplyDTO getReplyById(int id) {
-        return sqlSession.selectOne("getReplyById", id);
+        return sqlSession.selectOne("adminReply.getReplyById", id);
     }
 
     public void updateReply(int id, AdminReplyDTO reply) {
         reply.setReply_id(id);
-        sqlSession.update("updateReply", reply);
+        sqlSession.update("adminReply.updateReply", reply);
     }
 
     public void deleteReply(int id) {
-        sqlSession.delete("deleteReply", id);
+        sqlSession.delete("adminReply.deleteReply", id);
     }
 }
 

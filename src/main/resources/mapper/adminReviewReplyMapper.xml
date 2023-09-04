@@ -2,34 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminReviewReply">
 
-    <select id="getAllReplies" resultType="AdminReviewReplyDTO">
+    <select id="getAllReviewReplies" resultType="AdminReviewReplyDTO">
         SELECT * FROM review_reply LIMIT #{start}, #{pageSize}
     </select>
 
 
-    <select id="searchReplies" resultType="AdminReviewReplyDTO">
+    <select id="searchReviewReplies" resultType="AdminReviewReplyDTO">
         SELECT * FROM review_reply WHERE content LIKE CONCAT('%', #{query}, '%')
     </select>
 
 
-    <select id="getReplyDetail" resultType="AdminReviewReplyDTO">
+    <select id="getReviewReplyDetail" resultType="AdminReviewReplyDTO">
         SELECT * FROM review_reply WHERE id = #{reply_id}
     </select>
 
 
-    <update id="updateReply">
+    <update id="updateReviewReply">
         UPDATE review_reply
         SET content = #{reply_content}
         WHERE id = #{reply_id}
     </update>
 
 
-    <delete id="deleteReply">
+    <delete id="deleteReviewReply">
         DELETE FROM review_reply WHERE id = #{reply_id}
     </delete>
 
 
-    <select id="getTotalReplies" resultType="int">
+    <select id="getTotalReviewReplies" resultType="int">
         SELECT COUNT(*) FROM review_reply
     </select>
 
