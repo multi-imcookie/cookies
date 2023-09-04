@@ -1,10 +1,8 @@
 package com.multi.cookies.board.controller;
 
 import com.multi.cookies.board.dto.Page;
-import com.multi.cookies.board.dto.ReplyDTO;
 import com.multi.cookies.board.dto.ReviewDTO;
 import com.multi.cookies.board.dto.ReviewReplyDTO;
-import com.multi.cookies.board.service.ReplyService;
 import com.multi.cookies.board.service.ReviewReplyService;
 import com.multi.cookies.board.service.ReviewService;
 import com.multi.cookies.snack.service.SnackService;
@@ -50,8 +48,8 @@ public class ReviewController {
     @RequestMapping(value = "reviewWrite", method = RequestMethod.POST)
     public String write(@ModelAttribute ReviewDTO reviewDTO, HttpSession session) throws Exception {
 
-        int member_id = (int) session.getAttribute("userId");
-        reviewDTO.setMember_id(member_id);
+/*        int member_id = (int) session.getAttribute("userId");
+        reviewDTO.setMember_id(member_id);*/
 
         reviewService.write(reviewDTO);
         return "redirect:reviewList?num=1";
@@ -94,7 +92,7 @@ public class ReviewController {
     @RequestMapping(value = "reviewUpdate", method = RequestMethod.POST)
     public String update(ReviewDTO reviewDTO) throws Exception {
         reviewService.update(reviewDTO);
-        return "redirect:reviewList?num=1";
+        return "redirect:/review/reviewView?review_id=" + reviewDTO.getReview_id();
     }
 
     // 목록

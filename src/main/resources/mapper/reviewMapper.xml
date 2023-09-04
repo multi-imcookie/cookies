@@ -27,7 +27,7 @@
             review_score = #{review_score},
             snack_id = #{snack_id},
             review_content = #{review_content},
-            review_img = #{review_img}
+            member_id = #{member_id}
         WHERE review_id = #{review_id}
     </update>
 
