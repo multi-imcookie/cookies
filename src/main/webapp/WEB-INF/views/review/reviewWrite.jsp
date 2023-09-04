@@ -56,7 +56,7 @@
         }
 
         function openSearchPopup() {
-            window.open("/snack/snackSelectPopup", "_blank", "width=800,height=600");
+            window.open("/snack/snackSelectPopup", "_blank", "width=1200,height=600");
         }
 
         // AJAX를 통해 선택한 과자 정보 실시간 업데이트
@@ -131,7 +131,7 @@
                     <label for="review_score2"><img class="score-img" src="/resources/img/score/score02.png"></label>
                 </div>
                 <div class="radio-label-wrap">
-                    <input id="review_score3" type="radio" name="review_score" value="3">
+                    <input id="review_score3" type="radio" name="review_score" value="3" checked>
                     <label for="review_score3"><img class="score-img" src="/resources/img/score/score03.png"></label>
                 </div>
                 <div class="radio-label-wrap">
@@ -151,9 +151,6 @@
                       placeholder="내용을 입력하세요"></textarea>
         </div>
 
-        <%--    <label>사진파일 선택:</label>
-            <input type="file" id="review_img" name="review_img"><br>--%>
-        <!-- 선택한 과자 정보를 저장하는 hidden input -->
         <input type="hidden" name="snack_id" id="snack_id">
         <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
     </form>

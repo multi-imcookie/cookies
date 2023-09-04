@@ -9,10 +9,23 @@
 <body>
 <%@include file="/header.jsp" %>
 
-<div class="sub-container">
-    <a href="curationStepOne" onclick="showAlert()">
-        <button type="submit"> 골랐다 </button>
-    </a>
+<div class="sub-container p-regular">
+    <div class="curation-main">
+        <div class="curation-main-left">
+            <img src="/resources/img/curation/curation_home.png" alt="curation">
+        </div>
+        <div class="curation-main-right">
+            <div class="curation-main-name">
+                <h3 class="h-pre36">큐레이션 시작하기!</h3>
+            </div>
+            <div class="curation-start-btn">
+                <a href="curationStepOne" onclick="showAlert()">
+                    <button type="submit" id="curationStart"></button>
+                    <label for="curationStart" class="fill-btn">골랐다</label>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- 추가 줄들을 필요한 만큼 생성 -->

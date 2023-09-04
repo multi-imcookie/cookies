@@ -4,63 +4,37 @@
 <head>
     <title>전과자</title>
     <%@ include file="/link.jsp" %>
-    <style>
-        .button-checkbox {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #e0e0e0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: border-color 0.2s, border-width 0.2s, background-color 0.2s; /* 트랜지션 추가 */
-        }
-
-        .button-checkbox input[type="checkbox"] {
-            display: none;
-        }
-
-        .button-checkbox input[type="checkbox"]:checked + .button-label {
-            background-color: #3498db;
-            color: white;
-            border-color: #3498db;
-            border-width: 3px;
-            user-select: none; /* 텍스트 드래그 방지 */
-        }
-    </style>
-
-
 </head>
 <body>
 <%@include file="/header.jsp" %>
 
-<div class="sub-container">
+<div class="sub-container p-regular">
     <form action="/curation/reCurationStepTwo" method="get">
-        <label class="button-checkbox">
-            <input type="checkbox" name="chocolate" value="1">
-            <span class="button-label">초코</span>
-        </label>
-
-        <label class="button-checkbox">
-            <input type="checkbox" name="strawberry" value="1">
-            <span class="button-label">딸기</span>
-        </label>
-
-        <label class="button-checkbox">
-            <input type="checkbox" name="chili" value="1">
-            <span class="button-label">칠리</span>
-        </label>
-
-        <label class="button-checkbox">
-            <input type="checkbox" name="honey" value="1">
-            <span class="button-label">허니</span>
-        </label>
-
-        <button type="submit"> 골랐다 </button>
+        <div class="curation-favorite-container">
+            <div class="curation-favorite-item">
+                <input type="checkbox" name="chocolate" id="chocolate" value="1">
+                <label for="chocolate"><img src="/resources/img/curation/chocolate.png" alt="chocolate"> 초코
+                </label>
+            </div>
+            <div class="curation-favorite-item">
+                <input type="checkbox" name="strawberry" id="strawberry" value="1">
+                <label for="strawberry"><img src="/resources/img/curation/strawberry.png" alt="strawberry"> 딸기
+                </label>
+            </div>
+            <div class="curation-favorite-item">
+                <input type="checkbox" name="chili" id="chili" value="1">
+                <label for="chili"><img src="/resources/img/curation/chili.png" alt="chili"> 칠리
+                </label>
+            </div>
+            <div class="curation-favorite-item">
+                <input type="checkbox" name="honey" id="honey" value="1">
+                <label for="honey"><img src="/resources/img/curation/honey.png" alt="honey"> 허니 </label>
+            </div>
+        <div class="btn-wrap-row p-bold">
+            <button class="fill-btn" type="submit"> 취향</button>
+        </div>
     </form>
 </div>
-
-<!-- 추가 줄들을 필요한 만큼 생성 -->
-
 
 <%@include file="/footer.jsp" %>
 </body>

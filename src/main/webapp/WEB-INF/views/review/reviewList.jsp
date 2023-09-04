@@ -23,7 +23,7 @@
         <div class="main-search">
             <div class="select-wrap">
                 <label class="label-bold" for="cookie-select">Category</label>
-                <select class="p-regular" id="cookie-select">
+                <select class="p-regular" id="cookie-select" name="cookie-select">
                     <option value="review_title">제목</option>
                     <option value="snack_id">과자명</option>
                     <option value="member_id">작성자</option>
@@ -34,7 +34,7 @@
                 <label class="label-bold" for="keyword">Search</label>
                 <input class="p-regular" type="text" id="keyword" name="keyword" placeholder="검색하고 싶은 내용을 입력하세요.">
             </div>
-            <button class="search-btn" id="btn-search"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
+            <button class="btn-search" id="btn-search"><img src="/resources/img/icon/search.svg" alt="돋보기 아이콘"></button>
         </div>
         <!--    <div>
                 <select name="searchType">
@@ -157,7 +157,7 @@
     <script>
         document.getElementById("btn-search").onclick = function () {
 
-            let searchType = document.getElementsByName("searchType")[0].value;
+            let searchType = document.getElementsByName("cookie-select")[0].value;
             let keyword = document.getElementsByName("keyword")[0].value;
             location.href = "/review/reviewList?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
             console.log(searchType)

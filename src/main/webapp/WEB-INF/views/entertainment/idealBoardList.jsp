@@ -48,10 +48,11 @@
     <c:forEach items="${list}" var="one">
       <div class="comment">
         <div class="comment-nickname p-bold">${one.ideal_nickname}</div>
-
-        <div class="comment-datetime"><fmt:formatDate value="${one.create_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
-        <div class="comment-delete">
-          <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
+        <div class="comment-datetime-delete">
+          <div class="comment-datetime">
+            <fmt:formatDate value="${one.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+          </div>
+            <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
         </div>
         <div class="comment-content p-regular">${one.ideal_content}</div>
       </div>

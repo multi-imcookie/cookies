@@ -197,8 +197,8 @@
                 </div>
             </div>
     <div class="btn-wrap-row">
-        <button class="fill-btn" id="detailInfo">상세보기</button>
-        <button type="button" class="light-fill-btn" id="selectSnackBtn">선택하기</button>
+        <button type="button" class="fill-btn" id="selectSnackBtn">선택하기</button>
+        <button class="light-fill-btn" id="detailInfo">상세보기</button>
         <a href="#" id="goToSearchList">
             <button type="button" class="light-fill-btn">돌아가기</button>
         </a>
@@ -245,6 +245,5 @@
         modalHide();
     });
 </script>
-
 </body>
 </html>

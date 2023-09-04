@@ -41,7 +41,13 @@ public class SnackDAOImpl implements SnackDAO {
 
     @Override
     public void saveKeyword(String keyword) {
-        sqlSessionTemplate.insert("snack.saveKeyword", keyword);
+
+        int duplicateCheck = sqlSessionTemplate.selectOne("snack.duplicateCheck", keyword);
+        if (duplicateCheck > 0) {
+            sqlSessionTemplate.update("snack.updateKeywordCount", keyword);
+        }else {
+            sqlSessionTemplate.insert("snack.saveKeyword", keyword);
+        }
     }
 
     @Override
@@ -51,5 +57,14 @@ public class SnackDAOImpl implements SnackDAO {
         System.out.println(popularKeywords);
         return popularKeywords;
     }
+
+
+  // @Override
+  // public List<String> getPopularKeywords() {
+  //     System.out.println("DAO 요청이 되었느냐?");
+  //     List<String> popularKeywords = sqlSessionTemplate.selectList("snack.getPopularKeywords");
+  //     System.out.println(popularKeywords);
+  //     return popularKeywords;
+  // }
 }
 

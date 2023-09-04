@@ -15,7 +15,7 @@
 <body>
 <%@include file="/header.jsp" %>
 <div class="modal-overlay">
-    <div class="allergy-modal-box modal-box">
+    <div class="allergy-modal-box modal-box p-bold">
         <div class="mdl-text">
             <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
             <div class="s-h-imcre24">알레르기 체크</div>
@@ -24,105 +24,105 @@
                     <tr class="allergy-check-box">
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="egg_allergy" id="egg_allergy">
-                            <label for="egg_allergy"><img src="/images/egg.png" alt="egg"> 난류 알레르기 </label>
+                            <label for="egg_allergy"><img src="/resources/img/curation/egg.png" alt="egg"> 난류 알레르기 </label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="milk_allergy" id="milk_allergy">
-                            <label for="milk_allergy"><img src="/images/milk.png" alt="milk"> 우유 알레르기 </label>
+                            <label for="milk_allergy"><img src="/resources/img/curation/milk.png" alt="milk"> 우유 알레르기 </label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="wheat_allergy" id="wheat_allergy">
-                            <label for="wheat_allergy"><img src="/images/wheat.png" alt="wheat"> 밀 알레르기</label>
+                            <label for="wheat_allergy"><img src="/resources/img/curation/wheat.png" alt="wheat"> 밀 알레르기</label>
                         </td>
                     </tr>
                     <tr class="allergy-check-box">
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="buckwheat_allergy"
                                    id="buckwheat_allergy">
-                            <label for="buckwheat_allergy"><img src="/images/buckwheat.png" alt="buckwheat"> 메밀
+                            <label for="buckwheat_allergy"><img src="/resources/img/curation/buckwheat.png" alt="buckwheat"> 메밀
                                 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="peanut_allergy" id="peanut_allergy">
-                            <label for="peanut_allergy"><img src="/images/peanut.png" alt="peanut"> 땅콩 알레르기</label>
+                            <label for="peanut_allergy"><img src="/resources/img/curation/peanut.png" alt="peanut"> 땅콩 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="soy_allergy" id="soy_allergy">
-                            <label for="soy_allergy"><img src="/images/soy.png" alt="soy"> 대두 알레르기</label>
+                            <label for="soy_allergy"><img src="/resources/img/curation/soy.png" alt="soy"> 대두 알레르기</label>
                         </td>
                     </tr>
                     <tr class="allergy-check-box">
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="pine_nut_allergy"
                                    id="pine_nut_allergy">
-                            <label for="pine_nut_allergy"><img src="/images/pine_nut.png" alt="pine_nut"> 잣 알레르기</label>
+                            <label for="pine_nut_allergy"><img src="/resources/img/curation/pine_nut.png" alt="pine_nut"> 잣 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="almond_allergy" id="almond_allergy">
-                            <label for="almond_allergy"><img src="/images/almond.png" alt="almond"> 아몬드 알레르기</label>
+                            <label for="almond_allergy"><img src="/resources/img/curation/almond.png" alt="almond"> 아몬드 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="walnut_allergy" id="walnut_allergy">
-                            <label for="walnut_allergy"><img src="/images/walnut.png" alt="walnut"> 호두 알레르기</label>
+                            <label for="walnut_allergy"><img src="/resources/img/curation/walnut.png" alt="walnut"> 호두 알레르기</label>
                         </td>
                     </tr>
                     <tr class="allergy-check-box">
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="crab_allergy" id="crab_allergy">
-                            <label for="crab_allergy"><img src="/images/crab.png" alt="crab"> 게 알레르기</label>
+                            <label for="crab_allergy"><img src="/resources/img/curation/crab.png" alt="crab"> 게 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="shrimp_allergy" id="shrimp_allergy">
-                            <label for="shrimp_allergy"><img src="/images/shrimp.png" alt="shrimp"> 새우 알레르기</label>
+                            <label for="shrimp_allergy"><img src="/resources/img/curation/shrimp.png" alt="shrimp"> 새우 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="squid_allergy" id="squid_allergy">
-                            <label for="squid_allergy"><img src="/images/squid.png" alt="squid"> 오징어 알레르기</label>
+                            <label for="squid_allergy"><img src="/resources/img/curation/squid.png" alt="squid"> 오징어 알레르기</label>
                         </td>
                     </tr>
                     <tr class="allergy-check-box">
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="mackerel_allergy"
                                    id="mackerel_allergy">
-                            <label for="mackerel_allergy"><img src="/images/mackerel.png" alt="mackerel"> 고등어
+                            <label for="mackerel_allergy"><img src="/resources/img/curation/mackerel.png" alt="mackerel"> 고등어
                                 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="shellfish_allergy"
                                    id="shellfish_allergy">
-                            <label for="shellfish_allergy"><img src="/images/shellfish.png" alt="shellfish"> 조개류
+                            <label for="shellfish_allergy"><img src="/resources/img/curation/shellfish.png" alt="shellfish"> 조개류
                                 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="peach_allergy" id="peach_allergy">
-                            <label for="peach_allergy"><img src="/images/peach.png" alt="peach"> 복숭아 알레르기</label>
+                            <label for="peach_allergy"><img src="/resources/img/curation/peach.png" alt="peach"> 복숭아 알레르기</label>
                         </td>
                     </tr>
                     <tr class="allergy-check-box">
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="tomato_allergy" id="tomato_allergy">
-                            <label for="tomato_allergy"><img src="/images/tomato.png" alt="tomato"> 토마토 알레르기</label>
+                            <label for="tomato_allergy"><img src="/resources/img/curation/tomato.png" alt="tomato"> 토마토 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="chicken_allergy"
                                    id="chicken_allergy">
-                            <label for="chicken_allergy"><img src="/images/chicken.png" alt="chicken"> 닭고기 알레르기</label>
+                            <label for="chicken_allergy"><img src="/resources/img/curation/chicken.png" alt="chicken"> 닭고기 알레르기</label>
                         </td>
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="pork_allergy" id="pork_allergy">
-                            <label for="pork_allergy"><img src="/images/pork.png" alt="pork"> 돼지고기 알레르기</label>
+                            <label for="pork_allergy"><img src="/resources/img/curation/pork.png" alt="pork"> 돼지고기 알레르기</label>
                         </td>
                     </tr>
                     <tr class="allergy-check-box">
                         <td class="allergy-check-btn">
                             <input type="checkbox" name="selectedAllergies" value="beef_allergy" id="beef_allergy">
-                            <label for="beef_allergy"><img src="/images/beef.png" alt="beef"> 쇠고기 알레르기</label>
+                            <label for="beef_allergy"><img src="/resources/img/curation/beef.png" alt="beef"> 쇠고기 알레르기</label>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
-        <button type="button" id="checkedAllergiesData"> 확인</button>
+        <button type="button" id="checkedAllergiesData"> 확인 </button>
     </div>
 </div>
 <div class="sub-container">
@@ -152,8 +152,10 @@
                 </button>
             </div>
         </form>
-        <div class="btn-wrap-row">
-            <button class="fill-btn" id="checkingAllergies">알러지 체크</button>
+        <span id="checkedAllergies">
+        </span>
+        <div class="btn-wrap-row p-bold">
+            <button class="fill-btn" id="checkingAllergies">주의할 알레르기를 체크해주세요!</button>
         </div>
     </div>
 </div>
@@ -165,10 +167,62 @@
     $("#modal-close").click(function () {
         // 모달 내의 모든 체크 박스를 선택하고 해제합니다.
         $(".allergy-check-btn input[type='checkbox']").prop("checked", false);
+
+        // 선택한 알레르기 정보를 출력할 div 요소 가져오기
+        let checkedAllergiesDiv = $("#checkedAllergies");
+
+        // 기존 정보를 지우기 위해 div 내용을 비웁니다.
+        checkedAllergiesDiv.empty();
         modalHide();
     });
 
+    // 알레르기 정보 출력 후, span 클릭 시 동작
+    $("#checkedAllergies").on("click", ".checked-allergy", function () {
+        // 클릭한 요소가 이미지인 경우에만 실행
+        if ($(event.target).is("img")) {
+            // 클릭한 span 요소를 제거합니다.
+            $(this).remove();
+
+            // 해당 span 요소에 연결된 체크박스의 ID 가져오기
+            let checkboxId = $(this).attr("data-checkbox-id");
+
+            // 해당 ID를 가진 체크박스의 체크를 해제합니다.
+            $("#" + checkboxId).prop("checked", false);
+
+            // 체크박스의 변경 이벤트를 트리거하여 체크박스 상태가 변경되었음을 감지합니다.
+            $("#" + checkboxId).trigger("change");
+        }
+    });
+
+
     $("#checkedAllergiesData").click(function () {
+        // 선택한 알레르기 정보를 출력할 div 요소 가져오기
+        let checkedAllergiesSpan = $("#checkedAllergies");
+
+        // 기존 정보를 지우기 위해 div 내용을 비웁니다.
+        checkedAllergiesSpan.empty();
+
+        // 체크된 모든 체크박스 값을 수집하거나 처리할 데이터를 여기에서 구성
+        let selectedAllergies = [];
+
+        // 예시: 선택된 체크박스 값을 수집
+        $('input[name="selectedAllergies"]:checked').each(function () {
+            let allergy = $(this).val();
+            selectedAllergies.push(allergy);
+
+            // 선택한 알레르기 정보를 개별 span으로 생성하고 출력
+            let labelForAllergy = $('label[for="' + this.id + '"]').html(); // 체크박스에 연결된 라벨 내용 가져오기
+            let checkboxId = this.id; // 체크박스의 ID 가져오기
+            let allergySpan = $("<span>").html(labelForAllergy).addClass('checked-allergy').attr('data-checkbox-id', checkboxId); // 라벨 내용을 span에 추가
+
+            // 이미지 요소 생성 및 추가
+            let img = $("<img>").attr('src', '/resources/img/curation/delete_btn.svg').addClass('del-allergy-btn');
+            allergySpan.append(img);
+
+            checkedAllergiesSpan.append(allergySpan);
+        });
+
+// 모달을 숨깁니다.
         modalHide();
     });
 
