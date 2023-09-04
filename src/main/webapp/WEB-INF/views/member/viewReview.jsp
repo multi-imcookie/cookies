@@ -50,7 +50,7 @@
         </tr>
         <tr>
             <td>내용:</td>
-            <td>${review.content}</td>
+            <td>${review.review_content}</td>
         </tr>
         <tr>
             <td>평점:</td>

@@ -101,7 +101,7 @@
             <tr>
                 <td>${review.review_id}</td>
                 <td>${review.member_id}</td>
-                <td>${review.content}</td>
+                <td>${review.review_content}</td>
                 <td>${review.review_score}</td>
                 <td>
                     <a href="/reviews/${review.review_id}">보기</a> |
