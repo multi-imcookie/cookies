@@ -3,8 +3,9 @@
 <mapper namespace="reviewReply">
 
     <select id="getReplyList" resultType="reviewReplyDTO">
-        SELECT reply_id, review_id, reply_content, member_id, create_dt, update_dt
-        FROM review_reply
+        SELECT r.reply_id, r.review_id, r.reply_content, r.member_id, r.create_dt, r.update_dt, m.member_nickname
+        FROM review_reply r
+                 left join member m on r.member_id = m.member_id
         WHERE review_id = #{review_id}
         ORDER BY create_dt desc
 

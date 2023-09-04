@@ -41,7 +41,7 @@
                             html += '<div class="media text-muted pt-3" id="reply_id' + this.reply_id + '">';
                             html += '<p class="border-bottom harder-gray pb-3 mb-0">';
                             html += '<span class="d-block">';
-                            html += '<strong class="text-gray-dark">' + this.member_id + '</strong>';
+                            html += '<strong class="text-gray-dark">' + this.member_nickname + '</strong>';
                             html += '<span style="padding-left: 7px; font-size: 9pt">';
                             html += '<a href="javascript:void(0)" onclick="btn_editReply(' + this.reply_id + ', \'' + this.member_id + '\', \'' + this.reply_content + '\' )" style="padding-right:5px">수정</a>';
                             html += '<a href="javascript:void(0)" onclick="btn_deleteReply(' + this.reply_id + ')" >삭제</a>';
@@ -68,7 +68,7 @@
             htmls += '<a href="javascript:void(0)" onClick="showReplyList()">취소<a>';
             htmls += '</span>';
             htmls += '</span>';
-            htmls += '<textarea name="editReply_content" id="editReply_content" class="reply_content" rows="3">';
+            htmls += '<textarea name="editReply_content" id="editReply_content" class="reply_content" style="width:100%;">';
             htmls += reply_content;
             htmls += '</textarea>';
             htmls += '</p>';
@@ -225,11 +225,11 @@
             <li>${scoreImg} ${reviewDTO.review_score}</li>
         </div>
 
-        <div style="font-size:13px">  ${reviewDTO.snack_name} <span>&#183;</span> ${reviewDTO.member_nickname}
+        <div style="font-size:13px" class="p-regular">  ${reviewDTO.snack_name} <span>&#183;</span> ${reviewDTO.member_nickname}
             <span>&#183;</span> <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/></div><br>
 
 
-        <div id="reviewSnack">
+        <div id="reviewSnack" class="p-regular">
             <div class="detail-container">
                 <div class="thumbnail"><img src="${snackDTO.snack_img}" alt="썸네일"></div>
                 <div class="detail-content">
@@ -301,7 +301,7 @@
             <form name="form" id="form" role="form" modelAttribute="reviewReplyDTO" method="post">
                 <div class="row">
                     <div class="col-sm-10">
-                        <textarea id="reply_content" class="reply_content" placeholder="댓글을 입력해 주세요"></textarea>
+                        <textarea id="reply_content" class="reply_content" style="width:100%;" placeholder="댓글을 입력해 주세요"></textarea>
                     </div>
                     <div class="col-sm-2">
                         <button type="button" class="btn-saveReply fill-btn" id="btn-saveReply" style="width: 100%; margin-top: 10px"> 저 장 </button>
