@@ -98,7 +98,20 @@
                                     <span></span>
                                     <li>${reviewDTO.member_nickname}</li>
                                     <span></span>
-                                    <li><fmt:formatDate value="${reviewDTO.create_dt}" pattern="a HH:mm"/></li>
+                                    <li>
+                                        <c:set var="today" value="<%= new java.util.Date() %>" />
+                                        <c:choose>
+                                            <c:when test="${fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(reviewDTO.create_dt, ' '), 0, 10)), '-', ''), 0, 10) eq fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(today, ' '), 0, 10)), '-', ''), 0, 10)}">
+                                                <!-- 작성일이 오늘일 경우 -->
+                                                <fmt:formatDate value="${reviewDTO.create_dt}" pattern="HH:mm"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <!-- 작성일이 오늘이 아닐 경우 -->
+                                                <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </li>
+<%--                                    <li><fmt:formatDate value="${reviewDTO.create_dt}" pattern="yy년 MM월 dd일 HH:mm"/></li>--%>
                                 </ul>
                             </div>
                         </div>

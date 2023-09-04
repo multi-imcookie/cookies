@@ -17,10 +17,6 @@
         insert into avg_score (snack_id)
         values (#{snack_id});
     </insert>
-    <insert id="insertIdealId" parameterType="dbApiDTO">
-        insert into ideal_worldcup (snack_id)
-        values (#{snack_id});
-    </insert>
     <!--여기까지-->
 
     <!--update-->
@@ -72,9 +68,24 @@
         where a.snack_reportNo = #{snack_reportNo}
     </update>
     <!--여기까지-->
+    <!--snack_name으로 pull-->
+    <select id="search" parameterType="String" resultType="dbApiDTO">
+        select snack_id, snack_name
+        from snack
+        where snack_name like concat('%', #{snack_name}, '%')
+    </select>
+    <!--여기까지-->
+
+    <!--단건삭제-->
+    <delete id="deleteSnack">
+        delete
+        from snack
+            where snack_id = #{snack_id}
+    </delete>
+    <!--여기까지-->
 
     <!--초기화-->
-    <delete id="deleteSnack">
+    <delete id="deleteAllSnack">
         delete
         from snack;
     </delete>

@@ -1,14 +1,17 @@
 package com.multi.cookies.snack.api.controller;
 
+import com.multi.cookies.snack.api.dto.DBApiDTO;
 import com.multi.cookies.snack.api.service.DBApiService;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("api")
@@ -25,26 +28,26 @@ public class DBApiController {
         return "/api/updateDB";
     }
 
-    /***
-     *
-     * TODO: 개발 이후 삭제할 기능
-     */
-//    @RequestMapping("insertDB")
-//    public String insertDB(Model model) throws ParseException, IOException {  // DB 생성
-//        int result = dbApiService.insertDB();
-//        model.addAttribute("result", result);
-//        return "/api/insertDB";
-//    }
-
-    /***
-     *
-     * TODO: 개발 이후 삭제할 기능
-     */
-    @RequestMapping("initializeDB")
-    public String initializeDB(Model model) {    // DB 초기화
-        int result = dbApiService.initializeDB();
-        model.addAttribute("result", result);
-        return "/api/initializeDB";
+    @GetMapping(value = "searchSnackId", produces = "application/text; charset=utf8")
+    @ResponseBody
+    public String searchSnackId(@RequestParam("snack_name") String snack_name) {
+        String result = dbApiService.searchDB(snack_name).toString();
+        return result;
     }
 
+    @GetMapping("deleteDB")
+    @ResponseBody
+    public void deleteDB(@RequestParam("snack_id") int snack_id, Model model) {   // DB 단건삭제
+        System.out.println(snack_id);
+        int result = dbApiService.deleteDB(snack_id);
+        model.addAttribute("result", result);
+    }
+
+    @PostMapping("insertDB")
+    @ResponseBody
+    public void insertDB(DBApiDTO dbApiDTO, Model model) {
+        System.out.println(dbApiDTO);
+        int result = dbApiService.insertDB(dbApiDTO);
+        model.addAttribute("result", result);
+    }
 }
