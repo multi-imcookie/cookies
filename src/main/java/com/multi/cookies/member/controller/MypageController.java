@@ -37,12 +37,10 @@ public class MypageController {
             // 작성한 리뷰 리스트 불러오기
             List<ReviewDTO> myReviews = mypageService.getMyReview(memberId);
             model.addAttribute("reviewDTO", myReviews);
-            System.out.println("myReviews = " + myReviews);
 
             // 작성한 리뷰 리스트 불러오기
             List<BoardDTO> myBoards = mypageService.getMyBoard(memberId);
             model.addAttribute("boardDTO", myBoards);
-            System.out.println("myBoards = " + myBoards);
 
             return "member/mypage";
         }
@@ -63,8 +61,20 @@ public class MypageController {
         }
     }
 
+    @RequestMapping("/checkMyPw")
+    @ResponseBody
+    public String checkPassword(int member_id, String chkMemberPw, Model model) {
+        boolean result = mypageService.checkMyPw(member_id, chkMemberPw);
+        if (!mypageService.checkMyPw(member_id, chkMemberPw)) {
+            return "member/mypage";
+        }
+        model.addAttribute("result", result);
+        return "member/editMyPassword";
+    }
+
     @PostMapping("/updateMemberInfo")
     public String updateMemberInfo(MypageDTO mypageDTO, HttpSession httpSession, Model model) {
+
         int result = mypageService.updateMemberInfo(mypageDTO);
 
         if (result > 0) {
@@ -72,7 +82,10 @@ public class MypageController {
             httpSession.setAttribute("memberNickName", mypageDTO.getMember_nickname());
             httpSession.setAttribute("memberEmail", mypageDTO.getMember_email());
             httpSession.setAttribute("memberPhone", mypageDTO.getMember_phone());
+        } else {
+            return "회원 정보 수정에 실패했습니다.";
         }
+
 
         model.addAttribute("result", result);
         return "member/editMyInfo";

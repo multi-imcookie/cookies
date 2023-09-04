@@ -34,4 +34,7 @@ public class MypageDAO {
         return my.update("member.updateMemberInfo", mypageDTO);
     }
 
+    public String getMemberPw(int member_id) {
+        return my.selectOne("member.getMemberPassword", member_id);
+    }
 }

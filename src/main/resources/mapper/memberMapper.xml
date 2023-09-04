@@ -18,10 +18,21 @@
 
     <!-- 총 회원 수를 얻기 위한 쿼리 -->
     <select id="getAllMembers" resultType="adminDTO">
-        SELECT member_id, member_signId, member_pw, member_nickname, member_age, member_gender, member_birthday,
-               member_email, member_phone, member_grade, naver_login, kakao_login, create_dt
+        SELECT member_id,
+               member_signId,
+               member_pw,
+               member_nickname,
+               member_age,
+               member_gender,
+               member_birthday,
+               member_email,
+               member_phone,
+               member_grade,
+               naver_login,
+               kakao_login,
+               create_dt
         FROM member
-                 LIMIT #{start}, #{pageSize}
+        LIMIT #{start}, #{pageSize}
     </select>
 
     <select id="searchMembers" resultType="memberDTO">
@@ -78,13 +89,17 @@
 
     <!-- mypage 작성한 리뷰 조회 -->
     <select id="getMyReview" parameterType="int" resultType="reviewDTO">
-        select * from review_bbs
-        where member_id = #{member_id}
+        SELECT r.*, s.snack_name, m.member_nickname
+        FROM review_bbs r
+                 left join snack s on r.snack_id = s.snack_id
+                 left join member m on r.member_id = m.member_id
+        WHERE m.member_id = #{member_id}
     </select>
 
     <!-- mypage 작성한 게시글 조회 -->
     <select id="getMyBoard" parameterType="int" resultType="boardDTO">
-        select * from bbs
+        select *
+        from bbs
         where member_id = #{member_id}
     </select>
 
@@ -93,8 +108,16 @@
         UPDATE member
         SET member_nickname = #{member_nickname},
             member_email    = #{member_email},
-            member_phone    = #{member_phone}
+            member_phone    = #{member_phone},
+            member_pw    = #{member_pw}
         WHERE member_id = #{member_id}
     </update>
+
+    <!--  mypage 멤버 비밀번호 가져오기  -->
+    <select id="getMemberPassword" resultType="string">
+        SELECT member_pw
+        FROM member
+        WHERE member_id = #{member_id}
+    </select>
 
 </mapper>

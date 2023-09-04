@@ -34,17 +34,27 @@
     <form class="editMyinfo-form form-style" method="post">
         <input type="hidden" id="member_id" name="member_id" value="${sessionScope.memberId}">
         <div class="input-section">
-            <label class="label-wrap" for="member_signId">아이디</label>
+            <label class="label-wrap" for="member_signId">아이디<span class="require-val">*</span></label>
             <input type="text" id="member_signId" name="member_signId" value="${memberDTO.member_signId}" disabled>
             <span class="guide id_chk"></span>
         </div>
         <div class="input-section">
-            <label class="label-wrap" for="member_nickname">닉네임</label>
+            <label class="label-wrap" for="member_pw">변경할 비밀번호</label>
+            <input type="password" id="member_pw" name="member_pw" placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합">
+            <span class="guide pw_rule"></span>
+        </div>
+        <div class="input-section">
+            <label class="label-wrap" for="member_pwChk">비밀번호 확인</label>
+            <input type="password" id="member_pwChk" name="member_pwChk" placeholder="비밀번호를 한 번 더 입력하세요.">
+            <span class="guide pw_chk"></span>
+        </div>
+        <div class="input-section">
+            <label class="label-wrap" for="member_nickname">닉네임<span class="require-val">*</span></label>
             <input type="text" id="member_nickname" name="member_nickname" value="${memberDTO.member_nickname}"
                    required>
         </div>
         <div class="input-section">
-            <label class="label-wrap" for="member_phone">휴대폰번호
+            <label class="label-wrap" for="member_phone">휴대폰번호<span class="require-val">*</span>
                 <img onclick="phoneHelp()" class="help" src="/resources/img/icon/help-circle.svg" alt="도움말">
                 <span class="help-content">아이디 또는 비밀번호를 찾을 때 필요한 정보입니다.</span>
             </label>
@@ -52,11 +62,11 @@
                    name="member_phone" value="${memberDTO.member_phone}">
         </div>
         <div class="input-section">
-            <label class="label-wrap" for="member_email">이메일</label>
-            <input type="text" id="member_email" name="member_email" value="${memberDTO.member_email}" required>
+            <label class="label-wrap" for="member_email">이메일<span class="require-val">*</span></label>
+            <input oninput="emailExp(this)" type="text" id="member_email" name="member_email" value="${memberDTO.member_email}" required>
             <span class="guide email_chk"></span>
         </div>
-        <input type="button" id="editMyInfo-btn" class="fill-btn" value="내 정보 수정">
+        <button type="button" id="editMyInfo-btn" class="fill-btn">내 정보 수정</button>
     </form>
 </div>
 <%@include file="/footer.jsp" %>
