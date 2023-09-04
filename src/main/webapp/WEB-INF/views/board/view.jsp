@@ -91,7 +91,7 @@ ${view.bbs_content}<br />
         <form method="post" action="/reply/write">
 
             <p>
-                <label>댓글 작성</label> <input type="text" name="member_id">
+                <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
             </p>
             <p>
                 <textarea rows="5" cols="50" name="reply_content"></textarea>
