@@ -1330,6 +1330,7 @@ label {
     align-items: flex-start;
     gap: 24px;
     align-self: stretch;
+    cursor: pointer;
 }
 
 /* 검색 알러지 모달 박스 버튼 */
@@ -1343,6 +1344,7 @@ label {
     border-radius: 12px;
     border: 1px solid #E9E2D9;
     background: #F9F5F2;
+    cursor: pointer;
 }
 
 /* 이미지 크기 조절*/
@@ -1367,6 +1369,7 @@ label {
     border-radius: 12px;
     border: 2px solid #B48D69;
     background: #CBB89B;
+    cursor: pointer;
 }
 
 .allergy-check-box div {
@@ -1390,6 +1393,7 @@ label {
     border-radius: 52px;
     border: 1px solid #E9E2D9;
     background: #F9F5F2;
+    cursor: pointer;
 }
 
 .curation-favorite-item input[type="checkbox"]:checked + label {
@@ -1403,6 +1407,7 @@ label {
     border-radius: 52px;
     border: 10px solid #5C492C;
     background: #CBB89B;
+    cursor: pointer;
 }
 
 
@@ -1517,3 +1522,6 @@ label {
     height: 240px;
 }
 
+.del-allergy-btn {
+    cursor: pointer;
+}

@@ -64,6 +64,9 @@ public class SnackServiceImpl implements SnackService {
                     if (searchDTO.getAllergy() != null && searchDTO.getAllergy().contains(convertedAllergy)) {   // searchDTO.getAllergy()가 convertedAllergy를 포함할 경우
                         match++;   // match 값 증가
                     }
+                    if (searchDTO.getSnack_ingredients() != null && searchDTO.getSnack_ingredients().contains(convertedAllergy)) {
+                        match++;
+                    }
                 }
                 if (match == 0) {    // match값이 없을 경우에만 searchDTO를 추가
                     allergyConvertedResult.add(searchDTO);
@@ -119,6 +122,7 @@ public class SnackServiceImpl implements SnackService {
                 converted.add("달걀");
                 converted.add("난황");
                 converted.add("난백");
+                converted.add("전란액");
             }
             if (s.equals("milk_allergy")) {
                 converted.add("우유");
@@ -129,6 +133,11 @@ public class SnackServiceImpl implements SnackService {
                 converted.add("분말유");
                 converted.add("유크림");
                 converted.add("유당");
+                converted.add("유청분말");
+                converted.add("원유");
+                converted.add("환원유");
+                converted.add("연유");
+                converted.add("가공유");
             }
             if (s.equals("wheat_allergy")) {
                 converted.add("밀");
@@ -149,6 +158,7 @@ public class SnackServiceImpl implements SnackService {
                 converted.add("콩");
                 converted.add("대두");
                 converted.add("쇼트닝");
+                converted.add("레시틴");
             }
             if (s.equals("pine_nut_allergy")) {
                 converted.add("잣");
@@ -198,6 +208,7 @@ public class SnackServiceImpl implements SnackService {
                 converted.add("돈지");
                 converted.add("돈골");
                 converted.add("돼지고기");
+                converted.add("젤라틴");
             }
             if (s.equals("beef_allergy")) {
                 converted.add("우육");

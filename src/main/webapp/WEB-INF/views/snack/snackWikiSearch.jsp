@@ -434,6 +434,27 @@
             modalHide();
         });
 
+        // 알레르기 정보 출력 후, span 클릭 시 동작
+        $("#checkedAllergies").on("click", ".checked-allergy", function () {
+            // 클릭한 요소가 이미지인 경우에만 실행
+            if ($(event.target).is("img")) {
+                // 클릭한 span 요소를 제거합니다.
+                $(this).remove();
+
+                // 해당 span 요소에 연결된 체크박스의 ID 가져오기
+                let checkboxId = $(this).attr("data-checkbox-id");
+
+                // 해당 ID를 가진 체크박스의 체크를 해제합니다.
+                $("#" + checkboxId).prop("checked", false);
+
+                // 체크박스의 변경 이벤트를 트리거하여 체크박스 상태가 변경되었음을 감지합니다.
+                $("#" + checkboxId).trigger("change");
+            }
+        });
+
+
+
+
         $("#checkedAllergiesData").click(function () {
             // 선택한 알레르기 정보를 출력할 div 요소 가져오기
             let checkedAllergiesSpan = $("#checkedAllergies");
@@ -451,13 +472,18 @@
 
                 // 선택한 알레르기 정보를 개별 span으로 생성하고 출력
                 let labelForAllergy = $('label[for="' + this.id + '"]').html(); // 체크박스에 연결된 라벨 내용 가져오기
-                let allergySpan = $("<span>").html(labelForAllergy).addClass('checked-allergy'); // 라벨 내용을 span에 추가
+                let checkboxId = this.id; // 체크박스의 ID 가져오기
+                let allergySpan = $("<span>").html(labelForAllergy).addClass('checked-allergy').attr('data-checkbox-id', checkboxId); // 라벨 내용을 span에 추가
+
+                // 이미지 요소 생성 및 추가
+                let img = $("<img>").attr('src', '/resources/img/curation/delete_btn.svg').addClass('del-allergy-btn');
+                allergySpan.append(img);
+
                 checkedAllergiesSpan.append(allergySpan);
             });
 
-            // 모달을 숨깁니다.
+// 모달을 숨깁니다.
             modalHide();
-        });
     });
 
     function submitSortRequest(sortName, keyword, category) {
