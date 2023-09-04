@@ -130,26 +130,17 @@
         </div>
     </form>
 </div>
+
+
+
 <script>
-//  function nothingAllergy() {
-//      // 모든 체크박스를 선택
-//      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-//      let hasChecked = false; // 체크된 체크박스 여부를 나타내는 변수
-
-//      checkboxes.forEach(function(checkbox) {
-//          if (checkbox.checked) {
-//              hasChecked = true; // 체크된 체크박스가 하나라도 있으면 true로 설정
-//          }
-//      });
-
-//      if (!hasChecked) {
-//          return true; // 체크된 항목이 없으면 폼 제출을 허용 (true 반환)
-//      } else {
-//          alert('체크된 항목이 있습니다.\n알레르기가 있으면, 체크 후 체크 했어요! 를 눌러주세요.');
-//          return false; // 체크된 항목이 있으면 폼 제출을 막음 (false 반환)
-//      }
-//  }
+    // 페이지가 로드될 때 checkedLogin 세션 값을 확인하고, 값이 1인 경우 alert 띄우기
+    window.onload = function() {
+        const checkedLogin = <%= session.getAttribute("checkedLogin") %>;
+        if (checkedLogin === 1) {
+            alert('로그인 해주세요!');
+        }
+    }
 
 function validateCheckingAllergy() {
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -197,6 +188,8 @@ function nothingAllergy() {
         document.getElementById("curation-form").submit();
     }
 }
+
+
 </script>
 
 <%@include file="/footer.jsp" %>

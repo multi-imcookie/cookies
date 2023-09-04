@@ -27,14 +27,22 @@ public class CurationController {
     SnackService snackService;
 
     @RequestMapping("/curation/curationStepOne")
-    public String curationStepOne() {
+    public String curationStepOne(HttpSession httpSession) {
         System.out.println("나는 스텝완!");
+        httpSession.setAttribute("checkedLogin", 0);
         return "curation/curationStepOne";
     }
 
     @RequestMapping("/curation/getCurationStepOne")
-    public String getCurationStepOne(@ModelAttribute CurationDTO curationDTO, HttpSession httpSession) {
+    public String getCurationStepOne(@ModelAttribute CurationDTO curationDTO, HttpSession httpSession, Model model) {
+        httpSession.setAttribute("checkedLogin", 0);
+        if (httpSession.getAttribute("memberId") == null) {
+            httpSession.setAttribute("checkedLogin", 1);
+            return "curation/curationStepOne";
+
+        }
         int member_id = (int) httpSession.getAttribute("memberId");
+
         httpSession.setAttribute("savedCurationDTO", curationDTO);
         if (curationService.checkedHistory(member_id) == 0) {
             return "curation/curationStepTwo";
@@ -46,7 +54,7 @@ public class CurationController {
     }
 
     @RequestMapping(value = {"/curation/curationStepTwo", "/curation/reCurationStepTwo"}, method = RequestMethod.GET)
-    public String curationStepTwo(HttpServletRequest request, HttpSession httpSession,@ModelAttribute CurationDTO curationDTO, Model model) {
+    public String curationStepTwo(HttpServletRequest request, HttpSession httpSession, @ModelAttribute CurationDTO curationDTO, Model model) {
         try {
             CurationDTO storedCurationDTO = (CurationDTO) httpSession.getAttribute("savedCurationDTO");
 
@@ -112,7 +120,7 @@ public class CurationController {
     }
 
     @RequestMapping("/curation/getCurationData")
-   public String curationData(@RequestParam("member_id") int member_id, Model model) {
+    public String curationData(@RequestParam("member_id") int member_id, Model model) {
         System.out.println("큐레이션 컨트롤러");
         Map<String, List<SearchDTO>> curationData = curationService.curationData(member_id);
         System.out.println("큐레이션 임무완료!");
