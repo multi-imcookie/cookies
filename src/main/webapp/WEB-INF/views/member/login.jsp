@@ -53,7 +53,7 @@
                 네이버 로그인
             </a>
         </div>
-        <button id="join" class="dark-fill-btn">회원가입</button>
+        <a href="/member/sign.jsp" id="join" class="dark-fill-btn">회원가입</a>
     </form>
 </div>
 <%@include file="/footer.jsp" %>
@@ -75,6 +75,7 @@
                 window.location.href = destinationURL;
             });
         });
+    }
     </script>
 </body>
 </html>

@@ -5,6 +5,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class DBApiDAOImpl implements DBApiDAO {
 
@@ -18,7 +20,6 @@ public class DBApiDAOImpl implements DBApiDAO {
         result += my.insert("db.insertSnack", dbApiDTO);  // snack DB 데이터 생성
         result += my.insert("db.insertNutri", dbApiDTO);  // snack_nutritional DB 데이터 생성
         my.insert("db.insertScoreId", dbApiDTO); // 평점 테이블 snack_id 생성 
-//        my.insert("db.insertIdealId", dbApiDTO); // 이상형월드컵 테이블 snack_id 생성
         return result;
     }
 
@@ -28,17 +29,27 @@ public class DBApiDAOImpl implements DBApiDAO {
     }
 
     @Override
+    public List<DBApiDTO> searchDB(String snack_name) {
+        return my.selectList("db.search", snack_name);
+    }
+
+    @Override
     public int updateDB(DBApiDTO dbApiDTO) { // DB 업데이트
         return my.update("db.update", dbApiDTO);    // DB 업데이트
     }
 
     @Override
-    public int deleteAllDB() { // DB 전체삭제
-        return my.delete("db.deleteSnack");   // snack DB 데이터 삭제 (Cascade설정으로 연결된 테이블 함께 삭제)
+    public int deleteDB(int snack_id) {
+        return my.delete("db.deleteSnack", snack_id);
     }
 
-    @Override
-    public void resetDBAI() {   // DB 오토인크리먼트 초기화
-        my.update("db.resetSnackAI");   // snack DB Auto_Increment 초기화
-    }
+//    @Override
+//    public int deleteAllDB() { // DB 전체삭제
+//        return my.delete("db.deleteSnack");   // snack DB 데이터 삭제 (Cascade설정으로 연결된 테이블 함께 삭제)
+//    }
+//
+//    @Override
+//    public void resetDBAI() {   // DB 오토인크리먼트 초기화
+//        my.update("db.resetSnackAI");   // snack DB Auto_Increment 초기화
+//    }
 }

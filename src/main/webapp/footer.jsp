@@ -17,7 +17,7 @@
             <li class="team-admin">
                 <p class="p-regular">팀명 : 불멸의 코더스</p>
                 <c:if test="${sessionScope.memberGrade == 99}">
-                    <a class="p-regular" href="members">관리자 페이지</a>
+                    <a class="p-regular" href="/members">관리자 페이지</a>
                 </c:if>
             </li>
             <li class="p-regular">손영석 · 최영규 · 정진기 · 오현지 · 최유정 · 안서희 · 임완태 · 이성보</li>

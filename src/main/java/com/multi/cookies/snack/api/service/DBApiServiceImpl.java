@@ -98,33 +98,35 @@ public class DBApiServiceImpl implements DBApiService {
         return result / 2;
     }
 
-//    @Override
-//    public int insertDB() throws IOException, ParseException {
-//        int result = 0;
-//        int maxPage = calculateNumOfPage(); // 최대 페이지 수
-//        for (int i = 1; i <= maxPage; i++) {
-//            for (DBApiDTO dbApiDTO : parseJsonData(i)) {
-//                dbApiDTO = selectCompany(dbApiDTO); // 제조사 걸러내기
-//                if (dbApiDTO != null
-//                        && dbApiDTO.getNutri_string() != null
-//                        && !dbApiDTO.getNutri_string().equals("알수없음")
-//                        && dbApiDTO.getNetwt() != 0) { // 영양성분 null, 알수없음 걸러내기
-//                    result += dbApiDAO.insertDB(dbApiDTO);
-//                }
-//            }
-//            System.out.println(i + "페이지 성공");
-//        }
-//        System.out.println("DB 목록 생성 성공!");
-//        return result / 2;  // snack 테이블, snack_nutritional 총 2개 테이블
-//    }
+    @Override
+    public int insertDB(DBApiDTO dbApiDTO) {
+        dbApiDTO.setSnack_reportNo("0");    // 임의추가한 항목은 품목보고번호 0으로 세팅
+        return dbApiDAO.insertDB(dbApiDTO);
+    }
 
     @Override
-    public int initializeDB() {
-        int deleteResult = dbApiDAO.deleteAllDB();
-        dbApiDAO.resetDBAI();
-        System.out.println("DB " + deleteResult + " 건 초기화 성공!");
-        return deleteResult;
+    public int deleteDB(int snack_id) {
+        return dbApiDAO.deleteDB(snack_id);
     }
+
+    @Override
+    public List<String> searchDB(String snack_name) {
+        List<DBApiDTO> list = dbApiDAO.searchDB(snack_name);
+
+        List<String> result = new ArrayList<>();
+        for (DBApiDTO dbApiDTO : list) {
+            result.add(dbApiDTO.getSnack_id() + ": " +dbApiDTO.getSnack_name());
+        }
+        return result;
+    }
+
+//    @Override
+//    public int initializeDB() {
+//        int deleteResult = dbApiDAO.deleteAllDB();
+//        dbApiDAO.resetDBAI();
+//        System.out.println("DB " + deleteResult + " 건 초기화 성공!");
+//        return deleteResult;
+//    }
 
 
     @Override

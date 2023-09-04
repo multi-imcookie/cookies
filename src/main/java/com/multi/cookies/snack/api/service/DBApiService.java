@@ -11,7 +11,9 @@ import java.util.List;
 public interface DBApiService {
     String callHaccpAPI(int page, String prdkind) throws IOException;
     int updateDB() throws ParseException, IOException;
-//    int insertDB() throws IOException, ParseException;
-    int initializeDB();
+    int insertDB(DBApiDTO dbApiDTO);
+    int deleteDB(int snack_id);
+    List<String> searchDB(String snack_name);
+//    int initializeDB();
     List<DBApiDTO> parseJsonData(int page, String prdkind) throws ParseException, IOException;
 }
