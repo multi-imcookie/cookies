@@ -67,7 +67,7 @@
     <h1 class="s-h-imcre24">${member.member_nickname} 회원 정보 수정</h1>
     <form action="<c:url value="/members/${member.member_id}/update" />" method="post">
         <label for="signId">Sign ID:</label>
-        <input type="text" id="signId" name="member_signId" value="${member.member_signId}" required/><br>
+        <input type="text" id="signId" name="member_signId" value="${member.member_signId}" /><br>
 
         <label for="nickname">Nickname:</label>
         <input type="text" id="nickname" name="member_nickname" value="${member.member_nickname}" required/><br>
@@ -86,6 +86,7 @@
             <option value="1" ${member.member_grade == 1 ? 'selected' : ''}>1</option>
             <option value="2" ${member.member_grade == 2 ? 'selected' : ''}>2</option>
             <option value="3" ${member.member_grade == 3 ? 'selected' : ''}>3</option>
+            <option value="3" ${member.member_grade == 99 ? 'selected' : ''}>99</option>
         </select><br>
 
         <input type="submit" value="Update">
