@@ -82,12 +82,12 @@
 				p.appendChild(document.createTextNode("전과자 >> 회원정보 수정 페이지 입니다! >>>>>  "));
 				var aTag = document.createElement('a');
 				aTag.setAttribute('href', '/editMyInfo');
-				aTag.innerHTML = '회원정보수정';
+				aTag.innerHTML = '회원정보수정 페이지';
 				p.appendChild(aTag);
-			} else {
-				p.appendChild(document.createTextNode(messageOutput.menu));
 			}
 
+
+			p.appendChild(document.createTextNode(messageOutput.menu));
 			response.appendChild(p);
 			document.getElementById('text').innerHTML = '';
 		}
