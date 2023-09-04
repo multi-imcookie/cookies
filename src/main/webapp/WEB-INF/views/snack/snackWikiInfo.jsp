@@ -223,7 +223,7 @@
             let sortName = urlParams.get('sortName');
             let selectedAllergies = urlParams.get('selectedAllergies');
             if (pageNum === null) {
-                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(category)  +'&keyword=' + encodeURIComponent(keyword) + '&sortName=' + encodeURIComponent(sortName) + '&selectedAllergies=' + encodeURIComponent(selectedAllergies);
+                window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(category) + '&keyword=' + encodeURIComponent(keyword) + '&sortName=' + encodeURIComponent(sortName) + '&selectedAllergies=' + encodeURIComponent(selectedAllergies);
             } else {
                 window.location.href = 'snackWikiSearch?category=' + encodeURIComponent(category) + '&keyword=' + encodeURIComponent(keyword) + '&sortName=' + encodeURIComponent(sortName) + '&selectedAllergies=' + encodeURIComponent(selectedAllergies) + '&page=' + encodeURIComponent(pageNum);
             }
