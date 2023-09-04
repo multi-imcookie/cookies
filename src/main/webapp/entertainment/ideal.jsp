@@ -111,21 +111,6 @@
             height: auto; /* 자동으로 높이를 조정하여 비율 유지 */
             max-width: 100%; /* 최대 너비를 설정하여 화면 크기에 맞게 조정 */
         }
-        .modal-box {
-            position: absolute;
-            display: flex;
-            width: 980px;
-            padding: 48px;
-            box-sizing: border-box;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            border-radius: 24px;
-            background-color: #ffffff;
-            margin: 0 auto;
-            left: 50%;
-            transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
 
         .spacer {
             height: 300px; /* 원하는 공백 높이로 조정 */

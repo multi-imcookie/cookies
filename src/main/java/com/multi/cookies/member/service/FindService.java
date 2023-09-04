@@ -70,7 +70,7 @@ public class FindService {
 //        map.put("tempPassWord",tempPassWord);  //map에  임시비밀번호 추가
         int updatedRow = findDAO.findPassWordByNameAndIdAndPhoneNumber(map);   //임시비밀번호로 DB 업데이트
         if(!(updatedRow==1)){
-            return "아이디,닉네임,전화번호중 잘못 입력하셨습니다.";  //영향받는 로우수가 1이 아닌경우 오류인데...이미 db는 업데이트 트랜잭션 알아볼것 ????
+            return "잘못 입력한 정보가 있습니다.";  //영향받는 로우수가 1이 아닌경우 오류인데...이미 db는 업데이트 트랜잭션 알아볼것 ????
         }
         // updatedrow가 1인경우
         String phoneNumber = removeHyphens((String)map.get("phoneNumber"));  //폰넘버 ex) 010-1234-1234 -> 01012341234 변환

@@ -83,8 +83,7 @@
 <div class="modal-overlay">
     <div class="modal-box">
         <div class="mdl-text">
-            <p class="h-pre24"><span id="span-text"></span> 🥰<br>
-                로그인 페이지로 이동할까요?</p>
+            <p class="h-pre24"><span id="span-text"></span> 🥰<br></p>
             <div class="mdl-info">
                 <img src="/resources/img/icon/info-circle.svg" alt="info icon">
                 <p class="p-regular">로그인 하면 더 많은 기능을 이용할 수 있어요.</p>

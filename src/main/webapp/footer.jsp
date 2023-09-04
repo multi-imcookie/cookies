@@ -61,16 +61,14 @@
         <li>
             <a class="h-imcre24" href="#">쿠키랭킹</a>
             <ul class="f-depth2">
-                <li><a class="p-medium" href="#">나이별 랭킹</a></li>
-                <li><a class="p-medium" href="#">성분별 랭킹</a></li>
-                <li><a class="p-medium" href="#">브랜드별 랭킹</a></li>
+                <li><a class="p-medium" href="/ranking/rankingAll?page=1">리뷰 평점 랭킹</a></li>
             </ul>
         </li>
         <li>
             <a class="h-imcre24" href="#">작당모의</a>
             <ul class="f-depth2">
                 <li><a class="p-medium" href="#">공지사항</a></li>
-                <li><a class="p-medium" href="#">리뷰 게시판</a></li>
+                <li><a class="p-medium" href="/review/reviewList?num=1">리뷰 게시판</a></li>
                 <li><a class="p-medium" href="/board/list?num=1">자유 게시판</a></li>
             </ul>
         </li>
