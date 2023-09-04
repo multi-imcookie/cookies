@@ -453,8 +453,6 @@
         });
 
 
-
-
         $("#checkedAllergiesData").click(function () {
             // 선택한 알레르기 정보를 출력할 div 요소 가져오기
             let checkedAllergiesSpan = $("#checkedAllergies");
@@ -484,63 +482,64 @@
 
 // 모달을 숨깁니다.
             modalHide();
-    });
-
-    function submitSortRequest(sortName, keyword, category) {
-        console.log(keyword, category);
-        $.ajax({
-            url: "snackWikiSearch",
-            type: "GET",
-            data: {
-                sortName: sortName,
-                keyword: keyword,
-                category: category,
-            },
-            success: function (data) {
-                // 검색 결과를 업데이트하는 코드 작성
-                console.log(data)
-                let $data = $(data);
-
-                // 페이지내의 특정 부분을 찾아 업데이트
-                $("#search-results-paginated").html($data.find("#search-results-paginated").html());
-                $("#pagination").html($data.find("#pagination").html());
-
-            },
-            error: function () {
-                alert("정렬 실패");
-            }
         });
-    }
 
-    function validateFormAndAddAllergyData() {
+        function submitSortRequest(sortName, keyword, category) {
+            console.log(keyword, category);
+            $.ajax({
+                url: "snackWikiSearch",
+                type: "GET",
+                data: {
+                    sortName: sortName,
+                    keyword: keyword,
+                    category: category,
+                },
+                success: function (data) {
+                    // 검색 결과를 업데이트하는 코드 작성
+                    console.log(data)
+                    let $data = $(data);
 
-        let category = document.getElementById("cookie-select").value;
-        if (category === "") {
-            alert("카테고리를 골라주세요");
-            return false;
+                    // 페이지내의 특정 부분을 찾아 업데이트
+                    $("#search-results-paginated").html($data.find("#search-results-paginated").html());
+                    $("#pagination").html($data.find("#pagination").html());
+
+                },
+                error: function () {
+                    alert("정렬 실패");
+                }
+            });
         }
-        // 체크된 모든 체크박스 값을 수집하거나 처리할 데이터를 여기에서 구성
-        let selectedAllergies = [];
 
-        // 예시: 선택된 체크박스 값을 수집
-        $('input[name="selectedAllergies"]:checked').each(function () {
-            selectedAllergies.push($(this).val());
-        });
+        function validateFormAndAddAllergyData() {
 
-        // 폼 데이터로 선택된 알레르기를 추가
-        let selectedAllergiesField = document.createElement('input');
-        selectedAllergiesField.setAttribute('type', 'hidden');
-        selectedAllergiesField.setAttribute('name', 'selectedAllergies'); // 이름 설정
-        selectedAllergiesField.setAttribute('value', selectedAllergies.join(','));
+            let category = document.getElementById("cookie-select").value;
+            if (category === "") {
+                alert("카테고리를 골라주세요");
+                return false;
+            }
+            // 체크된 모든 체크박스 값을 수집하거나 처리할 데이터를 여기에서 구성
+            let selectedAllergies = [];
 
-        // 폼에 폼 필드 추가
-        let form = document.getElementById('snackWikiSearchForm');
-        form.appendChild(selectedAllergiesField);
+            // 예시: 선택된 체크박스 값을 수집
+            $('input[name="selectedAllergies"]:checked').each(function () {
+                selectedAllergies.push($(this).val());
+            });
 
-        // 폼 제출
-        form.submit();
-        return true;
-    }
+            // 폼 데이터로 선택된 알레르기를 추가
+            let selectedAllergiesField = document.createElement('input');
+            selectedAllergiesField.setAttribute('type', 'hidden');
+            selectedAllergiesField.setAttribute('name', 'selectedAllergies'); // 이름 설정
+            selectedAllergiesField.setAttribute('value', selectedAllergies.join(','));
+
+            // 폼에 폼 필드 추가
+            let form = document.getElementById('snackWikiSearchForm');
+            form.appendChild(selectedAllergiesField);
+
+            // 폼 제출
+            form.submit();
+            return true;
+        }
+    });
 
 
 </script>
