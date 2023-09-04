@@ -62,16 +62,16 @@
                 }
             })  // delete
             $('#search-btn').click(function () {
-                    $.ajax({
-                        type: "get",
-                        url: "searchSnackId",
-                        data: $('#snack_name_search').serialize(),
-                        success: function (result) {
-                            $('#search-result').html(result)
-                        }, error: function () {
-                            alert("검색 실패")
-                        }
-                    })  // ajax
+                $.ajax({
+                    type: "get",
+                    url: "searchSnackId",
+                    data: $('#snack_name_search').serialize(),
+                    success: function (result) {
+                        $('#search-result').html(result)
+                    }, error: function () {
+                        alert("검색 실패")
+                    }
+                })  // ajax
             })  // delete
             // $('#insert').click(function () {
             //     if (!confirm("이 작업을 하기 전, 초기화를 먼저 진행해 주세요.\n이 작업은 오래 걸릴 수 있습니다. 계속하시겠습니까?")) {
@@ -99,7 +99,7 @@
         }) // $
     </script>
     <style>
-        .modal-overlay, .modal-overlay-2 {
+        .modal-overlay {
             position: fixed;
             z-index: 100;
             display: none;
@@ -108,7 +108,7 @@
             background-color: rgba(0, 0, 0, 0.15);
         }
 
-        .modal-box, .modal-box-2 {
+        .modal-box {
             position: absolute;
             display: flex;
             width: 680px;
@@ -121,15 +121,13 @@
             background-color: #ffffff;
             margin: 0 auto;
             left: 50%;
-            transform: translate(160%, 4%);
             transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
-        .modal-box.active, .modal-box-2.active {
-            transform: translate(-50%, -10%);
+        .modal-box.active {
         }
 
-        #modal-close, #modal-close-2 {
+        #modal-close {
             position: absolute;
             top: 24px;
             right: 24px;
@@ -175,8 +173,8 @@
 </head>
 <body>
     <%@include file="/header.jsp" %>
-    <div class="modal-overlay">
-        <div class="modal-box">
+    <div id="modal-overlay" class="modal-overlay">
+        <div id="modal-box" class="modal-box">
             <div class="mdl-text">
                 <p class="h-pre24"><span>새 DB 항목 추가하기</span></p>
                 <div class="mdl-info p-regular">
@@ -251,12 +249,12 @@
             <div class="btn-wrap">
                 <a href="#" id="clearForm" class="light-fill-btn p-medium">폼 초기화</a>
                 <button id="insert-btn" form="insert" class="fill-btn">추가</button>
-                <a href="#" id="modal-close" class="light-fill-btn p-medium btn-close"></a>
+                <a href="#" id="modal-close" class="modal-close light-fill-btn p-medium btn-close"></a>
             </div>
         </div>
     </div>
-    <div class="modal-overlay-2">
-        <div class="modal-box-2">
+    <div id="modal-overlay-2" class="modal-overlay">
+        <div id="modal-box-2" class="modal-box">
             <div class="mdl-text">
                 <p class="h-pre24"><span>삭제할 snack_id 입력</span></p>
                 <div class="mdl-info p-regular form-style">
@@ -268,7 +266,7 @@
             </div>
             <div class="btn-wrap">
                 <button id="delete-btn" class="fill-btn">삭제</button>
-                <a href="#" id="modal-close-2" class="light-fill-btn p-medium btn-close"></a>
+                <a href="#" id="modal-close-2" class="modal-close light-fill-btn p-medium btn-close"></a>
             </div>
             <div class="mdl-text">
                 <p class="h-pre24"><span>이름으로 snack_id 검색</span></p>
@@ -309,6 +307,16 @@
             });
         });
 
+        function modalShow() {
+            $("#modal-overlay").fadeIn();
+            $("#modal-box").addClass("active");
+        }
+
+        function modalHide() {
+            $("#modal-overlay").fadeOut();
+            $("#modal-box").removeClass("active");
+        }
+
         //모달창 열기
         $("#modal-insert").click(function () {
             modalShow();
@@ -320,13 +328,13 @@
         });
 
         function modalShow2() {
-            $(".modal-overlay-2").fadeIn();
-            $(".modal-box-2").addClass("active");
+            $("#modal-overlay-2").fadeIn();
+            $("#modal-box-2").addClass("active");
         }
 
         function modalHide2() {
-            $(".modal-overlay-2").fadeOut();
-            $(".modal-box-2").removeClass("active");
+            $("#modal-overlay-2").fadeOut();
+            $("#modal-box-2").removeClass("active");
         }
 
         $("#modal-delete").click(function () {
