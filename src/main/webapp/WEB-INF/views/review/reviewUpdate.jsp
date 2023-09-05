@@ -103,6 +103,12 @@
         .detail-row {
             margin-bottom: 10px;
         }
+        .find-btn{
+            text-align: center;
+        }
+        .find-btn1{
+            display :inline-block;
+        }
     </style>
 
 </head>
@@ -177,22 +183,6 @@
             </div>
         </div>
 
-        <%--    <div id="reviewSnack" class="p-regular">--%>
-        <%--        <div class="detail-container">--%>
-        <%--            <div class="thumbnail"><img src="${snackDTO.snack_img}" alt="썸네일"></div>--%>
-        <%--            <div class="detail-content">--%>
-        <%--                <div class="detail-row">이름 : ${snackDTO.snack_name}</div>--%>
-        <%--                <br>--%>
-        <%--                <div class="detail-row">제조회사 : ${snackDTO.company}</div>--%>
-        <%--                <br>--%>
-        <%--                <div class="detail-row">원재료 : ${snackDTO.snack_ingredients}</div>--%>
-        <%--                <br>--%>
-        <%--                <div class="detail-row">알러지 : ${snackDTO.allergy}</div>--%>
-        <%--            </div>--%>
-        <%--        </div>--%>
-        <%--    </div>--%>
-
-
         <form name="form" method="post" class="form-style">
             <div class="input-section">
                 <label for="review_title" class="label-wrap">글제목</label>
@@ -240,9 +230,9 @@
             <input type="hidden" name="snack_id" id="snack_id" value="${snackDTO.snack_id}">
             <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
 
-            <div class="btn-wrap-column">
-                <button type="submit" class="btn-Save fill-btn p-medium" id="btn-Update">수정</button>
-                <button class="light-fill-btn p-medium" href="/review/reviewList?num=1">뒤로가기</button>
+            <div class="find-btn">
+                <a><button type="submit" class="btn-Update fill-btn p-medium find-btn1" style="width:3cm" id="btn-Update">수정</button></a>
+                <a href="/review/reviewView?review_id=${reviewDTO.review_id}"><button class="light-fill-btn find-btn1" style="width:3cm">취소</button></a>
             </div>
 
         </form>

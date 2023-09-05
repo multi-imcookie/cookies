@@ -11,7 +11,14 @@
             console.log(formObj);
 
             $(".btn-Write").on("click", function () {
-                self.location = "reviewWrite";
+                // ${sessionScope.memberId} 값을 가져와서 확인
+                let memberId = "${sessionScope.memberId}";
+                if (memberId === "" || memberId === null) {
+                    self.location = '/login';
+                    alert("로그인을 하셔야합니다")
+                } else {
+                    self.location = "reviewWrite";
+                }
             });
         });
     </script>
@@ -24,9 +31,9 @@
             <div class="select-wrap">
                 <label class="label-bold" for="cookie-select">Category</label>
                 <select class="p-regular" id="cookie-select" name="cookie-select">
+                    <option value="snack_name">과자명</option>
                     <option value="review_title">제목</option>
-                    <option value="snack_id">과자명</option>
-                    <option value="member_id">작성자</option>
+                    <option value="member_nickname">작성자</option>
                 </select>
             </div>
             <span class="div-line"></span>
