@@ -13,7 +13,7 @@ public class SnackServiceImpl implements SnackService {
     @Autowired
     SnackDAO snackDAO;
 
-
+// 인기 검색어 도출을 위한 검색어 저장
     public void saveKeyword(String keyword) {
 
         snackDAO.saveKeyword(keyword);
@@ -101,19 +101,20 @@ public class SnackServiceImpl implements SnackService {
         return paginationResult;
     }
 
+    //검색창 검색 결과 및 리뷰게시판 글 작성 시 과자 검색 결과의 세부 페이지의 정보를 요청하기 위한 서비스 메소드
     public SearchDTO snackInfo(int snack_id) {
-        System.out.println("디테일 서비스 실행!");
         return snackDAO.snackInfo(snack_id);
     }
 
+    //인기 검색어를 요청하기 위한 서비스 메소드
    public List<String> getPopularKeywords(){
-       System.out.println("서비스 요청이 되었느냐?");
        List<String> popularKeywords = snackDAO.getPopularKeywords();
-       System.out.println(popularKeywords);
+
         return popularKeywords;
     };
 
 
+    //검색 결과 출력 전에 체크한 알레르기가 있으면 알레르기에 해당하는 키워드를 찾아서 제외 시키는 과정
     private List<String> convertAllergy(String[] selectedAllergies) {
         List<String> converted = new ArrayList<>();
         for (String s : selectedAllergies) {

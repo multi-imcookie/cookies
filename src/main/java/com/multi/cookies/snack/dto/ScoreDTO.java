@@ -2,6 +2,7 @@ package com.multi.cookies.snack.dto;
 
 import lombok.Data;
 
+//평점을 위한 DTO
 @Data
 public class ScoreDTO {
     int snack_id;

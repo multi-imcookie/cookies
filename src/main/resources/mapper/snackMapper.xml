@@ -69,17 +69,14 @@
 
     <!-- 리뷰든 큐레이션이든 이미 별점을 매긴 게시물이나 결과를 수정해서 별점을 바꾸었을 때 그 변화를 반영하는 쿼리 -->
     <update id="updateSnackReviewScore" parameterType="reviewDTO">
-        <!-- review_id로부터 review_score 값을 가져옴 -->
-        <selectKey keyProperty="preview_score" resultType="int" order="BEFORE">
-            SELECT review_score FROM review_bbs WHERE review_id = #{review_id}
-        </selectKey>
-
-        <!-- 얻어진 review_score와 reviewDTO의 review_score를 사용하여 avg_score 테이블 업데이트 -->
-        UPDATE avg_score
-        SET total_score = total_score - #{preview_score} + #{reviewDTO.review_score},
-        avg_score = total_score / review_count
-        WHERE snack_id = #{reviewDTO.snack_id}
-    </update>
+           <![CDATA[
+        UPDATE avg_score AS a
+            INNER JOIN review_bbs AS r ON a.snack_id = r.snack_id
+            SET a.total_score = a.total_score - r.review_score + #{review_score},
+                a.avg_score = a.total_score / a.review_count
+        WHERE a.snack_id = #{snack_id}
+        ]]>
+</update>
 
     <insert id="saveKeyword" parameterType="String">
         INSERT INTO popular_keyword(searched_keyword, searched_count) VALUES(#{keyword}, 1)
@@ -88,7 +85,7 @@
     <select id="duplicateCheck" parameterType="String" resultType="int">
         SELECT COUNT(*) FROM popular_keyword WHERE searched_keyword = #{keyword}
     </select>
-    
+
     <update id="updateKeywordCount" parameterType="String">
         UPDATE popular_keyword SET searched_count = searched_count + 1 WHERE searched_keyword = #{keyword}
     </update>
@@ -99,38 +96,6 @@
         ORDER BY searched_count DESC
             LIMIT 5;
     </select>
-
-
-    <!-- 페이지네이션을 위해서 쿼리를 짰지만, 컨트롤러 단에서 계산하려던 문제 때문이었고,
-        서비스 단으로 옮기니까 검색 결과에서 충분히 결과 얻을 수 있게 되어서 아래 getTotalResults는 안 쓰게 됨-->
-
-    <!-- <update id="updateSnackReviewScore" parameterType="reviewDTO">
-    UPDATE avg_score
-    SET total_score = total_score - #{preview_score} + #{new_score},
-        avg_score = total_score / review_count
-    WHERE snack_id = #{snack_id}
-</update>-->
-
-    <!-- 위의 KEYWORD로 인한 검색 결과를 세기 위한 쿼리. 로우가 얼마나 되느냐를 계산해야 페이지 쪼개기 가능. 페이지네이션을 위한 쿼리.
-    <select id="getTotalResults" resultType="int">
-        SELECT count(*)
-        FROM snack a
-                 JOIN snack_nutritional b ON a.snack_id = b.snack_id
-                 JOIN avg_score c ON a.snack_id = c.snack_id
-        WHERE a.snack_name
-            LIKE CONCAT('%', #{keyword}, '%') OR a.company
-            LIKE CONCAT('%', #{keyword}, '%') OR a.snack_ingredients
-            LIKE CONCAT('%', #{keyword}, '%') OR b.allergy
-            LIKE CONCAT('%', #{keyword}, '%')
-    </select> -->
-
-    <!--<update id="subtractSnackReviewScore" parameterType="review_id">
-        UPDATE avg_score
-        SET total_score = total_score - #{review_score},
-            review_count = review_count - 1,
-            avg_score = total_score  / review_count
-        WHERE snack_id = #{snack_id}
-    </update>-->
 
 
 </mapper>
