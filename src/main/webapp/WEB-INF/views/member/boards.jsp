@@ -98,14 +98,14 @@
         </tr>
         <c:forEach var="board" items="${boardsWithPaging.boards}">
             <tr>
-                <td>${board.board_id}</td>
-                <td>${board.title}</td>
-                <td>${board.author}</td>
-                <td>${board.date}</td>
+                <td>${board.bbs_id}</td>
+                <td>${board.bbs_title}</td>
+                <td>${board.member_id}</td>
+                <td>${board.create_dt}</td>
                 <td>
-                    <a href="/boards/${board.board_id}">View</a> |
-                    <a href="/boards/${board.board_id}/edit">Edit</a> |
-                    <form action="/boards/${board.board_id}/delete" method="get">
+                    <a href="/boards/${board.bbs_id}">보기</a> |
+                    <a href="/boards/${board.bbs_id}/edit">수정</a> |
+                    <form action="/boards/${board.bbs_id}/delete" method="get">
                         <input type="submit" value="Delete">
                     </form>
                 </td>
