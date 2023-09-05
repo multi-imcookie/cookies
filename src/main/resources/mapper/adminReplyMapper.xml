@@ -4,8 +4,7 @@
 
     <!-- 모든 댓글 정보 가져오기 -->
     <select id="getAllReplies" resultType="adminReplyDTO" parameterType="map">
-        SELECT * FROM reply
-                          LIMIT #{start}, #{pageSize}
+        SELECT * FROM reply LIMIT #{start}, #{pageSize}
     </select>
 
     <!-- 총 댓글 수 가져오기 -->
@@ -37,7 +36,7 @@
     <update id="updateReply" parameterType="adminReplyDTO">
         UPDATE reply
         SET
-            content = #{content}
+            reply_content = #{reply_content}
         WHERE reply_id = #{reply_id}
     </update>
 
