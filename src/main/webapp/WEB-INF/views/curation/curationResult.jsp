@@ -4,6 +4,7 @@
     <%@ include file="/link.jsp" %>
 </head>
 <body>
+<div class="sub-container p-regular">
     <div id="curation">
         <c:forEach items="${curationData}" var="entry">
             <div id="${entry.key}">
@@ -18,6 +19,7 @@
             </div>
         </c:forEach>
     </div>
+</div>
 <script>
     $(document).ready(function () {
         let memberId = ${sessionScope.memberId};
