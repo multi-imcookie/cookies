@@ -11,14 +11,26 @@
             console.log(JSON.stringify(formObj));
 
             $(".btn-Update").on("click", function () {
-                self.location = "reviewUpdate?review_id=${reviewDTO.review_id}";
+                let memberId = "${sessionScope.memberId}";
+                if (memberId === "" || memberId === null) {
+                    self.location = '/login';
+                    alert("로그인을 하셔야합니다")
+                } else {
+                    self.location = "reviewUpdate?review_id=${reviewDTO.review_id}";
+                }
             });
-
+            
             $(".btn-Delete").on("click", function () {
-                if (confirm("삭제하시겠습니까?")) {
+                let memberId = "${sessionScope.memberId}";
+                if (memberId === "" || memberId === null) {
+                    self.location = '/login';
+                    alert("로그인을 하셔야합니다")
+                } else if (confirm("삭제하시겠습니까?")) {
                     self.location = "reviewDelete?review_id=${reviewDTO.review_id}";
                 }
             });
+
+
         });
 
 
@@ -42,6 +54,7 @@
                             html += '<p class="border-bottom harder-gray pb-3 mb-0">';
                             html += '<span class="d-block">';
                             html += '<strong class="text-gray-dark">' + this.member_nickname + '</strong>';
+                            /*html += this.create_dt;*/
                             html += '<span style="padding-left: 7px; font-size: 9pt">';
                             html += '<a href="javascript:void(0)" onclick="btn_editReply(' + this.reply_id + ', \'' + this.member_id + '\', \'' + this.reply_content + '\' )" style="padding-right:5px">수정</a>';
                             html += '<a href="javascript:void(0)" onclick="btn_deleteReply(' + this.reply_id + ')" >삭제</a>';
@@ -83,12 +96,11 @@
             // btn-saveReply 버튼 클릭 이벤트 리스너
             $('#btn-saveReply').click(function () {
                 let reply_content = $("#reply_content").val();
-                let member_id = $("#member_id").val();
-                if (member_id == "") {
-                    alert("로그인 해주세요");
-                    return;
-                }
-                if (reply_content.length < 1) {
+                let memberId = "${sessionScope.memberId}";
+                if (memberId === "" || memberId === null) {
+                    self.location = '/login';
+                    alert("로그인을 하셔야합니다")
+                } else if (reply_content.length < 1) {
                     alert("댓글을 입력하세요");
                 } else {
                     $.ajax({
@@ -111,37 +123,46 @@
         // 수정 저장 버튼 클릭 이벤트 리스너
         function btn_updateReply(reply_id, member_id, reply_content) {
             let editedContent = $('#editReply_content').val();
-
-            $.ajax({
-                type: "POST",
-                url: "/reviewReply/updateReply",
-                data: JSON.stringify({
-                    reply_id: reply_id,
-                    reply_content: editedContent,
-                    member_id: '${reviewDTO.member_id}'
-                }),
-                contentType: "application/json",
-                success: function (views_result) {
-                    if (editedContent.length < 1) {
-                        alert("댓글을 입력하세요");
-                    } else {
-                        $('#result').append(views_result);
-                        showReplyList();
+            let memberId = "${sessionScope.memberId}";
+            if (memberId === "" || memberId === null) {
+                self.location = '/login';
+                alert("로그인을 하셔야합니다")
+            } else{
+                $.ajax({
+                    type: "POST",
+                    url: "/reviewReply/updateReply",
+                    data: JSON.stringify({
+                        reply_id: reply_id,
+                        reply_content: editedContent,
+                        member_id: '${reviewDTO.member_id}'
+                    }),
+                    contentType: "application/json",
+                    success: function (views_result) {
+                        if (editedContent.length < 1) {
+                            alert("댓글을 입력하세요");
+                        } else {
+                            $('#result').append(views_result);
+                            showReplyList();
+                        }
+                    },
+                    error: function (error) {
+                        console.log("에러 : " + error);
+                        alert("댓글 수정에 실패했습니다.");
                     }
-                },
-                error: function (error) {
-                    console.log("에러 : " + error);
-                    alert("댓글 수정에 실패했습니다.");
-                }
-            });
+                });
+            }
         }
 
 
         //댓글삭제
         function btn_deleteReply(reply_id) {
             let paramData = {"reply_id": reply_id};
-            if (confirm("삭제하시겠습니까?")) {
-
+            let memberId = "${sessionScope.memberId}";
+            if (memberId === "" || memberId === null) {
+                self.location = '/login';
+                alert("로그인을 하셔야합니다")
+            } else{
+                confirm("삭제하시겠습니까?")
                 $.ajax({
                     url: "/reviewReply/deleteReply",
                     data: paramData, type: 'POST',
@@ -151,7 +172,7 @@
                         console.log("에러 : " + error);
                     }
                 });
-            } /*location.reload();*/
+            }
         }
 
     </script>
@@ -192,6 +213,7 @@
     <%@ include file="/header.jsp" %>
     <div class="modal-overlay">
         <div class="modal-box">
+
             <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
             <div class="s-h-imcre24">리뷰 과자 정보</div>
             <div class="modal-detail-content p-regular">
@@ -309,9 +331,7 @@
         <div class="btn-wrap">
             <button class="btn-Delete fill-btn" style="width:2cm; height:1cm; float:right">삭제</button>
             <button class="btn-Update fill-btn" style="width:2cm; height:1cm; float:right">수정</button>
-            <a href="reviewList?num=1">
-                <button class="fill-btn">뒤로가기</button>
-            </a>
+            <a href="reviewList?num=1"><button class="fill-btn">뒤로가기</button></a>
         </div>
 
 

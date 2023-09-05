@@ -85,16 +85,15 @@
             }
         }
 
-
-        // function selectSnack(snackId, snackName) {
-        //     // 선택된 과자 정보를 selectSnack DIV에 넣기
-        //     $("#selectSnackResult").html("선택한 과자: " + snackName);
-
-        //     // 선택한 과자 정보를 hidden input에 넣기 (전송을 위해)
-        //     $("#selectedSnackId").val(snackId);
-        // }
     </script>
-
+    <style>
+        .find-btn{
+            text-align: center;
+        }
+        .find-btn1{
+            display :inline-block;
+        }
+    </style>
 </head>
 <body>
 <%@include file="/header.jsp" %>
@@ -152,40 +151,14 @@
 
         <input type="hidden" name="snack_id" id="snack_id">
         <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
+
     </form>
-    <div class="btn-wrap-column">
-        <button type="submit" class="btn-Save fill-btn p-medium" id="btn-Save">작성</button>
-        <button class="light-fill-btn p-medium" href="/review/reviewList?num=1">뒤로가기</button>
+    <div class="find-btn">
+        <a><button type="submit" class="btn-Save fill-btn p-medium find-btn1" style="width:3cm" id="btn-Save">작성</button></a>
+        <a href="/review/reviewList?num=1"><button class="light-fill-btn find-btn1" style="width:3cm">취소</button></a>
     </div>
 
 </div>
 <%@include file="/footer.jsp" %>
-<!--<script>
-    $(document).ready(function () {
-        // 페이지가 로드될 때 실행되는 부분
-
-        // 선택한 과자 정보를 로컬 스토리지에서 가져오기
-        var selectedSnackInfo = JSON.parse(localStorage.getItem("selectedSnackInfo"));
-
-        // 함수를 정의하여 선택한 과자 정보를 업데이트하는 동작을 수행
-        function updateSelectedSnackInfo() {
-            if (selectedSnackInfo) {
-                // 가져온 정보를 해당 요소에 표시
-                console.log("정보 잘 가져왔어!");
-                console.log("selectedSnackInfo: " + JSON.stringify(selectedSnackInfo)); // 객체를 JSON 문자열로 변환하여 출력
-                $("#selectedSnackId").text(selectedSnackInfo.snackId);
-                $("#selectedSnackName").text(selectedSnackInfo.snackName);
-                $("#selectedSnackCompany").text(selectedSnackInfo.company);
-                // ... 다른 정보들도 필요한 대로 추가
-            } else {
-                console.log("No selected snack information found.");
-            }
-        }
-
-        // 페이지 로드 후 처음 실행
-        updateSelectedSnackInfo();
-
-    });
-</script>-->
 </body>
 </html>

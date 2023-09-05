@@ -45,9 +45,9 @@
         left join snack s on r.snack_id = s.snack_id
         left join member m on r.member_id = m.member_id
         left join review_reply rr on r.review_id = rr.review_id
+        <if test='searchType.equals("snack_name")'> WHERE s.snack_name LIKE concat('%', #{keyword}, '%') </if>
         <if test='searchType.equals("review_title")'> WHERE r.review_title LIKE concat('%', #{keyword}, '%') </if>
-        <if test='searchType.equals("snack_id")'> WHERE r.snack_id LIKE concat('%', #{keyword}, '%') </if>
-        <if test='searchType.equals("member_id")'> WHERE r.member_id LIKE concat('%', #{keyword}, '%')</if>
+        <if test='searchType.equals("member_nickname")'> WHERE m.member_nickname LIKE concat('%', #{keyword}, '%')</if>
         group by r.review_id, r.review_img, r.review_title, r.review_score, r.snack_id, r.member_id, r.create_dt,
         s.snack_name, m.member_nickname
         order by r.review_id desc
