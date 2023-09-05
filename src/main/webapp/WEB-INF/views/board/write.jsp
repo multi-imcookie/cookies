@@ -13,10 +13,8 @@
 <%@include file="/header.jsp" %>
 <div class="sub-container">
     <h3 class="h-imcre24">자유게시판 작성</h3>
-    <form name = "form" id="writeForm" method="post" class="form-style" onsubmit="return validateForm();" >
-<%--        <div class="input-section">--%>
-            <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
-
+    <form name = "form" id="writeForm" method="post" class="form-style" onsubmit="return validateForm();">
+        <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
         <div class="input-section">
             <label class="label-wrap" for="bbs_title">글제목</label>
             <input type="text" name="bbs_title" id="bbs_title"
@@ -27,18 +25,9 @@
             <textarea cols="50" rows="5" name="bbs_content" id="bbs_content"
                       placeholder="내용을 입력하세요"></textarea>
         </div>
-
-<%--    <form action="write" method="post">--%>
-<%--        <label for="bbs_title">제목</label>--%>
-<%--        <input type="text" id="bbs_title" name="bbs_title"><br>--%>
-<%--        <label for="bbs_content">내용</label>--%>
-<%--        <textarea id="bbs_content" name="bbs_content" rows="4" cols="50"></textarea><br>--%>
-
-<%--        <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>--%>
-
         <div class="btn-wrap-column">
             <button type="submit" class="btn-Save fill-btn p-medium" id="btn-Save">작성</button>
-            <a class="light-fill-btn p-medium" id="backButton">뒤로가기</button>
+            <a class="light-fill-btn p-medium" id="backButton">뒤로가기</a>
         </div>
 
     </form>
@@ -66,7 +55,6 @@
         window.history.back(); // 이전 페이지로 이동
     });
 </script>
-
 <script type="text/javascript">
     // JavaScript를 사용하여 폼 유효성 검사
     function validateForm() {

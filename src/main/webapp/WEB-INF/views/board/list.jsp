@@ -57,7 +57,7 @@
             <div class="board-top">
                 <p class="list-count">
                     <!-- 게시글 총 개수 출력하는 부분! 없는거 같아서 일단 비워둠 -->
-                    총 게시글 수 ${listSize}개
+                    총 게시글 수 ${count}개
                 </p>
                 <button class="btn-Write fill-btn" id="writeButton">게시글 작성</button>
             </div>
@@ -92,6 +92,27 @@
                 </a>
                 </c:forEach>
             </div>
+        </div>
+        <div>
+            <c:if test="${page.prev}">
+            <span>[ <a href="/board/list?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a> ]</span>
+            </c:if>
+
+            <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+            <span>
+			<c:if test="${select != num}">
+                <a href="/board/list?num=${num}${page.searchTypeKeyword}">${num}</a>
+            </c:if>
+
+			<c:if test="${select == num}">
+                <b>${num}</b>
+            </c:if>
+		</span>
+            </c:forEach>
+
+            <c:if test="${page.next}">
+            <span>[ <a href="/board/list?num=${page.endPageNum + 1}${page.searchTypeKeyword}">다음</a> ]</span>
+            </c:if>
         </div>
     </div>
         <!-- 서희님 원본2
