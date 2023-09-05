@@ -38,7 +38,7 @@ public class BoardController {
     ) throws Exception {
 
         Page page = new Page();
-
+        int count = boardDAO.count();
         page.setNum(num);
         page.setCount(service.searchCount(searchType, keyword));
 
@@ -49,7 +49,7 @@ public class BoardController {
         List<BoardDTO> list = service.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
         //list = service.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 
-        model.addAttribute("listSize", list.size());
+        model.addAttribute("count", count);
         model.addAttribute("list", list);
         model.addAttribute("page", page);
         model.addAttribute("select", num);

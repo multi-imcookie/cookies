@@ -57,7 +57,7 @@
             <div class="board-top">
                 <p class="list-count">
                     <!-- 게시글 총 개수 출력하는 부분! 없는거 같아서 일단 비워둠 -->
-                    총 게시글 수 ${listSize}개
+                    총 게시글 수 ${count}개
                 </p>
                 <button class="btn-Write fill-btn" id="writeButton">게시글 작성</button>
             </div>
