@@ -17,9 +17,15 @@ public class WebSocketController {
                         "10) 짭쪼롬		11) 달달		12) 단짠단짠";
                 break;
             case "2":
+                menu = "";
+                break;
+            case "3":
+                menu = "";
+                break;
+            case "4":
                 menu = "전과자>>  20) 회원정보수정";
                 break;
-            case "20":
+            case "40":
                 menu = "";
                 break;
             case "10":

@@ -4,6 +4,7 @@ import com.multi.cookies.board.dto.ReplyDTO;
 import com.multi.cookies.board.service.ReplyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ public class ReplyController {
 
     // 댓글 작성
     @RequestMapping(value = "write", method = RequestMethod.POST)
-    public String postWrite(ReplyDTO dto) throws Exception {
+    public String postWrite(@ModelAttribute ReplyDTO dto ) throws Exception {
 
         replyService.write(dto);
 
