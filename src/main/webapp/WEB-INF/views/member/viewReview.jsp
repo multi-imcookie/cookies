@@ -49,6 +49,10 @@
             <td>${review.member_id}</td>
         </tr>
         <tr>
+            <td>제목:</td>
+            <td>${review.review_title}</td>
+        </tr>
+        <tr>
             <td>내용:</td>
             <td>${review.review_content}</td>
         </tr>

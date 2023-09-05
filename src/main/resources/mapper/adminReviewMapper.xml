@@ -28,7 +28,7 @@
         <!-- 리뷰 수정 -->
         <update id="updateReview">
             UPDATE review_bbs
-            SET review_content = #{review_content}, review_score = #{review_score}
+            SET review_title = #{review_title}, review_content = #{review_content}, review_score = #{review_score}
             WHERE review_id = #{review_id}
         </update>
 

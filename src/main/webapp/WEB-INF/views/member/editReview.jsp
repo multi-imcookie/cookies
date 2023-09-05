@@ -39,6 +39,8 @@
 <div class="sub-container">
     <h1 class="s-h-imcre24">리뷰 수정</h1>
     <form action="/reviews/${review.review_id}/update" method="post">
+        <label for="review_content">제목:</label>
+        <input type="text" id="review_title" name="review_title" value="${review.review_title}" required/><br>
         <label for="review_content">내용:</label>
         <input type="text" id="review_content" name="review_content" value="${review.review_content}" required/><br>
 

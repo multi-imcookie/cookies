@@ -93,6 +93,7 @@
         <tr>
             <th>리뷰 ID</th>
             <th>회원 ID</th>
+            <th>제목</th>
             <th>내용</th>
             <th>평점</th>
             <th>동작</th>
@@ -101,6 +102,7 @@
             <tr>
                 <td>${review.review_id}</td>
                 <td>${review.member_id}</td>
+                <td>${review.review_title}</td>
                 <td>${review.review_content}</td>
                 <td>${review.review_score}</td>
                 <td>
