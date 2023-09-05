@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class MypageDAO {
@@ -29,12 +30,29 @@ public class MypageDAO {
         return my.selectList("member.getMyBoard", member_id);
     }
 
-    // 회원 정보 업데이트 메서드
+    // 회원 정보 업데이트
     public int updateMemberInfo(MypageDTO mypageDTO) {
         return my.update("member.updateMemberInfo", mypageDTO);
     }
 
+    //
     public String getMemberPw(int member_id) {
         return my.selectOne("member.getMemberPassword", member_id);
+    }
+
+    // 프로필 사진 불러오기
+    public String getProfile(int member_id) {
+        System.out.println("dao member_id = " + member_id);
+        return my.selectOne("member.getProfile", member_id);
+    }
+
+    // 프로필 사진 업데이트
+    public void updateProfile(Map<String, String> params) {
+        my.update("member.updateProfile", params);
+    }
+
+    // 프로필 사진 삭제
+    public void deleteProfile(int member_id) {
+        my.delete("member.deleteProfile", member_id);
     }
 }

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="th" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>전과자</title>
@@ -32,7 +33,7 @@
 <div class="sub-container">
     <h3 class="s-h-imcre24">마이페이지</h3>
     <div class="profile">
-        <div class="profile-img"></div>
+        <div class="profile-img" th:style="'background-image: url(' + ${memberDTO.member_profile} + ');'"></div>
         <div class="btn-wrap-row p-regular">
             <a href="#" class="small-fill-btn">변경하기</a>
             <a href="#" class="small-fill-btn">삭제하기</a>

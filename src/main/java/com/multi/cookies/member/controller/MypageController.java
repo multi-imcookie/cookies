@@ -8,24 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class MypageController {
     @Autowired
     MypageService mypageService;
 
-    @GetMapping("mypage")
+    @GetMapping("/mypage")
     public String mypage(HttpSession httpSession, Model model) {
         Integer memberId = (Integer) httpSession.getAttribute("memberId");
-
         if (memberId == null) {
             // 세션에 회원 번호가 없으면 로그인 페이지로 이동
             return "member/login";
         } else {
+
             // 세션에 회원 번호가 있으면 회원 정보를 가져와서 마이페이지로 이동
             MypageDTO memberDTO = mypageService.getMemberInfo(memberId);
             model.addAttribute("memberDTO", memberDTO);
@@ -89,6 +91,34 @@ public class MypageController {
 
         model.addAttribute("result", result);
         return "member/editMyInfo";
+    }
+
+    @PostMapping("/uploadProfile")
+    @ResponseBody
+    public String uploadProfileImage(@RequestParam("member_profile") String member_profile, HttpSession httpSession) {
+        Integer memberId = (Integer) httpSession.getAttribute("memberId");
+        mypageService.updateProfile(memberId, member_profile);
+        return "redirect:member/mypage";
+    }
+
+    @ModelAttribute("/getProfile")
+    public String getProfile(HttpSession httpSession) {
+        int memberId = (int) httpSession.getAttribute("memberId");
+        System.out.println("memberId = " + memberId);
+        String imageUrl = mypageService.getProfile(memberId);
+        System.out.println("imageUrl = " + imageUrl);
+        if (Objects.equals(imageUrl, "default")) {
+            imageUrl = "/resources/img/profile/profile_default.png";
+        }
+
+        return imageUrl;
+    }
+
+    @ModelAttribute("/deleteProfile")
+    public String deleteProfile(HttpSession httpSession) {
+        Integer memberId = (Integer) httpSession.getAttribute("memberId");
+        mypageService.deleteProfile(memberId);
+        return "redirect:member/mypage";
     }
 
 }
