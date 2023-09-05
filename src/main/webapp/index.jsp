@@ -209,10 +209,17 @@
     function validateFormAndAddAllergyData() {
 
         let category = document.getElementById("cookie-select").value;
+        let keyword = document.getElementById("keyword").value; // 검색어 입력란 값 가져오기
         if (category === "") {
             alert("카테고리를 골라주세요");
             return false;
         }
+
+        if (keyword.trim() === "") { // 검색어가 공백 문자로만 이루어져 있으면 검색 막기
+            alert("검색어를 입력해주세요.");
+            return false;
+        }
+
         // 체크된 모든 체크박스 값을 수집하거나 처리할 데이터를 여기에서 구성
         let selectedAllergies = [];
 
