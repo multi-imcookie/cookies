@@ -111,10 +111,10 @@
                     <td>${member.member_nickname}</td>
                     <td>${member.member_grade}</td>
                     <td>
-                        <a href="/members/${member.member_id}">View</a> |
-                        <a href="/members/${member.member_id}/edit">Edit</a> |
+                        <a href="/members/${member.member_id}">보기</a> |
+                        <a href="/members/${member.member_id}/edit">수정</a> |
                         <form action="/members/${member.member_id}/delete" method="get">
-                            <input type="submit" value="Delete">
+                            <input type="submit" value="삭제">
                         </form>
                     </td>
                 </tr>

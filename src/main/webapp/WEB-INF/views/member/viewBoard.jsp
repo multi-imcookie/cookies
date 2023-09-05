@@ -13,36 +13,53 @@
     <title>게시글 조회</title>
     <%@ include file="/link.jsp" %>
     <style>
-        /* 여기에 스타일 추가 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body>
 <%@include file="/header.jsp" %>
 <div class="sub-container">
-    <h1 class="s-h-imcre24">${board.title}</h1>
+    <h1 class="s-h-imcre24">게시글 상세</h1>
     <table>
         <tr>
             <td>ID:</td>
-            <td>${board.board_id}</td>
+            <td>${board.bbs_id}</td>
         </tr>
         <tr>
             <td>제목:</td>
-            <td>${board.title}</td>
+            <td>${board.bbs_title}</td>
         </tr>
         <tr>
             <td>내용:</td>
-            <td>${board.content}</td>
+            <td>${board.bbs_content}</td>
         </tr>
         <tr>
             <td>작성자:</td>
-            <td>${board.author}</td>
+            <td>${board.member_id}</td>
         </tr>
         <tr>
             <td>날짜:</td>
-            <td>${board.date}</td>
+            <td>${board.create_dt}</td>
         </tr>
     </table>
-    <a href="/boards/${board.board_id}/edit">수정</a>
+    <a href="/boards/${board.bbs_id}/edit">수정</a>
 </div>
 <%@include file="/footer.jsp" %>
 </body>

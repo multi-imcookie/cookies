@@ -22,7 +22,12 @@ public class AdminBoardDAO {
         return sqlSession.selectList("adminBoard.getAllBoards", params);
     }
 
-    public List<AdminBoardDTO> searchBoards(Map<String, String> params) {
+    public List<AdminBoardDTO> searchBoards(String searchType, String keyword, int start, int pageSize) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", searchType);
+        params.put("keyword", keyword);
+        params.put("start", start);
+        params.put("pageSize", pageSize);
         return sqlSession.selectList("adminBoard.searchBoards", params);
     }
 
@@ -49,4 +54,3 @@ public class AdminBoardDAO {
         sqlSession.delete("adminBoard.deleteBoard", id);
     }
 }
-

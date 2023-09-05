@@ -11,17 +11,19 @@ import java.util.Map;
 
 @Service
 public class AdminBoardService {
+
     @Autowired
     private AdminBoardDAO adminBoardDao;
 
     public Map<String, Object> getBoards(String searchType, String keyword, int page) {
         int pageSize = 20;
         int start = (page - 1) * pageSize;
+
         List<AdminBoardDTO> boards;
         if (searchType != null && keyword != null) {
-            boards = searchBoards(searchType, keyword); // 검색 결과 불러오기
+            boards = adminBoardDao.searchBoards(searchType, keyword, start, pageSize);
         } else {
-            boards = adminBoardDao.getAllBoards(start, pageSize); // 전체 목록 불러오기
+            boards = adminBoardDao.getAllBoards(start, pageSize);
         }
 
         int totalBoards = adminBoardDao.getTotalBoards();
@@ -40,11 +42,8 @@ public class AdminBoardService {
         return result;
     }
 
-    public List<AdminBoardDTO> searchBoards(String type, String keyword) {
-        Map<String, String> params = new HashMap<>();
-        params.put("type", type);
-        params.put("keyword", keyword);
-        return adminBoardDao.searchBoards(params);
+    public Map<String, Object> getBoards(int page) {
+        return getBoards(null, null, page);
     }
 
     public AdminBoardDTO getBoardById(int id) {
@@ -63,5 +62,3 @@ public class AdminBoardService {
         adminBoardDao.deleteBoard(id);
     }
 }
-
-

@@ -106,7 +106,7 @@
                     <a href="/boards/${board.bbs_id}">보기</a> |
                     <a href="/boards/${board.bbs_id}/edit">수정</a> |
                     <form action="/boards/${board.bbs_id}/delete" method="get">
-                        <input type="submit" value="Delete">
+                        <input type="submit" value="삭제">
                     </form>
                 </td>
             </tr>
