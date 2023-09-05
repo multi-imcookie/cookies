@@ -120,4 +120,23 @@
         WHERE member_id = #{member_id}
     </select>
 
+    <!-- 프로필 사진 가져오기 -->
+    <select id="getProfile" parameterType="int" resultType="string">
+        SELECT member_profile FROM member WHERE member_id = #{member_id}
+    </select>
+
+    <!-- 프로필 테이블(profile)에 프로필 정보 업데이트하기 -->
+    <update id="updateProfile" parameterType="map">
+        UPDATE member
+        SET member_profile = #{member_profile}
+        WHERE member_id = #{member_id}
+    </update>
+
+    <!-- 프로필 테이블(profile)에서 프로필 정보 삭제하기 -->
+    <update id="deleteProfile" parameterType="int">
+        UPDATE member
+        SET member_profile = default
+        WHERE member_id = #{member_id}
+    </update>
+
 </mapper>

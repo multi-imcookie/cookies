@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MypageService {
@@ -91,6 +93,25 @@ public class MypageService {
 //        //복호화 하지 않고 matches() 를 사용
 //        System.out.println(passwordEncoder.matches(encPw, chkMemberPw));
 //        return passwordEncoder.matches(encPw, chkMemberPw);
+    }
+
+    // 프로필 사진 가져오기
+    public String getProfile(int member_id) {
+        System.out.println("서비스 member_id = " + member_id);
+        return mypageDAO.getProfile(member_id);
+    }
+
+    // 프로필 사진 수정
+    public void updateProfile(int member_id, String member_profile) {
+        Map<String, String> params = new HashMap<>();
+        params.put("member_id", String.valueOf(member_id));
+        params.put("member_profile", member_profile);
+        mypageDAO.updateProfile(params);
+    }
+
+    // 프로필 사진 삭제
+    public void deleteProfile(int member_id) {
+        mypageDAO.deleteProfile(member_id);
     }
 
 }

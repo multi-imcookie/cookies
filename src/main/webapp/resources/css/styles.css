@@ -995,7 +995,9 @@ label {
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    background: url("/resources/img/profile/profile_default.png") no-repeat center;
+    background-image: url("/resources/img/profile/profile_default.png");
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
 }
 
