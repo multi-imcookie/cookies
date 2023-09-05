@@ -108,10 +108,10 @@
                 <td>${reply.create_dt}</td>
                 <td>${reply.update_dt}</td>
                 <td>
-                    <a href="/review/replies/${reply.reply_id}">View</a> |
-                    <a href="/review/replies/${reply.reply_id}/edit">Edit</a> |
+                    <a href="/review/replies/${reply.reply_id}">보기</a> |
+                    <a href="/review/replies/${reply.reply_id}/edit">수정</a> |
                     <form action="/review/replies/${reply.reply_id}/delete" method="get">
-                        <input type="submit" value="Delete">
+                        <input type="submit" value="삭제">
                     </form>
                 </td>
             </tr>

@@ -10,7 +10,7 @@
 
 <div class="sub-container p-regular">
     <h3 class="h-pre36"> 알레르기가 있으신가요? </h3>
-    <form id="curation-form" action="getCurationStepOne" method="get" onsubmit="return validateCheckingAllergy()">
+    <form class="curation-form" id="curation-form" action="getCurationStepOne" method="get" onsubmit="return validateCheckingAllergy()">
         <!-- <input type="hidden" name="member_id" id="member_id" value="1">-->
         <div class="allergy-check-box">
             <div class="allergy-check-btn">

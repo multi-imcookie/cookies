@@ -38,7 +38,7 @@
 
         <div class="btn-wrap-column">
             <button type="submit" class="btn-Save fill-btn p-medium" id="btn-Save">작성</button>
-            <button class="light-fill-btn p-medium" id="backButton">뒤로가기</button>
+            <a class="light-fill-btn p-medium" id="backButton">뒤로가기</button>
         </div>
 
     </form>

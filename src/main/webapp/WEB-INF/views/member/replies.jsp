@@ -98,7 +98,7 @@
         <c:forEach var="reply" items="${repliesWithPaging.replies}">
             <tr>
                 <td>${reply.reply_id}</td>
-                <td>${reply.content}</td>
+                <td>${reply.reply_content}</td>
                 <td>${reply.member_id}</td>
                 <td>
                     <a href="/replies/${reply.reply_id}">View</a> |

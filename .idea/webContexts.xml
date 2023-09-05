@@ -10,6 +10,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/loginSuccess.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/reviews.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/message/message_list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/message" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review/reviewView.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review/reviewWrite.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review/write.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/snack/snackReviewSearchInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/snack" />

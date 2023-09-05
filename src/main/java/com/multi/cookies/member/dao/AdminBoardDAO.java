@@ -19,34 +19,38 @@ public class AdminBoardDAO {
         Map<String, Object> params = new HashMap<>();
         params.put("start", start);
         params.put("pageSize", pageSize);
-        return sqlSession.selectList("getAllBoards", params);
+        return sqlSession.selectList("adminBoard.getAllBoards", params);
     }
 
-    public List<AdminBoardDTO> searchBoards(Map<String, String> params) {
-        return sqlSession.selectList("searchBoards", params);
+    public List<AdminBoardDTO> searchBoards(String searchType, String keyword, int start, int pageSize) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", searchType);
+        params.put("keyword", keyword);
+        params.put("start", start);
+        params.put("pageSize", pageSize);
+        return sqlSession.selectList("adminBoard.searchBoards", params);
     }
 
     public int getTotalBoards() {
-        return sqlSession.selectOne("getTotalBoards");
+        return sqlSession.selectOne("adminBoard.getTotalBoards");
     }
 
     public AdminBoardDTO getBoardById(int id) {
-        return sqlSession.selectOne("getBoardById", id);
+        return sqlSession.selectOne("adminBoard.getBoardById", id);
     }
 
     public void updateBoard(int id, AdminBoardDTO board) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         params.put("board", board);
-        sqlSession.update("updateBoard", params);
+        sqlSession.update("adminBoard.updateBoard", params);
     }
 
     public void createBoard(AdminBoardDTO board) {
-        sqlSession.insert("createBoard", board);
+        sqlSession.insert("adminBoard.createBoard", board);
     }
 
     public void deleteBoard(int id) {
-        sqlSession.delete("deleteBoard", id);
+        sqlSession.delete("adminBoard.deleteBoard", id);
     }
 }
-

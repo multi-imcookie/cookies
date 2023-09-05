@@ -41,13 +41,6 @@
             color: #F9F5F2; /* 호버시 글자 색상 변경 */
         }
 
-        .p-regular {
-            font-family: Pretendard, sans-serif;
-            font-size: 16px;
-            font-weight: 400; /* weight 다름 */
-            line-height: 28px;
-        }
-
         .search-results {
             list-style: none;
             padding-top: 24px;
@@ -88,12 +81,6 @@
             margin-top: 10px;
         }
 
-        .rating {
-            margin-top: 5px;
-            color: #f39c12; /* 별점 색상 */
-
-        }
-
         .pagination {
             display: flex;
             align-items: center;
@@ -117,125 +104,14 @@
 
 <body>
 <%@include file="/header.jsp" %>
-<div class="modal-overlay">
-    <div class="allergy-modal-box modal-box p-bold">
-        <div class="mdl-text">
-            <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
-            <div class="s-h-imcre24">알레르기 체크</div>
-            <div class="modal-detail-content p-regular">
-                <table class="custom-table">
-                    <tr class="allergy-check-box">
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="egg_allergy" id="egg_allergy">
-                            <label for="egg_allergy"><img src="/resources/img/curation/egg.png" alt="egg"> 난류 알레르기 </label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="milk_allergy" id="milk_allergy">
-                            <label for="milk_allergy"><img src="/resources/img/curation/milk.png" alt="milk"> 우유 알레르기 </label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="wheat_allergy" id="wheat_allergy">
-                            <label for="wheat_allergy"><img src="/resources/img/curation/wheat.png" alt="wheat"> 밀 알레르기</label>
-                        </td>
-                    </tr>
-                    <tr class="allergy-check-box">
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="buckwheat_allergy"
-                                   id="buckwheat_allergy">
-                            <label for="buckwheat_allergy"><img src="/resources/img/curation/buckwheat.png" alt="buckwheat"> 메밀
-                                알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="peanut_allergy" id="peanut_allergy">
-                            <label for="peanut_allergy"><img src="/resources/img/curation/peanut.png" alt="peanut"> 땅콩 알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="soy_allergy" id="soy_allergy">
-                            <label for="soy_allergy"><img src="/resources/img/curation/soy.png" alt="soy"> 대두 알레르기</label>
-                        </td>
-                    </tr>
-                    <tr class="allergy-check-box">
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="pine_nut_allergy"
-                                   id="pine_nut_allergy">
-                            <label for="pine_nut_allergy"><img src="/resources/img/curation/pine_nut.png" alt="pine_nut"> 잣 알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="almond_allergy" id="almond_allergy">
-                            <label for="almond_allergy"><img src="/resources/img/curation/almond.png" alt="almond"> 아몬드 알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="walnut_allergy" id="walnut_allergy">
-                            <label for="walnut_allergy"><img src="/resources/img/curation/walnut.png" alt="walnut"> 호두 알레르기</label>
-                        </td>
-                    </tr>
-                    <tr class="allergy-check-box">
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="crab_allergy" id="crab_allergy">
-                            <label for="crab_allergy"><img src="/resources/img/curation/crab.png" alt="crab"> 게 알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="shrimp_allergy" id="shrimp_allergy">
-                            <label for="shrimp_allergy"><img src="/resources/img/curation/shrimp.png" alt="shrimp"> 새우 알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="squid_allergy" id="squid_allergy">
-                            <label for="squid_allergy"><img src="/resources/img/curation/squid.png" alt="squid"> 오징어 알레르기</label>
-                        </td>
-                    </tr>
-                    <tr class="allergy-check-box">
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="mackerel_allergy"
-                                   id="mackerel_allergy">
-                            <label for="mackerel_allergy"><img src="/resources/img/curation/mackerel.png" alt="mackerel"> 고등어
-                                알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="shellfish_allergy"
-                                   id="shellfish_allergy">
-                            <label for="shellfish_allergy"><img src="/resources/img/curation/shellfish.png" alt="shellfish"> 조개류
-                                알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="peach_allergy" id="peach_allergy">
-                            <label for="peach_allergy"><img src="/resources/img/curation/peach.png" alt="peach"> 복숭아 알레르기</label>
-                        </td>
-                    </tr>
-                    <tr class="allergy-check-box">
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="tomato_allergy" id="tomato_allergy">
-                            <label for="tomato_allergy"><img src="/resources/img/curation/tomato.png" alt="tomato"> 토마토 알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="chicken_allergy"
-                                   id="chicken_allergy">
-                            <label for="chicken_allergy"><img src="/resources/img/curation/chicken.png" alt="chicken"> 닭고기 알레르기</label>
-                        </td>
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="pork_allergy" id="pork_allergy">
-                            <label for="pork_allergy"><img src="/resources/img/curation/pork.png" alt="pork"> 돼지고기 알레르기</label>
-                        </td>
-                    </tr>
-                    <tr class="allergy-check-box">
-                        <td class="allergy-check-btn">
-                            <input type="checkbox" name="selectedAllergies" value="beef_allergy" id="beef_allergy">
-                            <label for="beef_allergy"><img src="/resources/img/curation/beef.png" alt="beef"> 쇠고기 알레르기</label>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <button type="button" id="checkedAllergiesData"> 확인 </button>
-    </div>
-</div>
+<%@include file="/filterModal.jsp"%>
 <div class="sub-container">
     <div class="v-left">
         <h3 class="h-pre36">
             🔍<br>
             궁금한 과자가 있으신가요?
         </h3>
-        <form id="snackWikiSearchForm" action="snackWikiSearch" method="get"
-              onsubmit="return validateFormAndAddAllergyData()">
+        <form id="snackWikiSearchForm" action="snackWikiSearch" method="get" onsubmit="return validateFormAndAddAllergyData()">
             <div class="cookie-search main-search">
                 <div class="select-wrap">
                     <label class="label-bold" for="cookie-select">Category</label>
@@ -257,11 +133,11 @@
                 </button>
             </div>
         </form>
+
+        <%@include file="/filter.jsp"%>
+
         <span id="checkedAllergies">
         </span>
-        <div class="btn-wrap-row p-bold">
-            <button class="fill-btn" id="checkingAllergies">주의할 알레르기를 체크해주세요!</button>
-        </div>
     </div>
     <div id="search-results-paginated">
         <p class="p-regular">"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
@@ -373,6 +249,14 @@
         }
 
         attachSortClickEvent(); // 초기 정렬 버튼 클릭 이벤트 등록
+
+
+        // 검색 버튼 클릭 이벤트 핸들러
+        $("#snackWikiSearchForm").on("submit", function (event) {
+            event.preventDefault(); // 기본 폼 제출 동작을 막음
+            validateFormAndAddAllergyData();
+        });
+
 
 
         $("#sort-form").on("click", ".sort-btn", function (event) {
@@ -513,10 +397,13 @@
         function validateFormAndAddAllergyData() {
 
             let category = document.getElementById("cookie-select").value;
+            let keyword = document.getElementById("keyword").value; // 검색어 입력란 값 가져오기
             if (category === "") {
                 alert("카테고리를 골라주세요");
                 return false;
             }
+
+
             // 체크된 모든 체크박스 값을 수집하거나 처리할 데이터를 여기에서 구성
             let selectedAllergies = [];
 
@@ -524,6 +411,11 @@
             $('input[name="selectedAllergies"]:checked').each(function () {
                 selectedAllergies.push($(this).val());
             });
+
+            if (keyword.trim() === "") { // 검색어가 공백 문자로만 이루어져 있으면 검색 막기
+                alert("검색어를 입력해주세요.");
+                return false;
+            }
 
             // 폼 데이터로 선택된 알레르기를 추가
             let selectedAllergiesField = document.createElement('input');

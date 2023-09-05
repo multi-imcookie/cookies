@@ -16,12 +16,12 @@
         </div>
         <div class="curation-main-right">
             <div class="curation-main-name">
-                <h3 class="h-pre36">큐레이션 시작하기!</h3>
+                <h3 class="h-pre36">취향저격 몽타주 조회</h3>
+                큐레이션 시작하기!
             </div>
             <div class="curation-start-btn">
-                <a href="curationStepOne" onclick="showAlert()">
-                    <button type="submit" id="curationStart"></button>
-                    <label for="curationStart" class="fill-btn">골랐다</label>
+                <a href="curationStepOne" id="curationStart" onclick="showAlert()">
+                    <label for="curationStart" class="fill-btn">맛도리 찾으러</label>
                 </a>
             </div>
         </div>

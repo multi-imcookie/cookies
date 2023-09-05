@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,41 +6,42 @@
     <%@ include file="/link.jsp" %>
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             let formObj = $("form[role='form']");
             console.log(JSON.stringify(formObj));
 
-            $(".btn-Update").on("click", function(){
+            $(".btn-Update").on("click", function () {
                 self.location = "reviewUpdate?review_id=${reviewDTO.review_id}";
             });
 
-            $(".btn-Delete").on("click", function(){
-                if(confirm("삭제하시겠습니까?")){
+            $(".btn-Delete").on("click", function () {
+                if (confirm("삭제하시겠습니까?")) {
                     self.location = "reviewDelete?review_id=${reviewDTO.review_id}";
                 }
             });
         });
 
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             showReplyList();
         });
-        function showReplyList(){
+
+        function showReplyList() {
             $.ajax({
                 type: 'POST',
                 url: "/reviewReply/getReplyList",
-                data: {"review_id" : "${reviewDTO.review_id}"},
-                success: function(result) {
+                data: {"review_id": "${reviewDTO.review_id}"},
+                success: function (result) {
                     let html = "";
                     /*let member_nickname = $("#member_nickname").val();*/
-                    if(result.length < 1){
+                    if (result.length < 1) {
                         html = "등록된 댓글이 없습니다.";
                     } else {
-                        $(result).each(function(){
+                        $(result).each(function () {
                             html += '<div class="media text-muted pt-3" id="reply_id' + this.reply_id + '">';
                             html += '<p class="border-bottom harder-gray pb-3 mb-0">';
                             html += '<span class="d-block">';
-                            html += '<strong class="text-gray-dark">' + this.member_id + '</strong>';
+                            html += '<strong class="text-gray-dark">' + this.member_nickname + '</strong>';
                             html += '<span style="padding-left: 7px; font-size: 9pt">';
                             html += '<a href="javascript:void(0)" onclick="btn_editReply(' + this.reply_id + ', \'' + this.member_id + '\', \'' + this.reply_content + '\' )" style="padding-right:5px">수정</a>';
                             html += '<a href="javascript:void(0)" onclick="btn_deleteReply(' + this.reply_id + ')" >삭제</a>';
@@ -56,6 +56,7 @@
                 }	// Ajax success end
             });	// Ajax end
         }
+
         //댓글수정
         function btn_editReply(reply_id, member_id, reply_content) {
             let htmls = "";
@@ -68,7 +69,7 @@
             htmls += '<a href="javascript:void(0)" onClick="showReplyList()">취소<a>';
             htmls += '</span>';
             htmls += '</span>';
-            htmls += '<textarea name="editReply_content" id="editReply_content" class="reply_content" rows="3">';
+            htmls += '<textarea name="editReply_content" id="editReply_content" class="reply_content" style="width:100%;">';
             htmls += reply_content;
             htmls += '</textarea>';
             htmls += '</p>';
@@ -78,9 +79,9 @@
         }
 
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             // btn-saveReply 버튼 클릭 이벤트 리스너
-            $('#btn-saveReply').click(function() {
+            $('#btn-saveReply').click(function () {
                 let reply_content = $("#reply_content").val();
                 let member_id = $("#member_id").val();
                 if (member_id == "") {
@@ -98,7 +99,7 @@
                             review_id: '${reviewDTO.review_id}',
                             member_id: '${reviewDTO.member_id}'
                         },
-                        success: function(views_result) {
+                        success: function (views_result) {
                             $('#result').append(views_result);
                             location.reload();
                         }
@@ -120,7 +121,7 @@
                     member_id: '${reviewDTO.member_id}'
                 }),
                 contentType: "application/json",
-                success: function(views_result) {
+                success: function (views_result) {
                     if (editedContent.length < 1) {
                         alert("댓글을 입력하세요");
                     } else {
@@ -128,7 +129,7 @@
                         showReplyList();
                     }
                 },
-                error: function(error) {
+                error: function (error) {
                     console.log("에러 : " + error);
                     alert("댓글 수정에 실패했습니다.");
                 }
@@ -141,110 +142,128 @@
             let paramData = {"reply_id": reply_id};
             if (confirm("삭제하시겠습니까?")) {
 
-            $.ajax({
-                url: "/reviewReply/deleteReply",
-                data: paramData, type: 'POST',
-                success: function (result) {
-                    showReplyList();
-                }, error: function (error) {
-                    console.log("에러 : " + error);
-                }
-            });
-        } /*location.reload();*/
+                $.ajax({
+                    url: "/reviewReply/deleteReply",
+                    data: paramData, type: 'POST',
+                    success: function (result) {
+                        showReplyList();
+                    }, error: function (error) {
+                        console.log("에러 : " + error);
+                    }
+                });
+            } /*location.reload();*/
         }
 
     </script>
     <style>
-        .detail-container {
-            display: flex;
-            align-items: center;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
         .thumbnail img {
             max-width: 100%;
             border-radius: 5px;
         }
 
+        .detail-container {
+            display: flex;
+            width: 100%;
+            gap: 4%;
+            justify-content: space-between;
+        }
+
         .detail-content {
-            margin-left: 20px;
+            width: 70%;
         }
 
         .detail-row {
             margin-bottom: 10px;
         }
+
+        .modal-box {
+            width: 900px;
+            height: 640px;
+        }
+
+        #modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+        }
     </style>
 </head>
 <body id="page-top">
-<%@ include file="/header.jsp" %>
-<section class="page-section" id="review">
-    <div class="container">
-        <h3 class="s-h-imcre24">리뷰게시판</h3>
-
-        <div>
-            <button class="btn-Delete fill-btn" style="width:2cm; height:1cm; float:right">삭제</button>
-            <button class="btn-Update fill-btn" style="width:2cm; height:1cm; float:right">수정</button>
-          <%--  <button class="btn-Delete fill-btn" style="width:2cm; height:1cm; float:right">삭제</button>--%>
-        </div>
-
-        <form name="form" method="post">
-            <input type='hidden' name='review-id' value="${reviewDTO.review_id}">
-        </form>
-
-        <div>
-            <div style="font-size:25px"> ${reviewDTO.review_title} </div>
-            <div class="rating" id="rating"></div>
-            <c:choose>
-                <c:when test="${reviewDTO.review_score == 1}">
-                    <c:set var="scoreImg"
-                           value="<img src='/resources/img/score/score01.png' height='18'>"/>
-                </c:when>
-                <c:when test="${reviewDTO.review_score == 2}">
-                    <c:set var="scoreImg"
-                           value="<img src='/resources/img/score/score02.png' height='18'>"/>
-                </c:when>
-                <c:when test="${reviewDTO.review_score == 3}">
-                    <c:set var="scoreImg"
-                           value="<img src='/resources/img/score/score03.png' height='18'>"/>
-                </c:when>
-                <c:when test="${reviewDTO.review_score == 4}">
-                    <c:set var="scoreImg"
-                           value="<img src='/resources/img/score/score04.png' height='18'>"/>
-                </c:when>
-                <c:when test="${reviewDTO.review_score == 5}">
-                    <c:set var="scoreImg"
-                           value="<img src='/resources/img/score/score05.png' height='18'>"/>
-                </c:when>
-                <c:otherwise><c:set var="scoreImg" value=""/></c:otherwise>
-            </c:choose>
-            <li>${scoreImg} ${reviewDTO.review_score}</li>
-        </div>
-
-        <div style="font-size:13px">  ${reviewDTO.snack_name} <span>&#183;</span> ${reviewDTO.member_nickname}
-            <span>&#183;</span> <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/></div><br>
-
-
-        <div id="reviewSnack">
-            <div class="detail-container">
-                <div class="thumbnail"><img src="${snackDTO.snack_img}" alt="썸네일"></div>
-                <div class="detail-content">
-                    <div class="detail-row">이름 : ${snackDTO.snack_name}</div>
-                    <br>
-                    <div class="detail-row">제조회사 : ${snackDTO.company}</div>
-                    <br>
-                    <div class="detail-row">원재료 : ${snackDTO.snack_ingredients}</div>
-                    <br>
-                    <div class="detail-row">알러지 : ${snackDTO.allergy}</div>
+    <%@ include file="/header.jsp" %>
+    <div class="modal-overlay">
+        <div class="modal-box">
+            <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
+            <div class="s-h-imcre24">리뷰 과자 정보</div>
+            <div class="modal-detail-content p-regular">
+                <div class="detail-container p-regular">
+                    <div class="thumbnail detail-thumbnail"
+                         style="background-image: url(${snackDTO.snack_img})"></div>
+                    <div class="detail-content">
+                        <p style="color: #B48D69;">${snackDTO.company}</p>
+                        <div class="detail-row">
+                            <span class="h-imcre24">${snackDTO.snack_name} </span>
+                            <span style="color: #B48D69;">(${snackDTO.netwt}g / ${snackDTO.kcal}kcal)</span>
+                            <c:choose>
+                                <c:when test="${snackDTO.avg_score >= 1 && snackDTO.avg_score < 1.5}">
+                                    <c:set var="scoreImg"
+                                           value="<img src='/resources/img/score/score01.png' height='24'>"/>
+                                </c:when>
+                                <c:when test="${snackDTO.avg_score >= 1.5 && snackDTO.avg_score < 2}">
+                                    <c:set var="scoreImg"
+                                           value="<img src='/resources/img/score/score_01_half.png' height='24'>"/>
+                                </c:when>
+                                <c:when test="${snackDTO.avg_score >= 2 && snackDTO.avg_score < 2.5}">
+                                    <c:set var="scoreImg"
+                                           value="<img src='/resources/img/score/score02.png' height='24'>"/>
+                                </c:when>
+                                <c:when test="${snackDTO.avg_score >= 2.5 && snackDTO.avg_score < 3}">
+                                    <c:set var="scoreImg"
+                                           value="<img src='/resources/img/score/score_02_half.png' height='24'>"/>
+                                </c:when>
+                                <c:when test="${snackDTO.avg_score >= 3 && snackDTO.avg_score < 3.5}">
+                                    <c:set var="scoreImg"
+                                           value="<img src='/resources/img/score/score03.png' height='24'>"/>
+                                </c:when>
+                                <c:when test="${snackDTO.avg_score >= 3.5 && snackDTO.avg_score < 4}">
+                                    <c:set var="scoreImg"
+                                           value="<img src='/resources/img/score/score_03_half.png' height='24'>"/>
+                                </c:when>
+                                <c:when test="${snackDTO.avg_score >= 4 && snackDTO.avg_score < 4.5}">
+                                    <c:set var="scoreImg"
+                                           value="<img src='/resources/img/score/score04.png' height='24'>"/>
+                                </c:when>
+                                <c:when test="${snackDTO.avg_score >= 4.5 && snackDTO.avg_score < 5}">
+                                    <c:set var="scoreImg"
+                                           value="<img src='/resources/img/score/score_04_half.png' height='24'>"/>
+                                </c:when>
+                                <c:when test="${snackDTO.avg_score == 5}">
+                                    <c:set var="scoreImg"
+                                           value="<img src='/resources/img/score/score05.png' height='24'>"/>
+                                </c:when>
+                                <c:otherwise/>
+                            </c:choose>
+                            <p style="color: #B48D69; margin-top:5px">${scoreImg} 평점 (${snackDTO.avg_score}
+                                / ${snackDTO.review_count}개)</p>
+                        </div>
+                        <div style="margin: 20px 0 30px 0;">
+                            <div class="detail-row">탄수화물 : ${snackDTO.carb}g</div>
+                            <div class="detail-row">당류 : ${snackDTO.sugars}g</div>
+                            <div class="detail-row">나트륨 : ${snackDTO.sodium}mg</div>
+                            <div class="detail-row">단백질 : ${snackDTO.protein}g</div>
+                            <div class="detail-row">알러지 : ${snackDTO.allergy}</div>
+                            <div class="detail-row">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <%--<div>
-                <label>내가 준 별점: </label>
-                <div class="rating" id="rating"></div>
+        </div>
+    </div>
+
+    <div class="sub-container">
+        <div class="p-regular">
+            <h3 class="s-h-imcre24">${reviewDTO.review_title}</h3>
+            <div class="rating" id="rating">
                 <c:choose>
                     <c:when test="${reviewDTO.review_score == 1}">
                         <c:set var="scoreImg"
@@ -268,31 +287,31 @@
                     </c:when>
                     <c:otherwise><c:set var="scoreImg" value=""/></c:otherwise>
                 </c:choose>
-                <li>${scoreImg} ${reviewDTO.review_score}</li>
-&lt;%&ndash;                <script>&ndash;%&gt;
-&lt;%&ndash;                    var rating = ${reviewDTO.review_score};&ndash;%&gt;
-&lt;%&ndash;                    var fullStars = Math.floor(rating);&ndash;%&gt;
-&lt;%&ndash;                    var hasHalfStar = rating - fullStars >= 0.5;&ndash;%&gt;
+            </div>
+            <li>${scoreImg}</li>
+            <div style="font-size:13px" class="p-regular"> ${reviewDTO.review_score}점 <span>&#183;</span> ${reviewDTO.snack_name}
+                <span>&#183;</span> ${reviewDTO.member_nickname}
+                <span>&#183;</span> <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/>
+            </div>
+        </div>
 
-&lt;%&ndash;                    for (var i = 0; i < fullStars; i++) {&ndash;%&gt;
 
-&lt;%&ndash;                        document.getElementById("rating").innerHTML += "&#9733;";&ndash;%&gt;
-&lt;%&ndash;                    }&ndash;%&gt;
-&lt;%&ndash;                    if (hasHalfStar) {&ndash;%&gt;
-&lt;%&ndash;                        document.getElementById("rating").innerHTML += "&#9733;";&ndash;%&gt;
-&lt;%&ndash;                    }&ndash;%&gt;
-&lt;%&ndash;                </script>&ndash;%&gt;
-            </div>--%>
-        </div><br>
+        <button class="fill-btn" id="snack-info">리뷰 과자 정보</button>
 
-<%--        <div> <label> 과자명 : </label> ${reviewDTO.snack_name} </div>
-        <div> <label> 작성자 : </label> ${reviewDTO.member_nickname} </div>
-        <div> 작성일자 : <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/> </div>
-        <div> <label> 내용 : </label> <input name="review_content" class="form-control" value="${reviewDTO.review_content}"> </div>--%>
-        <div> ${reviewDTO.review_content} </div><br>
+        <form name="form" method="post">
+            <input type='hidden' name='review-id' value="${reviewDTO.review_id}">
+        </form>
 
-        <div style="width:650px; text-align: center;">
-            <a href="reviewList?num=1"><button class="fill-btn">뒤로가기</button></a>
+
+        <div> ${reviewDTO.review_content} </div>
+
+
+        <div class="btn-wrap">
+            <button class="btn-Delete fill-btn" style="width:2cm; height:1cm; float:right">삭제</button>
+            <button class="btn-Update fill-btn" style="width:2cm; height:1cm; float:right">수정</button>
+            <a href="reviewList?num=1">
+                <button class="fill-btn">뒤로가기</button>
+            </a>
         </div>
 
 
@@ -301,10 +320,13 @@
             <form name="form" id="form" role="form" modelAttribute="reviewReplyDTO" method="post">
                 <div class="row">
                     <div class="col-sm-10">
-                        <textarea id="reply_content" class="reply_content" placeholder="댓글을 입력해 주세요"></textarea>
+                            <textarea id="reply_content" class="reply_content" style="width:100%;"
+                                      placeholder="댓글을 입력해 주세요"></textarea>
                     </div>
                     <div class="col-sm-2">
-                        <button type="button" class="btn-saveReply fill-btn" id="btn-saveReply" style="width: 100%; margin-top: 10px"> 저 장 </button>
+                        <button type="button" class="btn-saveReply fill-btn" id="btn-saveReply"
+                                style="width: 100%; margin-top: 10px"> 저 장
+                        </button>
                     </div>
                 </div>
             </form>
@@ -315,10 +337,16 @@
             <div id="replyList"></div>
         </div>
 
-
     </div>
-</section>
-<%@include file="/footer.jsp" %>
+    <script>
+        $("#snack-info").click(function () {
+            modalShow();
+        });
+        $("#modal-close").click(function () {
+            modalHide();
+        });
+    </script>
+    <%@include file="/footer.jsp" %>
 </body>
 </html>
 

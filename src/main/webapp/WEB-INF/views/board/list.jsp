@@ -70,10 +70,9 @@
                             <ul class="p-regular left-bottom">
                                 <li>${list.member_nickname}</li>
                                 <span></span>
-                                <li>
-                                    <c:set var="today" value="<%= new java.util.Date() %>" />
+                                <li><c:set var="today" value="<%= new java.util.Date() %>" />
                                     <c:choose>
-                                        <c:when test="${fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(reviewDTO.create_dt, ' '), 0, 10)), '-', ''), 0, 10) eq fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(today, ' '), 0, 10)), '-', ''), 0, 10)}">
+                                        <c:when test="${fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(list.create_dt, ' '), 0, 10)), '-', ''), 0, 10) eq fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(today, ' '), 0, 10)), '-', ''), 0, 10)}">
                                             <!-- 작성일이 오늘일 경우 -->
                                             <fmt:formatDate value="${list.create_dt}" pattern="HH:mm"/>
                                         </c:when>
