@@ -93,6 +93,27 @@
                 </c:forEach>
             </div>
         </div>
+        <div>
+            <c:if test="${page.prev}">
+            <span>[ <a href="/board/list?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a> ]</span>
+            </c:if>
+
+            <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+            <span>
+			<c:if test="${select != num}">
+                <a href="/board/list?num=${num}${page.searchTypeKeyword}">${num}</a>
+            </c:if>
+
+			<c:if test="${select == num}">
+                <b>${num}</b>
+            </c:if>
+		</span>
+            </c:forEach>
+
+            <c:if test="${page.next}">
+            <span>[ <a href="/board/list?num=${page.endPageNum + 1}${page.searchTypeKeyword}">다음</a> ]</span>
+            </c:if>
+        </div>
     </div>
         <!-- 서희님 원본2
         <table>
