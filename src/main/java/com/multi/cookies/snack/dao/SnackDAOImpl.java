@@ -18,10 +18,10 @@ public class SnackDAOImpl implements SnackDAO {
     @Autowired
     SqlSessionTemplate sqlSessionTemplate;
 
+    // DB에서 검색을 요청하는 쿼리의 메서드
     @Override
     public List<SearchDTO> snackSearch(String keyword, String category) {
-        System.out.println("DAO까지 잘 왔어!");
-
+        // 검색 시, 유저가 선택한 검색 카테고리에 맞는 쿼리
         List<SearchDTO> searchResults;
         if (category.equals("name")) {
             searchResults = sqlSessionTemplate.selectList("snack.searchName", keyword);
@@ -33,23 +33,24 @@ public class SnackDAOImpl implements SnackDAO {
         return searchResults;
     }
 
+    //검색창 검색 결과 및 리뷰게시판 글 작성 시 과자 검색 결과의 세부 페이지의 정보를 요청하는 DAO 메서드
     @Override
     public SearchDTO snackInfo(int snack_id) {
-        System.out.println("디테일 DAO!");
         return sqlSessionTemplate.selectOne("snack.snackInfo", snack_id);
     }
 
+    //인기 검색어 도출을 위한 DAO 메서드
+    //이미 테이블에 검색 결과가 있으면 COUNT를 올리고, 없으면 INSERT
     @Override
     public void saveKeyword(String keyword) {
-
         int duplicateCheck = sqlSessionTemplate.selectOne("snack.duplicateCheck", keyword);
         if (duplicateCheck > 0) {
             sqlSessionTemplate.update("snack.updateKeywordCount", keyword);
-        }else {
+        } else {
             sqlSessionTemplate.insert("snack.saveKeyword", keyword);
         }
     }
-
+    //인기 검색어 도출을 위한 COUNT 높은 ROW 을 얻을 수 있는 쿼리를 요청하는 DAO 메소드
     @Override
     public List<String> getPopularKeywords() {
         System.out.println("DAO 요청이 되었느냐?");
@@ -58,13 +59,5 @@ public class SnackDAOImpl implements SnackDAO {
         return popularKeywords;
     }
 
-
-  // @Override
-  // public List<String> getPopularKeywords() {
-  //     System.out.println("DAO 요청이 되었느냐?");
-  //     List<String> popularKeywords = sqlSessionTemplate.selectList("snack.getPopularKeywords");
-  //     System.out.println(popularKeywords);
-  //     return popularKeywords;
-  // }
 }
 

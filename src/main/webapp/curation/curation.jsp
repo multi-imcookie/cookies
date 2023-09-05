@@ -28,9 +28,6 @@
     </div>
 </div>
 
-<!-- 추가 줄들을 필요한 만큼 생성 -->
-
-
 <%@include file="/footer.jsp" %>
 <script>
     function showAlert() {

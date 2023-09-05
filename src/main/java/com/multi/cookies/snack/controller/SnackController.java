@@ -23,30 +23,23 @@ public class SnackController {
 
     @RequestMapping(value = {"/snack/snackWikiSearch", "/snack/snackReviewSearch"}, method = RequestMethod.GET)
     public String snackSearch(HttpServletRequest request,
+                              String category, String keyword, String sortName,
                               @RequestParam(value = "page", defaultValue = "1") int page,
                               @RequestParam(value = "selectedAllergies", required = false) String[] selectedAllergies, Model model) {
 
-        if (selectedAllergies != null) {
-            for (String allergy : selectedAllergies) {
-                System.out.println("Selected Allergy: " + allergy);
-            }
-        }
-
         System.out.println("컨트롤러 가동!");
         int pageSize = 9;
-        String category = request.getParameter("category");
-        System.out.println(category);
-        String keyword = request.getParameter("keyword");
-        System.out.println("입력값 확인! " + keyword);
-        String sortName = request.getParameter("sortName");
-        System.out.println(sortName);
+
         if (keyword == null) {
             // keyword가 null인 경우 처리해야 할 로직을 추가합니다.
             throw new IllegalArgumentException("키워드가 null입니다.");
         }
         String requestURI = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+
         Map<String, Object> paginationResult = snackService.snackSearch(keyword, pageSize, page, category, sortName, selectedAllergies);
+
         List<SearchDTO> pageResults = (List<SearchDTO>) paginationResult.get("pageResults");
+
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchResults", pageResults);
         model.addAttribute("totalPages", paginationResult.get("totalPages"));

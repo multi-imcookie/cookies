@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
     <typeAliases>
         <typeAlias type="com.multi.cookies.snack.dto.SnackDTO" alias="snackDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.api.dto.DBApiDTO" alias="dbApiDTO"></typeAlias>
@@ -50,5 +49,6 @@
         <mapper resource="mapper/replyMapper.xml"/>
         <mapper resource="mapper/curationMapper.xml"/>
     </mappers>
+
 
 </configuration>

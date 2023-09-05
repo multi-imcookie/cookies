@@ -13,6 +13,7 @@ public interface ReviewDAO {
     public ReviewDTO read(int review_id) throws Exception;
     //수정
     public void update(ReviewDTO reviewDTO) throws Exception;
+
     //삭제
     public void delete(int review_id) throws Exception;
 

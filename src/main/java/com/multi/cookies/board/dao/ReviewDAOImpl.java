@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -16,7 +17,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 
     @Autowired
     SqlSessionTemplate my;
-
 
 
     // 작성
@@ -37,6 +37,10 @@ public class ReviewDAOImpl implements ReviewDAO {
     public void update(ReviewDTO reviewDTO) throws Exception {
         my.update("review.update", reviewDTO);
         my.update("snack.updateSnackReviewScore", reviewDTO);
+    }
+
+    public void updateAvgScore(ReviewDTO reviewDTO) {
+        my.update("snack.updateAverageScore", reviewDTO);
     }
 
     // 삭제
