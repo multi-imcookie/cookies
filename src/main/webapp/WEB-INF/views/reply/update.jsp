@@ -16,7 +16,7 @@
     <form method="post" action="/reply/update">
 
         <p>
-            <label>댓글 작성자</label> <input type="text" name="member_id" readonly="readonly" value="${reply.member_id}">
+<%--            <label>댓글 작성자</label> <input type="text" name="member_nickname" readonly="readonly" value="${reply.member_nickname}">--%>
         </p>
         <p>
             <textarea rows="5" cols="50" name="reply_content">${reply.reply_content}</textarea>
@@ -32,6 +32,6 @@
 </div>
 
 <!-- 댓글 끝 -->
-
+<%@include file="/footer.jsp" %>
 </body>
 </html>

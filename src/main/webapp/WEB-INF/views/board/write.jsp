@@ -13,10 +13,10 @@
 <%@include file="/header.jsp" %>
 <div class="sub-container">
     <h3 class="h-imcre24">자유게시판 작성</h3>
-    <form action="write" method="post" class="form-style">
-        <div class="input-section">
+    <form name = "form" id="writeForm" method="post" class="form-style" onsubmit="return validateForm();" >
+<%--        <div class="input-section">--%>
             <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
-        </div>
+
         <div class="input-section">
             <label class="label-wrap" for="bbs_title">글제목</label>
             <input type="text" name="bbs_title" id="bbs_title"
@@ -37,11 +37,11 @@
 <%--        <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>--%>
 
         <div class="btn-wrap-column">
-            <button type="submit" class="fill-btn p-medium" name="action" value="write">작성</button>
-            <a class="light-fill-btn p-medium" id="backButton">뒤로가기</a>
+            <button type="submit" class="btn-Save fill-btn p-medium" id="btn-Save">작성</button>
+            <a class="light-fill-btn p-medium" id="backButton">뒤로가기</button>
         </div>
 
-<%--    </form>--%>
+    </form>
 </div>
 
 <!--서희님 원본 남겨드립니다 -진기
@@ -65,6 +65,26 @@
     document.getElementById("backButton").addEventListener("click", function() {
         window.history.back(); // 이전 페이지로 이동
     });
+</script>
+
+<script type="text/javascript">
+    // JavaScript를 사용하여 폼 유효성 검사
+    function validateForm() {
+        var title = document.getElementById("bbs_title").value;
+        var content = document.getElementById("bbs_content").value;
+
+        if (title === "") {
+            alert("제목을 입력하세요.");
+            return false; // 폼 제출 중단
+        }
+        if (content === "") {
+            alert("내용을 입력하세요.");
+            return false; // 폼 제출 중단
+        }
+
+        return true; // 유효성 검사 통과, 폼 제출
+    }
+
 </script>
 <%@include file="/footer.jsp" %>
 </body>

@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -52,6 +49,7 @@ public class BoardController {
         List<BoardDTO> list = service.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
         //list = service.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 
+        model.addAttribute("listSize", list.size());
         model.addAttribute("list", list);
         model.addAttribute("page", page);
         model.addAttribute("select", num);
@@ -61,10 +59,15 @@ public class BoardController {
     }
 
 
+//    //작성화면
+//    @RequestMapping(value = "revWrite", method = RequestMethod.GET)
+//    public String write() {
+//        return "board/write";
+//    }
     // 게시물 작성 폼
     @RequestMapping(value = "write", method = RequestMethod.GET)
-    public void Write() throws Exception {
-
+    public String Write()  {
+        return "board/write";
     }
 
     // 게시물 작성

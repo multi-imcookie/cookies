@@ -23,7 +23,7 @@
                 <select class="p-regular" name="searchType" id="searchType">
                     <option value="bbs_title" <c:if test="${page.searchType eq 'bbs_title'}">selected</c:if>>제목</option>
                     <option value="bbs_content" <c:if test="${page.searchType eq 'bbs_content'}">selected</c:if>>내용</option>
-                    <option value="member_id" <c:if test="${page.searchType eq 'member_id'}">selected</c:if>>작성자</option>
+                    <option value="member_nickname" <c:if test="${page.searchType eq 'member_nickname'}">selected</c:if>>작성자</option>
                 </select>
             </div>
             <span class="div-line"></span>
@@ -39,7 +39,7 @@
             <select name="searchType">
                 <option value="bbs_title" <c:if test="${page.searchType eq 'bbs_title'}">selected</c:if>>제목</option>
                 <option value="bbs_content" <c:if test="${page.searchType eq 'bbs_content'}">selected</c:if>>내용</option>
-                <option value="member_id" <c:if test="${page.searchType eq 'member_id'}">selected</c:if>>작성자</option>
+                <option value="member_id" <c:if test="${page.searchType eq 'member_nickname'}">selected</c:if>>작성자</option>
             </select>
 
             <input type="text" name="keyword" value="${page.keyword}"/>
@@ -57,6 +57,7 @@
             <div class="board-top">
                 <p class="list-count">
                     <!-- 게시글 총 개수 출력하는 부분! 없는거 같아서 일단 비워둠 -->
+                    총 게시글 수 ${listSize}개
                 </p>
                 <button class="btn-Write fill-btn" id="writeButton">게시글 작성</button>
             </div>
@@ -67,7 +68,7 @@
                         <div class="left-text">
                             <h5 class="h-pre24">${list.bbs_title}</h5>
                             <ul class="p-regular left-bottom">
-                                <li>${list.member_id}</li>
+                                <li>${list.member_nickname}</li>
                                 <span></span>
                                 <li><c:set var="today" value="<%= new java.util.Date() %>" />
                                     <c:choose>
@@ -79,7 +80,8 @@
                                             <!-- 작성일이 오늘이 아닐 경우 -->
                                             <fmt:formatDate value="${list.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
                                         </c:otherwise>
-                                    </c:choose></li>
+                                    </c:choose>
+                                </li>
                                 <span></span>
                                 <td>조회수 ${list.bbs_views}</td>
                             </ul>
@@ -112,7 +114,7 @@
                     <td>
                         <a href="/board/view?bbs_id=${list.bbs_id}">${list.bbs_title}</a>
                     </td>
-                    <td>${list.member_id}</td>
+                    <td>${list.member_nickname}</td>
                     <td>
                         <fmt:formatDate value="${list.create_dt}" pattern="yyyy-MM-dd"/>
                     </td>
@@ -168,6 +170,21 @@
         // JavaScript를 사용하여 버튼 클릭 시 페이지 이동 기능 추가
         document.getElementById("writeButton").addEventListener("click", function() {
             window.location.href = "write";
+        });
+
+        // 게시글 작성 버튼 클릭 시 이벤트 핸들러
+        document.getElementById("writeButton").addEventListener("click", function() {
+            // ${sessionScope.memberId} 값을 가져와서 확인
+            var memberId = "${sessionScope.memberId}";
+
+            if (memberId === "" || memberId === null) {
+
+                window.location.href = '/login';
+                alert("로그인을 하셔야합니다")
+            } else {
+                // memberId가 존재하는 경우, 게시글 작성 페이지로 이동합니다.
+                window.location.href = "write";
+            }
         });
     </script>
     <%@include file="/footer.jsp" %>
