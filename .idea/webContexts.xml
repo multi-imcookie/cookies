@@ -16,6 +16,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/snack/snackReviewSearchInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/snack" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/snack/snackWikiSearch.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/snack" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/api/controlDB.jsp" value="file://$PROJECT_DIR$/src/main/webapp/api" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/chat/chatbot.jsp" value="file://$PROJECT_DIR$/src/main/webapp/chat" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/header.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/member/mypage.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/snack/snackWiki.jsp" value="file://$PROJECT_DIR$/src/main/webapp/snack" />

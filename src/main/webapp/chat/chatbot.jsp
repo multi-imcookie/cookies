@@ -6,6 +6,53 @@
     <meta charset="UTF-8">
     <title>채팅</title>
     <%@ include file="/link.jsp" %>
+    <style>
+        /* 챗봇입력창 스타일 */
+        #text {
+            width: 400px;
+            height: 40px;
+            border: 1px solid #CBB89B;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        /* 전송 버튼 스타일 */
+        #sendMessage {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background-color: #966D48;
+            color: #FFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* 전송 버튼 호버 효과 */
+        #sendMessage:hover {
+            background-color: #CBB89B;
+        }
+
+        /* 대화 메시지 스타일 */
+        .message {
+            background-color: #E9E2D9;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 10px;
+        }
+
+        /* 대화 내용을 담는 스타일 */
+        #response {
+            margin-top: 20px;
+        }
+
+        /* 채팅 내용 스크롤바 설정 */
+        #response {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+
+    </style>
 
 </head>
 <body>
@@ -101,31 +148,30 @@
             }
 
 
-
             p.appendChild(document.createTextNode(messageOutput.menu));
             response.appendChild(p);
             document.getElementById('text').innerHTML = '';
         }
     </script>
-    </head>
-    <body onload="connect();">
-    <br>
-    <br>
-    <%--	<div style="width: 500px;">--%>
-    <div class="detail-container" p="medium">
-        <div>안녕하세요! imcookie 챗봇 전과자입니다.</div>
-        <div>현재 다음 기능을 제공하고 있습니다.</div>
-        <br>
-        <div>1.스낵추천</div>
-        <br>
-        <div>2.과자취향분석</div>
-        <br>
-        <div>3.과자월드컵!</div>
-        <br>
-        <div>4.회원정보관리</div>
-        <br>
-        <div id="response">
 
+    <body onload="connect();">
+
+    <%--   <div style="width: 500px;">--%>
+    <div class="message">
+        <div class="detail-container" p="medium">
+            <div>안녕하세요! imcookie 챗봇 전과자입니다.</div>
+            <div>현재 다음 기능을 제공하고 있습니다.</div>
+            <br>
+            <div>1.스낵추천</div>
+            <br>
+            <div>2.과자취향분석</div>
+            <br>
+            <div>3.과자월드컵!</div>
+            <br>
+            <div>4.회원정보관리</div>
+            <br>
+            <div id="response">
+            </div>
         </div>
         <div class="form-floating mb-3 mt-3" id="conversationDiv">
             <table>
@@ -138,5 +184,7 @@
             </table>
         </div>
     </div>
-    </body>
+</div>
+<%@include file="/footer.jsp" %>
+</body>
 </html>

@@ -23,7 +23,7 @@ public class WebSocketController {
                 menu = "";
                 break;
             case "4":
-                menu = "전과자>>  20) 회원정보수정";
+                menu = "전과자>>  40) 회원정보수정";
                 break;
             case "40":
                 menu = "";
