@@ -88,6 +88,7 @@
                         </div>
                     </div>
                     <div class="right">
+                        <div class="reply-count">${list.reply_count}</div>
                     </div>
                 </a>
                 </c:forEach>

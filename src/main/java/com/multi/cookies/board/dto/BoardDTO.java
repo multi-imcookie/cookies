@@ -15,5 +15,6 @@ public class BoardDTO {
     private int bbs_views = 0;
     private Date create_dt;
     private Date update_dt;
+    private int reply_count;           //댓글개수 추가
 
 }
