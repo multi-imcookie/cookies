@@ -127,7 +127,7 @@
             font-size: 28px;
             font-weight: bold;
             line-height: 28px;
-            margin-left: 700px;
+            margin-left: 600px;
         }
 
     </style>
@@ -268,7 +268,7 @@
 <body>
 <%@include file="/header.jsp" %>
 <div class="sub-container">
-    <div class="review-count">총 리뷰 수 : ${count}</div>
+    <div class="review-count">리뷰 과자 수 : ${count}</div>
     <div id="d1">
         <table>
             <thead>
