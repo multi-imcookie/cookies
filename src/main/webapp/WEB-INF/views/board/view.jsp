@@ -7,49 +7,32 @@
     <meta charset="UTF-8">
     <title>게시판 글보기</title>
     <%@ include file="/link.jsp" %>
-
+<style>
+</style>
 </head>
 <body>
 <%@ include file="/header.jsp" %>
 <div class="sub-container">
     <h3 class="h-imcre24">게시글</h3>
-    <!--
-<label>제목</label>
-${view.bbs_title}<br />
-
-<label>작성자</label>
-${view.member_nickname}<br />
-
-<label>내용</label><br />
-${view.bbs_content}<br />
- -->
-
-    <h2>${view.bbs_title}</h2>
-
-    <hr/>
-    <div class="member_nickname">
-        <span>작성자 : </span>${view.member_nickname}
+    <div class="form-style">
+        <div class="input-section">
+            <label class="label-wrap">작성자</label>
+            <input type="text" name="member_nickname" value="${view.member_nickname}" readonly/><br/>
+        </div>
+        <div class="input-section">
+            <label class="label-wrap">제목</label>
+            <input type="text" name="bbs_title" value="${view.bbs_title}" readonly/><br/>
+        </div>
+        <div class="input-section">
+            <label class="label-wrap">내용</label>
+            <textarea cols="50" rows="5" name="bbs_content" readonly>${view.bbs_content}</textarea><br/>
+        </div>
     </div>
-
-    <hr/>
-
-    <div class="bbs_content">
-        ${view.bbs_content}
+    <div class="btn-wrap-column">
+        <a class= "fill-btn p-medium" href="/board/update?bbs_id=${view.bbs_id}">게시물 수정</a>
+        <a class= "light-fill-btn p-medium" href="/board/delete?bbs_id=${view.bbs_id}">게시물 삭제</a>
     </div>
-
-    <hr/>
-
-    <div>
-        <a href="/board/update?bbs_id=${view.bbs_id}">게시물 수정</a>, <a href="/board/delete?bbs_id=${view.bbs_id}">게시물
-        삭제</a>
-    </div>
-
-    <!-- 댓글 시작 -->
-
-    <hr/>
-
     <ul>
-
         <c:forEach items="${reply}" var="reply">
             <li>
                 <div>
@@ -68,9 +51,7 @@ ${view.bbs_content}<br />
             </li>
         </c:forEach>
     </ul>
-
     <div>
-
         <form method="post" action="/reply/write">
 
             <p>
@@ -84,7 +65,6 @@ ${view.bbs_content}<br />
                 <button type="button" class="btn-replyWrite fill-btn" id="btn-replyWrite" style="width: 100%; margin-top: 10px"> 댓글작성 </button>
             </p>
         </form>
-
     </div>
 </div>
 <script type="text/javascript">
