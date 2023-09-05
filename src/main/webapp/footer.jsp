@@ -29,7 +29,7 @@
             </ul>
             <ul class="team-email-section">
                 <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">limwantae87@gmail.com</li>
-                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">12wlsrl@naver.com</li>
+                <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">jinki206@gmail.com</li>
             </ul>
             <ul class="team-email-section">
                 <li class="p-bold"><img src="/resources/img/icon/mail.svg" alt="메일 아이콘">5local9805@gmail.com</li>
