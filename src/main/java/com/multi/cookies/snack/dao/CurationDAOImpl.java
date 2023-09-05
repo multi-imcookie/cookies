@@ -101,6 +101,16 @@ public class CurationDAOImpl implements CurationDAO {
                 columnDataMap.put(favoriteColumn, top5Data);
             }
 
+            if(columnDataMap.isEmpty()){
+                    String noPreference = "noPreference";
+                    List<SearchDTO> recommendList = sqlSessionTemplate.selectList("curation.bestScoreRecommend");
+                    columnDataMap.put(noPreference, recommendList);
+                    System.out.println(columnDataMap);
+
+                    return columnDataMap;
+                }
+
+
             return columnDataMap;
         }
 

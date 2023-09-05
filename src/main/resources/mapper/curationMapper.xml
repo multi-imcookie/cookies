@@ -115,5 +115,14 @@
         SELECT * FROM curation WHERE member_id = #{member_id}
     </select>
 
+    <!-- 부분적 일치에 대한 검색을 하기 위해 RESULT MAP 사용 / 칼럼 중 모든 문자열에 대한 검색 결과를 얻기 위한 쿼리 -->
+    <select id="bestScoreRecommend" resultType="searchDTO" resultMap="keywordMap">
+        SELECT *
+        FROM snack a
+                 JOIN snack_nutritional b ON a.snack_id = b.snack_id
+                 JOIN avg_score c ON a.snack_id = c.snack_id
+        ORDER BY c.avg_score DESC
+            LIMIT 5;
+    </select>
 
 </mapper>
