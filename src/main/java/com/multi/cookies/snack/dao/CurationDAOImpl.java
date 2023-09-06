@@ -28,6 +28,7 @@ public class CurationDAOImpl implements CurationDAO {
     @Override
     public int checkedHistory(int member_id) {
         int result = sqlSessionTemplate.selectOne("curation.checkedHistory", member_id);
+        System.out.println(result);
         return result;
     }
 
