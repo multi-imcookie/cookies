@@ -238,8 +238,24 @@
     </form>
 
 
-</div>
-<%@include file="/footer.jsp" %>
+    </div>
+    <script>
+    $(document).ready(function () {
+    // 기존 값 다시 가져오기
+    let selectedScore = ${read.review_score};
+
+    // 선택한 값을 기준으로 해당 라디오 버튼을 체크합니다.
+    $('input[name="review_score"]').each(function () {
+    if ($(this).val() == selectedScore) {
+    $(this).prop('checked', true);
+    }
+    });
+    });
+    </script>
+    <%@include file="/footer.jsp" %>
 
 </body>
 </html>
+
+
+

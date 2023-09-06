@@ -69,14 +69,27 @@
 
     <!-- 리뷰든 큐레이션이든 이미 별점을 매긴 게시물이나 결과를 수정해서 별점을 바꾸었을 때 그 변화를 반영하는 쿼리 -->
     <update id="updateSnackReviewScore" parameterType="reviewDTO">
-           <![CDATA[
+    <![CDATA[
         UPDATE avg_score AS a
             INNER JOIN review_bbs AS r ON a.snack_id = r.snack_id
-            SET a.total_score = a.total_score - r.review_score + #{review_score},
-                a.avg_score = a.total_score / a.review_count
-        WHERE a.snack_id = #{snack_id}
+            SET a.total_score = (a.total_score - r.review_score) + #{review_score}
+        WHERE r.review_id = #{review_id}
         ]]>
 </update>
+
+    <update id="updateAverageScore" parameterType="reviewDTO">
+    <![CDATA[
+        UPDATE avg_score AS a
+            INNER JOIN review_bbs AS r ON a.snack_id = r.snack_id
+            SET a.avg_score = a.total_score / a.review_count
+        WHERE r.review_id = #{review_id}
+        ]]>
+</update>
+
+
+
+
+
 
     <insert id="saveKeyword" parameterType="String">
         INSERT INTO popular_keyword(searched_keyword, searched_count) VALUES(#{keyword}, 1)

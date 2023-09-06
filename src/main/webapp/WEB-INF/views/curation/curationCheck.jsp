@@ -8,7 +8,7 @@
 <body>
 <%@include file="/header.jsp" %>
 
-<div class="sub-container">
+<div class="sub-container p-regular">
     <div id="allergy" style="display: none;">
         <c:forEach items="${allergyData}" var="allergyName">
             <div class="personal-allergy">${allergyName}</div>

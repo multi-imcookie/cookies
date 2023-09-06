@@ -35,8 +35,9 @@ public class ReviewDAOImpl implements ReviewDAO {
     // 수정
     @Override
     public void update(ReviewDTO reviewDTO) throws Exception {
-        my.update("review.update", reviewDTO);
         my.update("snack.updateSnackReviewScore", reviewDTO);
+        my.update("snack.updateAverageScore", reviewDTO);
+        my.update("review.update", reviewDTO);
     }
 
     public void updateAvgScore(ReviewDTO reviewDTO) {

@@ -92,23 +92,104 @@ public class CurationDAOImpl implements CurationDAO {
 
 
                 //그리고 여기서 필터링으로 알러지 거르기.
+                List<String> allergyColumns = sqlSessionTemplate.selectList("curation.getAllergyColumnNames");
+
+                List<String> getSelectedAllergies = new ArrayList<>();
+                for (String columnName : allergyColumns) {
+                    // 각각의 컬럼 값이 1인지 확인
+                    Map<String, Object> parameterMap = new HashMap<>();
+                    parameterMap.put("columnName", columnName);
+                    Integer value = sqlSessionTemplate.selectOne("curation.checkAllergyValue", parameterMap);
+
+                    // 만약 해당 컬럼의 값이 1이면 결과 리스트에 추가
+                    if (value != null && value == 1) {
+                        getSelectedAllergies.add(columnName);
+                    }
+                }
+
+                String[] selectedAllergies = getSelectedAllergies.toArray(new String[0]);
+
+                List<SearchDTO> allergyConvertedResult = new ArrayList<>();
+
+                for (SearchDTO searchDTO : uniqueSearchData) {
+                    if (selectedAllergies != null) {    // selectedAllergies가 null이 아닐 경우에는
+                        int match = 0;  // 매치하는 알러지 개수를 담을 변수
+                        for (String convertedAllergy : convertAllergy(selectedAllergies)) {    // convertAllergy(selectedAllergies)의 개수만큼 반복
+                            if (searchDTO.getAllergy() != null && searchDTO.getAllergy().contains(convertedAllergy)) {   // searchDTO.getAllergy()가 convertedAllergy를 포함할 경우
+                                match++;   // match 값 증가
+                            }
+                            if (searchDTO.getSnack_ingredients() != null && searchDTO.getSnack_ingredients().contains(convertedAllergy)) {
+                                match++;
+                            }
+                        }
+                        if (match == 0) {    // match값이 없을 경우에만 searchDTO를 추가
+                            allergyConvertedResult.add(searchDTO);
+                        }
+                    } else {    // selectedAllergies가 null일 경우에는 그냥 추가한다
+                        allergyConvertedResult.add(searchDTO);
+                    }
+                }
 
                 // 상위 5개만 선택하기
-                List<SearchDTO> top5Data = uniqueSearchData.stream()
+                List<SearchDTO> top5Data = allergyConvertedResult.stream()
                         .limit(5)
                         .collect(Collectors.toList());
 
                 columnDataMap.put(favoriteColumn, top5Data);
             }
 
-            if(columnDataMap.isEmpty()){
-                    String noPreference = "noPreference";
-                    List<SearchDTO> recommendList = sqlSessionTemplate.selectList("curation.bestScoreRecommend");
-                    columnDataMap.put(noPreference, recommendList);
-                    System.out.println(columnDataMap);
+            if (columnDataMap.isEmpty()) {
+                String noPreference = "noPreference";
+                List<SearchDTO> recommendList = sqlSessionTemplate.selectList("curation.bestScoreRecommend");
 
-                    return columnDataMap;
+                //그리고 여기서 필터링으로 알러지 거르기.
+                List<String> allergyColumns = sqlSessionTemplate.selectList("curation.getAllergyColumnNames");
+
+                List<String> getSelectedAllergies = new ArrayList<>();
+                for (String columnName : allergyColumns) {
+                    // 각각의 컬럼 값이 1인지 확인
+                    Map<String, Object> parameterMap = new HashMap<>();
+                    parameterMap.put("columnName", columnName);
+                    Integer value = sqlSessionTemplate.selectOne("curation.checkAllergyValue", parameterMap);
+
+                    // 만약 해당 컬럼의 값이 1이면 결과 리스트에 추가
+                    if (value != null && value == 1) {
+                        getSelectedAllergies.add(columnName);
+                    }
                 }
+
+                String[] selectedAllergies = getSelectedAllergies.toArray(new String[0]);
+                List<SearchDTO> allergyConvertedResult = new ArrayList<>();
+
+                for (SearchDTO searchDTO : recommendList) {
+                    if (selectedAllergies != null) {    // selectedAllergies가 null이 아닐 경우에는
+                        int match = 0;  // 매치하는 알러지 개수를 담을 변수
+                        for (String convertedAllergy : convertAllergy(selectedAllergies)) {    // convertAllergy(selectedAllergies)의 개수만큼 반복
+                            if (searchDTO.getAllergy() != null && searchDTO.getAllergy().contains(convertedAllergy)) {   // searchDTO.getAllergy()가 convertedAllergy를 포함할 경우
+                                match++;   // match 값 증가
+                            }
+                            if (searchDTO.getSnack_ingredients() != null && searchDTO.getSnack_ingredients().contains(convertedAllergy)) {
+                                match++;
+                            }
+                        }
+                        if (match == 0) {    // match값이 없을 경우에만 searchDTO를 추가
+                            allergyConvertedResult.add(searchDTO);
+                        }
+                    } else {    // selectedAllergies가 null일 경우에는 그냥 추가한다
+                        allergyConvertedResult.add(searchDTO);
+                    }
+                }
+                // 상위 5개만 선택하기
+                List<SearchDTO> top5Data = allergyConvertedResult.stream()
+                        .limit(5)
+                        .collect(Collectors.toList());
+
+                columnDataMap.put(noPreference, top5Data);
+
+                System.out.println(columnDataMap);
+
+                return columnDataMap;
+            }
 
 
             return columnDataMap;
@@ -144,5 +225,113 @@ public class CurationDAOImpl implements CurationDAO {
             keywords.add("달달");
         }
         return keywords;
+    }
+
+    private List<String> convertAllergy(String[] selectedAllergies) {
+        List<String> converted = new ArrayList<>();
+        for (String s : selectedAllergies) {
+            if (s.equals("egg_allergy")) {
+                converted.add("계란");
+                converted.add("달걀");
+                converted.add("난황");
+                converted.add("난백");
+                converted.add("전란액");
+            }
+            if (s.equals("milk_allergy")) {
+                converted.add("우유");
+                converted.add("분유");
+                converted.add("유지");
+                converted.add("카제인");
+                converted.add("유청단백");
+                converted.add("분말유");
+                converted.add("유크림");
+                converted.add("유당");
+                converted.add("유청분말");
+                converted.add("원유");
+                converted.add("환원유");
+                converted.add("연유");
+                converted.add("가공유");
+            }
+            if (s.equals("wheat_allergy")) {
+                converted.add("밀");
+                converted.add("호밀");
+                converted.add("밀가루");
+                converted.add("된장");
+                converted.add("고추장");
+                converted.add("간장");
+            }
+            if (s.equals("buckwheat_allergy")) {
+                converted.add("메밀");
+            }
+            if (s.equals("peanut_allergy")) {
+                converted.add("땅콩");
+                converted.add("피넛");
+            }
+            if (s.equals("soy_allergy")) {
+                converted.add("콩");
+                converted.add("대두");
+                converted.add("쇼트닝");
+                converted.add("레시틴");
+            }
+            if (s.equals("pine_nut_allergy")) {
+                converted.add("잣");
+            }
+            if (s.equals("almond_allergy")) {
+                converted.add("아몬드");
+            }
+            if (s.equals("walnut_allergy")) {
+                converted.add("호두");
+                converted.add("월넛");
+                converted.add("호도");
+            }
+            if (s.equals("crab_allergy")) {
+                converted.add("게");
+                converted.add("크랩");
+            }
+            if (s.equals("shrimp_allergy")) {
+                converted.add("새우");
+                converted.add("쉬림프");
+                converted.add("슈림프");
+            }
+            if (s.equals("squid_allergy")) {
+                converted.add("오징어");
+            }
+            if (s.equals("mackerel_allergy")) {
+                converted.add("고등어");
+            }
+            if (s.equals("shellfish_allergy")) {
+                converted.add("전복");
+                converted.add("홍합");
+                converted.add("조개");
+                converted.add("굴");
+            }
+            if (s.equals("peach_allergy")) {
+                converted.add("복숭아");
+            }
+            if (s.equals("tomato_allergy")) {
+                converted.add("토마토");
+            }
+            if (s.equals("chicken_allergy")) {
+                converted.add("닭");
+                converted.add("치킨");
+                converted.add("계육");
+            }
+            if (s.equals("pork_allergy")) {
+                converted.add("돈육");
+                converted.add("돈지");
+                converted.add("돈골");
+                converted.add("돼지고기");
+                converted.add("젤라틴");
+            }
+            if (s.equals("beef_allergy")) {
+                converted.add("우육");
+                converted.add("쇠고기");
+                converted.add("우지");
+                converted.add("사골");
+                converted.add("우골");
+                converted.add("소고기");
+            }
+        }
+        return converted;
     }
 }
