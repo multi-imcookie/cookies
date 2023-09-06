@@ -13,9 +13,9 @@
                 #{sugars}, #{calcium}, #{sodium}, #{cholesterol}, #{saturated_fat}, #{trans_fat});
     </insert>
 
-    <insert id="insertScoreId" parameterType="dbApiDTO">
+    <insert id="insertScoreId" parameterType="int">
         insert into avg_score (snack_id)
-        values #{snack_id};
+        values (#{snack_id});
     </insert>
     <!--여기까지-->
 
