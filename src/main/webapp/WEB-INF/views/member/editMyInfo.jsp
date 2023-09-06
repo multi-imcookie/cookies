@@ -33,21 +33,52 @@
     <h3 class="s-h-imcre24">회원 정보 수정</h3>
     <form class="editMyinfo-form form-style" method="post">
         <input type="hidden" id="member_id" name="member_id" value="${sessionScope.memberId}">
-        <div class="input-section">
-            <label class="label-wrap" for="member_signId">아이디<span class="require-val">*</span></label>
-            <input type="text" id="member_signId" name="member_signId" value="${memberDTO.member_signId}" disabled>
-            <span class="guide id_chk"></span>
-        </div>
-        <div class="input-section">
-            <label class="label-wrap" for="member_pw">변경할 비밀번호</label>
-            <input type="password" id="member_pw" name="member_pw" placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합">
-            <span class="guide pw_rule"></span>
-        </div>
-        <div class="input-section">
-            <label class="label-wrap" for="member_pwChk">비밀번호 확인</label>
-            <input type="password" id="member_pwChk" name="member_pwChk" placeholder="비밀번호를 한 번 더 입력하세요.">
-            <span class="guide pw_chk"></span>
-        </div>
+        <c:if test="${memberDTO.member_signId != null}">
+            <div class="input-section">
+                <label class="label-wrap" for="member_signId">아이디<span class="require-val">*</span></label>
+                <input type="text" id="member_signId" name="member_signId" placeholder="${memberDTO.member_signId}"
+                       disabled>
+                <span class="guide id_chk"></span>
+            </div>
+        </c:if>
+        <c:if test="${memberDTO.kakao_login != null}">
+            <div class="input-section">
+                <label class="label-wrap" for="member_signId">아이디<span class="require-val">*</span></label>
+                <input type="text" name="member_signId" placeholder="카카오 로그인" disabled>
+                <span class="guide id_chk"></span>
+            </div>
+        </c:if>
+        <c:if test="${memberDTO.naver_login != null}">
+            <div class="input-section">
+                <label class="label-wrap" for="member_signId">아이디<span class="require-val">*</span></label>
+                <input type="text" name="member_signId" placeholder="네이버 로그인" disabled>
+                <span class="guide id_chk"></span>
+            </div>
+        </c:if>
+        <c:if test="${memberDTO.member_signId == null}">
+            <div class="input-section">
+                <label class="label-wrap" for="member_pw">변경할 비밀번호</label>
+                <input type="password" name="member_pw" placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합" disabled>
+                <span class="guide pw_rule"></span>
+            </div>
+            <div class="input-section">
+                <label class="label-wrap" for="member_pwChk">비밀번호 확인</label>
+                <input type="password" name="member_pwChk" placeholder="비밀번호를 한 번 더 입력하세요." disabled>
+                <span class="guide pw_chk"></span>
+            </div>
+        </c:if>
+        <c:if test="${memberDTO.member_signId != null}">
+            <div class="input-section">
+                <label class="label-wrap" for="member_pw">변경할 비밀번호</label>
+                <input type="password" id="member_pw" name="member_pw" placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합">
+                <span class="guide pw_rule"></span>
+            </div>
+            <div class="input-section">
+                <label class="label-wrap" for="member_pwChk">비밀번호 확인</label>
+                <input type="password" id="member_pwChk" name="member_pwChk" placeholder="비밀번호를 한 번 더 입력하세요.">
+                <span class="guide pw_chk"></span>
+            </div>
+        </c:if>
         <div class="input-section">
             <label class="label-wrap" for="member_nickname">닉네임<span class="require-val">*</span></label>
             <input type="text" id="member_nickname" name="member_nickname" value="${memberDTO.member_nickname}"
@@ -63,7 +94,8 @@
         </div>
         <div class="input-section">
             <label class="label-wrap" for="member_email">이메일<span class="require-val">*</span></label>
-            <input oninput="emailExp(this)" type="text" id="member_email" name="member_email" value="${memberDTO.member_email}" required>
+            <input oninput="emailExp(this)" type="text" id="member_email" name="member_email"
+                   value="${memberDTO.member_email}" required>
             <span class="guide email_chk"></span>
         </div>
         <button type="button" id="editMyInfo-btn" class="fill-btn">내 정보 수정</button>

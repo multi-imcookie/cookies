@@ -70,7 +70,7 @@
                 </a></li>
             </c:if>
             <li><a href="/chat/chatbot.jsp">
-                <img src="/resources/img/icon/send.svg" alt="dm">
+                <img src="/resources/img/icon/chatbot.svg" alt="챗봇">
             </a></li>
         </ul>
     </div>

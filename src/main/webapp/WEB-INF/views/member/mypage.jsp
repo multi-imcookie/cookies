@@ -20,23 +20,27 @@
     <div class="mypage-modal modal-box">
         <a href="#" class="modal-close"><img src="/resources/img/icon/close-btn.svg" alt="close-btn"></a>
         <div class="mdl-text">
-            <p class="h-pre24"><span>비밀번호 변경</span> 🔑<br>
-                현재 비밀번호를 입력해주세요.</p>
-            <div class="input-section">
-                <input type="hidden" id="member_id" name="member_id" value="${sessionScope.memberId}">
-                <input type="password" id="chkMemberPw" name="chkMemberPw" placeholder="현재 비밀번호를 입력해주세요." required>
-            </div>
+            <p class="h-pre24"><span>프로필 사진 변경</span> 🙋‍♀️<br>
+                파일을 업로드 해주세요.</p>
+            <form class="form-style" enctype="multipart/form-data" action="/uploadProfile" method="post">
+                <input type="file" id="member_profile" name="member_profile">
+                <button class="fill-btn" type="submit">프로필 사진 업로드</button>
+            </form>
         </div>
-        <a class="fill-btn p-medium edit-MyInfo">회원정보 수정 페이지로 이동</a>
     </div>
 </div>
 <div class="sub-container">
     <h3 class="s-h-imcre24">마이페이지</h3>
     <div class="profile">
-        <div class="profile-img" th:style="'background-image: url(' + ${memberDTO.member_profile} + ');'"></div>
+        <c:if test="${memberDTO.member_profile == null}">
+            <div class="profile-img" style="background-image: url('/resources/img/profile/profile_default.png');"></div>
+        </c:if>
+        <c:if test="${memberDTO.member_profile != null}">
+            <div class="profile-img" style="background-image: url('${memberDTO.member_profile}');"></div>
+        </c:if>
         <div class="btn-wrap-row p-regular">
-            <a href="#" class="small-fill-btn">변경하기</a>
-            <a href="#" class="small-fill-btn">삭제하기</a>
+            <a href="#" class="small-fill-btn profile-update">변경하기</a>
+            <a href="/deleteProfile" id="deleteProfile" class="small-fill-btn">삭제하기</a>
         </div>
     </div>
     <div class="member-info-wrap">
@@ -55,10 +59,7 @@
                 <li>${memberDTO.member_email}</li>
             </ul>
         </div>
-        <div class="btn-wrap-row edit-btn-wrap">
-            <a href="/editMyInfo" class="edit-btn"><img src="/resources/img/icon/edit.svg" alt="회원 정보 수정버튼"></a>
-            <a href="#" class="pw-edit edit-btn"><img src="/resources/img/icon/passcode.svg" alt="비밀번호 변경 버튼"></a>
-        </div>
+        <a href="/editMyInfo" class="edit-btn"><img src="/resources/img/icon/edit.svg" alt="회원 정보 수정버튼"></a>
     </div>
     <div class="tab-btn-wrap p-regular">
         <a id="myBoardBtn" class="tab-btn active">
@@ -93,11 +94,9 @@
                         <div class="left-text">
                             <h5 class="h-pre24">${myBoards.bbs_title}</h5>
                             <ul class="p-regular left-bottom">
-                                <li>${myBoards.bbs_category}</li>
+                                <li>${myBoards.member_nickname}</li>
                                 <span></span>
-                                <li>${myBoards.member_id}</li>
-                                <span></span>
-                                <li><c:set var="today" value="<%= new java.util.Date() %>" />
+                                <li><c:set var="today" value="<%= new java.util.Date() %>"/>
                                     <c:choose>
                                         <c:when test="${fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(myBoards.create_dt, ' '), 0, 10)), '-', ''), 0, 10) eq fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(today, ' '), 0, 10)), '-', ''), 0, 10)}">
                                             <!-- 작성일이 오늘일 경우 -->
@@ -105,14 +104,17 @@
                                         </c:when>
                                         <c:otherwise>
                                             <!-- 작성일이 오늘이 아닐 경우 -->
-                                            <fmt:formatDate value="${myBoards.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+                                            <fmt:formatDate value="${myBoards.create_dt}"
+                                                            pattern="yyyy년 MM월 dd일 HH:mm"/>
                                         </c:otherwise>
-                                    </c:choose></li>
+                                    </c:choose>
+                                </li>
+                                <span></span>
+                                <td>조회수 ${myBoards.bbs_views}</td>
                             </ul>
                         </div>
                     </div>
                     <div class="right">
-                        <div class="reply-count">${myBoards.bbs_views}</div>
                     </div>
                 </a>
             </c:forEach>
@@ -170,7 +172,7 @@
                                 <span></span>
                                 <li>${myReviews.member_nickname}</li>
                                 <span></span>
-                                <li><c:set var="today" value="<%= new java.util.Date() %>" />
+                                <li><c:set var="today" value="<%= new java.util.Date() %>"/>
                                     <c:choose>
                                         <c:when test="${fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(myReviews.create_dt, ' '), 0, 10)), '-', ''), 0, 10) eq fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(today, ' '), 0, 10)), '-', ''), 0, 10)}">
                                             <!-- 작성일이 오늘일 경우 -->
@@ -178,7 +180,8 @@
                                         </c:when>
                                         <c:otherwise>
                                             <!-- 작성일이 오늘이 아닐 경우 -->
-                                            <fmt:formatDate value="${myReviews.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+                                            <fmt:formatDate value="${myReviews.create_dt}"
+                                                            pattern="yyyy년 MM월 dd일 HH:mm"/>
                                         </c:otherwise>
                                     </c:choose></li>
                             </ul>

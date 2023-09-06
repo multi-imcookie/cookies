@@ -6,7 +6,7 @@
     <insert id="sign" parameterType="memberDTO" useGeneratedKeys="true" keyProperty="memberId">
         INSERT INTO member
         VALUES (null, #{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender},
-                #{member_birthday}, #{member_email}, #{member_grade}, null, null, now(), #{member_phone})
+                #{member_birthday}, #{member_email}, #{member_grade}, null, null, now(), #{member_phone}, null)
     </insert>
 
     <!-- 회원가입 아이디 중복 체크 -->
@@ -137,7 +137,7 @@
     <!-- 프로필 테이블(profile)에서 프로필 정보 삭제하기 -->
     <update id="deleteProfile" parameterType="int">
         UPDATE member
-        SET member_profile = default
+        SET member_profile = null
         WHERE member_id = #{member_id}
     </update>
 

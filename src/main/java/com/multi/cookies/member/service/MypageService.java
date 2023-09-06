@@ -7,10 +7,13 @@ import com.multi.cookies.member.dto.MypageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class MypageService {
@@ -22,6 +25,9 @@ public class MypageService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    ServletContext servletContext;
 
     // 멤버 정보 조회
     public MypageDTO getMemberInfo(int member_id) {
@@ -97,16 +103,45 @@ public class MypageService {
 
     // 프로필 사진 가져오기
     public String getProfile(int member_id) {
-        System.out.println("서비스 member_id = " + member_id);
         return mypageDAO.getProfile(member_id);
     }
 
-    // 프로필 사진 수정
     public void updateProfile(int member_id, String member_profile) {
+        System.out.println("-------------000000000000000");
         Map<String, String> params = new HashMap<>();
         params.put("member_id", String.valueOf(member_id));
         params.put("member_profile", member_profile);
         mypageDAO.updateProfile(params);
+    }
+
+    public String saveProfile(MultipartFile file, int member_id) throws IOException {
+
+        // 업로드된 파일의 확장자 추출
+        String originalFilename = file.getOriginalFilename();
+        String fileExtension = Objects.requireNonNull(originalFilename).substring(originalFilename.lastIndexOf("."));
+
+        // 파일명 생성 (예: userId_20210904120000.jpg)
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String timestamp = dateFormat.format(new Date());
+        String newFilename = member_id + "_" + timestamp + fileExtension;
+
+        // 절대 경로
+        String absolutePath = "/resources/img/profile";
+
+        // 파일을 저장할 디렉토리 경로 설정
+        String uploadDir = servletContext.getRealPath(absolutePath); // 실제 디렉토리 경로로 변경해야 합니다
+
+        // 저장될 파일 경로 설정
+        String savePath = uploadDir + File.separator + newFilename;
+        System.out.println("newFilename = " + newFilename);
+
+        // 파일을 지정된 경로로 저장
+        File dest = new File(savePath);
+        System.out.println("dest = " + dest);
+        file.transferTo(dest);
+
+        // DB에 새로운 파일 경로 저장
+        return absolutePath + "/" + newFilename;
     }
 
     // 프로필 사진 삭제
