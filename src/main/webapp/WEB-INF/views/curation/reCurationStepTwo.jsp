@@ -31,9 +31,10 @@
                 <input type="checkbox" name="honey" id="honey" value="1">
                 <label for="honey"><img src="/resources/img/curation/honey.png" alt="honey"> 허니 </label>
             </div>
-        <div class="btn-wrap-column p-bold">
-            <div> 선택하지 않으시면 평점순으로 추천해 드립니다! </div>
-            <button class="fill-btn" type="submit"> 취향 선택! </button>
+            <div class="btn-wrap-column p-bold">
+                <div> 선택하지 않으시면 평점순으로 추천해 드립니다!</div>
+                <button class="fill-btn" type="submit"> 취향 선택!</button>
+            </div>
         </div>
     </form>
 </div>
