@@ -314,6 +314,7 @@ textarea:focus {
 input[type=text]:disabled, input[type=password]:disabled {
     background-color: #f6f6f6;
 }
+
 input[type=text]:disabled::placeholder, input[type=password]:disabled::placeholder {
     color: #d1d1d1;
 }
@@ -1344,6 +1345,7 @@ label {
     align-items: flex-start;
     gap: 12px;
     padding: 6px;
+    justify-content: center;
 }
 
 
@@ -1397,7 +1399,7 @@ label {
 
 }
 
-.curation-favorite-container{
+.curation-favorite-container {
     width: 100%;
 }
 
@@ -1411,6 +1413,7 @@ label {
     width: 24px;
     height: 24px;
 }
+
 .allergy-check-box label {
     color: #5C492C;
     display: flex;
@@ -1429,7 +1432,6 @@ label {
     display: none;
     /* 체크 박스가 체크된 경우에 적용할 스타일 */
 }
-
 .allergy-check-box input[type="checkbox"]:checked + label {
     position: absolute;
     display: flex;
@@ -1459,36 +1461,41 @@ label {
     /* 체크 박스가 체크된 경우에 적용할 스타일 */
 }
 
-.curation-form{
+.curation-form {
     width: 100%;
 }
 
 
 .curation-favorite-item {
+    position: relative;
     display: flex;
-    padding: 8px 0px;
+    height: 218px;
+    padding: 24px 0;
+    box-sizing: border-box;
     justify-content: center;
-    align-items: center;
-    gap: 12px;
     flex: 1 0 0;
-    border-radius: 52px;
+    border-radius: 20px;
     border: 1px solid #E9E2D9;
     background: #F9F5F2;
-    cursor: pointer;
 }
 
 .curation-favorite-item input[type="checkbox"]:checked + label {
+    position: absolute;
     display: flex;
-    font-weight: bold;
-    padding: 8px 0px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
     justify-content: center;
     align-items: center;
     gap: 12px;
     flex: 1 0 0;
-    border-radius: 52px;
-    border: 10px solid #5C492C;
-    background: #CBB89B;
+    border-radius: 20px;
+    border: 1px solid #CBB89B;
+    background-color: #E9E2D9;
     cursor: pointer;
+    font-weight: 500;
 }
 
 
@@ -1585,23 +1592,34 @@ label {
     margin-bottom: 50px; /* 원하는 간격을 설정하세요. */
 }
 
+.favorite-form {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    flex-direction: column;
+}
+
 .curation-favorite-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* 2개의 열로 나눔 */
-    grid-template-rows: 1fr 1fr; /* 2개의 행으로 나눔 */
-    height: 600px; /* 화면 높이를 100%로 설정 */
-    width: 1000px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.favorite-section {
+    display: flex;
+    gap: 12px;
 }
 
 /* 이미지 크기 조절*/
 .curation-favorite-item img {
-    width: 240px;
-    height: 240px;
+    width: 120px;
 }
 
 .del-allergy-btn {
     cursor: pointer;
 }
+
 .personal-allergy {
     position: relative;
     height: 50px;
@@ -1616,6 +1634,7 @@ label {
     margin: 5px; /* 요소 간의 간격을 설정합니다. */
     text-align: center; /* 텍스트를 중앙 정렬합니다. */
 }
+
 /* 이미지 스타일 */
 .personal-allergy img {
     width: 24px;
@@ -1625,3 +1644,42 @@ label {
 .allergy-name {
     padding-left: 30px;
 }
+
+/* 큐레이션 서브페이지 */
+.curation-h-pre36 {
+    text-align: center;
+}
+
+.curation-table {
+    margin: 48px 0;
+}
+
+.allergy-check-box:last-child .curation-last-check-box {
+    width: 32.5%;
+    flex: inherit;
+}
+
+.favorite-text {
+    text-align: center;
+}
+
+.favorite-text p {
+    font-size: 18px;
+    margin-top: 12px;
+    color: #B48D69;
+}
+
+.curation-favorite-item label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+
+
+/* 큐레이션 서브페이지 */
