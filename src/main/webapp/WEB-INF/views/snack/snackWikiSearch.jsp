@@ -141,7 +141,7 @@
     </div>
     <div id="search-results-paginated">
         <p class="p-regular">"${keyword}"에 대한 검색 결과 ${totalResults}건</p>
-        <div id="sort-form">
+        <div id="sort-form" class="p-regular">
             <button id="sortHighCalorie" class="sort-btn">칼로리 ▲</button>
             <button id="sortLowCalorie" class="sort-btn">칼로리 ▼</button>
             <button id="sortHighSugar" class="sort-btn">당 ▲</button>

@@ -65,8 +65,7 @@
                         </h4>
                         <p>꼬북칩!</p>
                         <span class="p-regular">
-                        오늘 날씨가 어쩌고 저쩌고 그래서 꼬북칩 드셔 보시는 게 어떠실런지 어쩌고<br>
-                        무난한 추천 문구 5개정도 돌려 쓰면 좋을 듯
+                        바삭한 꼬북칩 어떠신가요?
                     </span>
                     </div>
                     <img src="resources/img/design_img/v-right-box-img01.png" alt="꼬북칩">
