@@ -1602,3 +1602,26 @@ label {
 .del-allergy-btn {
     cursor: pointer;
 }
+.personal-allergy {
+    position: relative;
+    height: 50px;
+    padding: 12px 8px;
+    box-sizing: border-box;
+    justify-content: center;
+    flex: 1 0 0;
+    border-radius: 8px;
+    border: 1px solid #E9E2D9;
+    background: #F9F5F2;
+    display: inline-block;
+    margin: 5px; /* 요소 간의 간격을 설정합니다. */
+    text-align: center; /* 텍스트를 중앙 정렬합니다. */
+}
+/* 이미지 스타일 */
+.personal-allergy img {
+    width: 24px;
+    height: 24px;
+}
+
+.allergy-name {
+    padding-left: 30px;
+}

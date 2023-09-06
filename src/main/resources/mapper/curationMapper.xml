@@ -122,6 +122,7 @@
     <select id="checkAllergyValue" parameterType="map" resultType="int">
         SELECT ${columnName}
         FROM curation
+        WHERE member_id = #{member_id}
     </select>
 
     <!-- 저장된 기호를 검색하기-->
