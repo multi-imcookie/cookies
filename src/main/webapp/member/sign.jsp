@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="btn-wrap">
-            <a class="fill-btn p-medium" href="moveLogin">로그인 화면으로 이동</a>
+            <a class="fill-btn p-medium" href="/login">로그인 화면으로 이동</a>
             <a class="light-fill-btn p-medium" href="/index.jsp">메인 화면으로 이동</a>
         </div>
     </div>

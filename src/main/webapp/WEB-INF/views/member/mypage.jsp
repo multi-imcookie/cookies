@@ -13,6 +13,11 @@
     <title>전과자</title>
     <%@ include file="/link.jsp" %>
     <script type="text/javascript" src="/resources/js/mypage.js"></script>
+    <style>
+        .list-box li:first-child {
+            color: #CBB89B;
+        }
+    </style>
 </head>
 <body>
 <%@include file="/header.jsp" %>
@@ -94,7 +99,7 @@
                         <div class="left-text">
                             <h5 class="h-pre24">${myBoards.bbs_title}</h5>
                             <ul class="p-regular left-bottom">
-                                <li>${myBoards.member_nickname}</li>
+                                <li>${sessionScope.memberNickName}</li>
                                 <span></span>
                                 <li><c:set var="today" value="<%= new java.util.Date() %>"/>
                                     <c:choose>
@@ -115,6 +120,7 @@
                         </div>
                     </div>
                     <div class="right">
+                        <div class="reply-count">${myBoards.reply_count}</div>
                     </div>
                 </a>
             </c:forEach>

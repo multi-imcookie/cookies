@@ -31,6 +31,7 @@
         th {
             background-color: #f2f2f2;
         }
+
         /* 버튼 그룹을 감싸는 컨테이너에 대한 스타일 */
         .button-group {
             display: flex;
@@ -96,7 +97,7 @@
         </form>
 
 
-        <table>
+        <table class="p-regular">
             <tr>
                 <th>ID</th>
                 <th>아이디</th>
@@ -111,11 +112,13 @@
                     <td>${member.member_nickname}</td>
                     <td>${member.member_grade}</td>
                     <td>
-                        <a href="/members/${member.member_id}">보기</a> |
-                        <a href="/members/${member.member_id}/edit">수정</a> |
-                        <form action="/members/${member.member_id}/delete" method="get">
-                            <input type="submit" value="삭제">
-                        </form>
+                        <div class="btn-wrap-row">
+                            <a class="fill-btn" href="/members/${member.member_id}">보기</a>
+                            <a class="fill-btn" href="/members/${member.member_id}/edit">수정</a>
+                            <form action="/members/${member.member_id}/delete" method="get">
+                                <input class="dark-fill-btn" type="submit" value="삭제">
+                            </form>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>

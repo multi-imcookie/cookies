@@ -88,8 +88,9 @@
             <option value="3" ${member.member_grade == 3 ? 'selected' : ''}>3</option>
             <option value="3" ${member.member_grade == 99 ? 'selected' : ''}>99</option>
         </select><br>
-
-        <input type="submit" value="Update">
+        <div class="btn-wrap">
+            <button class="fill-btn" type="submit">Update</button>
+        </div>
     </form>
 </div>
 <%@include file="/footer.jsp" %>
