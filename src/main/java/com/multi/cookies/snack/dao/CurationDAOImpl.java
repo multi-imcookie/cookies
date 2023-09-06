@@ -28,6 +28,7 @@ public class CurationDAOImpl implements CurationDAO {
     @Override
     public int checkedHistory(int member_id) {
         int result = sqlSessionTemplate.selectOne("curation.checkedHistory", member_id);
+        System.out.println(result);
         return result;
     }
 
@@ -95,9 +96,11 @@ public class CurationDAOImpl implements CurationDAO {
                 List<String> allergyColumns = sqlSessionTemplate.selectList("curation.getAllergyColumnNames");
 
                 List<String> getSelectedAllergies = new ArrayList<>();
+                Integer memberId = member_id ;
                 for (String columnName : allergyColumns) {
                     // 각각의 컬럼 값이 1인지 확인
                     Map<String, Object> parameterMap = new HashMap<>();
+                    parameterMap.put("member_id", memberId);
                     parameterMap.put("columnName", columnName);
                     Integer value = sqlSessionTemplate.selectOne("curation.checkAllergyValue", parameterMap);
 

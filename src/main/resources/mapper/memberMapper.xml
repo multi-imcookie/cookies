@@ -6,7 +6,7 @@
     <insert id="sign" parameterType="memberDTO" useGeneratedKeys="true" keyProperty="memberId">
         INSERT INTO member
         VALUES (null, #{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender},
-                #{member_birthday}, #{member_email}, #{member_grade}, null, null, now(), #{member_phone}, null)
+                #{member_birthday}, #{member_email}, 1, null, null, now(), #{member_phone}, null)
     </insert>
 
     <!-- 회원가입 아이디 중복 체크 -->
@@ -89,20 +89,26 @@
 
     <!-- mypage 작성한 리뷰 조회 -->
     <select id="getMyReview" parameterType="int" resultType="reviewDTO">
-        SELECT r.*, s.snack_name, m.member_nickname
+        SELECT r.*, s.snack_name, m.member_nickname, count(rr.review_id) as reply_count
         FROM review_bbs r
                  left join snack s on r.snack_id = s.snack_id
                  left join member m on r.member_id = m.member_id
+                 left join review_reply rr on r.review_id = rr.review_id
         WHERE m.member_id = #{member_id}
+        group by r.review_id, r.review_img, r.review_title, r.review_score, r.snack_id, r.member_id, r.create_dt,
+                 s.snack_name, m.member_nickname
         order by r.review_id desc
     </select>
 
     <!-- mypage 작성한 게시글 조회 -->
     <select id="getMyBoard" parameterType="int" resultType="boardDTO">
-        select *
-        from bbs
-        where member_id = #{member_id}
-        order by bbs_id desc
+        select b.bbs_id, b.bbs_title, b.member_id, b.bbs_views, b.create_dt, m.member_nickname, count(r.bbs_id) as reply_count
+        from bbs b
+            left join member m on b.member_id = m.member_id
+            left join reply r on b.bbs_id = r.bbs_id
+        where b.member_id = #{member_id}
+        group by b.bbs_id, b.bbs_title, b.member_id, b.create_dt, b.bbs_views, m.member_nickname
+        order by b.bbs_id desc
     </select>
 
     <!-- mypage 멤버 정보 수정 -->

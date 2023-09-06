@@ -37,17 +37,15 @@ public class DBApiController {
 
     @GetMapping("deleteDB")
     @ResponseBody
-    public void deleteDB(@RequestParam("snack_id") int snack_id, Model model) {   // DB 단건삭제
+    public void deleteDB(@RequestParam("snack_id") int snack_id) {   // DB 단건삭제
         System.out.println(snack_id);
-        int result = dbApiService.deleteDB(snack_id);
-        model.addAttribute("result", result);
+        dbApiService.deleteDB(snack_id);
     }
 
     @PostMapping("insertDB")
     @ResponseBody
-    public void insertDB(DBApiDTO dbApiDTO, Model model) {
+    public void insertDB(DBApiDTO dbApiDTO) {
         System.out.println(dbApiDTO);
-        int result = dbApiService.insertDB(dbApiDTO);
-        model.addAttribute("result", result);
+        dbApiService.insertDB(dbApiDTO);
     }
 }
