@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="cookies">
+    <output-path>$PROJECT_DIR$/out/artifacts/cookies</output-path>
+    <root id="archive" name="cookieswar">
+      <element id="artifact" artifact-name="cookies:war exploded" />
+    </root>
+  </artifact>
+</component>
