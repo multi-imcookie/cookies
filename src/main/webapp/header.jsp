@@ -19,7 +19,7 @@
             <ul class="depth2">
                 <li><a class="p-medium" href="/snack/snackWiki.jsp">전과자 정보 조회</a></li>
                 <li><a class="p-medium" href="/curation/curation.jsp">지명 수배</a></li>
-                <li><a class="p-medium" href="/curation/curation.jsp">신상 조사</a></li>
+<%--                <li><a class="p-medium" href="/curation/curation.jsp">신상 조사</a></li>--%>
             </ul>
         </li>
         <li>
