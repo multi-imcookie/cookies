@@ -348,17 +348,19 @@
                     <button class="btn-Update fill-btn find-btn1">수정</button>
                     <button class="btn-Delete fill-btn find-btn1">삭제</button>
                 </div>
+
+            <hr style="color: #452C07">
         </div>
 
+        <div> ${reviewDTO.review_content} </div>
+
+        <div class="thumbnail detail-thumbnail" style="background-image: url(${snackDTO.snack_img})"></div>
 
         <button class="fill-btn" id="snack-info">리뷰 과자 정보</button>
 
         <form name="form" method="post">
             <input type='hidden' name='review-id' value="${reviewDTO.review_id}">
         </form>
-
-
-        <div> ${reviewDTO.review_content} </div>
 
 
         <div class="btn-wrap">

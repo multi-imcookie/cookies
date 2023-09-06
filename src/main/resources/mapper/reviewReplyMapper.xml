@@ -7,7 +7,7 @@
         FROM review_reply r
                  left join member m on r.member_id = m.member_id
         WHERE review_id = #{review_id}
-        ORDER BY create_dt desc
+        ORDER BY create_dt ASC
 
     </select>
 
