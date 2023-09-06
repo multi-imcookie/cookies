@@ -25,9 +25,7 @@
         SET
             review_title = #{review_title},
             review_score = #{review_score},
-            snack_id = #{snack_id},
-            review_content = #{review_content},
-            member_id = #{member_id}
+            review_content = #{review_content}
         WHERE review_id = #{review_id}
     </update>
 

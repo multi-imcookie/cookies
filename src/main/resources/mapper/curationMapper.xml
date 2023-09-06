@@ -110,7 +110,21 @@
         WHERE member_id = #{member_id}
     </update>
 
-<!-- 저장된 기호를 검색하기-->
+<!-- 저장된 알러지로 검색하기-->
+        <select id="getAllergyColumnNames" resultType="string">
+            SELECT column_name
+            FROM information_schema.columns
+            WHERE table_name = 'curation'
+              AND column_name LIKE '%_allergy'
+        </select>
+
+    <!-- 각각의 칼럼값 체크 -->
+    <select id="checkAllergyValue" parameterType="map" resultType="int">
+        SELECT ${columnName}
+        FROM curation
+    </select>
+
+    <!-- 저장된 기호를 검색하기-->
     <select id="curationFavorite" parameterType="int" resultType="curationDTO">
         SELECT * FROM curation WHERE member_id = #{member_id}
     </select>
@@ -122,7 +136,6 @@
                  JOIN snack_nutritional b ON a.snack_id = b.snack_id
                  JOIN avg_score c ON a.snack_id = c.snack_id
         ORDER BY c.avg_score DESC
-            LIMIT 5;
     </select>
 
 </mapper>
