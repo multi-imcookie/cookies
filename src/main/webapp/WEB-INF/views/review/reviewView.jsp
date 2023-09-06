@@ -19,7 +19,7 @@
                     self.location = "reviewUpdate?review_id=${reviewDTO.review_id}";
                 }
             });
-            
+
             $(".btn-Delete").on("click", function () {
                 let memberId = "${sessionScope.memberId}";
                 if (memberId === "" || memberId === null) {
@@ -157,8 +157,8 @@
                     }),
                     contentType: "application/json",
                     success: function (views_result) {
-                            $('#result').append(views_result);
-                            showReplyList();
+                        $('#result').append(views_result);
+                        showReplyList();
                     },
                     error: function (error) {
                         console.log("에러 : " + error);
@@ -227,174 +227,174 @@
     </style>
 </head>
 <body id="page-top">
-    <%@ include file="/header.jsp" %>
-    <div class="modal-overlay">
-        <div class="modal-box">
-            <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
-            <div class="s-h-imcre24">리뷰 과자 정보</div>
-            <div class="modal-detail-content p-regular">
-                <div class="detail-container p-regular">
-                    <div class="thumbnail detail-thumbnail"
-                         style="background-image: url(${snackDTO.snack_img})"></div>
-                    <div class="detail-content">
-                        <p style="color: #B48D69;">${snackDTO.company}</p>
+<%@ include file="/header.jsp" %>
+<div class="modal-overlay">
+    <div class="modal-box">
+        <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
+        <div class="s-h-imcre24">리뷰 과자 정보</div>
+        <div class="modal-detail-content p-regular">
+            <div class="detail-container p-regular">
+                <div class="thumbnail detail-thumbnail"
+                     style="background-image: url(${snackDTO.snack_img})"></div>
+                <div class="detail-content">
+                    <p style="color: #B48D69;">${snackDTO.company}</p>
+                    <div class="detail-row">
+                        <span class="h-imcre24">${snackDTO.snack_name} </span>
+                        <span style="color: #B48D69;">(${snackDTO.netwt}g / ${snackDTO.kcal}kcal)</span>
+                        <c:choose>
+                            <c:when test="${snackDTO.avg_score >= 1 && snackDTO.avg_score < 1.5}">
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score01.png' height='24'>"/>
+                            </c:when>
+                            <c:when test="${snackDTO.avg_score >= 1.5 && snackDTO.avg_score < 2}">
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score_01_half.png' height='24'>"/>
+                            </c:when>
+                            <c:when test="${snackDTO.avg_score >= 2 && snackDTO.avg_score < 2.5}">
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score02.png' height='24'>"/>
+                            </c:when>
+                            <c:when test="${snackDTO.avg_score >= 2.5 && snackDTO.avg_score < 3}">
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score_02_half.png' height='24'>"/>
+                            </c:when>
+                            <c:when test="${snackDTO.avg_score >= 3 && snackDTO.avg_score < 3.5}">
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score03.png' height='24'>"/>
+                            </c:when>
+                            <c:when test="${snackDTO.avg_score >= 3.5 && snackDTO.avg_score < 4}">
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score_03_half.png' height='24'>"/>
+                            </c:when>
+                            <c:when test="${snackDTO.avg_score >= 4 && snackDTO.avg_score < 4.5}">
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score04.png' height='24'>"/>
+                            </c:when>
+                            <c:when test="${snackDTO.avg_score >= 4.5 && snackDTO.avg_score < 5}">
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score_04_half.png' height='24'>"/>
+                            </c:when>
+                            <c:when test="${snackDTO.avg_score == 5}">
+                                <c:set var="scoreImg"
+                                       value="<img src='/resources/img/score/score05.png' height='24'>"/>
+                            </c:when>
+                            <c:otherwise/>
+                        </c:choose>
+                        <p style="color: #B48D69; margin-top:5px">${scoreImg} 평점 (${snackDTO.avg_score}
+                            / ${snackDTO.review_count}개)</p>
+                    </div>
+                    <div style="margin: 20px 0 30px 0;">
+                        <div class="detail-row">탄수화물 : ${snackDTO.carb}g</div>
+                        <div class="detail-row">당류 : ${snackDTO.sugars}g</div>
+                        <div class="detail-row">나트륨 : ${snackDTO.sodium}mg</div>
+                        <div class="detail-row">단백질 : ${snackDTO.protein}g</div>
+                        <div class="detail-row">알러지 : ${snackDTO.allergy}</div>
                         <div class="detail-row">
-                            <span class="h-imcre24">${snackDTO.snack_name} </span>
-                            <span style="color: #B48D69;">(${snackDTO.netwt}g / ${snackDTO.kcal}kcal)</span>
-                            <c:choose>
-                                <c:when test="${snackDTO.avg_score >= 1 && snackDTO.avg_score < 1.5}">
-                                    <c:set var="scoreImg"
-                                           value="<img src='/resources/img/score/score01.png' height='24'>"/>
-                                </c:when>
-                                <c:when test="${snackDTO.avg_score >= 1.5 && snackDTO.avg_score < 2}">
-                                    <c:set var="scoreImg"
-                                           value="<img src='/resources/img/score/score_01_half.png' height='24'>"/>
-                                </c:when>
-                                <c:when test="${snackDTO.avg_score >= 2 && snackDTO.avg_score < 2.5}">
-                                    <c:set var="scoreImg"
-                                           value="<img src='/resources/img/score/score02.png' height='24'>"/>
-                                </c:when>
-                                <c:when test="${snackDTO.avg_score >= 2.5 && snackDTO.avg_score < 3}">
-                                    <c:set var="scoreImg"
-                                           value="<img src='/resources/img/score/score_02_half.png' height='24'>"/>
-                                </c:when>
-                                <c:when test="${snackDTO.avg_score >= 3 && snackDTO.avg_score < 3.5}">
-                                    <c:set var="scoreImg"
-                                           value="<img src='/resources/img/score/score03.png' height='24'>"/>
-                                </c:when>
-                                <c:when test="${snackDTO.avg_score >= 3.5 && snackDTO.avg_score < 4}">
-                                    <c:set var="scoreImg"
-                                           value="<img src='/resources/img/score/score_03_half.png' height='24'>"/>
-                                </c:when>
-                                <c:when test="${snackDTO.avg_score >= 4 && snackDTO.avg_score < 4.5}">
-                                    <c:set var="scoreImg"
-                                           value="<img src='/resources/img/score/score04.png' height='24'>"/>
-                                </c:when>
-                                <c:when test="${snackDTO.avg_score >= 4.5 && snackDTO.avg_score < 5}">
-                                    <c:set var="scoreImg"
-                                           value="<img src='/resources/img/score/score_04_half.png' height='24'>"/>
-                                </c:when>
-                                <c:when test="${snackDTO.avg_score == 5}">
-                                    <c:set var="scoreImg"
-                                           value="<img src='/resources/img/score/score05.png' height='24'>"/>
-                                </c:when>
-                                <c:otherwise/>
-                            </c:choose>
-                            <p style="color: #B48D69; margin-top:5px">${scoreImg} 평점 (${snackDTO.avg_score}
-                                / ${snackDTO.review_count}개)</p>
-                        </div>
-                        <div style="margin: 20px 0 30px 0;">
-                            <div class="detail-row">탄수화물 : ${snackDTO.carb}g</div>
-                            <div class="detail-row">당류 : ${snackDTO.sugars}g</div>
-                            <div class="detail-row">나트륨 : ${snackDTO.sodium}mg</div>
-                            <div class="detail-row">단백질 : ${snackDTO.protein}g</div>
-                            <div class="detail-row">알러지 : ${snackDTO.allergy}</div>
-                            <div class="detail-row">
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="sub-container">
-        <div class="p-regular" style="width: 100%">
-            <h3 class="s-h-imcre24">${reviewDTO.review_title}</h3>
-            <div class="rating" id="rating">
+</div>
+<div class="sub-container">
+    <h3 class="s-h-imcre24">리뷰 게시판</h3>
+    <div class="p-regular" style="width: 100%">
+        <%--<h3 class="s-h-imcre24">리뷰 게시판</h3>--%>
+        <div class="rating" id="rating">
+            <c:choose>
+                <c:when test="${reviewDTO.review_score == 1}">
+                    <c:set var="scoreImg"
+                           value="<img src='/resources/img/score/score01.png' height='18'>"/>
+                </c:when>
+                <c:when test="${reviewDTO.review_score == 2}">
+                    <c:set var="scoreImg"
+                           value="<img src='/resources/img/score/score02.png' height='18'>"/>
+                </c:when>
+                <c:when test="${reviewDTO.review_score == 3}">
+                    <c:set var="scoreImg"
+                           value="<img src='/resources/img/score/score03.png' height='18'>"/>
+                </c:when>
+                <c:when test="${reviewDTO.review_score == 4}">
+                    <c:set var="scoreImg"
+                           value="<img src='/resources/img/score/score04.png' height='18'>"/>
+                </c:when>
+                <c:when test="${reviewDTO.review_score == 5}">
+                    <c:set var="scoreImg"
+                           value="<img src='/resources/img/score/score05.png' height='18'>"/>
+                </c:when>
+                <c:otherwise><c:set var="scoreImg" value=""/></c:otherwise>
+            </c:choose>
+        </div>
+        <div style="display: inline-block">
+            <strong style="font-size:20pt">${reviewDTO.review_title}</strong>
+            <li>${scoreImg}</li>
+            <div style="font-size:15px" class="p-regular"> ${reviewDTO.review_score}점 <span>&#183;</span> ${reviewDTO.snack_name}
+                <span>&#183;</span> ${reviewDTO.member_nickname}
+                <span>&#183;</span> <%--<fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/>--%>
+                <c:set var="today" value="<%= new java.util.Date() %>" />
                 <c:choose>
-                    <c:when test="${reviewDTO.review_score == 1}">
-                        <c:set var="scoreImg"
-                               value="<img src='/resources/img/score/score01.png' height='18'>"/>
+                    <c:when test="${fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(reviewDTO.create_dt, ' '), 0, 10)), '-', ''), 0, 10) eq fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(today, ' '), 0, 10)), '-', ''), 0, 10)}">
+                        <!-- 작성일이 오늘일 경우 -->
+                        <fmt:formatDate value="${reviewDTO.create_dt}" pattern="HH:mm"/>
                     </c:when>
-                    <c:when test="${reviewDTO.review_score == 2}">
-                        <c:set var="scoreImg"
-                               value="<img src='/resources/img/score/score02.png' height='18'>"/>
-                    </c:when>
-                    <c:when test="${reviewDTO.review_score == 3}">
-                        <c:set var="scoreImg"
-                               value="<img src='/resources/img/score/score03.png' height='18'>"/>
-                    </c:when>
-                    <c:when test="${reviewDTO.review_score == 4}">
-                        <c:set var="scoreImg"
-                               value="<img src='/resources/img/score/score04.png' height='18'>"/>
-                    </c:when>
-                    <c:when test="${reviewDTO.review_score == 5}">
-                        <c:set var="scoreImg"
-                               value="<img src='/resources/img/score/score05.png' height='18'>"/>
-                    </c:when>
-                    <c:otherwise><c:set var="scoreImg" value=""/></c:otherwise>
+                    <c:otherwise>
+                        <!-- 작성일이 오늘이 아닐 경우 -->
+                        <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+                    </c:otherwise>
                 </c:choose>
             </div>
-                <div style="display: inline-block">
-                    <li>${scoreImg}</li>
-                    <div style="font-size:15px" class="p-regular"> ${reviewDTO.review_score}점 <span>&#183;</span> ${reviewDTO.snack_name}
-                        <span>&#183;</span> ${reviewDTO.member_nickname}
-                        <span>&#183;</span> <%--<fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/>--%>
-                        <c:set var="today" value="<%= new java.util.Date() %>" />
-                        <c:choose>
-                            <c:when test="${fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(reviewDTO.create_dt, ' '), 0, 10)), '-', ''), 0, 10) eq fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(today, ' '), 0, 10)), '-', ''), 0, 10)}">
-                                <!-- 작성일이 오늘일 경우 -->
-                                <fmt:formatDate value="${reviewDTO.create_dt}" pattern="HH:mm"/>
-                            </c:when>
-                            <c:otherwise>
-                                <!-- 작성일이 오늘이 아닐 경우 -->
-                                <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </div>
-                <div class="btn-wrap find-btn1" style="float: right">
-                    <button class="btn-Update fill-btn find-btn1">수정</button>
-                    <button class="btn-Delete fill-btn find-btn1">삭제</button>
-                </div>
-
-            <hr style="color: #452C07">
+        </div>
+        <div class="btn-wrap find-btn1" style="float: right">
+            <button class="btn-Update fill-btn find-btn1">수정</button>
+            <button class="btn-Delete fill-btn find-btn1">삭제</button>
         </div>
 
-        <div> ${reviewDTO.review_content} </div>
-
-        <div class="thumbnail detail-thumbnail" style="background-image: url(${snackDTO.snack_img})"></div>
-
-        <button class="fill-btn" id="snack-info">리뷰 과자 정보</button>
-
-        <form name="form" method="post">
-            <input type='hidden' name='review-id' value="${reviewDTO.review_id}">
-        </form>
-
-
-        <div class="btn-wrap">
-            <a href="reviewList?num=1"><button class="light-fill-btn">뒤로가기</button></a>
-        </div>
-
-
-        <!-- 댓글 -->
-        <div class="detail-container my-3 p-3 bg-white rounded shadow-sm p-regular"  style="padding-top: 10px; flex-direction: column">
-            <form name="form" id="form" role="form" modelAttribute="reviewReplyDTO" method="post" style="width: 100%;">
-                <div class="row">
-                    <div class="col-sm-10">
-                            <textarea id="reply_content" class="reply_content" style="width:100%;"
-                                      placeholder="댓글을 입력해 주세요"></textarea>
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn-saveReply fill-btn" id="btn-saveReply"
-                                style="width: 100%; margin-top: 10px"> 저 장
-                        </button>
-                    </div>
-                </div>
-            </form>
-            <div id="replyList" style="width: 100%;"></div>
-        </div>
+        <hr style="color: #452C07">
     </div>
-    <script>
-        $("#snack-info").click(function () {
-            modalShow();
-        });
-        $("#modal-close").click(function () {
-            modalHide();
-        });
-    </script>
-    <%@include file="/footer.jsp" %>
+
+    <div class="p-regular"> ${reviewDTO.review_content} </div>
+
+    <div class="thumbnail detail-thumbnail" style="background-image: url(${snackDTO.snack_img})"></div>
+
+    <button class="fill-btn" id="snack-info">과자 정보</button>
+
+    <form name="form" method="post">
+        <input type='hidden' name='review-id' value="${reviewDTO.review_id}">
+    </form>
+
+
+    <div class="btn-wrap">
+        <a href="reviewList?num=1"><button class="light-fill-btn">뒤로가기</button></a>
+    </div>
+
+
+    <!-- 댓글 -->
+    <div class="detail-container my-3 p-3 bg-white rounded shadow-sm p-regular"  style="padding-top: 10px; flex-direction: column">
+        <form name="form" id="form" role="form" modelAttribute="reviewReplyDTO" method="post" style="width: 100%;">
+            <div class="row">
+                <div class="col-sm-10">
+                    <textarea id="reply_content" class="reply_content" style="width:100%;"
+                              placeholder="댓글을 입력해 주세요"></textarea>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn-saveReply fill-btn" id="btn-saveReply"
+                            style="width: 100%; margin-top: 10px"> 저 장
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div id="replyList" style="width: 100%;"></div>
+    </div>
+</div>
+<script>
+    $("#snack-info").click(function () {
+        modalShow();
+    });
+    $("#modal-close").click(function () {
+        modalHide();
+    });
+</script>
+<%@include file="/footer.jsp" %>
 </body>
 </html>
-
