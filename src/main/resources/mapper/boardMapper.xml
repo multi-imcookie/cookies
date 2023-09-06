@@ -4,9 +4,10 @@
 
     <!-- 게시물 목록 + 페이징 + 검색 -->
     <select id="list" parameterType="hashMap" resultType="boardDTO">
-        select b.bbs_id, b.bbs_title, b.member_id, b.create_dt, b.bbs_views, m.member_nickname
+        select b.bbs_id, b.bbs_title, b.member_id, b.create_dt, b.bbs_views, m.member_nickname, count(rr.bbs_id) as reply_count
         from bbs b
         left join member m on b.member_id = m.member_id
+        left join reply rr on b.bbs_id = rr.bbs_id
         <if test='searchType.equals("bbs_title")'> WHERE b.bbs_title LIKE concat('%', #{keyword}, '%') </if>
         <if test='searchType.equals("bbs_content")'> WHERE b.bbs_content LIKE concat('%', #{keyword}, '%') </if>
         <if test='searchType.equals("member_id")'> WHERE b.member_id LIKE concat('%', #{keyword}, '%')</if>
