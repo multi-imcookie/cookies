@@ -14,7 +14,7 @@ public class Scheduler {
     @Autowired
     DBApiService dbApiService;
 
-    @Scheduled(cron = "0 28 11 * * *")   // 초 분 시 일 월 요일
+    @Scheduled(cron = "0 0 5 * * *")   // 초 분 시 일 월 요일
     public void autoUpdate() throws ParseException, IOException {
         dbApiService.updateDB();
         System.out.println("자동 업데이트 완료");
