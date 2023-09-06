@@ -311,8 +311,11 @@ textarea:focus {
     border-radius: 12px;
 }
 
-input[type=text]:disabled {
-    background-color: #eee;
+input[type=text]:disabled, input[type=password]:disabled {
+    background-color: #f6f6f6;
+}
+input[type=text]:disabled::placeholder, input[type=password]:disabled::placeholder {
+    color: #d1d1d1;
 }
 
 .form-style input::placeholder {
@@ -995,10 +998,10 @@ label {
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    background-image: url("/resources/img/profile/profile_default.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    border: 1px solid #E9E2D9;
 }
 
 .small-fill-btn:nth-child(1) {

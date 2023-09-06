@@ -42,17 +42,17 @@ public class MypageDAO {
 
     // 프로필 사진 불러오기
     public String getProfile(int member_id) {
-        System.out.println("dao member_id = " + member_id);
         return my.selectOne("member.getProfile", member_id);
     }
 
     // 프로필 사진 업데이트
     public void updateProfile(Map<String, String> params) {
         my.update("member.updateProfile", params);
+        System.out.println("params = " + params);
     }
 
     // 프로필 사진 삭제
     public void deleteProfile(int member_id) {
-        my.delete("member.deleteProfile", member_id);
+        my.update("member.deleteProfile", member_id);
     }
 }

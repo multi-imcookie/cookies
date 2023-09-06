@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
-    // 비밀번호 변경 모달창
-    $(".pw-edit").click(function () {
+    // 프로필 변경하기 모달창
+    $(".profile-update").click(function () {
         modalShow();
     });
     $(".modal-close").click(function () {
@@ -24,27 +24,27 @@ $(document).ready(function () {
         $("#myReviewBtn").removeClass("active");
     })
 
-    // 회원정보 수정 페이지 접근 전 비밀번호 체크
-    $(".edit-MyInfo").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "/checkMyPw",
-            dataType: "text",
-            data: {
-                member_id: $("#member_id").val(),
-                chkMemberPw: $("#chkMemberPw").val()
-            },
-            success: function (result) {
-                console.log(result);
-                alert("비밀번호 변경 페이지로 이동합니다");
-            },
-            error: function () {
-                // 에러 발생 시 에러 메시지 표시
-                alert("비밀번호 확인 중 오류가 발생하였습니다.");
-                window.location.reload();
-            }
-        });
-    });
+    // // 프로필 변경하기 버튼
+    // $(".profile-update").click(function () {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/checkMyPw",
+    //         dataType: "text",
+    //         data: {
+    //             member_id: $("#member_id").val(),
+    //             chkMemberPw: $("#chkMemberPw").val()
+    //         },
+    //         success: function (result) {
+    //             console.log(result);
+    //             alert("비밀번호 변경 페이지로 이동합니다");
+    //         },
+    //         error: function () {
+    //             // 에러 발생 시 에러 메시지 표시
+    //             alert("비밀번호 확인 중 오류가 발생하였습니다.");
+    //             window.location.reload();
+    //         }
+    //     });
+    // });
 
 
     // 회원정보 수정 페이지
@@ -61,6 +61,7 @@ $(document).ready(function () {
 
         // 입력값이 null일 경우
         if (formIsValid) {
+            alert('-------')
             // 비밀번호 일치 확인
             if ($("#member_pw").val() === $("#member_pwChk").val()) {
                 $.ajax({

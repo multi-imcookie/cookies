@@ -2,6 +2,7 @@ package com.multi.cookies.member.controller;
 
 import com.multi.cookies.board.dto.BoardDTO;
 import com.multi.cookies.board.dto.ReviewDTO;
+import com.multi.cookies.member.dto.MemberDTO;
 import com.multi.cookies.member.dto.MypageDTO;
 import com.multi.cookies.member.service.MypageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +25,7 @@ public class MypageController {
 
     @GetMapping("/mypage")
     public String mypage(HttpSession httpSession, Model model) {
+        System.out.println("-----------4");
         Integer memberId = (Integer) httpSession.getAttribute("memberId");
         if (memberId == null) {
             // 세션에 회원 번호가 없으면 로그인 페이지로 이동
@@ -30,6 +34,7 @@ public class MypageController {
 
             // 세션에 회원 번호가 있으면 회원 정보를 가져와서 마이페이지로 이동
             MypageDTO memberDTO = mypageService.getMemberInfo(memberId);
+            System.out.println(memberDTO);
             model.addAttribute("memberDTO", memberDTO);
 
             // 연령대 변환 로직
@@ -52,7 +57,7 @@ public class MypageController {
     public String editMyInfo(HttpSession httpSession, Model model) {
         // 로그인된 회원의 정보를 가져와서 폼에 기본 값으로 설정
         Integer memberId = (Integer) httpSession.getAttribute("memberId");
-
+        System.out.println("-----------3");
         if (memberId == null) {
             // 세션에 회원 번호가 없으면 로그인 페이지로 이동
             return "member/login";
@@ -77,8 +82,8 @@ public class MypageController {
     @PostMapping("/updateMemberInfo")
     public String updateMemberInfo(MypageDTO mypageDTO, HttpSession httpSession, Model model) {
 
+        System.out.println("--------------2");
         int result = mypageService.updateMemberInfo(mypageDTO);
-
         if (result > 0) {
             // 업데이트가 성공하면 세션 정보도 업데이트
             httpSession.setAttribute("memberNickName", mypageDTO.getMember_nickname());
@@ -94,31 +99,33 @@ public class MypageController {
     }
 
     @PostMapping("/uploadProfile")
-    @ResponseBody
-    public String uploadProfileImage(@RequestParam("member_profile") String member_profile, HttpSession httpSession) {
+    public String uploadProfileImage(@RequestParam("member_profile") MultipartFile file,
+                                     HttpSession httpSession,
+                                     Model model
+                                     ) throws IOException {
         Integer memberId = (Integer) httpSession.getAttribute("memberId");
-        mypageService.updateProfile(memberId, member_profile);
-        return "redirect:member/mypage";
+        System.out.println("-------------1");
+        // 프로필 이미지 저장
+        String profileUrl = mypageService.saveProfile(file, memberId);
+        System.out.println("profileUrl = " + profileUrl);
+
+        // 회원 프로필 업데이트
+        mypageService.updateProfile(memberId, profileUrl);
+
+        return "redirect:/mypage";
     }
 
     @ModelAttribute("/getProfile")
     public String getProfile(HttpSession httpSession) {
         int memberId = (int) httpSession.getAttribute("memberId");
-        System.out.println("memberId = " + memberId);
-        String imageUrl = mypageService.getProfile(memberId);
-        System.out.println("imageUrl = " + imageUrl);
-        if (Objects.equals(imageUrl, "default")) {
-            imageUrl = "/resources/img/profile/profile_default.png";
-        }
-
-        return imageUrl;
+        return mypageService.getProfile(memberId);
     }
 
-    @ModelAttribute("/deleteProfile")
+    @RequestMapping("/deleteProfile")
     public String deleteProfile(HttpSession httpSession) {
         Integer memberId = (Integer) httpSession.getAttribute("memberId");
         mypageService.deleteProfile(memberId);
-        return "redirect:member/mypage";
+        return "redirect:/mypage";
     }
 
 }
