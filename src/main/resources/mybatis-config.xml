@@ -27,6 +27,7 @@
         <typeAlias type="com.multi.cookies.board.dto.ReviewReplyDTO" alias="reviewReplyDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.BoardDTO" alias="boardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.ReplyDTO" alias="replyDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.board.notice.dto.NoticeDTO" alias="noticeDTO"></typeAlias>
 
     </typeAliases>
 
@@ -48,6 +49,7 @@
         <mapper resource="mapper/boardMapper.xml"/>
         <mapper resource="mapper/replyMapper.xml"/>
         <mapper resource="mapper/curationMapper.xml"/>
+        <mapper resource="mapper/noticeMapper.xml"/>
     </mappers>
 
 

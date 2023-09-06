@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+    <!-- 게시물 목록 + 페이징 + 검색 -->
+    <select id="list" parameterType="hashMap" resultType="noticeDTO">
+        select b.notice_id, b.notice_title, b.notice_views, b.member_id, b.create_dt, b.notice_views, m.member_nickname
+        from notice b
+        left join member m on b.member_id = m.member_id
+        <if test='searchType.equals("notice_title")'> WHERE b.notice_title LIKE concat('%', #{keyword}, '%') </if>
+        <if test='searchType.equals("notice_content")'> WHERE b.notice_content LIKE concat('%', #{keyword}, '%') </if>
+        <if test='searchType.equals("member_id")'> WHERE b.member_id LIKE concat('%', #{keyword}, '%')</if>
+        group by b.notice_id, b.notice_title, b.member_id, b.create_dt, b.notice_views, m.member_nickname
+        order by b.notice_id desc
+        limit #{displayPost}, #{postNum}
+    </select>
+
+    <!-- 게시물 작성 -->
+    <insert id="write" parameterType="noticeDTO">
+        INSERT INTO notice(notice_title, notice_content, member_id)
+        VALUES(#{notice_title}, #{notice_content}, #{member_id})
+    </insert>
+
+    <!-- 게시물 조회 -->
+    <select id="view" resultType="noticeDTO">
+        SELECT b.*, m.member_nickname
+        FROM notice b
+                 left join member m on b.member_id = m.member_id
+        WHERE notice_id = #{notice_id}
+    </select>
+
+    <!-- 게시물 수정 -->
+    <update id="update" parameterType="noticeDTO">
+        UPDATE notice
+        SET
+            notice_title = #{notice_title},
+            notice_content = #{notice_content}
+        WHERE notice_id = #{notice_id}
+    </update>
+
+    <!-- 게시물 삭제 -->
+    <delete id="delete" parameterType="int">
+        DELETE FROM notice
+        WHERE notice_id = #{notice_id}
+    </delete>
+
+    <!-- 게시물 총 갯수 -->
+    <select id="count" resultType="int">
+        SELECT COUNT(notice_id) FROM notice
+    </select>
+
+
+    <!-- 게시물 총 갯수 + 검색 적용 -->
+    <select id="searchCount" parameterType="hashMap" resultType="int">
+        SELECT count(notice_id) FROM notice
+
+        <if test='searchType.equals("notice_title")'>
+            WHERE notice_title LIKE concat('%', #{keyword}, '%')
+        </if>
+
+        <if test='searchType.equals("notice_content")'>
+            WHERE notice_content LIKE concat('%', #{keyword}, '%')
+        </if>
+
+        <if test='searchType.equals("member_id")'>
+            WHERE member_id LIKE concat('%', #{keyword}, '%')
+        </if>
+
+    </select>
+
+    <update id="updateViews" parameterType="int">
+        UPDATE notice
+        SET notice_views = notice_views + 1
+        WHERE notice_id = #{notice_id}
+    </update>
+
+</mapper>

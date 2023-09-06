@@ -15,7 +15,7 @@
 
     <insert id="insertScoreId" parameterType="dbApiDTO">
         insert into avg_score (snack_id)
-        values (#{snack_id});
+        values #{snack_id};
     </insert>
     <!--여기까지-->
 

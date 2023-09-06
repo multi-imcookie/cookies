@@ -1,0 +1,129 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 글보기</title>
+    <%@ include file="/link.jsp" %>
+    <style>
+        .reply-container {
+            display: flex; /* Flex 컨테이너로 설정 */
+            flex-direction: row; /* 수평으로 나열하도록 설정 */
+            justify-content: space-between; /* 요소들 사이의 간격을 최대로 설정 */
+        }
+
+        .reply-all {
+            flex: 3; /* Flex 아이템이 차지하는 공간을 조정할 수 있습니다. */
+            margin-left: 20px;
+
+        }
+
+        /* 호버 효과 스타일 */
+        .reply-style {
+            border-radius: 10px; /* 라운드된 테두리 적용 */
+            background-color: #F9F5F2;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 10px;
+            position: relative;
+        }
+
+        .reply-style:hover {
+            background-color: #F4EFEC; /* 호버 시 배경색 변경 */
+        }
+
+        .reply-nickname {
+            font-size: 20px;
+        }
+
+        .reply-datetime {
+            font-family: Pretendard, sans-serif;
+            font-size: 14px;
+            font-weight: 400; /* weight 다름 */
+            line-height: 28px;
+        }
+
+        .reply-content {
+            width: 400px;
+            padding: 5px;
+        }
+
+        .reply-datetime-ref {
+            position: absolute;
+            top: 0; /* 상단 위치를 조절하여 우측 상단에 고정합니다. */
+            right: 0; /* 오른쪽 위치를 조절하여 우측 상단에 고정합니다. */
+            padding: 10px;
+        }
+
+        .reply-nickname, .reply-datetime {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .reply-ref {
+            background: #F9F5F2;
+            color: #966D48;
+            font-family: Pretendard, sans-serif;
+            font-size: 14px;
+            font-weight: 400; /* weight 다름 */
+            line-height: 28px;
+            width: 60px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <%@ include file="/header.jsp" %>
+    <div class="sub-container">
+        <h3 class="h-imcre24">공지사항</h3>
+        <div class="form-style">
+            <div class="input-section">
+                <label class="label-wrap">작성자</label>
+                <input type="text" name="member_nickname" value="${view.member_nickname}" readonly/><br/>
+            </div>
+            <div class="input-section">
+                <label class="label-wrap">제목</label>
+                <input type="text" name="notice_title" value="${view.notice_title}" readonly/><br/>
+            </div>
+            <div class="input-section">
+                <label class="label-wrap">내용</label>
+                <textarea cols="50" rows="5" name="notice_content" readonly>${view.notice_content}</textarea><br/>
+            </div>
+        </div>
+        <div class="btn-wrap-column">
+            <c:if test="${sessionScope.memberGrade == 99}">
+                <c:choose>
+                    <c:when test="${empty sessionScope.memberId}">
+                        <!-- 로그인하지 않은 경우 수정 alert창 띄움. -->
+                        <a class="fill-btn p-medium" href="javascript:void(0);" onclick="showLoginAlert();">게시물 수정</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="fill-btn p-medium" href="/board/notice/update?notice_id=${view.notice_id}">게시물 수정</a>
+                    </c:otherwise>
+                </c:choose>
+
+                <!-- 게시물 삭제 버튼 -->
+                <c:choose>
+                    <c:when test="${empty sessionScope.memberId}">
+                        <!-- 로그인하지 않은 경우 버튼을 클릭하면 "로그인하세요" 알림창을 띄우는 JavaScript 코드를 실행합니다. -->
+                        <a class="light-fill-btn p-medium" href="javascript:void(0);" onclick="showLoginAlert();">게시물
+                            삭제</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="light-fill-btn p-medium" href="/board/notice/delete?notice_id=${view.notice_id}">게시물
+                            삭제</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // "로그인하세요" 알림창을 띄우는 JavaScript 함수
+        function showLoginAlert() {
+            alert("로그인 해주세요");
+        }
+    </script>
+    <%@include file="/footer.jsp" %>
+</body>
+</html>
