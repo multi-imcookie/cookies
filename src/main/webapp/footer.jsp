@@ -67,7 +67,7 @@
         <li>
             <a class="h-imcre24" href="#">작당모의</a>
             <ul class="f-depth2">
-                <li><a class="p-medium" href="#">공지사항</a></li>
+                <li><a class="p-medium" href="/board/notice/list?num=1">공지사항</a></li>
                 <li><a class="p-medium" href="/review/reviewList?num=1">리뷰 게시판</a></li>
                 <li><a class="p-medium" href="/board/list?num=1">자유 게시판</a></li>
             </ul>
