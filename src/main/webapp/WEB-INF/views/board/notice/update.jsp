@@ -15,17 +15,17 @@
     <form action="/board/update" method="post" class="form-style">
         <div class="input-section">
             <label class="label-wrap">글제목</label>
-            <input type="text" name="bbs_title" value="${view.bbs_title}"/><br/>
+            <input type="text" name="notice_title" value="${view.notice_title}"/><br/>
         </div>
         <div class="input-section">
             <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
         </div>
         <div class="input-section">
             <label class="label-wrap">내용</label>
-            <textarea cols="50" rows="5" name="bbs_content">${view.bbs_content}</textarea><br/>
+            <textarea cols="50" rows="5" name="notice_content">${view.notice_content}</textarea><br/>
         </div>
         <!-- 추가: bbs_id hidden 필드 -->
-        <input type="hidden" name="bbs_id" value="${view.bbs_id}"/>
+        <input type="hidden" name="notice_id" value="${view.notice_id}"/>
         <div class="btn-wrap-column">
             <button type="submit" class="btn-Save fill-btn p-medium" id="btn-Update">수정</button>
             <a class="light-fill-btn p-medium" id="backButton">뒤로가기</a>
@@ -42,17 +42,17 @@
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function () {
         $("#btn-update").click(function () {
-            let bbs_title = $("#bbs_title").val();
-            let bbs_content = $("#bbs_content").val();
+            let notice_title = $("#notice_title").val();
+            let notice_content = $("#notice_content").val();
             let member_id = $("#member_id").val();
-            if (bbs_title == "") {
+            if (notice_title == "") {
                 alert("제목을 입력하세요");
-                document.form.bbs_title.focus();
+                document.form.notice_title.focus();
                 return;
             }
-            if (bbs_content == "") {
+            if (notice_content == "") {
                 alert("내용을 입력하세요");
-                document.form.bbs_content.focus();
+                document.form.notice_content.focus();
                 return;
             }
             if (member_id == "") {
