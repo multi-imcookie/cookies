@@ -24,6 +24,8 @@ import java.util.Map;
 @Service
 public class FindService {
     @Autowired
+    JasyptEncoderService jasyptEncoderService;
+    @Autowired
     FindDAO findDAO;
     @Autowired
     private Environment environment;
@@ -46,7 +48,7 @@ public class FindService {
         }
         String maskedId = maskId(findId);
 //        System.out.println("maskedId = " + maskedId);
-        return maskedId;
+        return "아이디는 "+maskedId+" 입니다.";
     }
     private String maskId(String id){
          int idLength = id.length();
@@ -63,19 +65,21 @@ public class FindService {
 
     public String findPassWord(Map<String, Object> map) {
         String tempPassWord = getTempPassword();  //임시비밀번호 생성
-        map.put("tempPassWord",tempPassWord);  //map에  임시비밀번호 추가
+        String encodePassWord = jasyptEncoderService.encrypt(tempPassWord);
+        map.put("tempPassWord",encodePassWord);  //map에  임시비밀번호 추가
+//        map.put("tempPassWord",tempPassWord);  //map에  임시비밀번호 추가
         int updatedRow = findDAO.findPassWordByNameAndIdAndPhoneNumber(map);   //임시비밀번호로 DB 업데이트
         if(!(updatedRow==1)){
-            return "데이터베이스 오류입니다";  //영향받는 로우수가 1이 아닌경우 오류인데...이미 db는 업데이트 트랜잭션 알아볼것 ????
+            return "잘못 입력한 정보가 있습니다.";  //영향받는 로우수가 1이 아닌경우 오류인데...이미 db는 업데이트 트랜잭션 알아볼것 ????
         }
         // updatedrow가 1인경우
         String phoneNumber = removeHyphens((String)map.get("phoneNumber"));  //폰넘버 ex) 010-1234-1234 -> 01012341234 변환
         String content = "임시번호는  :  "+tempPassWord +"   입니다.";  //문자로 보낼내용
         int responseCode = sendSMS(content,phoneNumber);
         if(responseCode!=202){
-            return "문자를 보내지 못했습니다.";
+            return "api 오류 , 문자를 보내지 못했습니다.";
         }
-        return "성공입니다";
+        return (String)map.get("phoneNumber")+"번호로 문자를 보냈습니다.";
     }
 
     private int sendSMS(String content,String to) { //문자내용 , 보낼사람전화번호  ex) "안녕",010119112

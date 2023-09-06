@@ -1,15 +1,18 @@
 package com.multi.cookies.board.controller;
 
+import com.multi.cookies.board.dao.BoardDAO;
 import com.multi.cookies.board.dto.BoardDTO;
 import com.multi.cookies.board.dto.Page;
 import com.multi.cookies.board.dto.ReplyDTO;
 import com.multi.cookies.board.service.BoardService;
 import com.multi.cookies.board.service.ReplyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -19,6 +22,8 @@ import java.util.List;
 @RequestMapping("board")
 public class BoardController {
 
+    @Autowired
+    private BoardDAO boardDAO;
     @Inject
     private BoardService service;
 
@@ -33,7 +38,7 @@ public class BoardController {
     ) throws Exception {
 
         Page page = new Page();
-
+        int count = boardDAO.count();
         page.setNum(num);
         page.setCount(service.searchCount(searchType, keyword));
 
@@ -44,6 +49,7 @@ public class BoardController {
         List<BoardDTO> list = service.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
         //list = service.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 
+        model.addAttribute("count", count);
         model.addAttribute("list", list);
         model.addAttribute("page", page);
         model.addAttribute("select", num);
@@ -53,10 +59,15 @@ public class BoardController {
     }
 
 
+//    //작성화면
+//    @RequestMapping(value = "revWrite", method = RequestMethod.GET)
+//    public String write() {
+//        return "board/write";
+//    }
     // 게시물 작성 폼
     @RequestMapping(value = "write", method = RequestMethod.GET)
-    public void Write() throws Exception {
-
+    public String Write()  {
+        return "board/write";
     }
 
     // 게시물 작성
@@ -75,13 +86,59 @@ public class BoardController {
 
         model.addAttribute("view", dto);
 
-
         // 댓글 조회
-        List<ReplyDTO> reply = null;
-        reply = replyService.list(bbs_id);
+        List<ReplyDTO> reply = replyService.list(bbs_id);
         model.addAttribute("reply", reply);
 
+        // 게시물 조회 시, 조회수 업데이트
+        service.updateViews(bbs_id); // 이 부분을 추가합니다.
+
     }
+//    // 게시물 조회
+//    @RequestMapping(value = "view", method = RequestMethod.GET)
+//    public void View(@RequestParam("bbs_id") int bbs_id, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+//
+//        BoardDTO dto = service.view(bbs_id);
+//
+//        model.addAttribute("view", dto);
+//
+//        // 댓글 조회
+//        List<ReplyDTO> reply = replyService.list(bbs_id);
+//        model.addAttribute("reply", reply);
+//
+//        // 쿠키 관련 코드 추가
+//        viewCountUp(bbs_id, request, response);
+//
+//    }
+//
+//    // 조회수 중복 방지를 위한 쿠키 로직
+//    private void viewCountUp(int bbs_id, HttpServletRequest request, HttpServletResponse response) {
+//        Cookie oldCookie = null;
+//        Cookie[] cookies = request.getCookies();
+//        if (cookies != null) {
+//            for (Cookie cookie : cookies) {
+//                if (cookie.getName().equals("postView")) {
+//                    oldCookie = cookie;
+//                }
+//            }
+//        }
+//
+//        if (oldCookie != null) {
+//            if (!oldCookie.getValue().contains("[" + bbs_id + "]")) {
+//                service.updateViews(bbs_id); // 조회수 증가
+//                oldCookie.setValue(oldCookie.getValue() + "_[" + bbs_id + "]");
+//                oldCookie.setPath("/");
+//                oldCookie.setMaxAge(60 * 60 * 24); // 쿠키 유효 기간 설정 (예: 1일)
+//                response.addCookie(oldCookie);
+//            }
+//        } else {
+//            service.updateViews(bbs_id); // 조회수 증가
+//            Cookie newCookie = new Cookie("postView", "[" + bbs_id + "]");
+//            newCookie.setPath("/");
+//            newCookie.setMaxAge(60 * 60 * 24); // 쿠키 유효 기간 설정 (예: 1일)
+//            response.addCookie(newCookie);
+//        }
+//    }
 
     // 게시물 수정 폼
     @RequestMapping(value = "update", method = RequestMethod.GET)
@@ -98,7 +155,7 @@ public class BoardController {
 
         service.update(dto);
 
-        return "redirect:/board/view?bbs_id=" + dto.getBbs_id();
+        return "redirect:/board/view?bbs_id=" + dto.getBbs_id(); //현재 bbs_id에 해당되는 조회페이지로 이동
     }
 
     // 게시물 삭제
@@ -110,5 +167,17 @@ public class BoardController {
         return "redirect:/board/list?num=1";
     }
 
+    @RequestMapping("/updateViews")
+    @ResponseBody
+    public String updateViews(@RequestParam("bbs_id") int bbs_id) {
+        try {
+            // snackId를 기반으로 DB 업데이트 수행
+            boardDAO.updateViews(bbs_id);
+            return "Success"; // 성공 시 메시지 반환
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error"; // 실패 시 메시지 반환
+        }
+    }
 
 }

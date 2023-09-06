@@ -4,23 +4,15 @@
 
     <!-- 게시물 목록 + 페이징 + 검색 -->
     <select id="list" parameterType="hashMap" resultType="boardDTO">
-        SELECT
-        bbs_id, bbs_title, member_id, create_dt, bbs_views
-        FROM bbs
-
-        <if test='searchType.equals("bbs_title")'>
-            WHERE bbs_title LIKE concat('%', #{keyword}, '%')
-        </if>
-
-        <if test='searchType.equals("bbs_content")'>
-            WHERE bbs_content LIKE concat('%', #{keyword}, '%')
-        </if>
-
-        <if test='searchType.equals("member_id")'>
-            WHERE member_id LIKE concat('%', #{keyword}, '%')
-        </if>
-
-        order by bbs_id desc
+        select b.bbs_id, b.bbs_title, b.member_id, b.create_dt, b.bbs_views, m.member_nickname, count(rr.bbs_id) as reply_count
+        from bbs b
+        left join member m on b.member_id = m.member_id
+        left join reply rr on b.bbs_id = rr.bbs_id
+        <if test='searchType.equals("bbs_title")'> WHERE b.bbs_title LIKE concat('%', #{keyword}, '%') </if>
+        <if test='searchType.equals("bbs_content")'> WHERE b.bbs_content LIKE concat('%', #{keyword}, '%') </if>
+        <if test='searchType.equals("member_id")'> WHERE b.member_id LIKE concat('%', #{keyword}, '%')</if>
+        group by b.bbs_id, b.bbs_title, b.member_id, b.create_dt, b.bbs_views, m.member_nickname
+        order by b.bbs_id desc
         limit #{displayPost}, #{postNum}
     </select>
 
@@ -31,10 +23,10 @@
     </insert>
 
     <!-- 게시물 조회 -->
-    <select id="view" parameterType="int" resultType="boardDTO">
-        SELECT
-            bbs_id, bbs_title, bbs_content, member_id, create_dt, bbs_views
-        FROM bbs
+    <select id="view" resultType="boardDTO">
+        SELECT b.*, m.member_nickname
+        FROM bbs b
+        left join member m on b.member_id = m.member_id
         WHERE bbs_id = #{bbs_id}
     </select>
 
@@ -77,5 +69,10 @@
 
     </select>
 
+    <update id="updateViews" parameterType="int">
+        UPDATE bbs
+        SET bbs_views = bbs_views + 1
+        WHERE bbs_id = #{bbs_id}
+    </update>
 
 </mapper>

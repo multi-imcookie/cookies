@@ -15,14 +15,15 @@
         function modalShow(response) {
             $(".modal-overlay").fadeIn();
             $(".modal-box").addClass("active");
-            if (response.name != null && response.member_signId != null) {
-                $("#span-text").append(response.name + "님의 아이디는" + response.member_signId + "입니다.");
+            if(response.findId==="1"){
+                $("#span-text").append(response.idResult);
+                $(".light-fill-btn").attr("href","/forgotUserNameOrPassWord");
+                $(".light-fill-btn").text("비밀번호 찾기로 이동");
             }
-            else if(response.name===null && response.phoneNumber!=null){
-                $("#span-text").append("임시 비밀번호가" + response.phoneNumber + "으로 발송 되었습니다.");
-            }
-            else{
-                $("#span-text").append("야 개맛난다...");
+            if(response.findPassWord==="1"){
+                $("#span-text").append(response.findResult);
+                $(".light-fill-btn").attr("href","/forgotUserNameOrPassWord");
+                $(".light-fill-btn").text("비밀번호 찾기로 이동");
             }
         }
 
@@ -82,8 +83,7 @@
 <div class="modal-overlay">
     <div class="modal-box">
         <div class="mdl-text">
-            <p class="h-pre24"><span id="span-text"></span> 🥰<br>
-                로그인 페이지로 이동할까요?</p>
+            <p class="h-pre24"><span id="span-text"></span> 🥰<br></p>
             <div class="mdl-info">
                 <img src="/resources/img/icon/info-circle.svg" alt="info icon">
                 <p class="p-regular">로그인 하면 더 많은 기능을 이용할 수 있어요.</p>
@@ -100,7 +100,7 @@
     <h3 class="s-h-imcre24" style="padding: 0px 0px 0px 0px;">아이디 찾기</h3>
     <div class="form-style">
         <div class="input-section">
-            <label class="label-wrap" for="findIdName">이름<span class="require-val">*</span></label>
+            <label class="label-wrap" for="findIdName">닉네임<span class="require-val">*</span></label>
             <input type="text" id="findIdName" name="username" style="background: #F9F5F2" required>
         </div>
         <div class="input-section">
@@ -117,7 +117,7 @@
     <h3 class="s-h-imcre24">비밀번호 찾기</h3>
     <div class="form-style">
         <div class="input-section">
-            <label class="label-wrap" for="findPassWordName">이름<span class="require-val">*</span></label>
+            <label class="label-wrap" for="findPassWordName">닉네임<span class="require-val">*</span></label>
             <input type="text" id="findPassWordName" name="username" style="background: #F9F5F2" required>
         </div>
         <div class="input-section">

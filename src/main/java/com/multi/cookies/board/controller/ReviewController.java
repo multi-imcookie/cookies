@@ -1,9 +1,9 @@
 package com.multi.cookies.board.controller;
 
 import com.multi.cookies.board.dto.Page;
-import com.multi.cookies.board.dto.ReplyDTO;
 import com.multi.cookies.board.dto.ReviewDTO;
-import com.multi.cookies.board.service.ReplyService;
+import com.multi.cookies.board.dto.ReviewReplyDTO;
+import com.multi.cookies.board.service.ReviewReplyService;
 import com.multi.cookies.board.service.ReviewService;
 import com.multi.cookies.snack.service.SnackService;
 import org.slf4j.Logger;
@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -30,7 +32,8 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
     @Autowired
-    ReplyService replyService;
+    ReviewReplyService reviewReplyService;
+
 
 
 
@@ -43,7 +46,11 @@ public class ReviewController {
 
     //작성
     @RequestMapping(value = "reviewWrite", method = RequestMethod.POST)
-    public String write(@ModelAttribute ReviewDTO reviewDTO) throws Exception {
+    public String write(@ModelAttribute ReviewDTO reviewDTO, HttpSession session) throws Exception {
+
+/*        int member_id = (int) session.getAttribute("userId");
+        reviewDTO.setMember_id(member_id);*/
+
         reviewService.write(reviewDTO);
         return "redirect:reviewList?num=1";
     }
@@ -56,30 +63,36 @@ public class ReviewController {
         System.out.println(snack_id);
         model.addAttribute("reviewDTO", reviewDTO);
         model.addAttribute("snackDTO", snackService.snackInfo(snack_id));
+        model.addAttribute("reviewReplyDTO", new ReviewReplyDTO());
+
+        //댓글 조회
+//        List<ReviewReplyDTO> reviewReply = reviewReplyService.list(review_id);
+//        model.addAttribute("reviewReply", reviewReply);
+
     }
 
     //삭제
-    @RequestMapping(value = "reviewDelete", method = RequestMethod.POST)
-    public String delete(ReviewDTO reviewDTO) throws Exception {
-        logger.info("delete");
-
-        reviewService.delete(reviewDTO.getReview_id());
-
-        return "redirect:review/reviewList?num=1";
+    @RequestMapping(value = "reviewDelete", method = RequestMethod.GET)
+    public String delete(@RequestParam("review_id") int review_id) throws Exception {
+        reviewService.delete(review_id);
+        return "redirect:reviewList?num=1";
     }
 
 
     //수정 화면
     @RequestMapping(value = "reviewUpdate", method = RequestMethod.GET)
-    public String update() {
-        return "review/reviewUpdate";
+    public void update(@RequestParam("review_id") int review_id, Model model) throws Exception{
+        ReviewDTO reviewDTO = reviewService.read(review_id);
+        int snack_id = reviewDTO.getSnack_id();
+        model.addAttribute("read", reviewDTO);
+        model.addAttribute("snackDTO", snackService.snackInfo(snack_id));
     }
 
     //수정
     @RequestMapping(value = "reviewUpdate", method = RequestMethod.POST)
-    public String update(@ModelAttribute ReviewDTO reviewDTO) throws Exception {
+    public String update(ReviewDTO reviewDTO) throws Exception {
         reviewService.update(reviewDTO);
-        return "redirect:reviewList?num=1";
+        return "redirect:/review/reviewView?review_id=" + reviewDTO.getReview_id();
     }
 
     // 목록
@@ -91,9 +104,10 @@ public class ReviewController {
         page.setNum(num);
         page.setCount(reviewService.count());
         int test = reviewService.count();
-       // list = service.listPage(page.getDisplayPost(), page.getPostNum());
+        // list = service.listPage(page.getDisplayPost(), page.getPostNum());
         List<ReviewDTO> list = reviewService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
         System.out.println(list);
+        model.addAttribute("listSize", list.size());
         model.addAttribute("list", list);
         model.addAttribute("page", page);
         model.addAttribute("select", num);
@@ -101,5 +115,33 @@ public class ReviewController {
     }
 
 
+
+/*    //댓글
+    @RequestMapping(value = "replyWrite", method = RequestMethod.POST)
+    public String postWrite(ReviewReplyDTO reviewReplyDTO) throws Exception {
+
+        reviewReplyService.write(reviewReplyDTO);
+
+        return "redirect:/review/reviewView?review_id=" + reviewReplyDTO.getReview_id();
+    }
+
+
+    @RequestMapping(value = "replyModify", method = RequestMethod.GET)
+    public void getModify(@RequestParam("review_id") int review_id, @RequestParam("reply_id") int reply_id, Model model) throws Exception {
+
+        ReviewReplyDTO reviewReplyDTO = new ReviewReplyDTO();
+        reviewReplyDTO.setReview_id(review_id);
+        reviewReplyDTO.setReply_id(reply_id);
+
+        ReviewReplyDTO reply = reviewReplyService.replySelect(reviewReplyDTO);
+
+        model.addAttribute("reply", reply);
+    }*/
+
+
+
+
+
 }
+
 

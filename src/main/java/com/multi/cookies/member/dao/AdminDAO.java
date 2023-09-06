@@ -55,5 +55,4 @@ public class AdminDAO {
     public void deleteMember(int id) {
         sqlSession.delete("deleteMember", id);
     }
-
 }

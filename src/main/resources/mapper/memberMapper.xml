@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
+
+    <!-- 회원가입 -->
     <insert id="sign" parameterType="memberDTO" useGeneratedKeys="true" keyProperty="memberId">
         INSERT INTO member
         VALUES (null, #{member_signId}, #{member_pw}, #{member_nickname}, #{member_age}, #{member_gender},
-                #{member_birthday}, #{member_email}, #{member_grade}, null, null, now(), #{member_phone})
+                #{member_birthday}, #{member_email}, #{member_grade}, null, null, now(), #{member_phone}, null)
     </insert>
+
+    <!-- 회원가입 아이디 중복 체크 -->
     <select id="checkDuplicateId" parameterType="String" resultType="int">
         SELECT COUNT(member_signId)
         FROM member
@@ -14,10 +18,21 @@
 
     <!-- 총 회원 수를 얻기 위한 쿼리 -->
     <select id="getAllMembers" resultType="adminDTO">
-        SELECT member_id, member_signId, member_pw, member_nickname, member_age, member_gender, member_birthday,
-               member_email, member_phone, member_grade, naver_login, kakao_login, create_dt
+        SELECT member_id,
+               member_signId,
+               member_pw,
+               member_nickname,
+               member_age,
+               member_gender,
+               member_birthday,
+               member_email,
+               member_phone,
+               member_grade,
+               naver_login,
+               kakao_login,
+               create_dt
         FROM member
-                 LIMIT #{start}, #{pageSize}
+        LIMIT #{start}, #{pageSize}
     </select>
 
     <select id="searchMembers" resultType="memberDTO">
@@ -64,19 +79,66 @@
         WHERE member_id = #{id}
     </delete>
 
-    <select id="getMemberInfo" parameterType="String" resultType="com.multi.cookies.member.dto.MypageDTO">
+
+    <!-- mypage 멤버 정보 조회 -->
+    <select id="getMemberInfo" resultType="mypageDTO">
         SELECT *
         FROM member
-        WHERE member_signId = #{member_signId}
+        WHERE member_id = #{member_id}
     </select>
 
-    <update id="updateMemberInfo" parameterType="com.multi.cookies.member.dto.MypageDTO">
+    <!-- mypage 작성한 리뷰 조회 -->
+    <select id="getMyReview" parameterType="int" resultType="reviewDTO">
+        SELECT r.*, s.snack_name, m.member_nickname
+        FROM review_bbs r
+                 left join snack s on r.snack_id = s.snack_id
+                 left join member m on r.member_id = m.member_id
+        WHERE m.member_id = #{member_id}
+        order by r.review_id desc
+    </select>
+
+    <!-- mypage 작성한 게시글 조회 -->
+    <select id="getMyBoard" parameterType="int" resultType="boardDTO">
+        select *
+        from bbs
+        where member_id = #{member_id}
+        order by bbs_id desc
+    </select>
+
+    <!-- mypage 멤버 정보 수정 -->
+    <update id="updateMemberInfo" parameterType="mypageDTO">
         UPDATE member
         SET member_nickname = #{member_nickname},
-            member_phone    = #{member_phone},
             member_email    = #{member_email},
-            member_pw       = #{member_pw}
-        WHERE member_signId = #{member_signId}
+            member_phone    = #{member_phone},
+            member_pw    = #{member_pw}
+        WHERE member_id = #{member_id}
+    </update>
+
+    <!--  mypage 멤버 비밀번호 가져오기  -->
+    <select id="getMemberPassword" resultType="string">
+        SELECT member_pw
+        FROM member
+        WHERE member_id = #{member_id}
+    </select>
+
+    <!-- 프로필 사진 가져오기 -->
+    <select id="getProfile" parameterType="int" resultType="string">
+        SELECT member_profile FROM member WHERE member_id = #{member_id}
+    </select>
+
+    <!-- 프로필 테이블(profile)에 프로필 정보 업데이트하기 -->
+    <update id="updateProfile" parameterType="map">
+        UPDATE member
+        SET member_profile = #{member_profile}
+        WHERE member_id = #{member_id}
+    </update>
+
+    <!-- 프로필 테이블(profile)에서 프로필 정보 삭제하기 -->
+    <update id="deleteProfile" parameterType="int">
+        UPDATE member
+        SET member_profile = null
+        WHERE member_id = #{member_id}
     </update>
 
 </mapper>

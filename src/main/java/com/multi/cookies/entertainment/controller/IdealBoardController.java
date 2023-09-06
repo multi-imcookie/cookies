@@ -28,7 +28,13 @@ public class IdealBoardController {
         pageDTO.setStartEnd(pageDTO.getPage());
         List<IdealBoardDTO> list = idealBoardDAO.all(pageDTO);
         int count = idealBoardDAO.count();
-        int pages = count / 10 + 1; //전체 페이지 개수 구하기
+        int pages=0;
+        if(count%10==0) {
+            pages = count / 10 ; //전체 페이지 개수 구하기
+        }
+        else{
+            pages = count / 10 + 1; //전체 페이지 개수 구하기
+        }
         model.addAttribute("list", list);
         model.addAttribute("count", count);
         model.addAttribute("pages", pages);

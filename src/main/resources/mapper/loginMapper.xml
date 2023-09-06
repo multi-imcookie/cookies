@@ -61,5 +61,12 @@
         FROM member
         WHERE member_signId = #{username} AND member_pw = #{password}
     </select>
-
+    <select id="cookie_onebyusername" resultType="loginDTO" parameterType="String">
+        select member_id, member_signId, member_pw,
+               member_nickname, member_age, member_gender,
+               member_birthday, member_email, member_grade,
+               naver_login, kakao_login, create_dt
+        FROM member
+        WHERE member_signId = #{username}
+    </select>
 </mapper>

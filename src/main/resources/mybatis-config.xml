@@ -3,10 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
     <typeAliases>
         <typeAlias type="com.multi.cookies.snack.dto.SnackDTO" alias="snackDTO"></typeAlias>
-        <typeAlias type="com.multi.cookies.snack.dto.NutritionalDTO" alias="nutritionalDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.api.dto.DBApiDTO" alias="dbApiDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.dto.SearchDTO" alias="searchDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.snack.dto.ScoreDTO" alias="scoreDTO"></typeAlias>
@@ -14,28 +12,45 @@
         <typeAlias type="com.multi.cookies.member.dto.LoginDTO" alias="loginDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.MemberDTO" alias="memberDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.member.dto.AdminDTO" alias="adminDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.member.dto.AdminBoardDTO" alias="adminBoardDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.member.dto.AdminReplyDTO" alias="adminReplyDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.member.dto.AdminReviewDTO" alias="adminReviewDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.member.dto.AdminReviewReplyDTO" alias="adminReviewReplyDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.member.dto.MypageDTO" alias="mypageDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealBoardDTO" alias="idealBoardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.IdealWorldCupDTO" alias="idealWorldCupDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.InitialSnackListDTO" alias="InitialSnackListDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.ranking.dto.RankingPageDTO" alias="rankingPageDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.ranking.dto.RankingDTO" alias="rankingDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.entertainment.dto.PageDTO" alias="pageDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.ReviewDTO" alias="reviewDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.board.dto.ReviewReplyDTO" alias="reviewReplyDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.BoardDTO" alias="boardDTO"></typeAlias>
         <typeAlias type="com.multi.cookies.board.dto.ReplyDTO" alias="replyDTO"></typeAlias>
+        <typeAlias type="com.multi.cookies.board.notice.dto.NoticeDTO" alias="noticeDTO"></typeAlias>
+
     </typeAliases>
 
     <mappers>
+        <mapper resource="mapper/adminBoardMapper.xml"/>
+        <mapper resource="mapper/adminReplyMapper.xml"/>
+        <mapper resource="mapper/adminReviewMapper.xml"/>
+        <mapper resource="mapper/adminReviewReplyMapper.xml"/>
         <mapper resource="mapper/snackMapper.xml"/>
-        <mapper resource="mapper/nutritionalMapper.xml"/>
         <mapper resource="mapper/dbApiMapper.xml"/>
         <mapper resource="mapper/idealBoardMapper.xml"/>
         <mapper resource="mapper/idealWorldCupMapper.xml"/>
+        <mapper resource="mapper/snackRankingMapper.xml"/>
         <mapper resource="mapper/loginMapper.xml"/>
         <mapper resource="mapper/findMapper.xml"/>
         <mapper resource="mapper/memberMapper.xml"/>
         <mapper resource="mapper/reviewMapper.xml"/>
+        <mapper resource="mapper/reviewReplyMapper.xml"/>
         <mapper resource="mapper/boardMapper.xml"/>
         <mapper resource="mapper/replyMapper.xml"/>
         <mapper resource="mapper/curationMapper.xml"/>
+        <mapper resource="mapper/noticeMapper.xml"/>
     </mappers>
+
 
 </configuration>

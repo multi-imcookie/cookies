@@ -7,19 +7,15 @@
         values (#{snack_name}, #{company}, #{snack_img}, #{snack_ingredients}, #{snack_reportNo});
     </insert>
     <insert id="insertNutri" parameterType="dbApiDTO">
-        insert into snack_nutritional (snack_id, nutri_string, allergy, protein, kcal, fat, carb,
+        insert into snack_nutritional (snack_id, netwt, nutri_string, allergy, protein, kcal, fat, carb,
                                        sugars, calcium, sodium, cholesterol, saturated_fat, trans_fat)
-        values (#{snack_id}, #{nutri_string}, #{allergy}, #{protein}, #{kcal}, #{fat}, #{carb},
+        values (#{snack_id}, #{netwt}, #{nutri_string}, #{allergy}, #{protein}, #{kcal}, #{fat}, #{carb},
                 #{sugars}, #{calcium}, #{sodium}, #{cholesterol}, #{saturated_fat}, #{trans_fat});
     </insert>
 
     <insert id="insertScoreId" parameterType="dbApiDTO">
         insert into avg_score (snack_id)
-        values (#{snack_id});
-    </insert>
-    <insert id="insertIdealId" parameterType="dbApiDTO">
-        insert into ideal_worldcup (snack_id)
-        values (#{snack_id});
+        values #{snack_id};
     </insert>
     <!--여기까지-->
 
@@ -30,6 +26,7 @@
                a.snack_img,
                a.snack_ingredients,
                a.snack_reportNo,
+               b.netwt,
                b.nutri_string,
                b.allergy,
                b.protein,
@@ -55,6 +52,7 @@
                 a.snack_name = #{snack_name},
                 a.snack_img = #{snack_img},
                 a.company = #{company},
+                b.netwt = #{netwt},
                 b.nutri_string = #{nutri_string},
                 b.allergy = #{allergy},
                 b.protein = #{protein},
@@ -70,9 +68,24 @@
         where a.snack_reportNo = #{snack_reportNo}
     </update>
     <!--여기까지-->
+    <!--snack_name으로 pull-->
+    <select id="search" parameterType="String" resultType="dbApiDTO">
+        select snack_id, snack_name
+        from snack
+        where snack_name like concat('%', #{snack_name}, '%')
+    </select>
+    <!--여기까지-->
+
+    <!--단건삭제-->
+    <delete id="deleteSnack">
+        delete
+        from snack
+            where snack_id = #{snack_id}
+    </delete>
+    <!--여기까지-->
 
     <!--초기화-->
-    <delete id="deleteSnack">
+    <delete id="deleteAllSnack">
         delete
         from snack;
     </delete>

@@ -15,11 +15,11 @@
       <option name="HTTP_PORT" value="8989" />
       <option name="JNDI_PORT" value="7979" />
     </server-settings>
+    <log_file alias="Tomcat Manager 로그" path="%IDEA_RUN:CATALINA_BASE%/logs/manager.*" />
+    <log_file alias="Tomcat Host Manager 로그" path="%IDEA_RUN:CATALINA_BASE%/logs/host-manager.*" />
+    <log_file alias="Tomcat Localhost Access 로그" path="%IDEA_RUN:CATALINA_BASE%/logs/localhost_access_log.*" />
     <predefined_log_file enabled="true" id="Tomcat" />
     <predefined_log_file enabled="true" id="Tomcat Catalina" />
-    <predefined_log_file id="Tomcat Manager" />
-    <predefined_log_file id="Tomcat Host Manager" />
-    <predefined_log_file id="Tomcat Localhost Access" />
     <RunnerSettings RunnerId="Debug">
       <option name="DEBUG_PORT" value="2850" />
     </RunnerSettings>

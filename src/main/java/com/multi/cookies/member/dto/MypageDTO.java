@@ -25,4 +25,5 @@ public class MypageDTO {
     private String kakao_login;
     private Date create_dt;
     private String member_phone;
+    private String member_profile;
 }

@@ -6,8 +6,12 @@ import com.google.gson.JsonObject;
 import com.multi.cookies.member.dao.LoginDAO;
 import com.multi.cookies.member.dto.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -21,12 +25,22 @@ import static org.springframework.util.StringUtils.capitalize;
 public class LoginService {
     @Autowired
     LoginDAO loginDAO;
-
+    @Autowired
+    JasyptEncoderService jasyptEncoderService;
+    //카카오 로그인 or 네이버 로그인 or 자체 로그인인지 확인후 DB 테이블 가져옴.
+    public LoginDTO getLoginDTOByKey(LoginDTO loginDTO) {
+        String loginByKey = hasNullFields(loginDTO);
+        return loginDAO.findIdByLoginKey(loginByKey, loginDTO);
+    }
+    public LoginDTO getMemberDTObyUserName(String name){
+        return loginDAO.cookieOnebyUserName(name);
+    }
+    //네이버 로그인, 카카오로그인인지 확인
     public boolean hasRegisteredBefore(LoginDTO loginDTO) {
         String findNullFieldInId = hasNullFields(loginDTO);  //네이버로그인 or 카카오 로그인 인지를 판단.
         String id; //loginDTO  naverlogin or kakaologin 값을 받음
         try {
-            Method method = loginDTO.getClass().getMethod("get"+capitalize(findNullFieldInId));
+            Method method = loginDTO.getClass().getMethod("get" + capitalize(findNullFieldInId));
             Object result = method.invoke(loginDTO);
             id = result.toString();
         } catch (NoSuchMethodException e) {
@@ -36,42 +50,50 @@ public class LoginService {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        return loginDAO.findIdByUsername(id,findNullFieldInId)!=null;
+        return loginDAO.findIdByUsername(id, findNullFieldInId) != null;
     }
-    public int insertUserInfo(LoginDTO loginDTO){
+
+    public int insertUserInfo(LoginDTO loginDTO) {
         return loginDAO.insert(loginDTO);
     }
+
     //전과자 자체 로그인 , id pwd 받은후 유효성 검사
-    public boolean isValidPassWord(Map<String, String> map){
-        int rowNumber = loginDAO.cookieSelect(map);
-        if(rowNumber!=1) {
-            return false;
+    public boolean isValidPassWord(Map<String, String> map) {
+        LoginDTO loginDTO = loginDAO.cookieOnebyUserName((String)map.get("username"));
+        if (loginDTO!=null) {
+            String encoderPassWord = loginDTO.getMember_pw();
+            String plainPassWord = (String)map.get("password");
+            boolean pwdIsTrue =jasyptEncoderService.decrypt(encoderPassWord).equals(plainPassWord);
+            System.out.println("pwdIsTrue = " + pwdIsTrue);
+            return pwdIsTrue;
         }
-        return true;
+        return false;
     }
-    public LoginDTO getUserInfo(Map<String, String> map){
+
+    public LoginDTO getUserInfo(Map<String, String> map) {
         LoginDTO loginDTO = loginDAO.cookieOne(map);
         return loginDTO;
     }
     //로그인시 어떤 로그인인지를 판단.
     // LoginDTO 필드중  naver_login , kakao_login 널이 아닌경우 어떤 로그인 인가를 알아냄
 
-    private String hasNullFields(Object dto){
+    //자체 로그인 or 네이버 로그인 or 카카오로그인 중 로그인한 로그인한 필드값 넘겨줌
+    private String hasNullFields(Object dto) {
         Field[] fields = dto.getClass().getDeclaredFields();
-        String id="";
+        String id = "";
         for (Field field : fields) {
             field.setAccessible(true);
             try {
                 if (field.get(dto) != null) {
-                    switch(field.getName()){
-//                        case "member_signId":
-//                            id="member_signId";
-//                            break;
+                    switch (field.getName()) {
+                        case "member_signId":
+                            id = "member_signId";
+                            break;
                         case "naver_login":
-                            id="naver_login";
+                            id = "naver_login";
                             break;
                         case "kakao_login":
-                            id="kakao_login";
+                            id = "kakao_login";
                             break;
                     }
 //                    field.getName().equals("member_signId");
@@ -82,6 +104,7 @@ public class LoginService {
         }
         return id;
     }
+
     //json 과 키값을 넣어주면 널인경우 "" 빈스트링넣어줌
     public String getAsStringOrNull(JsonObject jsonObject, String key) {
         if (jsonObject.has(key)) {
@@ -92,22 +115,24 @@ public class LoginService {
         }
         return "";
     }
+
     // json데이터가 30-39 or 30~39 or 30-   이렇게 가져오는경우가있음..앞 숫자만 추출해서 다시 나이대 작성
     public String convertAge(String input) {
         // 숫자로 시작하고 숫자와 - 또는 ~ 문자로 이루어진 패턴을 찾습니다.
         Pattern pattern = Pattern.compile("^\\d+([-~]\\d+)?");
         Matcher matcher = pattern.matcher(input);
-        if(!matcher.find()){
+        if (!matcher.find()) {
             return "extractNumber Method Error";
         }
-            String matched = matcher.group(); // 매칭된 부분을 가져옵니다.
-            // - 또는 ~ 이전의 숫자만 추출합니다.
-            String extractedNumber = matched.split("[-~]")[0];
-            // 추출한 숫자를 정수로 변환하여 9를 더합니다.
-            int originalNumber = Integer.parseInt(extractedNumber);
-            int expandedNumber = originalNumber + 9;
-            return originalNumber+"-"+String.valueOf(expandedNumber);
-        }
+        String matched = matcher.group(); // 매칭된 부분을 가져옵니다.
+        // - 또는 ~ 이전의 숫자만 추출합니다.
+        String extractedNumber = matched.split("[-~]")[0];
+        // 추출한 숫자를 정수로 변환하여 9를 더합니다.
+        int originalNumber = Integer.parseInt(extractedNumber);
+        int expandedNumber = originalNumber + 9;
+        return originalNumber + "-" + String.valueOf(expandedNumber);
+    }
+
     // 카카오는 female , male  , 네이버는 F , M  으로 성별을 가져옴 -> 여성 남성으로 바꾸는 함수
     public String convertGender(String gender) {
         // 입력된 문자열을 소문자로 변환하여 비교합니다.
@@ -121,6 +146,7 @@ public class LoginService {
             return gender;
         }
     }
+
     // 0213  or 02-13  을 02월 13일로 변환
     public String convertBirthDay(String birthday) {
         // 생일 문자열을 월과 일로 분할합니다.
@@ -138,6 +164,7 @@ public class LoginService {
         // 월과 일을 "월 일" 형식으로 조합합니다.
         return month + "월 " + day + "일";
     }
+
     // 네이버 유저 Json 데이터중 이름이 유니코드이다. ->  String으로 변환
     public String convertString(String val) {
         StringBuffer sb = new StringBuffer();
@@ -157,4 +184,23 @@ public class LoginService {
         // 결과 리턴
         return sb.toString();
     }
+
+    public Cookie recentLoginCookie(String key, String value, String path) {
+        Cookie cookie = new Cookie(key, value);
+        cookie.setPath(path);
+        return cookie;
+    }
+
+    public String getCookie(String login, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName() == login) {
+                    return cookies[i].getValue();
+                }
+            }
+        }
+        return "";
+    }
 }
+

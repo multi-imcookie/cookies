@@ -1,15 +1,17 @@
 package com.multi.cookies.snack.api.controller;
 
+import com.multi.cookies.snack.api.dto.DBApiDTO;
 import com.multi.cookies.snack.api.service.DBApiService;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("api")
@@ -19,10 +21,6 @@ public class DBApiController {
     @Autowired
     DBApiService dbApiService;
 
-    /**
-     * TODO: 스케쥴러 미작동(수정예정)
-     */
-    @Scheduled(cron = "0 0 15 * * * *")    // cron: 초 분 시 일 월 요일 연도
     @RequestMapping("updateDB")
     public String updateDB(Model model) throws ParseException, IOException { // DB 최신화
         int result = dbApiService.updateDB();
@@ -30,18 +28,26 @@ public class DBApiController {
         return "/api/updateDB";
     }
 
-    @RequestMapping("insertDB")
-    public String insertDB(Model model) throws ParseException, IOException {  // DB 생성
-        int result = dbApiService.insertDB();
-        model.addAttribute("result", result);
-        return "/api/insertDB";
+    @GetMapping(value = "searchSnackId", produces = "application/text; charset=utf8")
+    @ResponseBody
+    public String searchSnackId(@RequestParam("snack_name") String snack_name) {
+        String result = dbApiService.searchDB(snack_name).toString();
+        return result;
     }
 
-    @RequestMapping("initializeDB")
-    public String initializeDB(Model model) {    // DB 초기화
-        int result = dbApiService.initializeDB();
+    @GetMapping("deleteDB")
+    @ResponseBody
+    public void deleteDB(@RequestParam("snack_id") int snack_id, Model model) {   // DB 단건삭제
+        System.out.println(snack_id);
+        int result = dbApiService.deleteDB(snack_id);
         model.addAttribute("result", result);
-        return "/api/initializeDB";
     }
 
+    @PostMapping("insertDB")
+    @ResponseBody
+    public void insertDB(DBApiDTO dbApiDTO, Model model) {
+        System.out.println(dbApiDTO);
+        int result = dbApiService.insertDB(dbApiDTO);
+        model.addAttribute("result", result);
+    }
 }

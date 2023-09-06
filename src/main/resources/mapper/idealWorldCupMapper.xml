@@ -38,14 +38,9 @@
         ORDER BY RAND() -- MySQL에서 랜덤 순서로 가져오기
             LIMIT #{limit}
     </select>
-<!--    <select id="list" resultType="String">-->
-<!--        Select ideal_snack_img from ideal_worldcup Order by rand()-->
-<!--    </select>-->
 
-<!--    <update id="updateWins" parameterType="String">-->
-<!--        UPDATE ideal_worldcup-->
-<!--        SET wins = wins + 1-->
-<!--        WHERE snack_id = #{winner}-->
-<!--    </update>-->
+    <select id="calculateTotalGames" resultType="Integer">
+        SELECT SUM(wins) FROM ideal_worldcup;
+    </select>
 
 </mapper>

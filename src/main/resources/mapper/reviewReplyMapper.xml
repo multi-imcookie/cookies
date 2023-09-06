@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reviewReply">
+
+    <select id="getReplyList" resultType="reviewReplyDTO">
+        SELECT r.reply_id, r.review_id, r.reply_content, r.member_id, r.create_dt, r.update_dt, m.member_nickname
+        FROM review_reply r
+                 left join member m on r.member_id = m.member_id
+        WHERE review_id = #{review_id}
+        ORDER BY create_dt ASC
+
+    </select>
+
+    <insert id="saveReply" parameterType="reviewReplyDTO">
+        INSERT INTO review_reply(review_id, reply_content, member_id, create_dt)
+        VALUES ( #{review_id}, #{reply_content} , #{member_id}, now())
+    </insert>
+
+    <update id="updateReply" parameterType="reviewReplyDTO">
+        UPDATE review_reply
+        SET reply_content = #{reply_content}, update_dt = now()
+        WHERE reply_id = #{reply_id}
+    </update>
+
+    <delete id="deleteReply" parameterType="int">
+        DELETE FROM review_reply
+        WHERE reply_id = #{reply_id}
+    </delete>
+
+</mapper>

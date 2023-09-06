@@ -15,6 +15,9 @@ public class LoginDAO {
     public LoginDTO findIdByUsername(String id,String findNullFieldInId){
         return sqlSession.selectOne("login."+findNullFieldInId,id);
     }
+    public LoginDTO findIdByLoginKey(String findNullFieldInId,LoginDTO loginDTO){
+        return sqlSession.selectOne("login."+findNullFieldInId,loginDTO);
+    }
 
     public int insert(LoginDTO loginDTO){
         return sqlSession.insert("login.insert",loginDTO);
@@ -32,5 +35,8 @@ public class LoginDAO {
 
     public LoginDTO cookieOne(Map<String, String> map) {
         return sqlSession.selectOne("cookie_one",map);
+    }
+    public LoginDTO cookieOnebyUserName(String name){
+        return sqlSession.selectOne("cookie_onebyusername",name);
     }
 }

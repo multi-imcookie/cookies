@@ -2,6 +2,8 @@ package com.multi.cookies.snack.dto;
 
 import lombok.Data;
 
+
+// 검색 시, 많은 Join을 거친 후에 키워드를 색인하고 모든 데이터를 전달하기 위한 DTO
 @Data
 public class SearchDTO {
     int snack_id;
@@ -28,5 +30,6 @@ public class SearchDTO {
     String allergy;
 
     float avg_score;
+    int review_count;
 
 }
