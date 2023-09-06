@@ -45,7 +45,24 @@
                 data: {"review_id": "${reviewDTO.review_id}"},
                 success: function (result) {
                     let html = "";
-                    /*let member_nickname = $("#member_nickname").val();*/
+
+                    // Unix 타임스탬프를 밀리초로 가지고 있는 변수
+                    let timestamp = 1693937640000; // 예시 숫자
+
+                    // 밀리초를 JavaScript Date 객체로 변환
+                    let date = new Date(timestamp);
+
+
+                    // 원하는 날짜 및 시간 형식으로 포맷팅
+                    let formattedDate = date.toLocaleString("ko-KR", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        /*second: "2-digit",*/
+                        hour12: true, // 오후/오전 표시 여부
+                    });
                     if (result.length < 1) {
                         html = "등록된 댓글이 없습니다.";
                     } else {
@@ -53,9 +70,10 @@
                             html += '<div class="media text-muted pt-3" id="reply_id' + this.reply_id + '">';
                             html += '<p class="border-bottom harder-gray pb-3 mb-0">';
                             html += '<span class="d-block">';
-                            html += '<strong class="text-gray-dark">' + this.member_nickname + '</strong>';
-                            /*html += this.create_dt;*/
-                            html += '<span style="padding-left: 7px; font-size: 9pt">';
+                            html += '<strong class="text-gray-dark" style="font-size: large">' + this.member_nickname + '</strong>';
+                            html += '  '; // 공백 추가
+                            html += '<SMALL>' + formattedDate + '</SMALL>';
+                            html += '<span style="padding-left: 10px; font-size: 11pt; float: right">';
                             html += '<a href="javascript:void(0)" onclick="btn_editReply(' + this.reply_id + ', \'' + this.member_id + '\', \'' + this.reply_content + '\' )" style="padding-right:5px">수정</a>';
                             html += '<a href="javascript:void(0)" onclick="btn_deleteReply(' + this.reply_id + ')" >삭제</a>';
                             html += '</span>';
@@ -77,7 +95,7 @@
             htmls += '<p class="border-bottom harder-gray pb-3 mb-0">';
             htmls += '<span class="d-block">';
             htmls += '<strong class="text-gray-dark">' + member_id + '</strong>';
-            htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+            htmls += '<span style="padding-left: 10px; font-size: 11pt">';
             htmls += '<a href="javascript:void(0)" onclick="btn_updateReply(' + reply_id + ', \'' + member_id + '\')" style="padding-right:5px">저장</a>';
             htmls += '<a href="javascript:void(0)" onClick="showReplyList()">취소<a>';
             htmls += '</span>';
@@ -90,7 +108,6 @@
             $('#reply_id' + reply_id).replaceWith(htmls);
             $('#reply_id' + reply_id + ' #editReply_content').focus();
         }
-
 
         $(document).ready(function () {
             // btn-saveReply 버튼 클릭 이벤트 리스너
@@ -120,13 +137,15 @@
             });
         });
 
-        // 수정 저장 버튼 클릭 이벤트 리스너
+        // 수정 저장
         function btn_updateReply(reply_id, member_id, reply_content) {
             let editedContent = $('#editReply_content').val();
             let memberId = "${sessionScope.memberId}";
             if (memberId === "" || memberId === null) {
                 self.location = '/login';
                 alert("로그인을 하셔야합니다")
+            } else if (editedContent.length < 1) {
+                alert("댓글을 입력하세요");
             } else{
                 $.ajax({
                     type: "POST",
@@ -138,12 +157,8 @@
                     }),
                     contentType: "application/json",
                     success: function (views_result) {
-                        if (editedContent.length < 1) {
-                            alert("댓글을 입력하세요");
-                        } else {
                             $('#result').append(views_result);
                             showReplyList();
-                        }
                     },
                     error: function (error) {
                         console.log("에러 : " + error);
@@ -161,8 +176,7 @@
             if (memberId === "" || memberId === null) {
                 self.location = '/login';
                 alert("로그인을 하셔야합니다")
-            } else{
-                confirm("삭제하시겠습니까?")
+            } else if (confirm("삭제하시겠습니까?")){
                 $.ajax({
                     url: "/reviewReply/deleteReply",
                     data: paramData, type: 'POST',
@@ -207,13 +221,15 @@
             top: 24px;
             right: 24px;
         }
+        .find-btn1{
+            display :inline-block;
+        }
     </style>
 </head>
 <body id="page-top">
     <%@ include file="/header.jsp" %>
     <div class="modal-overlay">
         <div class="modal-box">
-
             <button type="button" id="modal-close" class="btn-close" aria-label="Close"></button>
             <div class="s-h-imcre24">리뷰 과자 정보</div>
             <div class="modal-detail-content p-regular">
@@ -283,7 +299,7 @@
     </div>
 
     <div class="sub-container">
-        <div class="p-regular">
+        <div class="p-regular" style="width: 100%">
             <h3 class="s-h-imcre24">${reviewDTO.review_title}</h3>
             <div class="rating" id="rating">
                 <c:choose>
@@ -310,11 +326,28 @@
                     <c:otherwise><c:set var="scoreImg" value=""/></c:otherwise>
                 </c:choose>
             </div>
-            <li>${scoreImg}</li>
-            <div style="font-size:13px" class="p-regular"> ${reviewDTO.review_score}점 <span>&#183;</span> ${reviewDTO.snack_name}
-                <span>&#183;</span> ${reviewDTO.member_nickname}
-                <span>&#183;</span> <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/>
-            </div>
+                <div style="display: inline-block">
+                    <li>${scoreImg}</li>
+                    <div style="font-size:15px" class="p-regular"> ${reviewDTO.review_score}점 <span>&#183;</span> ${reviewDTO.snack_name}
+                        <span>&#183;</span> ${reviewDTO.member_nickname}
+                        <span>&#183;</span> <%--<fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy-MM-dd a HH:mm:ss"/>--%>
+                        <c:set var="today" value="<%= new java.util.Date() %>" />
+                        <c:choose>
+                            <c:when test="${fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(reviewDTO.create_dt, ' '), 0, 10)), '-', ''), 0, 10) eq fn:substring(fn:replace(fn:trim(fn:substring(fn:substringBefore(today, ' '), 0, 10)), '-', ''), 0, 10)}">
+                                <!-- 작성일이 오늘일 경우 -->
+                                <fmt:formatDate value="${reviewDTO.create_dt}" pattern="HH:mm"/>
+                            </c:when>
+                            <c:otherwise>
+                                <!-- 작성일이 오늘이 아닐 경우 -->
+                                <fmt:formatDate value="${reviewDTO.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+                <div class="btn-wrap find-btn1" style="float: right">
+                    <button class="btn-Update fill-btn find-btn1">수정</button>
+                    <button class="btn-Delete fill-btn find-btn1">삭제</button>
+                </div>
         </div>
 
 
@@ -329,15 +362,13 @@
 
 
         <div class="btn-wrap">
-            <button class="btn-Delete fill-btn" style="width:2cm; height:1cm; float:right">삭제</button>
-            <button class="btn-Update fill-btn" style="width:2cm; height:1cm; float:right">수정</button>
-            <a href="reviewList?num=1"><button class="fill-btn">뒤로가기</button></a>
+            <a href="reviewList?num=1"><button class="light-fill-btn">뒤로가기</button></a>
         </div>
 
 
         <!-- 댓글 -->
-        <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
-            <form name="form" id="form" role="form" modelAttribute="reviewReplyDTO" method="post">
+        <div class="detail-container my-3 p-3 bg-white rounded shadow-sm p-regular"  style="padding-top: 10px; flex-direction: column">
+            <form name="form" id="form" role="form" modelAttribute="reviewReplyDTO" method="post" style="width: 100%;">
                 <div class="row">
                     <div class="col-sm-10">
                             <textarea id="reply_content" class="reply_content" style="width:100%;"
@@ -350,13 +381,8 @@
                     </div>
                 </div>
             </form>
+            <div id="replyList" style="width: 100%;"></div>
         </div>
-
-        <div class="my-3" style="padding-top: 10px">
-            Reply List
-            <div id="replyList"></div>
-        </div>
-
     </div>
     <script>
         $("#snack-info").click(function () {
