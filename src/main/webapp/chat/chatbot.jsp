@@ -19,6 +19,12 @@
     <script type="text/javascript">
         var stompClient = null;
 
+        // 스크롤 가능한 div 요소와 스크롤 위치를 아래로 유지하는 함수
+        function scrollToBottom() {
+            var scrollableDiv = document.getElementById('message');
+            scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+        }
+
         function setConnected(connected) {
             document.getElementById('response').innerHTML = '';
         }
@@ -74,6 +80,7 @@
             userMessage.className = 'user-bubble';
             userMessage.innerHTML = '<p>' + text + "번" + '</p>'; // <p> 태그로 감싸기
             response.appendChild(userMessage);
+            scrollToBottom();
         }
 
         //받은 데이터를 원하는 위치에 넣음.
@@ -83,6 +90,7 @@
             let aTag = document.createElement('a');
             let pTag = document.createElement('p');
             chatbotMessage.className = 'chat-bubble';
+
 
             //메뉴 텍스트와 링크를 p 태그에 추가
             // p.appendChild(document.createTextNode(messageOutput.menu + ' '));
@@ -115,6 +123,8 @@
             chatbotMessage.appendChild(pTag);
             response.appendChild(chatbotMessage);
             document.getElementById('text').innerHTML = '';
+            scrollToBottom();
+
         }
     </script>
 
@@ -122,7 +132,7 @@
 
     <%--   <div style="width: 500px;">--%>
     <div class="chatbot-container">
-        <div class="message p-regular">
+        <div id="message" class="message p-regular">
             <div class="detail-container" p="medium">
                 <div class="chat-bubble"><p>안녕하세요! I'm cookie 전과자 챗봇입니다. 😊<br>원하시는 메뉴 번호를 입력해주세요.</p></div>
                 <div class="chat-bubble"><p>1.과자 추천</p></div>

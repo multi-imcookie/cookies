@@ -7,26 +7,31 @@
     <meta charset="UTF-8">
     <title>댓글 수정</title>
     <%@ include file="/link.jsp" %>
+    <style>
+        .section-01 {
+            display: flex;
+        }
+    </style>
 </head>
 <body>
 <%@include file="/header.jsp" %>
 <div class="sub-container">
     <h3 class="h-imcre24">댓글수정</h3>
 
-    <form method="post" action="/reply/update">
+    <form method="post" action="/reply/update" class="form-style">
 
         <p>
             <input type="hidden" name="member_id" value="${reply.member_id}">
         </p>
-        <p>
+        <p class="section-01">
             <textarea rows="5" cols="50" name="reply_content">${reply.reply_content}</textarea>
         </p>
-        <p>
+        <p class="btn-wrap-row">
             <input type="hidden" name="bbs_id" value="${reply.bbs_id}">
             <input type="hidden" name="reply_id" value="${reply.reply_id}">
 
-            <button type="submit" class="fill-btn" style="width: 100%; margin-top: 10px">완료</button>
-            <button type="button" class="light-fill-btn" style="width: 100%; margin-top: 10px" id="cancelButton">취소</button>
+            <button type="submit" class="fill-btn">완료</button>
+            <button type="button" class="light-fill-btn" id="cancelButton">취소</button>
 
         </p>
     </form>
