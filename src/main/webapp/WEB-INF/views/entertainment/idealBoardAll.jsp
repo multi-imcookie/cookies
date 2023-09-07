@@ -118,21 +118,34 @@
             top: 0; /* 상단 위치를 조절하여 우측 상단에 고정합니다. */
             right: 0; /* 오른쪽 위치를 조절하여 우측 상단에 고정합니다. */
             padding: 10px;
+            display: flex; /* 아이템을 옆으로 나열합니다. */
         }
         .comment-nickname, .comment-datetime, .comment-delete {
             display: inline-block;
             vertical-align: top;
         }
-        .deleteIdealBoard{
+        .btn-Delete.edit-btn.deleteIdealBoard {
             background: #F9F5F2;
             color: #966D48;
             font-family: Pretendard, sans-serif;
-            font-size: 14px;
-            font-weight: 400; /* weight 다름 */
-            line-height: 28px;
-            width: 60px;
-            height: 24px;
+            width: 30px; /* 버튼의 너비 조정 */
+            height: 30px; /* 버튼의 높이 조정 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0; /* 내부 여백 제거 */
+            border: none;
         }
+        .btn-Delete.edit-btn.deleteIdealBoard:hover{
+            background-color: #966D48;
+            color: #FFF;
+        }
+
+        .btn-Delete.edit-btn.deleteIdealBoard img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
         td {
             border-spacing: 10px; /* td 간격 설정 (원하는 크기로 조정) */
         }
@@ -341,7 +354,8 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
+<%--                            <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>--%>
+                            <button class="btn-Delete edit-btn deleteIdealBoard" value="${one.ideal_id}"><img src="/resources/img/icon/trash.svg" alt="삭제버튼"></button>
                         </div>
                         <div class="comment-content p-regular">${one.ideal_content}</div>
                     </div>
