@@ -1271,6 +1271,7 @@ label {
     padding: 24px 24px;
     box-sizing: border-box;
 }
+
 /* 리뷰게시판 */
 
 /* sub - 로그인 */
@@ -1726,6 +1727,8 @@ label {
     margin-bottom: 15px;
 }
 
+
+/* 큐레이션 서브페이지 */
 .curation-snack-info img{
     width: 240px;
     height: 180px;
@@ -1734,4 +1737,76 @@ label {
     background-color: #E9E2D9;
 }
 
-/* 큐레이션 서브페이지 */
+/* 챗봇 */
+.chatbot-container {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    width: 80%;
+}
+
+#conversationDiv {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+#conversationDiv input {
+    width: 80%;
+    flex: inherit;
+}
+
+/* 대화 메시지 스타일 */
+.message {
+    background-color: #F9F5F2;
+    border-radius: 20px;
+    padding: 48px;
+    box-sizing: border-box;
+    font-size: 18px;
+    height: 480px;
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+/* 대화 내용을 담는 스타일 */
+#response {
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message .detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-bubble {
+    display: flex;
+}
+
+.chat-bubble p {
+    padding: 12px 24px;
+    background-color: #B48D69;
+    border-radius: 12px;
+    color: #FFFFFF;
+}
+
+.chat-bubble p a {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.user-bubble {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-bubble p {
+    padding: 12px 24px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    color: #5C492C;
+    border: 1px solid #CBB89B;
+}
+/* 챗봇 */

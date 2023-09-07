@@ -6,54 +6,6 @@
     <meta charset="UTF-8">
     <title>채팅</title>
     <%@ include file="/link.jsp" %>
-    <style>
-        /* 챗봇입력창 스타일 */
-        #text {
-            width: 400px;
-            height: 40px;
-            border: 1px solid #CBB89B;
-            border-radius: 5px;
-            padding: 10px;
-        }
-
-        /* 전송 버튼 스타일 */
-        #sendMessage {
-            margin-left: 10px;
-            padding: 10px 20px;
-            background-color: #966D48;
-            color: #FFF;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* 전송 버튼 호버 효과 */
-        #sendMessage:hover {
-            background-color: #CBB89B;
-        }
-
-        /* 대화 메시지 스타일 */
-        .message {
-            background-color: #E9E2D9;
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 10px;
-        }
-
-        /* 대화 내용을 담는 스타일 */
-        #response {
-            margin-top: 20px;
-        }
-
-        /* 채팅 내용 스크롤바 설정 */
-        #response {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-
-    </style>
-
 </head>
 <body>
 <%@include file="/header.jsp" %>
@@ -94,6 +46,9 @@
             });
         }
 
+        // 입력 필드 비우기
+        document.getElementById('text').value = '';
+
         //서버로 연결 끊음.
         function disconnect() {
             if (stompClient != null) {
@@ -113,43 +68,52 @@
                 'from': from,
                 'text': text
             }));
+
+            let response = document.getElementById('response');
+            let userMessage = document.createElement('div');
+            userMessage.className = 'user-bubble';
+            userMessage.innerHTML = '<p>' + text + "번" + '</p>'; // <p> 태그로 감싸기
+            response.appendChild(userMessage);
         }
 
         //받은 데이터를 원하는 위치에 넣음.
         function showMessageOutput(messageOutput) {
-            var response = document.getElementById('response');
-            var p = document.createElement('p');
-            p.style.wordWrap = 'break-word';
+            let response = document.getElementById('response');
+            let chatbotMessage = document.createElement('div');
+            let aTag = document.createElement('a');
+            let pTag = document.createElement('p');
+            chatbotMessage.className = 'chat-bubble';
 
             //메뉴 텍스트와 링크를 p 태그에 추가
             // p.appendChild(document.createTextNode(messageOutput.menu + ' '));
 
             // 메뉴가 "20"인 경우에만 페이지 링크를 생성하고 추가
             if (messageOutput.text === "40") {
-                p.appendChild(document.createTextNode("전과자 >> 회원정보 수정 페이지 입니다! >>>>>  "));
-                var aTag = document.createElement('a');
+                pTag.appendChild(document.createTextNode("회원정보 수정 페이지로 바로 이동 👉 "));
                 aTag.setAttribute('href', '/editMyInfo');
                 aTag.innerHTML = '회원정보수정 페이지';
-                p.appendChild(aTag);
+                pTag.appendChild(aTag);
+                chatbotMessage.appendChild(pTag);
             }
             if (messageOutput.text === "2") {
-                p.appendChild(document.createTextNode("전과자 >> 과자취향을 알아보세요! >>>>>  "));
-                var aTag = document.createElement('a');
+                pTag.appendChild(document.createTextNode("과자취향을 알아보세요! 👉 "));
                 aTag.setAttribute('href', '../curation/curation.jsp');
                 aTag.innerHTML = '과자취향분석하기';
-                p.appendChild(aTag);
+                pTag.appendChild(aTag);
+                chatbotMessage.appendChild(pTag);
             }
             if (messageOutput.text === "3") {
-                p.appendChild(document.createTextNode("전과자 >> 과자이상형 월드컵! >>>>>  "));
-                var aTag = document.createElement('a');
+                pTag.appendChild(document.createTextNode("과자이상형 월드컵! 👉 "));
                 aTag.setAttribute('href', '../entertainment/ideal.jsp');
                 aTag.innerHTML = '내과자순위알아보기';
-                p.appendChild(aTag);
+                pTag.appendChild(aTag);
+                chatbotMessage.appendChild(pTag);
             }
 
 
-            p.appendChild(document.createTextNode(messageOutput.menu));
-            response.appendChild(p);
+            pTag.appendChild(document.createTextNode(messageOutput.menu));
+            chatbotMessage.appendChild(pTag);
+            response.appendChild(chatbotMessage);
             document.getElementById('text').innerHTML = '';
         }
     </script>
@@ -157,31 +121,21 @@
     <body onload="connect();">
 
     <%--   <div style="width: 500px;">--%>
-    <div class="message">
-        <div class="detail-container" p="medium">
-            <div>안녕하세요! imcookie 챗봇 전과자입니다.</div>
-            <div>현재 다음 기능을 제공하고 있습니다.</div>
-            <br>
-            <div>1.스낵추천</div>
-            <br>
-            <div>2.과자취향분석</div>
-            <br>
-            <div>3.과자월드컵!</div>
-            <br>
-            <div>4.회원정보관리</div>
-            <br>
-            <div id="response">
+    <div class="chatbot-container">
+        <div class="message p-regular">
+            <div class="detail-container" p="medium">
+                <div class="chat-bubble"><p>안녕하세요! I'm cookie 전과자 챗봇입니다. 😊<br>원하시는 메뉴 번호를 입력해주세요.</p></div>
+                <div class="chat-bubble"><p>1.과자 추천</p></div>
+                <div class="chat-bubble"><p>2.과자 취향분석</p></div>
+                <div class="chat-bubble"><p>3.과자 월드컵</p></div>
+                <div class="chat-bubble"><p>4.회원정보 관리</p></div>
+                <div id="response">
+                </div>
             </div>
         </div>
-        <div class="form-floating mb-3 mt-3" id="conversationDiv">
-            <table>
-                <tr>
-                    <td><input type="text" class="form-control" id="text" style="width: 400px;"></td>
-                    <td>
-                        <button id="sendMessage" onclick="sendMessage();" class="btn btn-primary">Send</button>
-                    </td>
-                </tr>
-            </table>
+        <div id="conversationDiv" class="form-style">
+            <input type="text" id="text">
+            <button id="sendMessage" onclick="sendMessage();" class="fill-btn">Send</button>
         </div>
     </div>
 </div>
