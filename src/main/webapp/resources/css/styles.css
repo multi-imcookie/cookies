@@ -1677,9 +1677,27 @@ label {
     font-size: 18px;
     width: 100%;
     height: 100%;
+}
+#allergy {
+    float: left;
+    width: 80%; /* 원하는 너비로 조절하세요 */
+}
+.curation-snack-info{
+    text-align: center;
+    gap: 12px;
+    font-size: 18px;
     cursor: pointer;
 }
+.curation-snack-info p{
+    margin-bottom: 15px;
+}
 
+.curation-snack-info img{
+    width: 240px;
+    height: 180px;
+    border-radius: 8px;
+    border: 2px solid #CBB89B;
+    background-color: #E9E2D9;
 
-
+}
 /* 큐레이션 서브페이지 */
