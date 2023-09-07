@@ -14,23 +14,17 @@
         }
 
         .reply-all {
-            flex: 3; /* Flex 아이템이 차지하는 공간을 조정할 수 있습니다. */
-            margin-left: 20px;
-
+            display: flex;
+            flex: 1 0 0;
+            flex-direction: column;
         }
 
         /* 호버 효과 스타일 */
         .reply-style {
-            border-radius: 10px; /* 라운드된 테두리 적용 */
-            background-color: #F9F5F2;
-            margin-bottom: 10px;
             width: 100%;
-            padding: 10px;
+            padding: 24px;
             position: relative;
-        }
-
-        .reply-style:hover {
-            background-color: #F4EFEC; /* 호버 시 배경색 변경 */
+            border-bottom: 1px solid rgba(203, 184, 155, 0.25);
         }
 
         .reply-nickname {
@@ -44,16 +38,14 @@
             line-height: 28px;
         }
 
-        .reply-content {
-            width: 400px;
-            padding: 5px;
-        }
-
         .reply-datetime-ref {
             position: absolute;
             top: 0; /* 상단 위치를 조절하여 우측 상단에 고정합니다. */
             right: 0; /* 오른쪽 위치를 조절하여 우측 상단에 고정합니다. */
-            padding: 10px;
+            padding-top: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
 
         .reply-nickname, .reply-datetime {
@@ -101,30 +93,34 @@
                 </div>
             </div>
             <div class="btn-wrap-row">
-                    <c:choose>
-                        <c:when test="${empty sessionScope.memberId}">
-                            <!-- 로그인하지 않은 경우 수정 alert창 띄움. -->
-<%--                            <a class="fill-btn p-medium" href="javascript:void(0);" onclick="showLoginAlert();">게시물 수정</a>--%>
-                            <a class="edit-btn" href="javascript:void(0);" onclick="showLoginAlert();"><img src="/resources/img/icon/edit.svg"></a>
-                        </c:when>
-                        <c:otherwise>
-<%--                            <a class="fill-btn p-medium" href="/board/update?bbs_id=${view.bbs_id}">게시물 수정</a>--%>
-                            <a class="edit-btn" href="/board/update?bbs_id=${view.bbs_id}"><img src="/resources/img/icon/edit.svg"></a>
-                        </c:otherwise>
-                    </c:choose>
+                <c:choose>
+                    <c:when test="${empty sessionScope.memberId}">
+                        <!-- 로그인하지 않은 경우 수정 alert창 띄움. -->
+                        <%--                            <a class="fill-btn p-medium" href="javascript:void(0);" onclick="showLoginAlert();">게시물 수정</a>--%>
+                        <a class="edit-btn" href="javascript:void(0);" onclick="showLoginAlert();"><img
+                                src="/resources/img/icon/edit.svg"></a>
+                    </c:when>
+                    <c:otherwise>
+                        <%--                            <a class="fill-btn p-medium" href="/board/update?bbs_id=${view.bbs_id}">게시물 수정</a>--%>
+                        <a class="edit-btn" href="/board/update?bbs_id=${view.bbs_id}"><img
+                                src="/resources/img/icon/edit.svg"></a>
+                    </c:otherwise>
+                </c:choose>
 
-                    <!-- 게시물 삭제 버튼 -->
-                    <c:choose>
-                        <c:when test="${empty sessionScope.memberId}">
-                            <!-- 로그인하지 않은 경우 버튼을 클릭하면 "로그인하세요" 알림창을 띄우는 JavaScript 코드를 실행합니다. -->
-<%--                            <a class="light-fill-btn p-medium" href="javascript:void(0);" onclick="showLoginAlert();">게시물 삭제</a>--%>
-                            <a class="edit-btn" href="javascript:void(0);" onclick="showLoginAlert();"><img src="/resources/img/icon/trash.svg"></a>
-                        </c:when>
-                        <c:otherwise>
-<%--                            <a class="light-fill-btn p-medium" href="/board/delete?bbs_id=${view.bbs_id}">게시물 삭제</a>--%>
-                            <a class="edit-btn" href="/board/delete?bbs_id=${view.bbs_id}"><img src="/resources/img/icon/trash.svg"></a>
-                        </c:otherwise>
-                    </c:choose>
+                <!-- 게시물 삭제 버튼 -->
+                <c:choose>
+                    <c:when test="${empty sessionScope.memberId}">
+                        <!-- 로그인하지 않은 경우 버튼을 클릭하면 "로그인하세요" 알림창을 띄우는 JavaScript 코드를 실행합니다. -->
+                        <%--                            <a class="light-fill-btn p-medium" href="javascript:void(0);" onclick="showLoginAlert();">게시물 삭제</a>--%>
+                        <a class="edit-btn" href="javascript:void(0);" onclick="showLoginAlert();"><img
+                                src="/resources/img/icon/trash.svg"></a>
+                    </c:when>
+                    <c:otherwise>
+                        <%--                            <a class="light-fill-btn p-medium" href="/board/delete?bbs_id=${view.bbs_id}">게시물 삭제</a>--%>
+                        <a class="edit-btn" href="/board/delete?bbs_id=${view.bbs_id}"><img
+                                src="/resources/img/icon/trash.svg"></a>
+                    </c:otherwise>
+                </c:choose>
                 <a class="edit-btn" href="/board/view?bbs_id=1"><img src="/resources/img/icon/back.svg" alt="수정버튼"></a>
             </div>
         </div>
@@ -135,10 +131,10 @@
         <hr style="color: #CBB89B">
     </div>
 
-    <div class="detail-container p-regular" style="padding-top: 10px; flex-direction: column">
+    <div class="detail-container p-regular" style="width:100%; padding-top: 10px; flex-direction: column">
         <input type="hidden" name="member_id" id="member_id" value=${sessionScope.memberId}>
         <form method="post" action="/reply/write" style="width: 100%;">
-            <div class="row">
+            <div style="display: flex; gap: 12px;">
                 <div class="col-sm-10">
                     <textarea id="reply_content" class="reply_content" style="width:100%;"
                               placeholder="댓글을 입력해 주세요"></textarea>
@@ -150,11 +146,11 @@
                 </div>
             </div>
         </form>
-        <div class="reply-container">
+        <div class="reply-container text-muted">
             <div class="reply-all">
                 <c:forEach items="${reply}" var="reply">
                     <div class="reply-style">
-                        <div class="reply-nickname p-bold">${view.member_nickname}</div>
+                        <div class="reply-nickname p-bold" style="font-size: large">${view.member_nickname}</div>
                         <div class="reply-datetime-ref">
                             <div class="reply-datetime">
                                 <c:set var="today" value="<%= new java.util.Date() %>"/>
@@ -169,52 +165,52 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <div class="reply-ref">
+                            <div class="btn-wrap-row edit-btn-wrap">
                                 <c:choose>
                                     <c:when test="${empty sessionScope.memberId}">
                                         <!-- 로그인하지 않은 경우 수정 및 삭제 버튼을 클릭하면 "로그인하세요" 알림창을 띄우는 JavaScript 코드를 실행합니다. -->
-                                        <a href="javascript:void(0);" onclick="showLoginAlert();">수정</a>
-                                        <a href="javascript:void(0);" onclick="showLoginAlert();">삭제</a>
+                                        <a href="javascript:void(0);" onclick="showLoginAlert();"><img src="/resources/img/icon/edit.svg"></a>
+                                        <a href="javascript:void(0);" onclick="showLoginAlert();"><img src="/resources/img/icon/trash.svg"></a>
                                     </c:when>
                                     <c:otherwise>
                                         <!-- 로그인한 경우 수정 및 삭제 가능한 버튼을 표시합니다. -->
-                                        <a href="/reply/update?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">수정</a>
-                                        <a href="/reply/delete?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}">삭제</a>
+                                        <a class="edit-btn" href="/reply/update?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}"><img src="/resources/img/icon/edit.svg"></a>
+                                        <a class="edit-btn" href="/reply/delete?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}"><img src="/resources/img/icon/trash.svg"></a>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
                         </div>
-                        <div class="reply-content p-regular">${reply.reply_content}</div>
+                        <div class="p-regular">${reply.reply_content}</div>
                     </div>
                 </c:forEach>
             </div>
         </div>
-<%--        <c:forEach items="${reply}" var="reply">--%>
-<%--        <div class="media text-muted pt-3">--%>
-<%--            <p class="reply-content">--%>
-<%--            <span class="d-block">--%>
-<%--                <strong class="text-gray-dark">${view.member_nickname}</strong>--%>
-<%--                <span class="btn-wrap-row edit-btn-wrap" style="float: right; margin-bottom: 8px">--%>
-<%--                    <c:choose>--%>
-<%--                                <c:when test="${empty sessionScope.memberId}">--%>
-<%--                    <!-- 로그인하지 않은 경우 수정 및 삭제 버튼을 클릭하면 "로그인하세요" 알림창을 띄우는 JavaScript 코드를 실행합니다. -->--%>
-<%--                                    <a class="edit-btn" href="javascript:void(0);" onclick="showLoginAlert();"><img src="/resources/img/icon/reply-chk.svg" alt="저장버튼"></a>--%>
-<%--                                    <a class="edit-btn" href="javascript:void(0);" onclick="showLoginAlert();"><img src="/resources/img/icon/trash.svg"></a>--%>
-<%--                                </c:when>--%>
-<%--                                <c:otherwise>--%>
-<%--                    <!-- 로그인한 경우 수정 및 삭제 가능한 버튼을 표시합니다. -->--%>
-<%--                                    <a class="edit-btn" href="/reply/update?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}"><img src="/resources/img/icon/reply-chk.svg" alt="저장버튼"></a>--%>
-<%--                                    <a class="edit-btn" href="/reply/delete?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}"><img src="/resources/img/icon/trash.svg"></a>--%>
-<%--                                </c:otherwise>--%>
-<%--                            </c:choose>--%>
-<%--                </span>--%>
-<%--            </span>--%>
-<%--                <textarea name="editReply_content" id="editReply_content" class="reply_content" style="width:100%;">--%>
-<%--                    ${reply.reply_content}--%>
-<%--                </textarea>--%>
-<%--            </p>--%>
-<%--        </div>--%>
-<%--        </c:forEach>--%>
+        <%--        <c:forEach items="${reply}" var="reply">--%>
+        <%--        <div class="media text-muted pt-3">--%>
+        <%--            <p class="reply-content">--%>
+        <%--            <span class="d-block">--%>
+        <%--                <strong class="text-gray-dark">${view.member_nickname}</strong>--%>
+        <%--                <span class="btn-wrap-row edit-btn-wrap" style="float: right; margin-bottom: 8px">--%>
+        <%--                    <c:choose>--%>
+        <%--                                <c:when test="${empty sessionScope.memberId}">--%>
+        <%--                    <!-- 로그인하지 않은 경우 수정 및 삭제 버튼을 클릭하면 "로그인하세요" 알림창을 띄우는 JavaScript 코드를 실행합니다. -->--%>
+        <%--                                    <a class="edit-btn" href="javascript:void(0);" onclick="showLoginAlert();"><img src="/resources/img/icon/reply-chk.svg" alt="저장버튼"></a>--%>
+        <%--                                    <a class="edit-btn" href="javascript:void(0);" onclick="showLoginAlert();"><img src="/resources/img/icon/trash.svg"></a>--%>
+        <%--                                </c:when>--%>
+        <%--                                <c:otherwise>--%>
+        <%--                    <!-- 로그인한 경우 수정 및 삭제 가능한 버튼을 표시합니다. -->--%>
+        <%--                                    <a class="edit-btn" href="/reply/update?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}"><img src="/resources/img/icon/reply-chk.svg" alt="저장버튼"></a>--%>
+        <%--                                    <a class="edit-btn" href="/reply/delete?bbs_id=${view.bbs_id}&reply_id=${reply.reply_id}"><img src="/resources/img/icon/trash.svg"></a>--%>
+        <%--                                </c:otherwise>--%>
+        <%--                            </c:choose>--%>
+        <%--                </span>--%>
+        <%--            </span>--%>
+        <%--                <textarea name="editReply_content" id="editReply_content" class="reply_content" style="width:100%;">--%>
+        <%--                    ${reply.reply_content}--%>
+        <%--                </textarea>--%>
+        <%--            </p>--%>
+        <%--        </div>--%>
+        <%--        </c:forEach>--%>
     </div>
 
 
