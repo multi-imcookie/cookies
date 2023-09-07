@@ -60,6 +60,10 @@ input:focus {
     outline: none;
 }
 
+form {
+    width: 100%;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -1015,6 +1019,17 @@ label {
     color: #fff;
 }
 
+.small-fill-btn:nth-child(3) {
+    border: 1px solid #B48D69;
+    color: #B48D69;
+    transition: all .3s;
+}
+
+.small-fill-btn:nth-child(3):hover {
+    background: #B48D69;
+    color: #fff;
+}
+
 .member-info-wrap {
     display: flex;
     padding: 24px 36px;
@@ -1238,6 +1253,24 @@ label {
     align-self: inherit;
 }
 
+.review-view-info {
+    padding: 0 24px 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.review-view-data {
+    font-size: 16px;
+    display: flex;
+    gap: 8px;
+}
+
+.reply-content {
+    border-bottom: 1px solid rgba(203, 184, 155, 0.25);
+    padding: 24px 24px;
+    box-sizing: border-box;
+}
 /* 리뷰게시판 */
 
 /* sub - 로그인 */
@@ -1432,6 +1465,7 @@ label {
     display: none;
     /* 체크 박스가 체크된 경우에 적용할 스타일 */
 }
+
 .allergy-check-box input[type="checkbox"]:checked + label {
     position: absolute;
     display: flex;
@@ -1698,6 +1732,6 @@ label {
     border-radius: 8px;
     border: 2px solid #CBB89B;
     background-color: #E9E2D9;
-
 }
+
 /* 큐레이션 서브페이지 */
