@@ -73,6 +73,9 @@
             width: 80%;
             color: #5C492C;
         }
+        .modal-box{
+            width: 800px;
+        }
     </style>
 </head>
 <body>

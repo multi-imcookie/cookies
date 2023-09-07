@@ -52,7 +52,7 @@
           <div class="comment-datetime">
             <fmt:formatDate value="${one.create_dt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
           </div>
-            <button class="deleteIdealBoard" value="${one.ideal_id}"><span class="center-text">삭제</span></button>
+          <button class="btn-Delete edit-btn deleteIdealBoard" value="${one.ideal_id}"><img src="/resources/img/icon/trash.svg" alt="삭제버튼"></button>
         </div>
         <div class="comment-content p-regular">${one.ideal_content}</div>
       </div>
