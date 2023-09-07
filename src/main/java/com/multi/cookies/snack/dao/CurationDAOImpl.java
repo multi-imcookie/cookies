@@ -45,6 +45,8 @@ public class CurationDAOImpl implements CurationDAO {
         // 유니크한 member_id로 CURATION TABLE 조회
         CurationDTO curationDTO = sqlSessionTemplate.selectOne("curation.curationFavorite", member_id);
 
+        System.out.println(curationDTO);
+
         if (curationDTO != null) {
             Map<String, List<SearchDTO>> columnDataMap = new HashMap<>();
             List<String> favoriteList = new ArrayList<>();
@@ -133,12 +135,12 @@ public class CurationDAOImpl implements CurationDAO {
                     }
                 }
 
-                // 상위 5개만 선택하기
-                List<SearchDTO> top5Data = allergyConvertedResult.stream()
-                        .limit(5)
+                // 상위 3개만 선택하기
+                List<SearchDTO> top3Data = allergyConvertedResult.stream()
+                        .limit(3)
                         .collect(Collectors.toList());
 
-                columnDataMap.put(favoriteColumn, top5Data);
+                columnDataMap.put(favoriteColumn, top3Data);
             }
 
             if (columnDataMap.isEmpty()) {
@@ -182,12 +184,12 @@ public class CurationDAOImpl implements CurationDAO {
                         allergyConvertedResult.add(searchDTO);
                     }
                 }
-                // 상위 5개만 선택하기
-                List<SearchDTO> top5Data = allergyConvertedResult.stream()
-                        .limit(5)
+                // 상위 3개만 선택하기
+                List<SearchDTO> top3Data = allergyConvertedResult.stream()
+                        .limit(3)
                         .collect(Collectors.toList());
 
-                columnDataMap.put(noPreference, top5Data);
+                columnDataMap.put(noPreference, top3Data);
 
                 System.out.println(columnDataMap);
 
