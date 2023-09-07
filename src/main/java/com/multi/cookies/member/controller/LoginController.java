@@ -57,6 +57,7 @@ public class LoginController {
             return "redirect:/login?msg="+msg;
         }
         Cookie cookieId = new Cookie("id",map.get("username"));  // id , member_id 쿠키 제작
+        cookieId.setMaxAge(60*60*24);
         Cookie recentLogin =loginService.recentLoginCookie("login","self","/login"); //최근로그인한 쿠키  자체로그인 or 카카오로그인 or 네이버로그인
         LoginDTO loginDTO = loginService.getMemberDTObyUserName((String)map.get("username"));
 //        System.out.println("loginDTO = " + loginDTO);
@@ -69,6 +70,7 @@ public class LoginController {
             response.addCookie(cookieId);
         }
         response.addCookie(recentLogin);
+        response.addCookie(cookieId);
         return "redirect:/index.jsp"; //홈으로 이동
     }
     //  네이버 콜백
